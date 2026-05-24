@@ -1,36 +1,65 @@
 # Resume State
 
-Updated: 2026-05-17
+Updated: 2026-05-24T08:46:29Z (orchestrator run)
 
 ## Current task
-Effect text layout started (effects-v01). Three sections populated with icon + number rows; exit trigger section removed. Ready to iterate on layout, typography, and spacing.
+Orchestrator completed first full run. Three streams processed.
 
-## Next action
-Review effects-v01 in browser. Iterate on effect row design — consider label text alongside icon+number, spacing, alignment, and whether the actions section (81px) needs more structure for multi-effect cards.
+## Stream A — Game Design
+**Status:** 4 discussion items surfaced from DESIGN.md; user notified.
 
-## Files touched this session
-- `design/variants/quest-main-v02.html` — richer amber-gold palette + gold frame ornaments
-- `design/variants/char-friendly-v02.html` — brighter lemon-yellow, distinct from gold
-- `design/icons.html` — accepted icon reference (7 icons: damage, shield, heal, scout, gain-action, reveal-character, reveal-item)
-- `design/variants/effects-v01.html` — effect rows in mechanics frame, exit trigger removed
-- `design/VISUAL.md` — added §7 Icons
-- `design/card-index.md` — quest-main and char-friendly updated to v02
-- `CLAUDE.md` — added VISUAL.md finalization rule to Working Style
-- `.claude/skills/accept-variant/SKILL.md` — added VISUAL.md update step
-- `.claude/skills/finish-session/SKILL.md` — new skill created
+Discussion items pending:
+1. **Trigger priority (§7)**: Exact resolution rules TBD. The visual layout (top-to-bottom order on card) is the stated priority mechanism, but specific collision rules haven't been specified.
+2. **Script Card visual**: Script card has no colour or layout spec in VISUAL.md. script-v01 was created with a purple placeholder — colour decision needed.
+3. **Die levels (§5.2)**: The design says dice come in levels (higher = more successes), but levels aren't defined. How many? What face distributions?
+4. **Persona slot rendering (§3.2)**: Core Persona Cards have slot definitions — but no visual treatment is defined for how count + allowed role/trait combos appear on the card.
 
-## Decisions made
-- Card type color system: Persona=amber (BASELINE), Location=green, Event=blue, Friendly=yellow, Enemy=red, Item=teal, Main Quest=gold, Side Quest=silver
-- Special tier = base type color + golden SVG frame ornaments
-- Gold frame polygons: #f0c030/0.40, #d4a020/0.55, #7a5c08/0.92, #e0b820/0.68; edges #7a5c08/0.88, #e0b820/0.60
-- Icon style: 24×24 viewBox, stroke = darkened body color at width 1.5, single filled surface
-- Icon colors: damage=yellow #f0c030, shield=blue #4090e0, heal=red #e84020, scout=cyan #40c8d0, gain-action=yellow #f0c030, reveal-character=yellow #d4cc30, reveal-item=teal #40a0c0
-- Effect row pattern: icon (20px) + italic number (Crimson Text 18px, rgba(220,200,160,0.9)), padding 0 14px
-- Exit trigger section omitted when unused (mech-frame height shrinks accordingly)
-- VISUAL.md must be updated on finalization; /finish-session and /accept-variant both enforce this
+To start a game design session: say "game design".
+
+## Stream B — Card Design
+**Status:** Blocked — script-v01 created; awaiting colour confirmation.
+
+**Done this run:**
+- Created `design/variants/script-v01.html` — Script card type, first variant.
+  - Unique turn-schedule table layout (no art layer, no standard mech sections).
+  - Purple colour palette (placeholder — not yet in VISUAL.md).
+  - 7 turn rows (44px), header, loop indicator. Mode badge: ∞ Infinite.
+- Logged diff in `design/variants/CHANGES.md`.
+- Regenerated `review/index.html` — now lists 21 card variants.
+
+**Blocked on:** Script card colour not confirmed. Purple used as placeholder. Before VISUAL.md can be updated, the user must either confirm purple or provide an alternative.
+
+**To unblock:** reply with "keep purple" or suggest a colour. Once confirmed, VISUAL.md §4 and card-index.md can be updated.
+
+## Stream C — App Design
+**Status:** Blocked — initial app.md drafted; awaiting user review.
+
+**Done this run:**
+- Created `app.md` — full app design document.
+  - Core loop, card data model for all 7 types, card set management, import/export, visual editor spec, open questions, decision log.
+  - Data model matches DESIGN.md closely: tier field (Generic/Named), typed sub-models per card type, action track types, effect variants.
+
+**Blocked on:** Awaiting user review of app.md. Open questions include: effect editor UX, Script card row editing, set type enforcement, print layout, Persona slot editor, action track builder UI.
+
+**To unblock:** say "app looks good" or give feedback.
+
+## Key files
+| File | Purpose |
+|---|---|
+| DESIGN.md | Game design doc (user-maintained) |
+| design/VISUAL.md | Visual design decisions (locked) |
+| design/card-index.md | Per-type HTML baselines |
+| design/variants/script-v01.html | Script card v1 (purple placeholder — awaiting confirmation) |
+| design/variants/CHANGES.md | Variant diff log |
+| app.md | App design decisions (orchestrator-maintained) |
+| review/index.html | Card review gallery (21 variants) |
+| ORCHESTRATOR.md | System state |
+
+## Gallery
+https://gertvandtbrempt.github.io/yarn-card-editor/review/ — 21 variants
 
 ## Parked / not started
-- Iterate on effects-v01 layout (label text, multi-effect rows, actions section structure)
+- Image layer integration into card variants (still parked)
+- Angular card editor implementation (still parked)
+- Effects-v01 layout iteration (label text, multi-effect rows)
 - Shelved icons: move (boot), tuck-character, tuck-item, die-constitution, die-zeal, die-path
-- Image layer integration into variants
-- Angular card editor implementation

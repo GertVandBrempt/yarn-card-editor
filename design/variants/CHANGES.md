@@ -207,3 +207,17 @@ Accepted as baselines (card-index.md updated):
 - char-friendly-v02 (supersedes v01), char-enemy-v01, char-main-v01
 - item-v01, item-key-v01
 - quest-main-v02 (supersedes v01), quest-side-v01
+
+## script-v01 — Script card v1, turn schedule layout (2026-05-24)
+Base: design/BASELINE.html (adapted — no art layer, custom schedule layout)
+Changed:
+- --bg-top/bot: amber → deep purple (#0c0618 / #080410)
+- --type-border/text/glow: amber → purple (#4a2878 / #9870d8 / rgba(100,60,180,0.28))
+- .card-fill: #0d0a06 → #080610
+- card-frame rings: amber-wood tones → purple-dark (#06030e / #2a1450 / #06030e / #100820)
+- SVG frame polygon fills: dark wood → dark purple (#4a2878 / #3a1860 / #200c40 / #3a2060)
+- SVG stitch line strokes: #281806 → #180830
+- type-label: Persona → Script
+- Layout: replaced art + grad layers + mech-frame with .script-panel (schedule table)
+- Schedule panel: header (Turn / Events / Fated) + 7 turn rows (44px) + loop indicator
+- NOTE: purple is a placeholder colour — not yet added to VISUAL.md; awaiting user confirmation
