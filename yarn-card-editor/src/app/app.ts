@@ -1014,6 +1014,15 @@ export class App implements OnInit, AfterViewInit {
   typeDisplayLabel(type: CardType, tier: string): string {
     return getTypeDisplayLabel(type, tier);
   }
+
+  /**
+   * Render a parsed effect string as HTML for the inline form preview row.
+   * Wraps the result in a span so Angular [innerHTML] binding works safely.
+   */
+  renderEffectPreview(raw: string): string {
+    if (!raw?.trim()) return '';
+    return `<span class="eff-inline-preview">${parseEffectText(raw)}</span>`;
+  }
 }
 
 // ──────────────────────────────────────────────
