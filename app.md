@@ -1,156 +1,180 @@
 # Yarn Card Editor — App Design
 
 > Scope: editor only. Game-runtime concepts (turn order, play areas, life tracking, dice resolution) belong in DESIGN.md, not here.
+>
+> Durable design decisions only. Mark superseded decisions rather than deleting them.
 
 ---
 
 ## Core Loop
 
 1. User opens the editor and selects a **Card Set** (or creates a new one).
-2. User selects a card type and creates a new **Card**.
-3. Card fields are determined by its type; a live preview renders the card in real time.
-4. User fills in fields (title, subtitle, art, effects, triggers, actions, type-specific fields).
-5. User saves the card to the set.
-6. When ready, user exports the set (JSON + per-card HTML) for print or sharing.
+2. User browses, creates, and edits individual **Cards** within the set.
+3. Each card has a **type** (Location, Character, Item, Event, Quest, Persona, Script) that determines its fields and visual template.
+4. User fills in card content via a structured form panel; a live preview renders the card using the visual template.
+5. User exports the set (JSON + rendered HTML/PDF) when ready for print or sharing.
 
 ---
 
 ## Card Data Model
 
-### Base fields (all types)
+Each card is a typed record. All types share a common base; type-specific fields extend it.
 
+### Base (all types)
 | Field | Type | Notes |
 |---|---|---|
 | id | string (UUID) | Stable identifier |
-| type | enum | Location \| Character \| Item \| Event \| Quest \| Persona \| Script |
-| tier | enum | Generic \| Named — determines set-aside vs. pooled placement at runtime |
-| name | string | Display name |
-| subtitle | string? | Secondary label (e.g. "Setpiece", "Key Item") |
-| flavourText | string? | Italic lore text; no mechanical effect |
-| artUrl | string? | Data URI or URL for card art |
-| setId | string | Parent card set |
+| type | CardType enum | See card types below |
+| title | string | Card name (required per §2 DESIGN.md) |
+| subtitle | string? | Secondary classification label |
+| flavourText | string? | Italic lore text, no mechanical effect |
+| imageUrl | string? | URL or data URI for card art |
+| setId | string (UUID) | Parent card set |
 | createdAt | ISO timestamp | |
 | updatedAt | ISO timestamp | |
 
-### Location
+---
 
+### Persona *(§3.1–3.2 DESIGN.md)*
 | Field | Type | Notes |
 |---|---|---|
-| connections | Connection[] | Up to 4: `{ direction: N\|S\|E\|W, target: { type: 'abstract'\|'hard-coded', cardId?: string }, entryState: 'face-down'\|'face-up' }` |
-| actions | Action[] | Available to players at this location |
-| onReveal | Effect? | Fires when card flips face-up |
-| onEnter | Effect? | Fires when a player moves onto this location |
-| onLeave | Effect? | Fires when a player moves off this location |
-| tier | Generic \| Setpiece | Setpiece = named, set-aside |
+| role | Constitution \| Zeal \| Path | Persona Card role |
+| trait | string? | Secondary thematic tag (e.g. "Skill", "Instinct") — designer-defined |
+| isCore | boolean | Core Persona Cards carry persona slots |
+| passiveEffects | PassiveEffect[] | Always-on effects |
+| actions | Action[] | Player-initiated triggers with action tracks |
+| personaSlots | SlotDefinition[]? | Core Persona only — slot count + allowed role/trait combos |
+| lifePointSlotCount | number | Number of life point slots on this card |
+| lifePointSlotElements | SlotCoverage[] | Which damageable elements each slot covers (v1: by reference, not spatial layout) |
 
-### Character
+---
 
+### Location *(§3.3 DESIGN.md)*
 | Field | Type | Notes |
 |---|---|---|
-| alignment | enum | ally \| neutral \| enemy |
-| initiative | number | Character Phase order |
-| hasAllyMode | boolean | True if card has a separate Ally (Tableau) mode |
-| charActions | Action[] | Actions available in Game Area mode |
-| allyActions | Action[]? | Actions available in Ally/Tableau mode |
-| allyPassives | PassiveEffect[]? | Always-on effects while in Tableau as an Ally |
-| onReveal | Effect? | Fires when card is revealed |
-| characterPhase | Effect? | Fires at start of Character Phase |
-| tier | Generic \| Main | Main = named, set-aside |
+| tier | Generic \| Setpiece | Determines initial area placement |
+| connections | Connection[] | Up to 4, one per cardinal direction |
+| onReveal | Trigger? | |
+| onEnter | Trigger? | |
+| onLeave | Trigger? | |
+| actions | Action[] | |
 
-### Item
-
+**Connection:**
 | Field | Type | Notes |
 |---|---|---|
-| passiveEffects | PassiveEffect[] | Always-on while carried (in Tableau) |
-| actions | Action[] | Available while carried |
-| tier | Generic \| Key | Key Item = named, set-aside |
+| direction | N \| E \| S \| W | |
+| target | "abstract" \| cardId | "abstract" = draw from deck; cardId = hard-coded within set |
+| entryState | FaceDown \| FaceUp | Face-up immediately fires the placed location's On Reveal |
 
-### Event
+---
 
+### Character *(§3.4 DESIGN.md)*
 | Field | Type | Notes |
 |---|---|---|
-| onReveal | Effect | Required — the event's implicit effect on draw |
-| tier | Generic \| Fated | Fated Event = named, set-aside |
+| tier | Generic \| Main | |
+| alignment | Ally \| Neutral \| Enemy | |
+| initiative | number | Order in Character Phase |
+| onReveal | Trigger? | |
+| characterPhase | Trigger? | |
+| actions | Action[] | Available while in Game Area |
+| allyMode | AllyModeFields? | Present only if this character can be recruited to Tableau |
 
-### Main Quest
-
+**AllyModeFields** *(dual-mode — same card, separate mechanic set)*:
 | Field | Type | Notes |
 |---|---|---|
-| act | number | Which act this governs |
-| objectives | Objective[] | `{ title: string, description: string, onComplete?: Effect }` |
-
-### Side Quest / Key Quest
-
-| Field | Type | Notes |
-|---|---|---|
-| objectives | Objective[] | Same structure as Main Quest objectives |
-| mandatory | boolean | If true: must complete before current act's Main Quest can finish |
-| tier | SideQuest \| KeyQuest | KeyQuest = named, retrieved by ID |
-
-### Persona (including Core Persona)
-
-| Field | Type | Notes |
-|---|---|---|
-| role | enum | constitution \| zeal \| path |
-| trait | string? | Secondary thematic tag (e.g. "Skill", "Instinct") |
-| lifePointSlotCount | number | Visual only — slots rendered on card; tracking is runtime |
 | passiveEffects | PassiveEffect[] | Always-on while in Tableau |
-| actions | Action[] | Player-initiated effects |
-| isCore | boolean | True for Core Persona Cards |
-| slots | PersonaSlot[]? | Core only: `{ count: number, allowedRoles?: string[], allowedTraits?: string[] }` |
+| actions | Action[] | Available while in Tableau |
 
-### Script
+---
 
+### Item *(§3.5 DESIGN.md)*
 | Field | Type | Notes |
 |---|---|---|
-| mode | enum | timed \| infinite |
-| turns | Turn[] | `{ eventCount: number, fatedEvent?: { type: 'hard-coded', cardId: string } \| { type: 'random' } }` |
-| loopFromTurn | number? | Infinite mode: which 1-indexed turn the schedule loops from |
+| tier | Generic \| Key | |
+| passiveEffects | PassiveEffect[] | Always-on while in Tableau |
+| actions | Action[] | |
 
-### Shared sub-types
+---
 
-**Effect** (used for triggers and On Complete):
-```
-{
-  variant: 'fixed' | 'rolled' | 'complex'
-  text: string                          // fixed or complex: full effect text
-  tiers?: { successCount: number, requiredType?: string, text: string }[]  // rolled only
-}
-```
+### Event *(§3.6 DESIGN.md)*
+| Field | Type | Notes |
+|---|---|---|
+| tier | Generic \| Fated | |
+| onReveal | Trigger | Required — fires immediately when drawn/placed. Events are always discarded after resolution. |
 
-**PassiveEffect**:
-```
-{
-  text: string    // always-on effect description
-}
-```
+---
 
-**Action** (extends Effect with a track):
-```
-{
-  label: string
-  variant: 'fixed' | 'rolled' | 'complex'
-  text: string
-  tiers?: ...
-  track: {
-    type: 'basic' | 'multi-turn' | 'multi-use' | 'and' | 'or' | 'use'
-    flowMarkers?: Effect[]    // multi-turn: On Flow Marker effects
-    useCharges?: number       // use track: initial charges
-    slotCount?: number        // multi-use: number of independent slots
-  }
-}
-```
+### Main Quest *(§3.7 DESIGN.md)*
+| Field | Type | Notes |
+|---|---|---|
+| act | number | Which act this governs (ordered within the Quest Set) |
+| objectives | Objective[] | Ordered list; all completed = act complete |
+
+**Objective:**
+| Field | Type | Notes |
+|---|---|---|
+| title | string | Short label (e.g. "Reach the Hermit's Tower") |
+| description | string | Completion conditions |
+| onComplete | Trigger? | Fires when this objective is met |
+
+---
+
+### Side Quest *(§3.8 DESIGN.md)*
+| Field | Type | Notes |
+|---|---|---|
+| tier | Side \| Key | Side = pooled random; Key = retrieved by ID |
+| objectives | Objective[] | Same structure as Main Quest |
+| mandatory | boolean | If true, must complete before act's Main Quest can be completed |
+
+---
+
+### Script *(§3.9 DESIGN.md)*
+| Field | Type | Notes |
+|---|---|---|
+| mode | Timed \| Infinite | Timed = finite sequence, losing at end; Infinite = finite + repeating tail |
+| turns | TurnEntry[] | Ordered sequence of turns |
+| loopFromTurn | number? | Infinite mode only: 1-indexed turn the repeating tail begins from |
+
+**TurnEntry:**
+| Field | Type | Notes |
+|---|---|---|
+| genericEventCount | number | Generic Event Cards drawn this turn |
+| fatedEvent | "none" \| "random" \| cardId | How a Fated Event enters this turn (cardId = within-set hard-coded) |
+
+---
+
+### Shared Types
+
+**Effect variants (§4.1 DESIGN.md):**
+| Field | Type | Notes |
+|---|---|---|
+| variant | Passive \| Fixed \| Rolled \| Complex | |
+| trigger | TriggerType? | Required for Fixed / Rolled / Complex |
+| text | string | Effect description or tier list for Rolled |
+| tiers | Tier[]? | Rolled effects only — maps success count → outcome |
+
+**TriggerType:** Action \| OnReveal \| OnEnter \| OnLeave \| CharacterPhase \| OnComplete \| OnFlowMarker
+
+**Action (§4.4 DESIGN.md):**
+| Field | Type | Notes |
+|---|---|---|
+| label | string | Short name shown on card |
+| trackType | Basic \| MultiTurn \| MultiUse \| AND \| OR \| Use | |
+| effects | Effect[] | The triggered effects for this action |
+| flowMarkers | FlowMarker[]? | Multi-turn tracks only — each may carry an OnFlowMarker effect |
+| linkedActionIds | string[]? | AND/OR tracks only — IDs of co-linked actions on this card |
+| chargeCount | number? | Use tracks only — initial charge count (printed slot count) |
+| slotCount | number? | Multi-use tracks only — number of independent activation slots |
 
 ---
 
 ## Card Set Management
 
-- A **Card Set** is a named collection of cards (e.g. "Base Location Set", "Act I Quest Set").
-- Sets have a type: Location Set | Quest Set | Side Quest Set | Persona Set | (untyped).
-- Sets are stored locally (IndexedDB) and exportable as JSON.
-- Multiple sets coexist; user switches via a set selector in the editor shell.
-- Cards belong to exactly one set; cross-set references are out of scope for v1.
-- v1 does not enforce which card types are valid in a given set type — freeform.
+- A **Card Set** is a named collection of cards (e.g. "Base Set", "Expansion 1").
+- Sets are stored locally in **IndexedDB** and exportable as JSON.
+- Multiple sets can coexist; user switches via a set selector UI.
+- Cards belong to exactly one set; cross-set card ID references are out of scope for v1.
+- Set type (Quest Set, Location Set, Side Quest Set) is tracked as metadata but not enforced in v1.
 
 ---
 
@@ -158,32 +182,41 @@
 
 | Format | Direction | Notes |
 |---|---|---|
-| JSON | Export | Full card set with all fields |
+| JSON | Export | Full card set with all typed fields |
 | JSON | Import | Load a previously exported set |
-| HTML (per card) | Export | Rendered card using the type's visual template; for print/preview |
-| PDF | Export | Deferred — not in v1 scope |
+| HTML (per card) | Export | Rendered card using visual template; for print / preview |
+| PDF | Export | v2 — deferred |
 
 ---
 
 ## Visual Editor
 
-- Each card type has one **canonical visual template** in v1 (defined in design/card-index.md).
-- The editor renders a **live preview** as the user edits card fields.
-- Users edit via a typed form panel (fields determined by card type); preview updates in real time.
-- Art upload: user selects an image file; stored as data URI in the card record.
-- Template selection is type-determined in v1; no user-selectable variant (design-time concern only).
-- Script cards use a distinct tabular layout (turn schedule) rather than the standard effect panel layout.
+- Each card type has a canonical visual template (defined in `design/card-index.md`; style rules in `design/VISUAL.md`).
+- The editor shows a **live preview** rendered from the template + current field values.
+- Users edit via a structured form panel; preview updates in real time.
+- Art upload: drag-and-drop or file picker; stored as data URI in the card record.
+- **Template selection** is fixed per type in v1 — one canonical template per type.
+
+### Known editor complexity points
+
+| Challenge | v1 Plan |
+|---|---|
+| Action track types (6 types, §4.4) | Type-specific sub-form per track type; user selects track type first, then sees relevant fields |
+| Character dual-mode (§3.4) | Tabbed form: Character Mode tab + Ally Mode tab on same editor panel |
+| Script Card turn sequences (§3.9) | Reorderable list editor for TurnEntry rows |
+| Life point slots (§3.1) | v1: slot count + element reference list; no spatial drag-and-drop layout (v2) |
+| Location connections (§3.3) | Compass-rose direction picker; each direction toggles a Connection sub-form |
+| Quest objectives (§3.7–3.8) | Reorderable list editor for Objective rows |
 
 ---
 
 ## Open Questions
 
-1. **Effect editor UX**: Rolled effects require tier lists (success count → outcome text). How does the user build this? Rich form, or raw text?
-2. **Script card UX**: How are turn rows added/removed in the editor? Is there a maximum turn count?
-3. **Set type enforcement**: Should the editor warn if a card type doesn't belong in the selected set type (e.g. a Script card in a Location Set)?
-4. **Print layout**: Cards per page, A4 vs. Letter, configurable margins? Or always single-card export?
-5. **Persona slot editor**: How does the user define slot definitions on a Core Persona Card? (role/trait restrictions per slot)
-6. **Action track builder**: AND/OR tracks link multiple actions — how is that linkage expressed in the editor UI?
+1. **Action track visual editor**: dedicated widget per track type, or a shared flexible track builder?
+2. **Character dual-mode editing**: tabbed panel (Character / Ally) or side-by-side split panel?
+3. **Set-type enforcement**: should the editor restrict which card types can appear in a Quest Set vs. Location Set? Or free collections in v1?
+4. **Within-set card ID references** (hard-coded connections, fated events, narrative clusters): how does the editor surface and validate these in v1?
+5. **Print layout**: fixed A4/Letter at fixed card density, or configurable?
 
 ---
 
@@ -191,11 +224,10 @@
 
 | Date | Decision | Rationale |
 |---|---|---|
-| 2026-05-24 | Scope = editor only, not game runner | Keep editor focused; game runtime is a separate concern |
-| 2026-05-24 | Card types: Location, Character, Item, Event, Quest, Persona, Script | Per DESIGN.md and CLAUDE.md domain rules |
-| 2026-05-24 | v1 storage: IndexedDB (browser-local) | No server dependency; JSON export provides portability |
-| 2026-05-24 | v1 export: JSON + per-card HTML; PDF deferred | MVP scope; HTML covers print-preview use case |
-| 2026-05-24 | One canonical visual template per type in v1 | Simplifies editor UX; variant selection is design-time only |
-| 2026-05-24 | tier field on all cards: Generic vs. Named | Per DESIGN.md §1.3 — Named = set-aside; Generic = pooled |
-| 2026-05-24 | lifePointSlotCount: count only, not tracked | Slots are rendered visually; actual damage tracking is game runtime |
-| 2026-05-24 | v1 set type: freeform (no enforcement) | Avoids premature constraint; set type is informational only in v1 |
+| 2026-05-24 | Scope = editor only, not game runner | Game runtime is a separate concern; keep editor focused |
+| 2026-05-24 | Card types: Location, Character, Item, Event, Quest (Main + Side), Persona, Script | Per DESIGN.md §3 |
+| 2026-05-24 | v1 storage: IndexedDB (browser-local) | No server dependency; sets are exportable for portability |
+| 2026-05-24 | v1 export: JSON + per-card HTML; PDF deferred to v2 | MVP scope; HTML covers print preview use case |
+| 2026-05-24 | One canonical visual template per type in v1 | Simplifies editor UX; variant selection is design-time |
+| 2026-05-24 | Life point slot layout = v2 concern; v1 tracks count + element references | Full spatial overlap layout is complex; v1 captures the data, v2 adds the visual editor |
+| 2026-05-24 | Set type tracked as metadata but not enforced in v1 | Avoids premature rigidity; user may want to experiment with mixed sets |

@@ -200,6 +200,23 @@ Changed:
 - sec-trigger content: icon-reveal-character + 2
 - sec-actions content: icon-damage + 3
 
+## effects-v02 — section labels + text labels + two action rows, mech-frame 200px
+Base: design/variants/effects-v01.html
+Changed:
+- .mech-frame height: 175px → 200px
+- .sec: added flex column layout (display flex, flex-direction column)
+- (new): .sec-label — 7.5px Cinzel 700, 3px letter-spacing, 18px height, section color at 55% opacity
+- .sec-passive height: 46px → 56px
+- .sec-trigger height: 46px → 56px
+- .sec-actions height: 81px → 86px
+- .effect-row: height 100% → flex:1 + min-height:0 (fills section after label)
+- .effect-row gap: 6px → 8px
+- (new): .effect-label — Crimson Text 13px italic, rgba(220,200,160,0.65), flex:1
+- sec-passive content: + "Passive" sec-label; effect-row adds "Armor" label
+- sec-trigger content: + "On Reveal" sec-label; effect-row adds "Reveal Character" label
+- sec-actions content: + "Action" sec-label; adds second row icon-heal + "Mend" 1
+- (new): icon-heal symbol — heart path, fill #e84020 red, stroke #901808
+
 ## All type palettes accepted — 2026-05-17
 Accepted as baselines (card-index.md updated):
 - location-v01, location-setpiece-v01
