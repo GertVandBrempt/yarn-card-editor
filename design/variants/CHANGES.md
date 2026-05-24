@@ -238,3 +238,17 @@ Changed:
 - Layout: replaced art + grad layers + mech-frame with .script-panel (schedule table)
 - Schedule panel: header (Turn / Events / Fated) + 7 turn rows (44px) + loop indicator
 - NOTE: purple is a placeholder colour — not yet added to VISUAL.md; awaiting user confirmation
+
+## trigger-symbols-v02 — redesigned 6 trigger symbols per §7: dark body + lighter detail, no per-trigger color variation (2026-05-24)
+Base: design/variants/trigger-symbols-v01.html (concept only — display format completely replaced)
+Changed:
+- Display format: isolated 3×2 reference grid → real card mockup (375×525 Persona card, "The Wanderer")
+- Symbol palette: per-trigger color fills (yellow/green/orange/purple/green/blue) → unified dark body (#1a0e04) + warm light amber detail (#d4b87a)
+- trig-reveal: colored 5-point star → sunburst: dark ring + 8 radiating dark spokes with light amber tip circles + light center pip
+- trig-enter: green solid forward arrow → threshold arch: dark arch/portal body + light amber inward-pointing arrow (chevron+tail)
+- trig-leave: orange solid backward arrow → exit arrow: dark rightward arrow block + light amber horizontal slot notch in tail
+- trig-char-phase: purple solid hexagon → clock dial: dark filled circle + light amber clock-face ring, hour hand, minute hand, center pip
+- trig-complete: green solid checkmark → hexagonal badge: dark hexagon body + light amber bold checkmark stroke
+- trig-flow-marker: blue solid chevron → track-advance: dark outer chevron + dark left-edge marker block + light amber inner chevron fill + light marker face
+- Card mockup: trigger-entry section expanded to 2 rows (trig-reveal + trig-enter); trigger-exit section expanded to 4 rows (trig-leave + trig-char-phase + trig-complete + trig-flow-marker); mech-frame height 200px → 260px
+- Activation marker in actions row: unchanged placeholder (§8 redesign deferred to activation-tracks-v02)
