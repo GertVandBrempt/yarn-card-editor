@@ -89,6 +89,16 @@
     .card-actions a:last-child { border-right: none; }
     .card-actions a:active, .card-actions a:hover { background: var(--surface2); }
 
+    /* New badge */
+    .new-badge {
+      font-size: 0.55rem; font-weight: 700;
+      padding: 2px 6px; border-radius: 6px;
+      background: rgba(200,164,90,0.18); color: var(--gold);
+      border: 1px solid rgba(200,164,90,0.4);
+      text-transform: uppercase; letter-spacing: 0.12em;
+      flex-shrink: 0;
+    }
+
     /* Empty state */
     .empty {
       text-align: center; color: #444;
@@ -101,7 +111,7 @@
 
 <header>
   <h1>🧵 Yarn &mdash; Card Review</h1>
-  <p class="updated">Updated: <strong>2026-05-24T08:53:53Z</strong></p>
+  <p class="updated">Updated: <strong>2026-05-24T13:00:00Z</strong></p>
 </header>
 
 <div class="filters">
@@ -118,6 +128,52 @@
 </div>
 
 <div class="card-list" id="card-list">
+
+  <!-- ── NEW this run ── -->
+
+  <div class="card-entry" data-type="effects">
+    <div class="card-entry-top">
+      <span class="type-badge">effects</span>
+      <span class="variant-id">activation-tracks-v01</span>
+      <span class="new-badge">new</span>
+      <span class="variant-version">v01</span>
+    </div>
+    <p class="card-desc">SVG reference for all 6 activation track types per §8 spec: Basic, Multi-turn, Multi-use, AND, OR, Use — shapes/colors/lines only, no text</p>
+    <div class="card-actions">
+      <a href="../design/variants/activation-tracks-v01.html" target="_blank">View Reference</a>
+      <a href="../design/variants/CHANGES.md" target="_blank">Changes</a>
+    </div>
+  </div>
+
+  <div class="card-entry" data-type="effects">
+    <div class="card-entry-top">
+      <span class="type-badge">effects</span>
+      <span class="variant-id">trigger-symbols-v01</span>
+      <span class="new-badge">new</span>
+      <span class="variant-version">v01</span>
+    </div>
+    <p class="card-desc">SVG reference for all 6 trigger symbols per §7 style rules: On Reveal, On Enter, On Leave, Character Phase, On Complete, On Flow Marker</p>
+    <div class="card-actions">
+      <a href="../design/variants/trigger-symbols-v01.html" target="_blank">View Reference</a>
+      <a href="../design/variants/CHANGES.md" target="_blank">Changes</a>
+    </div>
+  </div>
+
+  <div class="card-entry" data-type="effects">
+    <div class="card-entry-top">
+      <span class="type-badge">effects</span>
+      <span class="variant-id">effects-v03</span>
+      <span class="new-badge">new</span>
+      <span class="variant-version">v03</span>
+    </div>
+    <p class="card-desc">§6.1 display model: no section labels, non-italic Crimson Text, leading-symbol row format, 4 sections (passive/trigger-entry/actions/trigger-exit)</p>
+    <div class="card-actions">
+      <a href="../design/variants/effects-v03.html" target="_blank">View Card</a>
+      <a href="../design/variants/CHANGES.md" target="_blank">Changes</a>
+    </div>
+  </div>
+
+  <!-- ── Existing variants ── -->
 
   <div class="card-entry" data-type="script">
     <div class="card-entry-top">

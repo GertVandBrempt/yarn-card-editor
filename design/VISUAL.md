@@ -171,4 +171,7 @@ App agents add entries here when the live preview requires a visual element that
 
 *Format: `- [ ] [short title] — [what the app needs; where it appears in the preview]`*
 
-*(empty — app v1 build not yet started; entries will be added by the app sub-agent)*
+- [ ] **Trigger symbols in effect rows** — app preview needs `<svg><use href="#trig-reveal"/></svg>` etc. at the leading position of trigger-type effect rows; trigger-symbols-v01 defines candidate symbols, user acceptance needed before integrating into card baselines and app
+- [ ] **Activation track widget visuals** — action track sub-form (per track type) needs track diagrams matching §8 spec for the live preview; activation-tracks-v01 defines candidate designs, user acceptance needed
+- [ ] **Inline sym+modifier rendering** — effect text with `[icon][modifier]` groups (e.g. `[damage][3]`) needs final inline layout and sizing rules for the effects panel; effects-v03 demonstrates the approach, pending acceptance
+- [ ] **Character dual-mode layout** — Character card Ally Mode tab (separate mechanics from Character mode) has no visual template; needed for Character card live preview Ally Mode panel

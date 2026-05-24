@@ -268,11 +268,11 @@ Elements needed by the live preview that are not yet designed. Card Design strea
 
 | Element | Used in preview for | VISUAL.md §9 task added | Resolved |
 |---|---|---|---|
-| Trigger symbols (On Reveal, On Enter, etc.) | Effect rows with trigger leading symbol | _(app agent adds when building)_ | — |
-| Activation track visuals | Action rows in effects panel | _(app agent adds when building)_ | — |
-| Inline sym+modifier rendering | Effect text with icon+number groups | _(app agent adds when building)_ | — |
+| Trigger symbols (On Reveal, On Enter, etc.) | Effect rows with trigger leading symbol | ✓ 2026-05-24 | — |
+| Activation track visuals | Action rows in effects panel | ✓ 2026-05-24 | — |
+| Inline sym+modifier rendering | Effect text with icon+number groups | ✓ 2026-05-24 | — |
 | Script card baseline | Script card live preview | n/a — queued in Card Design stream | — |
-| Character dual-mode layout | Character card Ally Mode preview | _(app agent adds when building)_ | — |
+| Character dual-mode layout | Character card Ally Mode preview | ✓ 2026-05-24 | — |
 
 ---
 
@@ -287,3 +287,4 @@ Elements needed by the live preview that are not yet designed. Card Design strea
 | 2026-05-24 | One canonical visual template per type in v1 | Simplifies editor UX; variant selection is design-time |
 | 2026-05-24 | Life point slot layout = v2 concern; v1 tracks count + element references | Full spatial overlap layout is complex; v1 captures the data, v2 adds the visual editor |
 | 2026-05-24 | Set type tracked as metadata but not enforced in v1 | Avoids premature rigidity; user may want to experiment with mixed sets |
+| 2026-05-24 | v1 editor built and deployed to `editor/` at repo root | Angular 21 zoneless app; all 8 card types with base fields + type-specific fields; live preview via iframe srcdoc; localStorage persistence; JSON import/export |

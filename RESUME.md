@@ -1,6 +1,8 @@
-# Resume State
+# Yarn — Session Resume Context
 
-Updated: 2026-05-24T (interactive session — design decisions recorded)
+_Updated: 2026-05-24T13:00:00Z (orchestrator run)_
+
+---
 
 ## ⚠ Workflow Rule — Read This First
 
@@ -16,50 +18,86 @@ This rule is also enforced in `CLAUDE.md § Working Style`.
 
 ## Current task
 
-Idle — all MD files updated. Orchestrator next run is HIGH PRIORITY: App Design v1 build first, then Card Design tasks.
+**Ready for user review.** This run built the v1 editor and all 3 queued card design variants.
 
-## Next action
+---
 
-Orchestrator's next run will execute (in order):
-1. **App v1 build** — vanilla HTML/CSS/JS editor in `editor/`; live preview from accepted baselines; design gap protocol active; deploy to GitHub Pages; PushNotification on completion ← HIGH PRIORITY (user wants today)
-2. **effects-v03** — §6.1 display model (non-italic, no labels, trigger/action row format)
-3. **trigger-symbols-v01** — SVG trigger symbol icons
-4. **activation-tracks-v01** — SVG activation track designs (all 6 types, §8 spec)
+## What was done this run
 
-For the user:
-- **Game Design session** — 6 discussion items waiting in ORCHESTRATOR.md
+### 🖥️ App Design (HIGH PRIORITY — completed)
+- **Built and deployed v1 Angular card editor** to `editor/` at repo root
+- **Live URL**: https://gertvandtbrempt.github.io/yarn-card-editor/editor/
+- Features: all 8 card types, type selector, form fields, live preview (baseline HTML + title injection via iframe), localStorage persistence, JSON import/export
+- Design gaps noted in VISUAL.md §9 and APP.md — trigger symbols, activation tracks, sym+modifier, dual-mode layout
 
-## Files touched this session
+### 🎨 Card Design (all 3 queued tasks done)
+1. **effects-v03** — §6.1 display model: no section labels, non-italic Crimson Text, 4 sections (passive / trigger-entry / actions / trigger-exit), placeholder leading symbols for trigger and activation rows
+2. **trigger-symbols-v01** — SVG reference: 6 trigger symbol designs (On Reveal ⭐, On Enter →, On Leave ←, Character Phase ⬡, On Complete ✓, On Flow Marker ›)
+3. **activation-tracks-v01** — SVG reference: 6 activation track type diagrams with legend (Basic, Multi-turn, Multi-use, AND, OR, Use)
 
-- `design/VISUAL.md` — §3 body text: removed italic; §4 color table: added Script (cream/off-white); §6.1 effect display model; §8 Activation Tracks spec (AND/OR clarified as compound containers); §9 App-Agent Design Task Queue added
-- `ORCHESTRATOR.md` — Card Design: cleared blocker, 3 tasks queued; App Design: unblocked, v1 build task with design gap protocol, HIGH PRIORITY
-- `CLAUDE.md` — Working Style: interactive session boundary rule (MD-only writes)
-- `APP.md` — accepted; added Tech Stack, Deployment, Design Gap Protocol, Known Design Gaps sections
-- `RESUME.md` — this file
+### 🎮 Game Design
+- No notification sent (< 48h since last)
+- 5 discussion items unchanged
 
-## Decisions made
+---
+
+## Next actions for user
+
+1. **Review the v1 editor**: https://gertvandtbrempt.github.io/yarn-card-editor/editor/
+   - Say "editor feedback: [your thoughts]" to give feedback
+   - The editor is live and functional for all card types
+
+2. **Review the card design variants**: https://gertvandtbrempt.github.io/yarn-card-editor/review/
+   - **effects-v03** — does the §6.1 row format look right? Accept or request changes
+   - **trigger-symbols-v01** — approve individual symbols or request redesigns
+   - **activation-tracks-v01** — approve track diagrams or request changes
+   - **script-v01** — still needs cream/off-white colour applied (awaiting acceptance of script card colour decision from previous session)
+
+3. **Game Design session** — 5 items waiting, say "game design" to begin
+
+---
+
+## What unblocks each stream
+
+| Stream | What to do |
+|---|---|
+| 🎮 Game Design | Say "game design" to open a discussion session |
+| 🎨 Card Design | Accept/reject effects-v03, trigger-symbols-v01, activation-tracks-v01; confirm Script cream colour |
+| 🖥️ App Design | Try the live editor; give feedback via "editor feedback: ..." |
+
+---
+
+## Key decisions from previous session (carry forward)
 
 - Script card colour: cream / off-white
 - Effect text: Crimson Text 400, NOT italic
 - Section labels: none — background colour identifies section
-- Sym+modifier group: atomic inline unit `[icon][modifier]`; modifier = number or short label
-- Row format: `[leading-symbol] [effect text]` — same for trigger and action rows
-- Activation tracks — AND: compound, all sub-tracks need ≥1 token on activation marker before any proceeds; OR: compound, activating one sub-track locks others until fully resolved; sub-tracks are primitive types (Basic/Multi-turn/Multi-use/Use)
-- effects-v02 direction: superseded — §6.1 rules replace it
-- App v1 tech stack: vanilla HTML/CSS/JS, no build step, deployed to `editor/` on GitHub Pages
-- App design gap protocol: app agents note gaps in VISUAL.md §9 + APP.md; never design; show `⏳ Design pending` in preview
+- Sym+modifier group: atomic inline unit `[icon][modifier]`
+- Row format: `[leading symbol] [effect text]`
+- Activation tracks — AND/OR are compound containers
+- App v1 tech stack: Angular 21 (zoneless)
+- App design gap protocol: note gaps in VISUAL.md §9 + APP.md; show `⏳ Design pending` in preview
 
-## Parked / not started
+---
 
-- Accept script-v01 (cream colour not yet applied — orchestrator task)
-- effects-v03 and beyond (queued for orchestrator)
-- trigger-symbols-v01 (queued for orchestrator)
-- activation-tracks-v01 (queued for orchestrator)
-- Image layer integration into variants
-- Angular card editor implementation (awaiting app.md user approval)
-- Shelved icons: move, tuck-character, tuck-item, die-constitution, die-zeal, die-path
-- Game Design discussion items (6 items, interactive session needed)
+## Key file map
+
+| File | Purpose | Who edits |
+|---|---|---|
+| DESIGN.md | Game design document | User only |
+| design/VISUAL.md | Locked visual decisions + §9 app gap queue | Orchestrator |
+| design/card-index.md | Per-type card HTML baselines | User + orchestrator reads |
+| design/variants/*.html | Card variant files | Orchestrator (autonomous) |
+| app.md | App design decisions | Orchestrator (with user feedback) |
+| editor/ | Deployed v1 Angular editor | Orchestrator builds |
+| review/index.html | Mobile card review gallery | Orchestrator (regenerated) |
+| ORCHESTRATOR.md | System state / stream tracking | Orchestrator |
+| RESUME.md | This file — session context | Orchestrator |
+
+---
 
 ## Gallery
 
 Card review gallery (GitHub Pages): https://gertvandtbrempt.github.io/yarn-card-editor/review/
+Card editor v1 (GitHub Pages): https://gertvandtbrempt.github.io/yarn-card-editor/editor/
+_(25 card-variant entries in gallery; editor now live)_

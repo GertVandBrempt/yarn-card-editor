@@ -1,1 +1,10 @@
-/* You can add global styles to this file, and also import other style files */
+/* Yarn Card Editor — global styles */
+*, *::before, *::after { box-sizing: border-box; }
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow: hidden;
+  background: #0d0a06;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+}

@@ -1,0 +1,201 @@
+<!-- icon-demo: icons-misc-v01 | tuck-character, tuck-item, die-warrior, die-scout, die-sage -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap" rel="stylesheet">
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  background: #12100a;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 48px 32px;
+  gap: 48px;
+  font-family: 'Cinzel', Georgia, serif;
+}
+.group-label {
+  color: #7a5a28;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  text-align: center;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #2a1e0e;
+  width: 100%;
+}
+.group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+  max-width: 480px;
+}
+.icon-row {
+  display: flex;
+  flex-direction: row;
+  gap: 40px;
+  align-items: flex-end;
+  justify-content: center;
+}
+.icon-cell {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+.icon-sizes {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  gap: 14px;
+}
+.icon-label {
+  color: #8a6a30;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  text-align: center;
+}
+</style>
+</head>
+<body>
+
+<svg style="display:none" xmlns="http://www.w3.org/2000/svg">
+<defs>
+
+  <!-- TUCK-CHARACTER: two overlapping card rects, person silhouette on front card -->
+  <symbol id="icon-tuck-character" viewBox="0 0 24 24">
+    <!-- back card (tucked/hidden) -->
+    <rect x="5" y="6" width="13" height="16" rx="1.5"
+          fill="#6a3808" stroke="#1a0e04" stroke-width="1.8"
+          stroke-linejoin="round"/>
+    <!-- front card -->
+    <rect x="2" y="3" width="13" height="16" rx="1.5"
+          fill="#d4a808" stroke="#1a0e04" stroke-width="1.8"
+          stroke-linejoin="round"/>
+    <!-- person silhouette: head + body -->
+    <circle cx="8.5" cy="8.5" r="1.8" fill="#1a0e04"/>
+    <path d="M5.5 15 Q5.5 11.5 8.5 11.5 Q11.5 11.5 11.5 15"
+          fill="#1a0e04" stroke="none"/>
+  </symbol>
+
+  <!-- TUCK-ITEM: two overlapping card rects, gem/diamond on front card -->
+  <symbol id="icon-tuck-item" viewBox="0 0 24 24">
+    <!-- back card (tucked/hidden) -->
+    <rect x="5" y="6" width="13" height="16" rx="1.5"
+          fill="#206070" stroke="#1a0e04" stroke-width="1.8"
+          stroke-linejoin="round"/>
+    <!-- front card -->
+    <rect x="2" y="3" width="13" height="16" rx="1.5"
+          fill="#40a0c0" stroke="#1a0e04" stroke-width="1.8"
+          stroke-linejoin="round"/>
+    <!-- gem/diamond symbol -->
+    <polygon points="8.5,7.5 11,10.5 8.5,14.5 6,10.5"
+             fill="#1a0e04" stroke="none"/>
+  </symbol>
+
+  <!-- DIE BASE: d6 flat front face with rounded corners, used by all persona dice -->
+  <!-- die-warrior: red, sword pip -->
+  <symbol id="icon-die-warrior" viewBox="0 0 24 24">
+    <rect x="2.5" y="2.5" width="19" height="19" rx="4"
+          fill="#e85030" stroke="#1a0e04" stroke-width="1.8"
+          stroke-linejoin="round"/>
+    <!-- sword pip: blade + crossguard -->
+    <line x1="12" y1="6.5" x2="12" y2="17.5"
+          stroke="#1a0e04" stroke-width="2" stroke-linecap="round"/>
+    <line x1="8.5" y1="11" x2="15.5" y2="11"
+          stroke="#1a0e04" stroke-width="2" stroke-linecap="round"/>
+    <polygon points="12,6.5 10.5,9 13.5,9"
+             fill="#1a0e04" stroke="none"/>
+  </symbol>
+
+  <!-- die-scout: cyan, eye pip -->
+  <symbol id="icon-die-scout" viewBox="0 0 24 24">
+    <rect x="2.5" y="2.5" width="19" height="19" rx="4"
+          fill="#40c8d0" stroke="#1a0e04" stroke-width="1.8"
+          stroke-linejoin="round"/>
+    <!-- eye pip -->
+    <path d="M5 12 Q12 5.5 19 12 Q12 18.5 5 12 Z"
+          fill="#1a0e04" stroke="none"/>
+    <circle cx="12" cy="12" r="2.5" fill="#40c8d0"/>
+    <circle cx="12" cy="12" r="1.2" fill="#1a0e04"/>
+  </symbol>
+
+  <!-- die-sage: purple, star pip -->
+  <symbol id="icon-die-sage" viewBox="0 0 24 24">
+    <rect x="2.5" y="2.5" width="19" height="19" rx="4"
+          fill="#a060e0" stroke="#1a0e04" stroke-width="1.8"
+          stroke-linejoin="round"/>
+    <!-- 4-point star pip -->
+    <polygon points="12,5.5 13.5,10.5 18.5,12 13.5,13.5 12,18.5 10.5,13.5 5.5,12 10.5,10.5"
+             fill="#1a0e04" stroke="none"/>
+  </symbol>
+
+</defs>
+</svg>
+
+<!-- TUCK ICONS -->
+<div class="group">
+  <div class="group-label">Tuck Icons</div>
+  <div class="icon-row">
+
+    <div class="icon-cell">
+      <div class="icon-sizes">
+        <svg width="32" height="32"><use href="#icon-tuck-character"/></svg>
+        <svg width="48" height="48"><use href="#icon-tuck-character"/></svg>
+      </div>
+      <div class="icon-label">Tuck · Character</div>
+    </div>
+
+    <div class="icon-cell">
+      <div class="icon-sizes">
+        <svg width="32" height="32"><use href="#icon-tuck-item"/></svg>
+        <svg width="48" height="48"><use href="#icon-tuck-item"/></svg>
+      </div>
+      <div class="icon-label">Tuck · Item</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- PERSONA DIE ICONS -->
+<div class="group">
+  <div class="group-label">Persona Die Icons</div>
+  <div class="icon-row">
+
+    <div class="icon-cell">
+      <div class="icon-sizes">
+        <svg width="32" height="32"><use href="#icon-die-warrior"/></svg>
+        <svg width="48" height="48"><use href="#icon-die-warrior"/></svg>
+      </div>
+      <div class="icon-label">Die · Warrior</div>
+    </div>
+
+    <div class="icon-cell">
+      <div class="icon-sizes">
+        <svg width="32" height="32"><use href="#icon-die-scout"/></svg>
+        <svg width="48" height="48"><use href="#icon-die-scout"/></svg>
+      </div>
+      <div class="icon-label">Die · Scout</div>
+    </div>
+
+    <div class="icon-cell">
+      <div class="icon-sizes">
+        <svg width="32" height="32"><use href="#icon-die-sage"/></svg>
+        <svg width="48" height="48"><use href="#icon-die-sage"/></svg>
+      </div>
+      <div class="icon-label">Die · Sage</div>
+    </div>
+
+  </div>
+</div>
+
+</body>
+</html>

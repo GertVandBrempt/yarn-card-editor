@@ -22,6 +22,16 @@
               {
                 "glob": "**/*",
                 "input": "public"
+              },
+              {
+                "glob": "BASELINE.html",
+                "input": "../design",
+                "output": "design"
+              },
+              {
+                "glob": "**/*.html",
+                "input": "../design/variants",
+                "output": "design/variants"
               }
             ],
             "styles": [
