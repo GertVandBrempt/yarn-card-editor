@@ -13,22 +13,28 @@ last_status_notification: —
 
 ## Work Streams
 
+Streams are **independent** — a blocked stream does not pause other streams.
+
 ### Game Design
-- **Status**: pending
-- **Source**: DESIGN.md open issues
-- **Next task**: Review DESIGN.md for flagged open issues and unresolved design questions
+- **Mode**: interactive (orchestrator surfaces topics; user drives sessions in Claude Code)
+- **Source**: DESIGN.md open issues and unresolved questions
+- **Status**: active
+- **Pending discussion items**: — (orchestrator scans DESIGN.md each run)
+- **Last notified**: —
 - **Blocked on**: —
 
 ### Card Design
-- **Status**: pending
+- **Mode**: autonomous
 - **Source**: design/VISUAL.md, design/card-index.md
-- **Next task**: Check for any pending card variants or unaccepted designs
+- **Status**: pending
+- **Next task**: Check for pending card variants or unaccepted designs
 - **Blocked on**: —
 
 ### App Design
-- **Status**: not started — waiting for app.md
-- **Source**: (future) app.md
-- **Next task**: —
+- **Mode**: autonomous
+- **Source**: app.md (created by orchestrator on first App Design run)
+- **Status**: pending — first run drafts app.md
+- **Next task**: Draft initial app.md from DESIGN.md + CLAUDE.md context
 - **Blocked on**: —
 
 ## Active Sub-Agents
