@@ -196,8 +196,58 @@ Each card is a typed record. All types share a common base; type-specific fields
 - Each card type has a canonical visual template (defined in `design/card-index.md`; style rules in `design/VISUAL.md`).
 - The editor shows a **live preview** rendered from the template + current field values.
 - Users edit via a structured form panel; preview updates in real time.
-- Art upload: drag-and-drop or file picker; stored as data URI in the card record.
+- Art upload: local file picker only (no URLs in v1); image stored as base64 data URI in the card record; drag-and-drop welcome but file picker is minimum.
 - **Template selection** is fixed per type in v1 — one canonical template per type.
+
+### v1 Build — Known Issues (from first review)
+
+| Issue | Fix required |
+|---|---|
+| All fields except title non-functional | Wire all form fields to live preview |
+| Image upload broken | Local file → base64 data URI; no URL input |
+| Triggers section missing | Add Triggers section (see below) |
+| Actions section missing | Add Actions section (see below) |
+| Live preview rendering janky | Fix card rendering — clean iframe injection or direct DOM approach |
+
+### Triggers section
+
+Each card type that supports triggers (Location, Character, Event, Item, Quest) must have a **Triggers** section in the form with an add/remove list. Each trigger entry:
+
+1. **Trigger type dropdown** — values: On Reveal, On Enter, On Leave, Character Phase, On Complete, On Flow Marker
+2. **Effect editor** (see Effect Editor below)
+
+Use `⏳ Design pending` placeholder for the trigger leading symbol in the preview until trigger-symbols-v02 is accepted.
+
+### Actions section
+
+Each card type that supports actions (Location, Character, Item, Persona) must have an **Actions** section in the form with an add/remove list. Each action entry:
+
+1. **Activation track type dropdown** — values: Basic, Multi-turn, Multi-use, AND, OR, Use
+2. **Effect editor** (see Effect Editor below)
+
+Use existing placeholder visuals for activation track markers in the preview until activation-tracks-v02 is accepted. Show track placeholder at leading position of the action row.
+
+### Effect editor
+
+The effect editor is a rich text input that parses inline syntax and renders icons in real time in the preview.
+
+**Inline syntax:**
+
+| Syntax | Renders as |
+|---|---|
+| `<damage>` | damage icon (`icon-damage`) |
+| `<shield>` | shield icon (`icon-shield`) |
+| `<heal>` | heal icon (`icon-heal`) |
+| `<scout>` | scout icon (`icon-scout`) |
+| `<gain-action>` | gain-action icon (`icon-gain-action`) |
+| `<reveal-character>` | reveal-character icon |
+| `<reveal-item>` | reveal-item icon |
+| `[N]` after an icon | modifier — rendered as number badge inline with preceding icon |
+| `[label]` after an icon | modifier — rendered as text label inline with preceding icon |
+
+Example: `Deal <damage>[2] to each enemy` renders as: "Deal **⬡2** to each enemy" (with the damage icon + 2 badge inline).
+
+The editor stores the raw syntax string; the preview renders the parsed version. Both the form input and the live preview update in real time.
 
 ### Known editor complexity points
 
@@ -287,4 +337,7 @@ Elements needed by the live preview that are not yet designed. Card Design strea
 | 2026-05-24 | One canonical visual template per type in v1 | Simplifies editor UX; variant selection is design-time |
 | 2026-05-24 | Life point slot layout = v2 concern; v1 tracks count + element references | Full spatial overlap layout is complex; v1 captures the data, v2 adds the visual editor |
 | 2026-05-24 | Set type tracked as metadata but not enforced in v1 | Avoids premature rigidity; user may want to experiment with mixed sets |
+| 2026-05-24 | Image upload: local file → base64 data URI only; no URL input in v1 | Simpler, no external dependency, works offline |
+| 2026-05-24 | Effect editor: inline `<iconname>[modifier]` syntax parsed in real time | Keeps effect text human-readable while rendering rich icons in preview |
+| 2026-05-24 | Triggers and Actions as separate add/remove sections per card | Matches DESIGN.md structure; clear separation of trigger-driven vs player-initiated effects |
 | 2026-05-24 | v1 editor built and deployed to `editor/` at repo root | Angular 21 zoneless app; all 8 card types with base fields + type-specific fields; live preview via iframe srcdoc; localStorage persistence; JSON import/export |

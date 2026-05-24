@@ -35,12 +35,11 @@ Streams are **independent** — a blocked stream does not pause other streams.
 ### Card Design
 - **Mode**: autonomous
 - **Source**: design/VISUAL.md, design/card-index.md
-- **Status**: active — All 3 queued tasks completed this run
-- **Next task**: Await user review of this run's variants:
-  - **effects-v03** — §6.1 display model applied; ready for review
-  - **trigger-symbols-v01** — 6 trigger symbol designs; ready for review  
-  - **activation-tracks-v01** — 6 track type diagrams; ready for review
-  - After user feedback: iterate or accept candidates; Script cream colour still unresolved
+- **Status**: active — effects-v03 accepted as direction (hold); trigger-symbols and activation-tracks need redesign; 2 tasks queued
+- **Next task**: Two queued tasks (execute in order):
+  1. **trigger-symbols-v02** — redesign all 6 trigger symbols per updated §7 trigger symbol style rules: dark body + lighter detail, 20×20, no per-trigger color variation, readable distinct shapes; show in use on a card (leading symbols in trigger rows inside the trigger sections of a real card mockup) — NOT as an isolated reference sheet
+  2. **activation-tracks-v02** — redesign all 6 activation track types per updated §8 activation track visual style rules: vertical layout covering the action container, simple shapes only, dark body + lighter detail palette, AND/OR must show compound sub-tracks as separate vertical columns with a shared gate element; show in use on a card (leading markers in action rows of a real card mockup) — NOT as an isolated diagram sheet
+  - **Hold:** effects-v04 (incorporate accepted trigger symbols + activation tracks into effects display) — create only after both v02 variants are accepted by user
 - **Blocked on**: —
 - **Last notified**: 2026-05-24T13:00:00Z
 
@@ -49,13 +48,14 @@ Streams are **independent** — a blocked stream does not pause other streams.
 ### App Design
 - **Mode**: autonomous
 - **Source**: APP.md
-- **Status**: active — **v1 editor built and deployed** to `editor/` at repo root
-- **Next task**: Await user feedback on v1 editor; planned next build increment:
-  - Integrate accepted trigger symbols into baseline HTML templates (after user review)
-  - Add Objectives list editor for Quest types
-  - Add Ally Mode tabbed editor for Character cards
-  - Upgrade storage to IndexedDB (from localStorage)
-  - Live URL: `https://gertvandtbrempt.github.io/yarn-card-editor/editor/`
+- **Status**: active — v1 reviewed; fixes and new sections required; see APP.md §v1 Build Known Issues
+- **Next task**: Fix v1 editor based on first review. Full spec in APP.md. In priority order:
+  1. **Wire all form fields** to live preview — every field except title was non-functional
+  2. **Fix image upload** — local file picker → base64 data URI; remove URL input; drag-and-drop welcome
+  3. **Fix live preview rendering** — card drawing is janky; clean up iframe injection or switch to direct DOM rendering
+  4. **Add Triggers section** — per-card add/remove list; each entry: trigger type dropdown + effect editor; use `⏳ Design pending` placeholder for trigger leading symbol
+  5. **Add Actions section** — per-card add/remove list; each entry: activation track type dropdown + effect editor; use existing placeholder visuals for track marker at leading position
+  6. **Effect editor with inline parsing** — plain text input that parses `<iconname>[modifier]` syntax in real time and renders the correct SVG icon inline in the preview; see APP.md §Effect editor for full syntax table
 - **Blocked on**: —
 - **Last notified**: 2026-05-24T13:00:00Z
 

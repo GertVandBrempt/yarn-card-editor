@@ -10,7 +10,10 @@
       "Skill(schedule)",
       "Bash(git check-ignore *)",
       "Bash(python3 *)",
-      "Bash(node *)"
+      "Bash(node *)",
+      "Bash(git add *)",
+      "Bash(git commit *)",
+      "Bash(git push *)"
     ]
   }
 }

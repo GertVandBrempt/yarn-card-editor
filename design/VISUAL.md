@@ -110,6 +110,16 @@ Icons are used inline in effect text to represent game concepts. The accepted ic
 - **Shape principle:** single continuous filled surface — one bold shape per icon, no internal line detail
 - **Usage pattern:** `<svg width="20" height="20"><use href="#icon-damage"/></svg>` followed by a modifier number
 
+### Trigger symbol style rules
+
+Trigger symbols follow the same sizing and stroke rules as effect icons but use a **unified color scheme** (not per-trigger color):
+
+- **Size:** 20×20, matching effect icons — consistent inline sizing throughout effect rows
+- **Body fill:** dark (`#1a0e04` or close variant) — same dark tone used for card frame and strokes
+- **Detail / highlight fill:** a single lighter tone (e.g. warm off-white or light amber) for interior shape details — consistent across all trigger symbols
+- **No per-trigger color variation** — all trigger symbols share the same dark+light palette; shape alone distinguishes trigger type
+- **Display context:** always shown as the leading symbol of a trigger row on a card — never displayed as an isolated reference sheet; variant files must show them in use inside the trigger sections of a real card mockup
+
 ### Accepted icons
 
 | ID | Concept | Fill color | Shape |
@@ -160,6 +170,14 @@ AND and OR are **compound containers** — each holds two or more sub-tracks. Ea
 | OR | Activating any one sub-track (placing a token on its activation marker) disables all other sub-tracks until that sub-track is fully resolved (token returned or consumed). Choice reopens after full resolution. |
 
 **Design note:** nested AND/OR (a sub-track that is itself an AND/OR compound) is conceptually valid but should not be expected in the visual design. Design for one level of nesting only.
+
+### Activation track visual style rules
+
+- **Color scheme:** same dark body + lighter detail palette as trigger symbols — no separate color per track type; shape and structure alone distinguish types
+- **Layout:** vertical — each track runs top-to-bottom inside its action row, covering the full width of the action container
+- **Simplicity:** minimal shapes only — avoid decoration; a marker is a shape (circle, square, diamond, etc.), a flow path is a line or arrow; nothing more
+- **AND/OR compound layout:** sub-tracks are rendered as separate vertical track columns side by side within a shared container; a gate element (simple bracket or connecting bar) links them; each sub-track must visually show its own activation marker(s) and flow independently
+- **Display context:** always shown in use on a card — leading marker in the action rows of a real card mockup; never displayed as an isolated diagram sheet
 
 All six track type designs are pending — to be created as SVG reference variants by the orchestrator sub-agent.
 
