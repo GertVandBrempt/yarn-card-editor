@@ -7,7 +7,7 @@ This file is read and written by scheduled agents. Do not edit manually during a
 ```
 blocked_for_weekly_review: false
 weekly_review_due: 2026-05-30T08:00:00Z
-last_orchestrator_run: 2026-05-24T08:53:53Z
+last_orchestrator_run: 2026-05-24T12:05:49Z
 last_status_notification: 2026-05-24T08:53:53Z
 ```
 
@@ -18,14 +18,13 @@ Streams are **independent** — a blocked stream does not pause other streams.
 ### Game Design
 - **Mode**: interactive (orchestrator surfaces topics; user drives sessions in Claude Code)
 - **Source**: DESIGN.md open issues and unresolved questions
-- **Status**: active — 5 discussion items surfaced; user notified
-- **Pending discussion items**:
-  1. Trigger priority (§7) — explicitly TBD; exact simultaneous-trigger resolution rules needed
-  2. Action track visual design (§4.4) — 6 track types defined, none have visual treatment in VISUAL.md
-  3. Character dual-mode layout (§3.4) — Character/Ally on one card; no visual design for the split
-  4. Script Card design — not yet in card-index.md; turn schedule layout in script-v01 (placeholder purple)
-  5. Life point slots visual (§3.1) — slots overlapping damageable elements; no visual design
-  6. Die levels (§5.2) — how many levels exist, and what are the face distributions per level?
+- **Status**: active — 5 discussion items tracked; no new items since last scan; no re-notification (< 48h)
+- **Pending discussion items** *(top 5 by card-design impact)*:
+  1. Script Card colour — purple placeholder in script-v01; must confirm before card-index.md entry
+  2. Trigger priority (§7) — explicitly TBD; affects card layout ordering rules
+  3. Life point slots visual (§3.1) — slots overlapping damageable elements; not yet in VISUAL.md
+  4. Action track visual design (§4.4) — 6 track types defined; no visual treatment yet
+  5. Character dual-mode layout (§3.4) — Character/Ally on one card; no visual design for split
 - **Last notified**: 2026-05-24T08:53:53Z
 - **Blocked on**: —
 
@@ -78,6 +77,9 @@ _(none)_
 | 2026-05-24T08:53:53Z | Orchestrator | B: Create effects-v02.html | Section labels + text labels + 2 action rows; mech-frame 200px |
 | 2026-05-24T08:53:53Z | Orchestrator | B: Update | CHANGES.md updated; review/index.html regenerated with 22 variants |
 | 2026-05-24T08:53:53Z | Orchestrator | C: Draft app.md | Detailed app.md from DESIGN.md — full typed data model with §references |
+| 2026-05-24T12:05:49Z | Orchestrator | A: Scan DESIGN.md | No new items; last notified 3h ago (< 48h threshold) — no notification |
+| 2026-05-24T12:05:49Z | Orchestrator | B: Check blocker | Script card colour still unresolved; already notified — skipped |
+| 2026-05-24T12:05:49Z | Orchestrator | C: Check blocker | app.md review still pending; already notified — skipped |
 
 ## Weekly Review History
 
