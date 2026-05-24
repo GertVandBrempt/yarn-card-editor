@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Yarn — Mechanics Frame Options</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Crimson+Text:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+<style>
+
+/* ══════════════════════════════════════════
+   ROOT
+   ══════════════════════════════════════════ */
+:root {
+  --card-w: 300px;
+  --card-h: 420px;
+  --card-r: 10px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  background: #080604;
+  font-family: Georgia, serif;
+  padding: 60px 48px 80px;
+}
+
+h1 { color: #c8a030; font-size: 18px; letter-spacing: 4px; text-transform: uppercase; margin-bottom: 4px; }
+.page-sub { color: #3a2808; font-size: 10px; font-family: sans-serif; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 60px; }
+
+.section       { margin-bottom: 72px; }
+.section-title { color: #c8a030; font-size: 11px; font-family: sans-serif; letter-spacing: 4px; text-transform: uppercase; margin-bottom: 6px; }
+.section-rule  { border: none; border-top: 1px solid #1e1408; margin-bottom: 28px; }
+.options-row   { display: flex; flex-wrap: nowrap; gap: 40px; align-items: flex-start; }
+.option        { display: flex; flex-direction: column; align-items: center; gap: 10px; }
+.option-label  { color: #c8a030; font-size: 9px; font-family: sans-serif; letter-spacing: 3px; text-transform: uppercase; }
+.option-id     { color: #2a1808; font-size: 8px; font-family: 'Courier New', monospace; letter-spacing: 1px; }
+
+/* ══════════════════════════════════════════
+   CARD TYPE ACCENT
+   ══════════════════════════════════════════ */
+.t-persona {
+  --bg-top:      #221004;
+  --bg-bot:      #180c02;
+  --type-border: #7a4818;
+  --type-text:   #c8860c;
+  --type-glow:   rgba(160,90,10,0.28);
+}
+
+/* ══════════════════════════════════════════
+   BASE CARD
+   ══════════════════════════════════════════ */
+.card {
+  position: relative;
+  width: var(--card-w);
+  height: var(--card-h);
+  border-radius: var(--card-r);
+  overflow: hidden;
+  flex-shrink: 0;
+  box-shadow: 0 24px 70px rgba(0,0,0,0.97), 0 6px 16px rgba(0,0,0,0.8);
+}
+
+/* ── z-index layer map ───────────────────
+    0   card-fill       dark base
+    1   card-image      full-bleed art
+    2   grad-top        readability gradient — header area
+    2   grad-body       readability gradient — mechanics area
+   10   card-frame      frame overlay
+   11   card-header     type / title / subtitle
+   12   mech-frame      mechanics container
+   ─────────────────────────────────────── */
+
+.card-fill { position: absolute; inset: 0; z-index: 0; border-radius: var(--card-r); background: #0d0a06; }
+
+.card-image { position: absolute; inset: 0; z-index: 1; }
+.card-image > svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+
+.grad-top {
+  position: absolute;
+  left: 10px; right: 10px; top: 10px;
+  height: 155px;
+  z-index: 2;
+  pointer-events: none;
+}
+.grad-body {
+  position: absolute;
+  left: 10px; right: 10px; bottom: 10px;
+  height: 210px;
+  z-index: 2;
+  pointer-events: none;
+}
+
+/* ══════════════════════════════════════════
+   IMAGE GRADIENT — TYPE (amber radial medium)
+   applied to all type-m* cards
+   ══════════════════════════════════════════ */
+#type-m1 .grad-top, #type-m2 .grad-top, #type-m3 .grad-top {
+  background: radial-gradient(ellipse 90% 100% at 50% 0%, rgba(122,72,24,.80) 0%, rgba(122,72,24,.2) 70%, transparent 100%);
+}
+#type-m1 .grad-body, #type-m2 .grad-body, #type-m3 .grad-body {
+  background: linear-gradient(to top, rgba(122,72,24,.6) 0%, rgba(122,72,24,.2) 70%, transparent 100%);
+}
+
+/* ══════════════════════════════════════════
+   IMAGE GRADIENT — BLACK (black radial heavy)
+   applied to all black-m* cards
+   ══════════════════════════════════════════ */
+#black-m1 .grad-top, #black-m2 .grad-top, #black-m3 .grad-top {
+  background: radial-gradient(ellipse 90% 100% at 50% 0%,   rgba(0,0,0,.9) 0%, rgba(0,0,0,.6) 70%, transparent 100%);
+}
+#black-m1 .grad-body, #black-m2 .grad-body, #black-m3 .grad-body {
+  background: radial-gradient(ellipse 90% 100% at 50% 100%, rgba(0,0,0,.90) 0%, rgba(0,0,0,.6) 70%, transparent 100%);
+}
+
+/* ══════════════════════════════════════════
+   FRAME
+   ══════════════════════════════════════════ */
+.card-frame {
+  position: absolute; inset: 0; z-index: 10;
+  pointer-events: none;
+  border-radius: var(--card-r);
+}
+.card-frame > svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+.frame-tome {
+  box-shadow:
+    inset 0 0 0 6px  #100a04,
+    inset 0 0 0 7px  #3a2410,
+    inset 0 0 0 9px  #100a04,
+    inset 0 0 0 10px #1e1408;
+}
+
+/* ══════════════════════════════════════════
+   CARD HEADER (z:11)
+   ══════════════════════════════════════════ */
+.card-header { position: absolute; inset: 0; z-index: 11; pointer-events: none; }
+
+.type-band {
+  position: absolute;
+  left: 10px; right: 10px; top: 14px;
+  height: 28px;
+  background: linear-gradient(180deg, var(--bg-top) 0%, var(--bg-bot) 100%);
+  border-top:    1.5px solid var(--type-border);
+  border-bottom: 1.5px solid var(--type-border);
+  box-shadow: 0 5px 20px 0 var(--type-glow), inset 0 1px 0 rgba(255,200,80,0.04);
+  display: flex; align-items: center; justify-content: center; overflow: hidden;
+}
+.type-band::before, .type-band::after {
+  content: ''; display: block; flex: 1; height: 1px; opacity: 0.5;
+}
+.type-band::before { background: linear-gradient(to right, transparent 0%, var(--type-border) 100%); margin-right: 10px; }
+.type-band::after  { background: linear-gradient(to left,  transparent 0%, var(--type-border) 100%); margin-left:  10px; }
+.type-label {
+  color: var(--type-text);
+  font-family: 'Cinzel', Georgia, serif;
+  font-size: 7.5px; font-weight: 700; letter-spacing: 5px; text-transform: uppercase;
+  white-space: nowrap; flex-shrink: 0;
+  text-shadow: 0 0 12px var(--type-glow);
+}
+
+.card-title {
+  position: absolute; left: 18px; right: 18px; top: 52px;
+  text-align: center; color: #dcc06a;
+  font-family: 'Cinzel', Georgia, serif;
+  font-size: 21px; font-weight: 700; letter-spacing: 0.5px; line-height: 1.2;
+  text-shadow: 0 1px 10px rgba(0,0,0,0.95);
+}
+.title-rule {
+  position: absolute; left: 54px; right: 54px; top: 82px; height: 1px;
+  background: linear-gradient(to right, transparent, var(--type-border) 25%, var(--type-border) 75%, transparent);
+  opacity: 0.6;
+}
+.card-subtitle {
+  position: absolute; left: 18px; right: 18px; top: 90px;
+  text-align: center; color: #7a5828;
+  font-family: 'Crimson Text', Georgia, serif;
+  font-size: 12px; font-style: italic; letter-spacing: 0.2px;
+}
+
+/* ══════════════════════════════════════════
+   MECHANICS FRAME (z:12)
+   ══════════════════════════════════════════ */
+.mech-frame {
+  position: absolute;
+  left: 18px; right: 18px;
+  bottom: 18px;
+  height: 185px;
+  z-index: 12;
+  pointer-events: none;
+}
+
+/* Top and bottom dividers — inset, not full-width, same style as title-rule */
+.mech-rule {
+  position: absolute;
+  left: 14px; right: 14px;
+  height: 1px;
+  background: linear-gradient(to right,
+    transparent,
+    var(--type-border) 18%,
+    var(--type-border) 82%,
+    transparent);
+  opacity: 0.55;
+}
+.mech-rule-top { top: 0; }
+.mech-rule-bot { bottom: 0; }
+
+/* Inner content area, padded inside the rules */
+.mech-body {
+  position: absolute;
+  top: 10px; bottom: 10px; left: 0; right: 0;
+  padding: 2px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  overflow: hidden;
+}
+
+.mech-entry { display: flex; flex-direction: column; gap: 2px; }
+
+.mech-type {
+  color: var(--type-text);
+  font-family: 'Cinzel', Georgia, serif;
+  font-size: 6.5px; font-weight: 700;
+  letter-spacing: 3.5px; text-transform: uppercase;
+  text-shadow: 0 0 8px var(--type-glow);
+}
+
+.mech-text {
+  color: #c4a86c;
+  font-family: 'Crimson Text', Georgia, serif;
+  font-size: 10.5px; line-height: 1.45;
+  text-shadow: 0 1px 6px rgba(0,0,0,0.9);
+}
+
+/* ── Mechanics background variants ──────────
+   Type card (amber image tint) → black center
+   Black card (black image tint) → amber center
+   The gradient reads from center outward,
+   opposite to the image overlay gradient.
+   ─────────────────────────────────────────── */
+
+/* Type base — black center mechanics */
+#type-m1 .mech-frame { background: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,.4) 10%, rgba(0,0,0,.4) 90%, transparent 100%); }
+#type-m2 .mech-frame { background: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,.5) 10%, rgba(0,0,0,.5) 90%, transparent 100%); }
+#type-m3 .mech-frame { background: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,.70) 10%, rgba(0,0,0,.70) 90%, transparent 100%); }
+
+/* Black base — amber center mechanics */
+#black-m1 .mech-frame { background: linear-gradient(to bottom, transparent 0%, rgba(122,72,24,.15) 10%, rgba(122,72,24,.15) 90%, transparent 100%); }
+#black-m2 .mech-frame { background: linear-gradient(to bottom, transparent 0%, rgba(122,72,24,.25) 10%, rgba(122,72,24,.25) 90%, transparent 100%); }
+#black-m3 .mech-frame { background: linear-gradient(to bottom, transparent 0%, rgba(122,72,24,.40) 10%, rgba(122,72,24,.40) 90%, transparent 100%); }
+
+</style>
+</head>
+<body>
+
+<!-- ══════════ SHARED SVG DEFS ══════════════════════
+     art and frame defined once, referenced everywhere
+     ═══════════════════════════════════════════════ -->
+<svg style="display:none" xmlns="http://www.w3.org/2000/svg">
+<defs>
+
+  <filter id="corner-glow" x="-80%" y="-80%" width="260%" height="260%">
+    <feGaussianBlur stdDeviation="3.5" result="blur"/>
+    <feComposite in="blur" operator="over"/>
+  </filter>
+
+  <symbol id="frame-d" viewBox="0 0 300 420" overflow="visible">
+    <rect x="14" y="14" width="272" height="392" rx="4"
+      fill="none" stroke="#3a2410" stroke-width="0.65" opacity="0.75"/>
+    <!-- TL -->
+    <polygon points="3,3 15,32 32,15"  fill="#7a5030" opacity="0.12" filter="url(#corner-glow)"/>
+    <polygon points="5,5 14,30 30,14"  fill="#5a3820" opacity="0.22"/>
+    <polygon points="7,7 14,27 27,14"  fill="#3e2c1a" opacity="0.9"/>
+    <polygon points="9,9 14,21 21,14"  fill="#6a4828" opacity="0.45"/>
+    <!-- TR -->
+    <polygon points="297,3 285,32 268,15"  fill="#7a5030" opacity="0.12" filter="url(#corner-glow)"/>
+    <polygon points="295,5 286,30 270,14"  fill="#5a3820" opacity="0.22"/>
+    <polygon points="293,7 286,27 273,14"  fill="#3e2c1a" opacity="0.9"/>
+    <polygon points="291,9 286,21 279,14"  fill="#6a4828" opacity="0.45"/>
+    <!-- BL -->
+    <polygon points="3,417 32,405 15,388"  fill="#7a5030" opacity="0.12" filter="url(#corner-glow)"/>
+    <polygon points="5,415 30,406 14,390"  fill="#5a3820" opacity="0.22"/>
+    <polygon points="7,413 27,406 14,393"  fill="#3e2c1a" opacity="0.9"/>
+    <polygon points="9,411 21,406 14,399"  fill="#6a4828" opacity="0.45"/>
+    <!-- BR -->
+    <polygon points="297,417 268,405 285,388"  fill="#7a5030" opacity="0.12" filter="url(#corner-glow)"/>
+    <polygon points="295,415 270,406 286,390"  fill="#5a3820" opacity="0.22"/>
+    <polygon points="293,413 273,406 286,393"  fill="#3e2c1a" opacity="0.9"/>
+    <polygon points="291,411 279,406 286,399"  fill="#6a4828" opacity="0.45"/>
+    <!-- Mid edges -->
+    <polygon points="150,7 157,14 143,14"     fill="#3e2c1a" opacity="0.85"/>
+    <polygon points="150,9 155,14 145,14"     fill="#6a4828" opacity="0.4"/>
+    <polygon points="150,413 143,406 157,406"  fill="#3e2c1a" opacity="0.85"/>
+    <polygon points="150,411 145,406 155,406"  fill="#6a4828" opacity="0.4"/>
+    <polygon points="7,210 14,203 14,217"     fill="#3e2c1a" opacity="0.85"/>
+    <polygon points="9,210 14,205 14,215"     fill="#6a4828" opacity="0.4"/>
+    <polygon points="293,210 286,217 286,203"  fill="#3e2c1a" opacity="0.85"/>
+    <polygon points="291,210 286,215 286,205"  fill="#6a4828" opacity="0.4"/>
+    <!-- Stitching -->
+    <line x1="42"  y1="14"  x2="126" y2="14"  stroke="#281806" stroke-width="0.8" stroke-dasharray="5,4"/>
+    <line x1="174" y1="14"  x2="258" y2="14"  stroke="#281806" stroke-width="0.8" stroke-dasharray="5,4"/>
+    <line x1="42"  y1="406" x2="126" y2="406" stroke="#281806" stroke-width="0.8" stroke-dasharray="5,4"/>
+    <line x1="174" y1="406" x2="258" y2="406" stroke="#281806" stroke-width="0.8" stroke-dasharray="5,4"/>
+    <line x1="14" y1="46"   x2="14"  y2="186" stroke="#281806" stroke-width="0.8" stroke-dasharray="5,4"/>
+    <line x1="14" y1="234"  x2="14"  y2="374" stroke="#281806" stroke-width="0.8" stroke-dasharray="5,4"/>
+    <line x1="286" y1="46"  x2="286" y2="186" stroke="#281806" stroke-width="0.8" stroke-dasharray="5,4"/>
+    <line x1="286" y1="234" x2="286" y2="374" stroke="#281806" stroke-width="0.8" stroke-dasharray="5,4"/>
+  </symbol>
+
+  <!-- ── Art symbol — magical forest glade, colourful contrast test ── -->
+  <symbol id="art-d" viewBox="0 0 300 420">
+    <defs>
+      <!-- Sky: deep indigo fading to forest dark -->
+      <linearGradient id="f-sky" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%"   stop-color="#0c0720"/>
+        <stop offset="28%"  stop-color="#1a0d3a"/>
+        <stop offset="58%"  stop-color="#0d1e32"/>
+        <stop offset="100%" stop-color="#080e08"/>
+      </linearGradient>
+      <!-- Central magical glow — teal-green -->
+      <radialGradient id="f-glow" cx="50%" cy="44%" r="28%">
+        <stop offset="0%"   stop-color="#38e898" stop-opacity="0.50"/>
+        <stop offset="45%"  stop-color="#1a9060" stop-opacity="0.22"/>
+        <stop offset="100%" stop-color="transparent" stop-opacity="0"/>
+      </radialGradient>
+      <!-- Moon glow — cool blue-silver top-right -->
+      <radialGradient id="f-moon" cx="72%" cy="10%" r="20%">
+        <stop offset="0%"   stop-color="#7898e8" stop-opacity="0.55"/>
+        <stop offset="55%"  stop-color="#2848a8" stop-opacity="0.18"/>
+        <stop offset="100%" stop-color="transparent" stop-opacity="0"/>
+      </radialGradient>
+      <!-- Warm amber torch glow at base -->
+      <radialGradient id="f-fire" cx="50%" cy="92%" r="40%">
+        <stop offset="0%"   stop-color="#d07018" stop-opacity="0.40"/>
+        <stop offset="60%"  stop-color="#803808" stop-opacity="0.15"/>
+        <stop offset="100%" stop-color="transparent" stop-opacity="0"/>
+      </radialGradient>
+      <!-- Ground mist — teal -->
+      <linearGradient id="f-mist" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%"   stop-color="transparent"/>
+        <stop offset="100%" stop-color="#1a5040" stop-opacity="0.55"/>
+      </linearGradient>
+      <!-- Vignette -->
+      <radialGradient id="f-vig" cx="50%" cy="50%" r="62%" gradientUnits="objectBoundingBox">
+        <stop offset="28%"  stop-color="transparent"/>
+        <stop offset="100%" stop-color="#000000" stop-opacity="0.82"/>
+      </radialGradient>
+    </defs>
+
+    <!-- Sky base -->
+    <rect width="300" height="420" fill="url(#f-sky)"/>
+    <!-- Moon glow wash -->
+    <rect width="300" height="420" fill="url(#f-moon)"/>
+
+    <!-- Moon disc -->
+    <circle cx="216" cy="46" r="24" fill="#8090c8" opacity="0.10"/>
+    <circle cx="216" cy="46" r="18" fill="#a0b8e8" opacity="0.18"/>
+    <circle cx="216" cy="46" r="12" fill="#c8d8f8" opacity="0.32"/>
+    <circle cx="216" cy="46" r="7"  fill="#e0ecff" opacity="0.55"/>
+
+    <!-- Stars -->
+    <circle cx="42"  cy="25" r="0.9" fill="#c8d4f0" opacity="0.75"/>
+    <circle cx="90"  cy="16" r="0.7" fill="#d0dcf8" opacity="0.60"/>
+    <circle cx="128" cy="32" r="0.8" fill="#c0ccec" opacity="0.65"/>
+    <circle cx="168" cy="20" r="0.9" fill="#c8d4f0" opacity="0.70"/>
+    <circle cx="252" cy="36" r="0.7" fill="#c8d4f0" opacity="0.55"/>
+    <circle cx="275" cy="18" r="0.6" fill="#d0dcf8" opacity="0.48"/>
+    <circle cx="58"  cy="52" r="0.5" fill="#b8c8e0" opacity="0.42"/>
+    <circle cx="242" cy="65" r="0.6" fill="#c0ccec" opacity="0.38"/>
+    <circle cx="102" cy="58" r="0.5" fill="#b8c8e0" opacity="0.35"/>
+
+    <!-- Left tree trunk -->
+    <rect x="15" y="75" width="42" height="345" fill="#1c1208" rx="5"/>
+    <rect x="19" y="75" width="14" height="345" fill="#241808" opacity="0.65"/>
+    <!-- Left branches -->
+    <path d="M 57 95  Q 95 78,  108 60 Q 82 82,  57 108 Z" fill="#181008"/>
+    <path d="M 57 148 Q 98 128, 115 108 Q 86 132, 57 160 Z" fill="#140e08"/>
+    <path d="M 0  135 Q 22 112,  32 82 Q 12 118,  0 145 Z" fill="#181008"/>
+    <path d="M 0  195 Q 28 172,  40 148 Q 18 175,  0 205 Z" fill="#141008"/>
+
+    <!-- Right tree trunk -->
+    <rect x="243" y="75" width="42" height="345" fill="#1c1208" rx="5"/>
+    <rect x="267" y="75" width="12" height="345" fill="#241808" opacity="0.65"/>
+    <!-- Right branches -->
+    <path d="M 243 95  Q 205 78,  192 60 Q 218 82,  243 108 Z" fill="#181008"/>
+    <path d="M 243 148 Q 202 128, 185 108 Q 214 132, 243 160 Z" fill="#140e08"/>
+    <path d="M 300 135 Q 278 112, 268 82 Q 288 118, 300 145 Z" fill="#181008"/>
+    <path d="M 300 195 Q 272 172, 260 148 Q 282 175, 300 205 Z" fill="#141008"/>
+
+    <!-- Left canopy — layered dark greens with blue-violet tint -->
+    <ellipse cx="36"  cy="72"  rx="55" ry="48" fill="#0e2a1a" opacity="0.92"/>
+    <ellipse cx="18"  cy="58"  rx="38" ry="32" fill="#102212" opacity="0.88"/>
+    <ellipse cx="58"  cy="48"  rx="42" ry="30" fill="#0c1c10" opacity="0.82"/>
+    <ellipse cx="28"  cy="65"  rx="30" ry="20" fill="#0e2232" opacity="0.62"/>
+    <ellipse cx="52"  cy="40"  rx="24" ry="16" fill="#12263a" opacity="0.58"/>
+    <ellipse cx="44"  cy="55"  rx="16" ry="9"  fill="#1a5028" opacity="0.50"/>
+    <ellipse cx="22"  cy="70"  rx="12" ry="7"  fill="#184820" opacity="0.42"/>
+
+    <!-- Right canopy (mirror) -->
+    <ellipse cx="264" cy="72"  rx="55" ry="48" fill="#0e2a1a" opacity="0.92"/>
+    <ellipse cx="282" cy="58"  rx="38" ry="32" fill="#102212" opacity="0.88"/>
+    <ellipse cx="242" cy="48"  rx="42" ry="30" fill="#0c1c10" opacity="0.82"/>
+    <ellipse cx="272" cy="65"  rx="30" ry="20" fill="#0e2232" opacity="0.62"/>
+    <ellipse cx="248" cy="40"  rx="24" ry="16" fill="#12263a" opacity="0.58"/>
+    <ellipse cx="256" cy="55"  rx="16" ry="9"  fill="#1a5028" opacity="0.50"/>
+    <ellipse cx="278" cy="70"  rx="12" ry="7"  fill="#184820" opacity="0.42"/>
+
+    <!-- Central canopy arch -->
+    <ellipse cx="150" cy="52"  rx="72" ry="42" fill="#0e201a" opacity="0.78"/>
+    <ellipse cx="118" cy="46"  rx="28" ry="16" fill="#1a3820" opacity="0.62"/>
+    <ellipse cx="182" cy="48"  rx="25" ry="14" fill="#183418" opacity="0.58"/>
+
+    <!-- Magical central glow -->
+    <rect width="300" height="420" fill="url(#f-glow)"/>
+
+    <!-- Ancient stone circle -->
+    <rect x="78"  y="192" width="20" height="58" rx="4" fill="#1e3020" opacity="0.92"/>
+    <rect x="80"  y="190" width="16" height="10" rx="3" fill="#284028" opacity="0.85"/>
+    <line x1="84" y1="205" x2="84" y2="230" stroke="#30a868" stroke-width="0.8" opacity="0.30"/>
+    <rect x="110" y="202" width="16" height="44" rx="3" fill="#1a2c1c" opacity="0.90"/>
+    <rect x="112" y="200" width="12" height="8"  rx="2" fill="#243824" opacity="0.82"/>
+    <rect x="174" y="202" width="16" height="44" rx="3" fill="#1a2c1c" opacity="0.90"/>
+    <rect x="176" y="200" width="12" height="8"  rx="2" fill="#243824" opacity="0.82"/>
+    <rect x="202" y="192" width="20" height="58" rx="4" fill="#1e3020" opacity="0.92"/>
+    <rect x="204" y="190" width="16" height="10" rx="3" fill="#284028" opacity="0.85"/>
+    <line x1="216" y1="205" x2="216" y2="230" stroke="#30a868" stroke-width="0.8" opacity="0.30"/>
+
+    <!-- Magical pool -->
+    <ellipse cx="150" cy="238" rx="42" ry="20" fill="#0d3828" opacity="0.92"/>
+    <ellipse cx="150" cy="237" rx="36" ry="16" fill="#104838" opacity="0.88"/>
+    <ellipse cx="150" cy="236" rx="28" ry="11" fill="#1a6848" opacity="0.82"/>
+    <ellipse cx="150" cy="234" rx="20" ry="7"  fill="#38d898" opacity="0.28"/>
+    <ellipse cx="150" cy="233" rx="12" ry="4"  fill="#58f0b8" opacity="0.40"/>
+    <ellipse cx="150" cy="236" rx="32" ry="4"  fill="none" stroke="#38c888" stroke-width="0.7" opacity="0.30"/>
+    <ellipse cx="150" cy="235" rx="20" ry="2.5" fill="none" stroke="#48d898" stroke-width="0.5" opacity="0.25"/>
+
+    <!-- Floating orb above pool -->
+    <circle cx="150" cy="193" r="14" fill="#40e8a0" opacity="0.08"/>
+    <circle cx="150" cy="193" r="9"  fill="#60f8c0" opacity="0.15"/>
+    <circle cx="150" cy="193" r="5"  fill="#90ffda" opacity="0.38"/>
+    <circle cx="150" cy="193" r="2.5" fill="#c0ffec" opacity="0.70"/>
+    <line x1="150" y1="180" x2="150" y2="173" stroke="#70f0b8" stroke-width="0.7" opacity="0.25"/>
+    <line x1="158" y1="184" x2="163" y2="178" stroke="#70f0b8" stroke-width="0.6" opacity="0.20"/>
+    <line x1="142" y1="184" x2="137" y2="178" stroke="#70f0b8" stroke-width="0.6" opacity="0.20"/>
+
+    <!-- Forest floor -->
+    <rect x="0" y="252" width="300" height="168" fill="#091608" opacity="0.96"/>
+    <ellipse cx="150" cy="265" rx="210" ry="28" fill="#0e1c12" opacity="0.82"/>
+    <!-- Moss patches — varied greens -->
+    <ellipse cx="55"  cy="282" rx="44" ry="14" fill="#1a3c18" opacity="0.72"/>
+    <ellipse cx="248" cy="278" rx="38" ry="12" fill="#183618" opacity="0.68"/>
+    <ellipse cx="150" cy="295" rx="62" ry="15" fill="#142e12" opacity="0.65"/>
+    <ellipse cx="48"  cy="280" rx="20" ry="8"  fill="#2a5422" opacity="0.58"/>
+    <ellipse cx="255" cy="275" rx="18" ry="7"  fill="#284e1e" opacity="0.52"/>
+    <ellipse cx="148" cy="291" rx="28" ry="7"  fill="#306028" opacity="0.52"/>
+    <!-- Fern shapes -->
+    <path d="M 30 270 Q 52 260, 68 270 Q 52 268, 30 278 Z" fill="#1e4018" opacity="0.55"/>
+    <path d="M 270 265 Q 248 255, 232 265 Q 248 263, 270 273 Z" fill="#1a3c16" opacity="0.52"/>
+    <!-- Purple mushrooms -->
+    <circle cx="74"  cy="274" r="4.5" fill="#7848a8" opacity="0.58"/>
+    <circle cx="226" cy="270" r="4"   fill="#6840a0" opacity="0.52"/>
+    <circle cx="112" cy="286" r="3.5" fill="#603898" opacity="0.48"/>
+    <circle cx="192" cy="282" r="4"   fill="#704aa8" opacity="0.50"/>
+    <circle cx="150" cy="302" r="3"   fill="#583090" opacity="0.42"/>
+    <line x1="74"  y1="274" x2="74"  y2="281" stroke="#402870" stroke-width="1.2" opacity="0.45"/>
+    <line x1="226" y1="270" x2="226" y2="277" stroke="#382468" stroke-width="1.2" opacity="0.40"/>
+    <line x1="192" y1="282" x2="192" y2="289" stroke="#402870" stroke-width="1.0" opacity="0.38"/>
+    <!-- Exposed roots -->
+    <path d="M 15  298 Q 55 272, 88  285 Q 62 274, 28 305 Z"  fill="#180e08" opacity="0.82"/>
+    <path d="M 285 294 Q 245 268, 212 282 Q 238 272, 272 302 Z" fill="#180e08" opacity="0.82"/>
+    <!-- Ground mist -->
+    <rect x="0" y="350" width="300" height="70" fill="url(#f-mist)" opacity="0.92"/>
+    <ellipse cx="150" cy="405" rx="165" ry="42" fill="#1a4838" opacity="0.48"/>
+    <ellipse cx="72"  cy="415" rx="88"  ry="26" fill="#1e5040" opacity="0.38"/>
+    <ellipse cx="228" cy="412" rx="82"  ry="24" fill="#1a4838" opacity="0.32"/>
+
+    <!-- Warm amber fire glow -->
+    <rect width="300" height="420" fill="url(#f-fire)"/>
+
+    <!-- Fireflies — teal-green -->
+    <circle cx="98"  cy="173" r="1.6" fill="#78f8a8" opacity="0.65"/>
+    <circle cx="96"  cy="175" r="3.0" fill="#90ffb8" opacity="0.18"/>
+    <circle cx="202" cy="163" r="1.5" fill="#68e898" opacity="0.60"/>
+    <circle cx="200" cy="165" r="2.8" fill="#80f0b0" opacity="0.16"/>
+    <circle cx="68"  cy="228" r="1.3" fill="#78f8a8" opacity="0.48"/>
+    <circle cx="232" cy="222" r="1.3" fill="#68e898" opacity="0.45"/>
+    <circle cx="128" cy="285" r="1.1" fill="#58d880" opacity="0.38"/>
+    <circle cx="178" cy="315" r="1.0" fill="#58d880" opacity="0.32"/>
+    <!-- Fireflies — blue -->
+    <circle cx="52"  cy="188" r="1.3" fill="#88c8f8" opacity="0.45"/>
+    <circle cx="248" cy="198" r="1.1" fill="#78c0f0" opacity="0.40"/>
+    <circle cx="175" cy="142" r="1.0" fill="#90d0ff" opacity="0.38"/>
+    <circle cx="122" cy="155" r="0.9" fill="#88c8f8" opacity="0.35"/>
+
+    <!-- Vignette -->
+    <rect width="300" height="420" fill="url(#f-vig)"/>
+  </symbol>
+
+</defs>
+</svg>
+
+<!-- ══════════ PAGE HEADER ══════════ -->
+<h1>YARN</h1>
+<p class="page-sub">Mechanics Frame — Black center on type tint · Amber center on black tint</p>
+
+<!-- ══════════════════════════════════════════════════
+     SECTION 1 — Type image tint, black mechanics bg
+     ═════════════════════════════════════════════════ -->
+<div class="section">
+  <p class="section-title">Amber image tint — Black mechanics background</p>
+  <hr class="section-rule">
+  <div class="options-row">
+
+    <div class="option">
+      <div id="type-m1" class="card t-persona">
+        <div class="card-fill"></div>
+        <div class="card-image"><svg viewBox="0 0 300 420" xmlns="http://www.w3.org/2000/svg"><use href="#art-d"/></svg></div>
+        <div class="grad-top"></div>
+        <div class="grad-body"></div>
+        <div class="card-frame frame-tome"><svg xmlns="http://www.w3.org/2000/svg"><use href="#frame-d"/></svg></div>
+        <div class="card-header">
+          <div class="type-band"><span class="type-label">Persona</span></div>
+          <div class="card-title">Aldric Voss</div>
+          <div class="title-rule"></div>
+          <div class="card-subtitle">The Wandering Blade</div>
+        </div>
+        <div class="mech-frame">
+          <div class="mech-rule mech-rule-top"></div>
+          <div class="mech-body">
+            <div class="mech-entry">
+              <span class="mech-type">Passive</span>
+              <p class="mech-text">When revealed, place 1 Fate token on this card.</p>
+            </div>
+            <div class="mech-entry">
+              <span class="mech-type">Character Phase</span>
+              <p class="mech-text">Spend 1 Fate token from here, or exhaust this card.</p>
+            </div>
+            <div class="mech-entry">
+              <span class="mech-type">On Leave</span>
+              <p class="mech-text">Discard all tokens. Draw 1 Event card.</p>
+            </div>
+          </div>
+          <div class="mech-rule mech-rule-bot"></div>
+        </div>
+      </div>
+      <div class="option-label">Subtle</div>
+      <div class="option-id">#type-m1</div>
+    </div>
+
+    <div class="option">
+      <div id="type-m2" class="card t-persona">
+        <div class="card-fill"></div>
+        <div class="card-image"><svg viewBox="0 0 300 420" xmlns="http://www.w3.org/2000/svg"><use href="#art-d"/></svg></div>
+        <div class="grad-top"></div>
+        <div class="grad-body"></div>
+        <div class="card-frame frame-tome"><svg xmlns="http://www.w3.org/2000/svg"><use href="#frame-d"/></svg></div>
+        <div class="card-header">
+          <div class="type-band"><span class="type-label">Persona</span></div>
+          <div class="card-title">Aldric Voss</div>
+          <div class="title-rule"></div>
+          <div class="card-subtitle">The Wandering Blade</div>
+        </div>
+        <div class="mech-frame">
+          <div class="mech-rule mech-rule-top"></div>
+          <div class="mech-body">
+            <div class="mech-entry">
+              <span class="mech-type">Passive</span>
+              <p class="mech-text">When revealed, place 1 Fate token on this card.</p>
+            </div>
+            <div class="mech-entry">
+              <span class="mech-type">Character Phase</span>
+              <p class="mech-text">Spend 1 Fate token from here, or exhaust this card.</p>
+            </div>
+            <div class="mech-entry">
+              <span class="mech-type">On Leave</span>
+              <p class="mech-text">Discard all tokens. Draw 1 Event card.</p>
+            </div>
+          </div>
+          <div class="mech-rule mech-rule-bot"></div>
+        </div>
+      </div>
+      <div class="option-label">Medium</div>
+      <div class="option-id">#type-m2</div>
+    </div>
+
+    <div class="option">
+      <div id="type-m3" class="card t-persona">
+        <div class="card-fill"></div>
+        <div class="card-image"><svg viewBox="0 0 300 420" xmlns="http://www.w3.org/2000/svg"><use href="#art-d"/></svg></div>
+        <div class="grad-top"></div>
+        <div class="grad-body"></div>
+        <div class="card-frame frame-tome"><svg xmlns="http://www.w3.org/2000/svg"><use href="#frame-d"/></svg></div>
+        <div class="card-header">
+          <div class="type-band"><span class="type-label">Persona</span></div>
+          <div class="card-title">Aldric Voss</div>
+          <div class="title-rule"></div>
+          <div class="card-subtitle">The Wandering Blade</div>
+        </div>
+        <div class="mech-frame">
+          <div class="mech-rule mech-rule-top"></div>
+          <div class="mech-body">
+            <div class="mech-entry">
+              <span class="mech-type">Passive</span>
+              <p class="mech-text">When revealed, place 1 Fate token on this card.</p>
+            </div>
+            <div class="mech-entry">
+              <span class="mech-type">Character Phase</span>
+              <p class="mech-text">Spend 1 Fate token from here, or exhaust this card.</p>
+            </div>
+            <div class="mech-entry">
+              <span class="mech-type">On Leave</span>
+              <p class="mech-text">Discard all tokens. Draw 1 Event card.</p>
+            </div>
+          </div>
+          <div class="mech-rule mech-rule-bot"></div>
+        </div>
+      </div>
+      <div class="option-label">Heavy</div>
+      <div class="option-id">#type-m3</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════
+     SECTION 2 — Black image tint, amber mechanics bg
+     ═════════════════════════════════════════════════ -->
+<div class="section">
+  <p class="section-title">Black image tint — Amber mechanics background</p>
+  <hr class="section-rule">
+  <div class="options-row">
+
+    <div class="option">
+      <div id="black-m1" class="card t-persona">
+        <div class="card-fill"></div>
+        <div class="card-image"><svg viewBox="0 0 300 420" xmlns="http://www.w3.org/2000/svg"><use href="#art-d"/></svg></div>
+        <div class="grad-top"></div>
+        <div class="grad-body"></div>
+        <div class="card-frame frame-tome"><svg xmlns="http://www.w3.org/2000/svg"><use href="#frame-d"/></svg></div>
+        <div class="card-header">
+          <div class="type-band"><span class="type-label">Persona</span></div>
+          <div class="card-title">Aldric Voss</div>
+          <div class="title-rule"></div>
+          <div class="card-subtitle">The Wandering Blade</div>
+        </div>
+        <div class="mech-frame">
+          <div class="mech-rule mech-rule-top"></div>
+          <div class="mech-body">
+            <div class="mech-entry">
+              <span class="mech-type">Passive</span>
+              <p class="mech-text">When revealed, place 1 Fate token on this card.</p>
+            </div>
+            <div class="mech-entry">
+              <span class="mech-type">Character Phase</span>
+              <p class="mech-text">Spend 1 Fate token from here, or exhaust this card.</p>
+            </div>
+            <div class="mech-entry">
+              <span class="mech-type">On Leave</span>
+              <p class="mech-text">Discard all tokens. Draw 1 Event card.</p>
+            </div>
+          </div>
+          <div class="mech-rule mech-rule-bot"></div>
+        </div>
+      </div>
+      <div class="option-label">Subtle</div>
+      <div class="option-id">#black-m1</div>
+    </div>
+
+    <div class="option">
+      <div id="black-m2" class="card t-persona">
+        <div class="card-fill"></div>
+        <div class="card-image"><svg viewBox="0 0 300 420" xmlns="http://www.w3.org/2000/svg"><use href="#art-d"/></svg></div>
+        <div class="grad-top"></div>
+        <div class="grad-body"></div>
+        <div class="card-frame frame-tome"><svg xmlns="http://www.w3.org/2000/svg"><use href="#frame-d"/></svg></div>
+        <div class="card-header">
+          <div class="type-band"><span class="type-label">Persona</span></div>
+          <div class="card-title">Aldric Voss</div>
+          <div class="title-rule"></div>
+          <div class="card-subtitle">The Wandering Blade</div>
+        </div>
+        <div class="mech-frame">
+          <div class="mech-rule mech-rule-top"></div>
+          <div class="mech-body">
+            <div class="mech-entry">
+              <span class="mech-type">Passive</span>
+              <p class="mech-text">When revealed, place 1 Fate token on this card.</p>
+            </div>
+            <div class="mech-entry">
+              <span class="mech-type">Character Phase</span>
+              <p class="mech-text">Spend 1 Fate token from here, or exhaust this card.</p>
+            </div>
+            <div class="mech-entry">
+              <span class="mech-type">On Leave</span>
+              <p class="mech-text">Discard all tokens. Draw 1 Event card.</p>
+            </div>
+          </div>
+          <div class="mech-rule mech-rule-bot"></div>
+        </div>
+      </div>
+      <div class="option-label">Medium</div>
+      <div class="option-id">#black-m2</div>
+    </div>
+
+    <div class="option">
+      <div id="black-m3" class="card t-persona">
+        <div class="card-fill"></div>
+        <div class="card-image"><svg viewBox="0 0 300 420" xmlns="http://www.w3.org/2000/svg"><use href="#art-d"/></svg></div>
+        <div class="grad-top"></div>
+        <div class="grad-body"></div>
+        <div class="card-frame frame-tome"><svg xmlns="http://www.w3.org/2000/svg"><use href="#frame-d"/></svg></div>
+        <div class="card-header">
+          <div class="type-band"><span class="type-label">Persona</span></div>
+          <div class="card-title">Aldric Voss</div>
+          <div class="title-rule"></div>
+          <div class="card-subtitle">The Wandering Blade</div>
+        </div>
+        <div class="mech-frame">
+          <div class="mech-rule mech-rule-top"></div>
+          <div class="mech-body">
+            <div class="mech-entry">
+              <span class="mech-type">Passive</span>
+              <p class="mech-text">When revealed, place 1 Fate token on this card.</p>
+            </div>
+            <div class="mech-entry">
+              <span class="mech-type">Character Phase</span>
+              <p class="mech-text">Spend 1 Fate token from here, or exhaust this card.</p>
+            </div>
+            <div class="mech-entry">
+              <span class="mech-type">On Leave</span>
+              <p class="mech-text">Discard all tokens. Draw 1 Event card.</p>
+            </div>
+          </div>
+          <div class="mech-rule mech-rule-bot"></div>
+        </div>
+      </div>
+      <div class="option-label">Heavy</div>
+      <div class="option-id">#black-m3</div>
+    </div>
+
+  </div>
+</div>
+
+</body>
+</html>

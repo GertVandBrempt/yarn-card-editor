@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Yarn — Effects Container Proposals</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Crimson+Text:ital,wght@0,400;1,400;0,600&display=swap" rel="stylesheet">
+<style>
+/* ══════════════════════════════════════════
+   ROOT — inherits #black-m2 baseline
+   ══════════════════════════════════════════ */
+:root {
+  --card-w: 300px;
+  --card-h: 420px;
+  --card-r: 10px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  background: #080604;
+  font-family: Georgia, serif;
+  padding: 60px 48px 80px;
+}
+
+h1 { color: #c8a030; font-size: 18px; letter-spacing: 4px; text-transform: uppercase; margin-bottom: 4px; }
+.page-sub { color: #3a2808; font-size: 10px; font-family: sans-serif; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 60px; }
+
+.section       { margin-bottom: 72px; }
+.section-title { color: #c8a030; font-size: 11px; font-family: sans-serif; letter-spacing: 4px; text-transform: uppercase; margin-bottom: 6px; }
+.section-rule  { border: none; border-top: 1px solid #1e1408; margin-bottom: 18px; }
+.section-note  { color: #6a4828; font-size: 10.5px; font-family: 'Crimson Text', Georgia, serif; font-style: italic; margin-bottom: 28px; max-width: 720px; line-height: 1.55; }
+.section-note strong { color: #8a6838; font-style: normal; font-weight: 600; }
+
+.options-row   { display: flex; flex-wrap: nowrap; gap: 56px; align-items: flex-start; }
+.option        { display: flex; flex-direction: column; align-items: center; gap: 10px; }
+.option-label  { color: #c8a030; font-size: 9px; font-family: sans-serif; letter-spacing: 3px; text-transform: uppercase; }
+.option-id     { color: #2a1808; font-size: 8px; font-family: 'Courier New', monospace; letter-spacing: 1px; }
+
+/* ══════════════════════════════════════════
+   PERSONA TYPE ACCENT
+   ══════════════════════════════════════════ */
+.t-persona {
+  --bg-top:      #221004;
+  --bg-bot:      #180c02;
+  --type-border: #7a4818;
+  --type-text:   #c8860c;
+  --type-glow:   rgba(160,90,10,0.28);
+}
+
+/* ══════════════════════════════════════════
+   BASE CARD (#black-m2 baseline)
+   ══════════════════════════════════════════ */
+.card {
+  position: relative;
+  width: var(--card-w);
+  height: var(--card-h);
+  border-radius: var(--card-r);
+  overflow: hidden;
+  flex-shrink: 0;
+  box-shadow: 0 24px 70px rgba(0,0,0,0.97), 0 6px 16px rgba(0,0,0,0.8);
+}
+.card-fill { position: absolute; inset: 0; z-index: 0; border-radius: var(--card-r); background: #0d0a06; }
+.card-image { position: absolute; inset: 0; z-index: 1; }
+.card-image > svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+
+.grad-top {
+  position: absolute;
+  left: 10px; right: 10px; top: 10px;
+  height: 155px;
+  z-index: 2;
+  pointer-events: none;
+  background: radial-gradient(ellipse 90% 100% at 50% 0%, rgba(0,0,0,.9) 0%, rgba(0,0,0,.6) 70%, transparent 100%);
+}
+.grad-body {
+  position: absolute;
+  left: 10px; right: 10px; bottom: 10px;
+  height: 250px;
+  z-index: 2;
+  pointer-events: none;
+  background: radial-gradient(ellipse 90% 100% at 50% 100%, rgba(0,0,0,.9) 0%, rgba(0,0,0,.6) 70%, transparent 100%);
+}
+
+/* Frame */
+.card-frame {
+  position: absolute; inset: 0; z-index: 10;
+  pointer-events: none;
+  border-radius: var(--card-r);
+}
+.card-frame > svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+.frame-tome {
+  box-shadow:
+    inset 0 0 0 6px  #100a04,
+    inset 0 0 0 7px  #3a2410,
+    inset 0 0 0 9px  #100a04,
+    inset 0 0 0 10px #1e1408;
+}
+
+/* Header */
+.card-header { position: absolute; inset: 0; z-index: 11; pointer-events: none; }
+.type-band {
+  position: absolute;
+  left: 10px; right: 10px; top: 14px;
+  height: 28px;
+  background: linear-gradient(180deg, var(--bg-top) 0%, var(--bg-bot) 100%);
+  border-top:    1.5px solid var(--type-border);
+  border-bottom: 1.5px solid var(--type-border);
+  box-shadow: 0 5px 20px 0 var(--type-glow), inset 0 1px 0 rgba(255,200,80,0.04);
+  display: flex; align-items: center; justify-content: center; overflow: hidden;
+}
+.type-band::before, .type-band::after { content: ''; display: block; flex: 1; height: 1px; opacity: 0.5; }
+.type-band::before { background: linear-gradient(to right, transparent 0%, var(--type-border) 100%); margin-right: 10px; }
+.type-band::after  { background: linear-gradient(to left,  transparent 0%, var(--type-border) 100%); margin-left:  10px; }
+.type-label {
+  color: var(--type-text);
+  font-family: 'Cinzel', Georgia, serif;
+  font-size: 7.5px; font-weight: 700; letter-spacing: 5px; text-transform: uppercase;
+  white-space: nowrap; flex-shrink: 0;
+  text-shadow: 0 0 12px var(--type-glow);
+}
+.card-title {
+  position: absolute; left: 18px; right: 18px; top: 52px;
+  text-align: center; color: #dcc06a;
+  font-family: 'Cinzel', Georgia, serif;
+  font-size: 21px; font-weight: 700; letter-spacing: 0.5px; line-height: 1.2;
+  text-shadow: 0 1px 10px rgba(0,0,0,0.95);
+}
+.title-rule {
+  position: absolute; left: 54px; right: 54px; top: 82px; height: 1px;
+  background: linear-gradient(to right, transparent, var(--type-border) 25%, var(--type-border) 75%, transparent);
+  opacity: 0.6;
+}
+.card-subtitle {
+  position: absolute; left: 18px; right: 18px; top: 90px;
+  text-align: center; color: #7a5828;
+  font-family: 'Crimson Text', Georgia, serif;
+  font-size: 12px; font-style: italic; letter-spacing: 0.2px;
+}
+
+/* ══════════════════════════════════════════
+   MECHANICS FRAME — taller for 5 effect demo
+   ══════════════════════════════════════════ */
+.mech-frame {
+  position: absolute;
+  left: 18px; right: 18px;
+  bottom: 18px;
+  height: 230px;
+  z-index: 12;
+  pointer-events: none;
+  background: linear-gradient(to bottom, transparent 0%, rgba(122,72,24,.25) 10%, rgba(122,72,24,.25) 90%, transparent 100%);
+}
+.mech-rule {
+  position: absolute;
+  left: 14px; right: 14px;
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--type-border) 18%, var(--type-border) 82%, transparent);
+  opacity: 0.55;
+}
+.mech-rule-top { top: 0; }
+.mech-rule-bot { bottom: 0; }
+.mech-body {
+  position: absolute;
+  top: 7px; bottom: 7px; left: 0; right: 0;
+  padding: 2px 12px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* Inline icon placeholder — final glyphs come later */
+.icon {
+  display: inline-block;
+  width: 12px; height: 12px;
+  vertical-align: -2px;
+  margin-right: 4px;
+  border-radius: 2px;
+  font-family: 'Cinzel', Georgia, serif;
+  font-weight: 700;
+  font-size: 8px;
+  text-align: center;
+  line-height: 12px;
+  background: rgba(232,168,72,0.18);
+  border: 1px solid rgba(232,168,72,0.6);
+  color: #f0c878;
+}
+
+/* ══════════════════════════════════════════════════════════
+   PROPOSAL A — TRIPLE-TONE BANDING
+   ══════════════════════════════════════════════════════════ */
+.A-body { gap: 0; }
+.A-entry {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 4px 2px 5px;
+}
+.A-divider {
+  height: 1px;
+  background: linear-gradient(to right, transparent, rgba(168,128,72,.40) 30%, rgba(168,128,72,.40) 70%, transparent);
+  position: relative;
+  margin: 0 8px;
+}
+.A-divider::after {
+  content: '◆';
+  position: absolute;
+  top: -7px; left: 50%; transform: translateX(-50%);
+  color: rgba(168,128,72,.65);
+  font-size: 8px;
+  background: #1d1306;
+  padding: 0 5px;
+}
+.A-pill {
+  align-self: flex-start;
+  font-family: 'Cinzel', Georgia, serif;
+  font-size: 6.5px; font-weight: 700;
+  letter-spacing: 2.8px; text-transform: uppercase;
+  padding: 2px 7px 2.5px;
+  border-radius: 2px;
+  white-space: nowrap;
+  margin-bottom: 1px;
+}
+.A-text {
+  color: #ecd6a0;
+  font-family: 'Crimson Text', Georgia, serif;
+  font-size: 10.5px; line-height: 1.38;
+  text-shadow: 0 1px 6px rgba(0,0,0,0.92);
+}
+.A-cond {
+  display: block;
+  font-family: 'Crimson Text', Georgia, serif;
+  font-size: 9.5px; font-style: italic;
+  color: #d0b8f0;
+  border-left: 2px solid #9070c8;
+  padding: 0 0 0 6px;
+  margin: 1px 0 2px 0;
+  text-shadow: 0 1px 4px rgba(0,0,0,0.85);
+}
+.A-cond::before { content: 'while '; font-style: normal; font-family: 'Cinzel', Georgia, serif; font-size: 7px; font-weight: 700; letter-spacing: 2px; color: #b890e0; margin-right: 4px; vertical-align: 1px; }
+
+.A-cat-modifier { background: rgba(124,84,176,0.30); border: 1px solid rgba(168,128,208,0.75); color: #e0c8f4; text-shadow: 0 0 6px rgba(168,128,208,0.55); }
+.A-cat-passive  { background: rgba(208,144,40,0.28); border: 1px solid rgba(240,176,80,0.75);  color: #f8d488; text-shadow: 0 0 6px rgba(240,176,80,0.55); }
+.A-cat-reactive { background: rgba(56,136,184,0.30); border: 1px solid rgba(112,184,224,0.75); color: #a8dcf4; text-shadow: 0 0 6px rgba(112,184,224,0.55); }
+.A-cat-active   { background: rgba(192,72,64,0.30);  border: 1px solid rgba(232,112,96,0.75);  color: #f8a8a8; text-shadow: 0 0 6px rgba(232,112,96,0.55); }
+
+.A-tier {
+  display: block;
+  margin-top: 1px;
+  padding-left: 10px;
+  font-family: 'Crimson Text', Georgia, serif;
+  font-size: 9.5px; line-height: 1.32;
+  color: #d8c08c;
+  border-left: 1px solid rgba(232,112,96,0.45);
+}
+.A-tier-num {
+  font-family: 'Cinzel', Georgia, serif;
+  font-weight: 700;
+  font-size: 8.5px;
+  color: #f8a8a8;
+  margin-right: 5px;
+  letter-spacing: 0.5px;
+}
+
+/* ══════════════════════════════════════════════════════════
+   PROPOSAL B — LEFT RAIL ACCENT
+   ══════════════════════════════════════════════════════════ */
+.B-body { gap: 7px; }
+.B-entry {
+  display: flex;
+  gap: 8px;
+  padding: 1px 2px 1px 0;
+}
+.B-rail {
+  flex-shrink: 0;
+  width: 3px;
+  border-radius: 1.5px;
+  margin-top: 1px;
+  margin-bottom: 1px;
+}
+.B-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  min-width: 0;
+}
+.B-head {
+  display: flex;
+  align-items: baseline;
+  gap: 7px;
+  flex-wrap: wrap;
+  margin-bottom: 1px;
+}
+.B-label {
+  font-family: 'Cinzel', Georgia, serif;
+  font-size: 7px; font-weight: 700;
+  letter-spacing: 2.8px; text-transform: uppercase;
+  white-space: nowrap;
+}
+.B-cond {
+  font-family: 'Crimson Text', Georgia, serif;
+  font-size: 9px; font-style: italic;
+  color: #d0b8f0;
+  letter-spacing: 0.2px;
+  text-shadow: 0 1px 4px rgba(0,0,0,0.85);
+}
+.B-cond::before { content: '⟨ while '; font-style: normal; font-family: 'Cinzel', Georgia, serif; font-size: 6.5px; font-weight: 700; letter-spacing: 2px; color: #b890e0; }
+.B-cond::after  { content: ' ⟩'; opacity: 0.7; }
+.B-text {
+  color: #ecd6a0;
+  font-family: 'Crimson Text', Georgia, serif;
+  font-size: 10.5px; line-height: 1.38;
+  text-shadow: 0 1px 6px rgba(0,0,0,0.92);
+}
+
+.B-cat-modifier .B-rail  { background: linear-gradient(to bottom, #b894e0, #6a48a8); box-shadow: 0 0 6px rgba(168,128,208,0.55); }
+.B-cat-modifier .B-label { color: #e0c8f4; text-shadow: 0 0 6px rgba(168,128,208,0.55); }
+.B-cat-passive .B-rail   { background: linear-gradient(to bottom, #f8c860, #b88018); box-shadow: 0 0 6px rgba(240,176,80,0.55); }
+.B-cat-passive .B-label  { color: #f8d488; text-shadow: 0 0 6px rgba(240,176,80,0.55); }
+.B-cat-reactive .B-rail  { background: linear-gradient(to bottom, #80c4ec, #3878a8); box-shadow: 0 0 6px rgba(112,184,224,0.55); }
+.B-cat-reactive .B-label { color: #a8dcf4; text-shadow: 0 0 6px rgba(112,184,224,0.55); }
+.B-cat-active .B-rail    { background: linear-gradient(to bottom, #ec8080, #a83838); box-shadow: 0 0 6px rgba(232,112,96,0.55); }
+.B-cat-active .B-label   { color: #f8a8a8; text-shadow: 0 0 6px rgba(232,112,96,0.55); }
+
+.B-tier {
+  display: block;
+  font-family: 'Crimson Text', Georgia, serif;
+  font-size: 9.5px; line-height: 1.32;
+  color: #d8c08c;
+}
+.B-tier-num {
+  font-family: 'Cinzel', Georgia, serif;
+  font-weight: 700;
+  font-size: 8.5px;
+  color: #f8a8a8;
+  margin-right: 5px;
+  letter-spacing: 0.5px;
+}
+
+</style>
+</head>
+<body>
+
+<!-- ══════════ SHARED SVG DEFS ══════════════════════ -->
+<svg style="display:none" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <filter id="corner-glow" x="-80%" y="-80%" width="260%" height="260%">
+    <feGaussianBlur stdDeviation="3.5" result="blur"/>
+    <feComposite in="blur" operator="over"/>
+  </filter>
+
+  <symbol id="frame-d" viewBox="0 0 300 420" overflow="visible">
+    <rect x="14" y="14" width="272" height="392" rx="4" fill="none" stroke="#3a2410" stroke-width="0.65" opacity="0.75"/>
+    <polygon points="3,3 15,32 32,15"  fill="#7a5030" opacity="0.12" filter="url(#corner-glow)"/>
+    <polygon points="5,5 14,30 30,14"  fill="#5a3820" opacity="0.22"/>
+    <polygon points="7,7 14,27 27,14"  fill="#3e2c1a" opacity="0.9"/>
+    <polygon points="9,9 14,21 21,14"  fill="#6a4828" opacity="0.45"/>
+    <polygon points="297,3 285,32 268,15"  fill="#7a5030" opacity="0.12" filter="url(#corner-glow)"/>
+    <polygon points="295,5 286,30 270,14"  fill="#5a3820" opacity="0.22"/>
+    <polygon points="293,7 286,27 273,14"  fill="#3e2c1a" opacity="0.9"/>
+    <polygon points="291,9 286,21 279,14"  fill="#6a4828" opacity="0.45"/>
+    <polygon points="3,417 32,405 15,388"  fill="#7a5030" opacity="0.12" filter="url(#corner-glow)"/>
+    <polygon points="5,415 30,406 14,390"  fill="#5a3820" opacity="0.22"/>
+    <polygon points="7,413 27,406 14,393"  fill="#3e2c1a" opacity="0.9"/>
+    <polygon points="9,411 21,406 14,399"  fill="#6a4828" opacity="0.45"/>
+    <polygon points="297,417 268,405 285,388"  fill="#7a5030" opacity="0.12" filter="url(#corner-glow)"/>
+    <polygon points="295,415 270,406 286,390"  fill="#5a3820" opacity="0.22"/>
+    <polygon points="293,413 273,406 286,393"  fill="#3e2c1a" opacity="0.9"/>
+    <polygon points="291,411 279,406 286,399"  fill="#6a4828" opacity="0.45"/>
+    <polygon points="150,7 157,14 143,14"     fill="#3e2c1a" opacity="0.85"/>
+    <polygon points="150,9 155,14 145,14"     fill="#6a4828" opacity="0.4"/>
+    <polygon points="150,413 143,406 157,406"  fill="#3e2c1a" opacity="0.85"/>
+    <polygon points="150,411 145,406 155,406"  fill="#6a4828" opacity="0.4"/>
+    <polygon points="7,210 14,203 14,217"     fill="#3e2c1a" opacity="0.85"/>
+    <polygon points="9,210 14,205 14,215"     fill="#6a4828" opacity="0.4"/>
+    <polygon points="293,210 286,217 286,203"  fill="#3e2c1a" opacity="0.85"/>
+    <polygon points="291,210 286,215 286,205"  fill="#6a4828" opacity="0.4"/>
+    <line x1="42"  y1="14"  x2="126" y2="14"  stroke="#281806" stroke-width="0.8" stroke-dasharray="5,4"/>
+    <line x1="174" y1="14"  x2="258" y2="14"  stroke="#281806" stroke-width="0.8" stroke-dasharray="5,4"/>
+    <line x1="42"  y1="406" x2="126" y2="406" stroke="#281806" stroke-width="0.8" stroke-dasharray="5,4"/>
+    <line x1="174" y1="406" x2="258" y2="406" stroke="#281806" stroke-width="0.8" stroke-dasharray="5,4"/>
+    <line x1="14"  y1="46"  x2="14"  y2="186" stroke="#281806" stroke-width="0.8" stroke-dasharray="5,4"/>
+    <line x1="14"  y1="234" x2="14"  y2="374" stroke="#281806" stroke-width="0.8" stroke-dasharray="5,4"/>
+    <line x1="286" y1="46"  x2="286" y2="186" stroke="#281806" stroke-width="0.8" stroke-dasharray="5,4"/>
+    <line x1="286" y1="234" x2="286" y2="374" stroke="#281806" stroke-width="0.8" stroke-dasharray="5,4"/>
+  </symbol>
+
+  <!-- Simple placeholder art — dark forest silhouette with warm centre glow -->
+  <symbol id="art-d" viewBox="0 0 300 420">
+    <defs>
+      <linearGradient id="a-sky" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%"   stop-color="#0a0818"/>
+        <stop offset="40%"  stop-color="#161028"/>
+        <stop offset="100%" stop-color="#080a08"/>
+      </linearGradient>
+      <radialGradient id="a-glow" cx="50%" cy="42%" r="32%">
+        <stop offset="0%"   stop-color="#d8a050" stop-opacity="0.40"/>
+        <stop offset="60%"  stop-color="#603018" stop-opacity="0.18"/>
+        <stop offset="100%" stop-color="transparent"/>
+      </radialGradient>
+      <radialGradient id="a-vig" cx="50%" cy="50%" r="62%">
+        <stop offset="30%" stop-color="transparent"/>
+        <stop offset="100%" stop-color="#000" stop-opacity="0.85"/>
+      </radialGradient>
+    </defs>
+    <rect width="300" height="420" fill="url(#a-sky)"/>
+    <rect width="300" height="420" fill="url(#a-glow)"/>
+    <ellipse cx="150" cy="280" rx="220" ry="40" fill="#0a0a08" opacity="0.85"/>
+    <path d="M 0 230 L 30 200 L 50 220 L 80 180 L 110 215 L 140 195 L 170 220 L 200 185 L 230 215 L 260 200 L 300 230 L 300 420 L 0 420 Z" fill="#0c0808" opacity="0.92"/>
+    <ellipse cx="150" cy="170" rx="14" ry="20" fill="#1a0e08" opacity="0.85"/>
+    <circle cx="150" cy="155" r="9" fill="#1a0e08" opacity="0.85"/>
+    <rect width="300" height="420" fill="url(#a-vig)"/>
+  </symbol>
+</defs>
+</svg>
+
+<h1>YARN</h1>
+<p class="page-sub">Effects Container — Two Proposals · Black tint medium baseline</p>
+
+<!-- ══════════════════════════════════════════════════
+     PROPOSAL A — TRIPLE-TONE BANDING
+     ═════════════════════════════════════════════════ -->
+<div class="section">
+  <p class="section-title">Proposal A — Triple-tone Banding</p>
+  <hr class="section-rule">
+  <p class="section-note">
+    Each effect is a self-contained block led by a coloured pill carrying the trigger label. Four tones partition the categories: <strong>violet</strong> for Persistent Modifiers (rule, not behaviour), <strong>amber</strong> for Passives, <strong>cool blue</strong> for reactive triggers (On Reveal / Enter / Leave / Complete), <strong>ember red</strong> for active triggers (Action / Character Phase / On Flow Marker). Conditionals are extracted as a violet <em>while</em>-clause with a left rule, sitting between pill and body. Effects are separated by an ornamented hairline rule.
+  </p>
+  <div class="options-row">
+
+    <div class="option">
+      <div id="proposal-a" class="card t-persona">
+        <div class="card-fill"></div>
+        <div class="card-image"><svg viewBox="0 0 300 420" xmlns="http://www.w3.org/2000/svg"><use href="#art-d"/></svg></div>
+        <div class="grad-top"></div>
+        <div class="grad-body"></div>
+        <div class="card-frame frame-tome"><svg xmlns="http://www.w3.org/2000/svg"><use href="#frame-d"/></svg></div>
+        <div class="card-header">
+          <div class="type-band"><span class="type-label">Persona</span></div>
+          <div class="card-title">Aldric Voss</div>
+          <div class="title-rule"></div>
+          <div class="card-subtitle">The Wandering Blade</div>
+        </div>
+        <div class="mech-frame">
+          <div class="mech-rule mech-rule-top"></div>
+          <div class="mech-body A-body">
+
+            <div class="A-entry">
+              <span class="A-pill A-cat-modifier">Persistent Modifier</span>
+              <p class="A-text">Damage assigned to this card cannot exceed 1 per turn.</p>
+            </div>
+
+            <div class="A-divider"></div>
+
+            <div class="A-entry">
+              <span class="A-pill A-cat-passive">Passive</span>
+              <p class="A-text"><span class="icon">D</span>Grants 1 Constitution die (L2).</p>
+            </div>
+
+            <div class="A-divider"></div>
+
+            <div class="A-entry">
+              <span class="A-pill A-cat-passive">Passive</span>
+              <span class="A-cond">no Allies are in your tableau</span>
+              <p class="A-text"><span class="icon">D</span>Grants 1 Zeal die (L1).</p>
+            </div>
+
+            <div class="A-divider"></div>
+
+            <div class="A-entry">
+              <span class="A-pill A-cat-reactive">On Reveal</span>
+              <p class="A-text">Place 1 Fate token on this card.</p>
+            </div>
+
+            <div class="A-divider"></div>
+
+            <div class="A-entry">
+              <span class="A-pill A-cat-active">Character Phase</span>
+              <p class="A-text">Roll 2 <span class="icon">D</span>.</p>
+              <span class="A-tier"><span class="A-tier-num">2+</span>Spend 1 Fate, or take 1 damage.</span>
+            </div>
+
+          </div>
+          <div class="mech-rule mech-rule-bot"></div>
+        </div>
+      </div>
+      <div class="option-label">Triple-tone Banding</div>
+      <div class="option-id">#proposal-a</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════
+     PROPOSAL B — LEFT RAIL ACCENT
+     ═════════════════════════════════════════════════ -->
+<div class="section">
+  <p class="section-title">Proposal B — Left Rail Accent</p>
+  <hr class="section-rule">
+  <p class="section-note">
+    Each effect is keyed by a vertical colour rail at its left edge — same four-tone palette as Proposal A. The trigger label sits inline with any conditional clause, both in the rail's tint, so the head reads as a single statement: <em>label · ⟨while …⟩</em>. Effects separate purely by vertical gap; no horizontal rules appear inside the mechanics frame. The rail does the work of segmentation, letting body text breathe.
+  </p>
+  <div class="options-row">
+
+    <div class="option">
+      <div id="proposal-b" class="card t-persona">
+        <div class="card-fill"></div>
+        <div class="card-image"><svg viewBox="0 0 300 420" xmlns="http://www.w3.org/2000/svg"><use href="#art-d"/></svg></div>
+        <div class="grad-top"></div>
+        <div class="grad-body"></div>
+        <div class="card-frame frame-tome"><svg xmlns="http://www.w3.org/2000/svg"><use href="#frame-d"/></svg></div>
+        <div class="card-header">
+          <div class="type-band"><span class="type-label">Persona</span></div>
+          <div class="card-title">Aldric Voss</div>
+          <div class="title-rule"></div>
+          <div class="card-subtitle">The Wandering Blade</div>
+        </div>
+        <div class="mech-frame">
+          <div class="mech-rule mech-rule-top"></div>
+          <div class="mech-body B-body">
+
+            <div class="B-entry B-cat-modifier">
+              <div class="B-rail"></div>
+              <div class="B-content">
+                <div class="B-head"><span class="B-label">Persistent Modifier</span></div>
+                <p class="B-text">Damage assigned to this card cannot exceed 1 per turn.</p>
+              </div>
+            </div>
+
+            <div class="B-entry B-cat-passive">
+              <div class="B-rail"></div>
+              <div class="B-content">
+                <div class="B-head"><span class="B-label">Passive</span></div>
+                <p class="B-text"><span class="icon">D</span>Grants 1 Constitution die (L2).</p>
+              </div>
+            </div>
+
+            <div class="B-entry B-cat-passive">
+              <div class="B-rail"></div>
+              <div class="B-content">
+                <div class="B-head">
+                  <span class="B-label">Passive</span>
+                  <span class="B-cond">no Allies in tableau</span>
+                </div>
+                <p class="B-text"><span class="icon">D</span>Grants 1 Zeal die (L1).</p>
+              </div>
+            </div>
+
+            <div class="B-entry B-cat-reactive">
+              <div class="B-rail"></div>
+              <div class="B-content">
+                <div class="B-head"><span class="B-label">On Reveal</span></div>
+                <p class="B-text">Place 1 Fate token on this card.</p>
+              </div>
+            </div>
+
+            <div class="B-entry B-cat-active">
+              <div class="B-rail"></div>
+              <div class="B-content">
+                <div class="B-head"><span class="B-label">Character Phase</span></div>
+                <p class="B-text">Roll 2 <span class="icon">D</span>.</p>
+                <span class="B-tier"><span class="B-tier-num">2+</span>Spend 1 Fate, or take 1 damage.</span>
+              </div>
+            </div>
+
+          </div>
+          <div class="mech-rule mech-rule-bot"></div>
+        </div>
+      </div>
+      <div class="option-label">Left Rail Accent</div>
+      <div class="option-id">#proposal-b</div>
+    </div>
+
+  </div>
+</div>
+
+</body>
+</html>

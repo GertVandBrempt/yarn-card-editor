@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(//c/Users/gertv/.claude//**)",
+      "Read(//c/Users/gertv/.claude/**)",
+      "Skill(update-config)",
+      "Bash(start \"C:\\\\Users\\\\gertv\\\\Documents\\\\Projects\\\\Yarn\\\\design\\\\variants\\\\icons-combat-v02.html\")",
+      "Bash(start \"C:\\\\Users\\\\gertv\\\\Documents\\\\Projects\\\\Yarn\\\\design\\\\variants\\\\icons-action-v02.html\")",
+      "Bash(start *)",
+      "Skill(schedule)"
+    ]
+  }
+}

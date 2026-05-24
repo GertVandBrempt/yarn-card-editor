@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Yarn — Frame D Variants</title>
+<style>
+/* ══════════════════════════════════════════
+   ROOT — Standard poker/LCG card (63×88mm)
+   displayed at ~1.2× physical for legibility
+   ══════════════════════════════════════════ */
+:root {
+  --card-w: 300px;
+  --card-h: 420px;
+  --card-r: 10px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: #080604;
+  font-family: 'Georgia', 'Times New Roman', serif;
+  padding: 60px 48px 80px;
+}
+
+h1 {
+  color: #c8a030;
+  font-size: 18px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+.page-sub {
+  color: #3a2808;
+  font-size: 10px;
+  font-family: sans-serif;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 60px;
+}
+
+/* ── Layout ── */
+.options-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 64px;
+  align-items: flex-start;
+}
+.option {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+.option-label {
+  color: #c8a030;
+  font-size: 10px;
+  font-family: sans-serif;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+}
+.option-desc {
+  color: #3a2808;
+  font-size: 9px;
+  font-family: sans-serif;
+  line-height: 1.7;
+  text-align: center;
+  max-width: var(--card-w);
+}
+
+/* ══════════════════════════════════════════
+   BASE CARD
+   ──────────────────────────────────────────
+   Fixed-size positioned container.
+   All layers stack inside via position:absolute.
+
+   z-index reserved layers:
+     0   card background fill
+     1   art / image
+     2   structural content panels
+     3   text content
+    10   frame overlay
+   ══════════════════════════════════════════ */
+.card {
+  position: relative;
+  width: var(--card-w);
+  height: var(--card-h);
+  border-radius: var(--card-r);
+  overflow: hidden;
+  flex-shrink: 0;
+  box-shadow: 0 24px 70px rgba(0,0,0,0.97), 0 6px 16px rgba(0,0,0,0.8);
+}
+
+/* ── Card fill — z:0, dark base surface ── */
+.card-fill {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  border-radius: var(--card-r);
+  background: #0d0a06;
+}
+
+/* White inner variant */
+.card-fill.light {
+  background: #faf6f0;
+}
+
+/* ══════════════════════════════════════════
+   CARD FRAME — z:10, purely decorative
+   ──────────────────────────────────────────
+   CSS box-shadow produces the border bands.
+   SVG child draws corner ornaments.
+   pointer-events:none, never affects layout.
+   Swapping the class is the only change needed
+   to re-skin — no other layer is touched.
+   ══════════════════════════════════════════ */
+.card-frame {
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  pointer-events: none;
+  border-radius: var(--card-r);
+}
+
+.card-frame > svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+/* ── Tome Binding frame bands ──
+   4-layer inset shadow:
+   thick dark outer → amber accent → dark inner → softer inner.
+   The accent layer colour will be swapped per card type. */
+.frame-tome {
+  box-shadow:
+    inset 0 0 0 6px #100a04,
+    inset 0 0 0 7px #3a2410,
+    inset 0 0 0 9px #100a04,
+    inset 0 0 0 10px #1e1408;
+}
+
+/* ── Page variant: white outer ── */
+body.light-outer {
+  background: #f0ebe0;
+}
+body.light-outer h1 { color: #5a3a08; }
+body.light-outer .page-sub { color: #a08040; }
+body.light-outer .option-label { color: #5a3a08; }
+body.light-outer .option-desc { color: #8a6838; }
+</style>
+</head>
+<body>
+
+<!-- ══════════ HIDDEN SVG DEFS ══════════ -->
+<!--
+  SVG filter for the soft glow on corner triangles.
+  The blur is applied to the outermost glow layer only,
+  giving a translucent halo that bleeds slightly beyond
+  the triangle edge — same atmospheric quality as the
+  original rivet circles but with the pointed silhouette.
+-->
+<svg style="display:none" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <filter id="corner-glow" x="-80%" y="-80%" width="260%" height="260%">
+    <feGaussianBlur stdDeviation="3.5" result="blur"/>
+    <feComposite in="blur" operator="over"/>
+  </filter>
+</defs>
+</svg>
+
+<!-- ══════════ PAGE HEADER ══════════ -->
+<h1>YARN</h1>
+<p class="page-sub">Frame D — Tome Binding · Three Variants</p>
+
+<div class="options-row">
+
+  <!-- ══════════════════════════════════════
+       VARIANT 1: Dark outer / Dark inner
+       The base design as selected.
+       ══════════════════════════════════════ -->
+  <div class="option">
+    <div class="card">
+      <div class="card-fill"></div>
+      <div class="card-frame frame-tome">
+        <svg viewBox="0 0 300 420" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <!-- Per-card colour variable expressed as a stop colour.
+                 Swap this gradient to re-skin the frame accent. -->
+            <linearGradient id="accent-1" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#4a3018"/>
+              <stop offset="100%" stop-color="#3a2010"/>
+            </linearGradient>
+          </defs>
+
+          <!-- Inner warm line -->
+          <rect x="14" y="14" width="272" height="392" rx="4"
+            fill="none" stroke="#3a2410" stroke-width="0.65" opacity="0.75"/>
+
+          <!-- ── CORNER TRIANGLES ──
+               Three layers per corner:
+               1. Outer glow — oversized, blurred, very transparent
+               2. Mid glow  — slightly smaller, no blur, low opacity
+               3. Body      — final shape, full opacity
+               4. Highlight — small inner sliver, brighter, translucent
+               All pointing outward (tip toward the nearest card corner). -->
+
+          <!-- TL — tip toward (0,0) -->
+          <polygon points="3,3 15,32 32,15"
+            fill="#7a5030" opacity="0.12" filter="url(#corner-glow)"/>
+          <polygon points="5,5 14,30 30,14"
+            fill="#5a3820" opacity="0.22"/>
+          <polygon points="7,7 14,27 27,14"
+            fill="#3e2c1a" opacity="0.9"/>
+          <polygon points="9,9 14,21 21,14"
+            fill="#6a4828" opacity="0.45"/>
+
+          <!-- TR — tip toward (300,0) -->
+          <polygon points="297,3 285,32 268,15"
+            fill="#7a5030" opacity="0.12" filter="url(#corner-glow)"/>
+          <polygon points="295,5 286,30 270,14"
+            fill="#5a3820" opacity="0.22"/>
+          <polygon points="293,7 286,27 273,14"
+            fill="#3e2c1a" opacity="0.9"/>
+          <polygon points="291,9 286,21 279,14"
+            fill="#6a4828" opacity="0.45"/>
+
+          <!-- BL — tip toward (0,420) -->
+          <polygon points="3,417 32,405 15,388"
+            fill="#7a5030" opacity="0.12" filter="url(#corner-glow)"/>
+          <polygon points="5,415 30,406 14,390"
+            fill="#5a3820" opacity="0.22"/>
+          <polygon points="7,413 27,406 14,393"
+            fill="#3e2c1a" opacity="0.9"/>
+          <polygon points="9,411 21,406 14,399"
+            fill="#6a4828" opacity="0.45"/>
+
+          <!-- BR — tip toward (300,420) -->
+          <polygon points="297,417 268,405 285,388"
+            fill="#7a5030" opacity="0.12" filter="url(#corner-glow)"/>
+          <polygon points="295,415 270,406 286,390"
+            fill="#5a3820" opacity="0.22"/>
+          <polygon points="293,413 273,406 286,393"
+            fill="#3e2c1a" opacity="0.9"/>
+          <polygon points="291,411 279,406 286,399"
+            fill="#6a4828" opacity="0.45"/>
+
+          <!-- ── MID-EDGE TRIANGLES (smaller, same layered approach) ── -->
+
+          <!-- Top mid — tip up -->
+          <polygon points="150,7 157,14 143,14"
+            fill="#3e2c1a" opacity="0.85"/>
+          <polygon points="150,9 155,14 145,14"
+            fill="#6a4828" opacity="0.4"/>
+
+          <!-- Bottom mid — tip down -->
+          <polygon points="150,413 143,406 157,406"
+            fill="#3e2c1a" opacity="0.85"/>
+          <polygon points="150,411 145,406 155,406"
+            fill="#6a4828" opacity="0.4"/>
+
+          <!-- Left mid — tip left -->
+          <polygon points="7,210 14,203 14,217"
+            fill="#3e2c1a" opacity="0.85"/>
+          <polygon points="9,210 14,205 14,215"
+            fill="#6a4828" opacity="0.4"/>
+
+          <!-- Right mid — tip right -->
+          <polygon points="293,210 286,217 286,203"
+            fill="#3e2c1a" opacity="0.85"/>
+          <polygon points="291,210 286,215 286,205"
+            fill="#6a4828" opacity="0.4"/>
+
+          <!-- ── STITCHING ── -->
+          <line x1="42"  y1="14" x2="126" y2="14"
+            stroke="#281806" stroke-width="0.8" stroke-dasharray="5,4"/>
+          <line x1="174" y1="14" x2="258" y2="14"
+            stroke="#281806" stroke-width="0.8" stroke-dasharray="5,4"/>
+          <line x1="42"  y1="406" x2="126" y2="406"
+            stroke="#281806" stroke-width="0.8" stroke-dasharray="5,4"/>
+          <line x1="174" y1="406" x2="258" y2="406"
+            stroke="#281806" stroke-width="0.8" stroke-dasharray="5,4"/>
+          <line x1="14" y1="46"  x2="14" y2="186"
+            stroke="#281806" stroke-width="0.8" stroke-dasharray="5,4"/>
+          <line x1="14" y1="234" x2="14" y2="374"
+            stroke="#281806" stroke-width="0.8" stroke-dasharray="5,4"/>
+          <line x1="286" y1="46"  x2="286" y2="186"
+            stroke="#281806" stroke-width="0.8" stroke-dasharray="5,4"/>
+          <line x1="286" y1="234" x2="286" y2="374"
+            stroke="#281806" stroke-width="0.8" stroke-dasharray="5,4"/>
+        </svg>
+      </div>
+    </div>
+    <div class="option-label">Dark / Dark</div>
+    <div class="option-desc">
+      Base design. Dark page, dark card fill.<br>
+      The intended game table context.
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════
+       VARIANT 2: Dark outer / White inner
+       Evaluates frame legibility against
+       a light card body (e.g. text-heavy
+       sections, parchment style bodies).
+       ══════════════════════════════════════ -->
+  <div class="option">
+    <div class="card">
+      <div class="card-fill light"></div>
+      <div class="card-frame frame-tome">
+        <svg viewBox="0 0 300 420" xmlns="http://www.w3.org/2000/svg">
+          <!-- Inner warm line -->
+          <rect x="14" y="14" width="272" height="392" rx="4"
+            fill="none" stroke="#3a2410" stroke-width="0.65" opacity="0.75"/>
+
+          <!-- TL -->
+          <polygon points="3,3 15,32 32,15"
+            fill="#7a5030" opacity="0.12" filter="url(#corner-glow)"/>
+          <polygon points="5,5 14,30 30,14"
+            fill="#5a3820" opacity="0.22"/>
+          <polygon points="7,7 14,27 27,14"
+            fill="#3e2c1a" opacity="0.9"/>
+          <polygon points="9,9 14,21 21,14"
+            fill="#6a4828" opacity="0.45"/>
+
+          <!-- TR -->
+          <polygon points="297,3 285,32 268,15"
+            fill="#7a5030" opacity="0.12" filter="url(#corner-glow)"/>
+          <polygon points="295,5 286,30 270,14"
+            fill="#5a3820" opacity="0.22"/>
+          <polygon points="293,7 286,27 273,14"
+            fill="#3e2c1a" opacity="0.9"/>
+          <polygon points="291,9 286,21 279,14"
+            fill="#6a4828" opacity="0.45"/>
+
+          <!-- BL -->
+          <polygon points="3,417 32,405 15,388"
+            fill="#7a5030" opacity="0.12" filter="url(#corner-glow)"/>
+          <polygon points="5,415 30,406 14,390"
+            fill="#5a3820" opacity="0.22"/>
+          <polygon points="7,413 27,406 14,393"
+            fill="#3e2c1a" opacity="0.9"/>
+          <polygon points="9,411 21,406 14,399"
+            fill="#6a4828" opacity="0.45"/>
+
+          <!-- BR -->
+          <polygon points="297,417 268,405 285,388"
+            fill="#7a5030" opacity="0.12" filter="url(#corner-glow)"/>
+          <polygon points="295,415 270,406 286,390"
+            fill="#5a3820" opacity="0.22"/>
+          <polygon points="293,413 273,406 286,393"
+            fill="#3e2c1a" opacity="0.9"/>
+          <polygon points="291,411 279,406 286,399"
+            fill="#6a4828" opacity="0.45"/>
+
+          <!-- Mid — top -->
+          <polygon points="150,7 157,14 143,14"
+            fill="#3e2c1a" opacity="0.85"/>
+          <polygon points="150,9 155,14 145,14"
+            fill="#6a4828" opacity="0.4"/>
+          <!-- Mid — bottom -->
+          <polygon points="150,413 143,406 157,406"
+            fill="#3e2c1a" opacity="0.85"/>
+          <polygon points="150,411 145,406 155,406"
+            fill="#6a4828" opacity="0.4"/>
+          <!-- Mid — left -->
+          <polygon points="7,210 14,203 14,217"
+            fill="#3e2c1a" opacity="0.85"/>
+          <polygon points="9,210 14,205 14,215"
+            fill="#6a4828" opacity="0.4"/>
+          <!-- Mid — right -->
+          <polygon points="293,210 286,217 286,203"
+            fill="#3e2c1a" opacity="0.85"/>
+          <polygon points="291,210 286,215 286,205"
+            fill="#6a4828" opacity="0.4"/>
+
+          <!-- Stitching -->
+          <line x1="42"  y1="14" x2="126" y2="14"
+            stroke="#281806" stroke-width="0.8" stroke-dasharray="5,4"/>
+          <line x1="174" y1="14" x2="258" y2="14"
+            stroke="#281806" stroke-width="0.8" stroke-dasharray="5,4"/>
+          <line x1="42"  y1="406" x2="126" y2="406"
+            stroke="#281806" stroke-width="0.8" stroke-dasharray="5,4"/>
+          <line x1="174" y1="406" x2="258" y2="406"
+            stroke="#281806" stroke-width="0.8" stroke-dasharray="5,4"/>
+          <line x1="14" y1="46"  x2="14" y2="186"
+            stroke="#281806" stroke-width="0.8" stroke-dasharray="5,4"/>
+          <line x1="14" y1="234" x2="14" y2="374"
+            stroke="#281806" stroke-width="0.8" stroke-dasharray="5,4"/>
+          <line x1="286" y1="46"  x2="286" y2="186"
+            stroke="#281806" stroke-width="0.8" stroke-dasharray="5,4"/>
+          <line x1="286" y1="234" x2="286" y2="374"
+            stroke="#281806" stroke-width="0.8" stroke-dasharray="5,4"/>
+        </svg>
+      </div>
+    </div>
+    <div class="option-label">Dark / White</div>
+    <div class="option-desc">
+      Dark page, light card fill.<br>
+      Tests frame legibility against a parchment<br>
+      or light-body content area.
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════
+       VARIANT 3: White outer / Dark inner
+       Evaluates how the frame reads against
+       a light environment (print, bright UI).
+       ══════════════════════════════════════ -->
+  <div class="option">
+    <div class="card" style="box-shadow: 0 12px 40px rgba(0,0,0,0.3), 0 3px 8px rgba(0,0,0,0.2);">
+      <div class="card-fill"></div>
+      <div class="card-frame frame-tome">
+        <svg viewBox="0 0 300 420" xmlns="http://www.w3.org/2000/svg">
+          <!-- Inner warm line -->
+          <rect x="14" y="14" width="272" height="392" rx="4"
+            fill="none" stroke="#3a2410" stroke-width="0.65" opacity="0.75"/>
+
+          <!-- TL -->
+          <polygon points="3,3 15,32 32,15"
+            fill="#7a5030" opacity="0.12" filter="url(#corner-glow)"/>
+          <polygon points="5,5 14,30 30,14"
+            fill="#5a3820" opacity="0.22"/>
+          <polygon points="7,7 14,27 27,14"
+            fill="#3e2c1a" opacity="0.9"/>
+          <polygon points="9,9 14,21 21,14"
+            fill="#6a4828" opacity="0.45"/>
+
+          <!-- TR -->
+          <polygon points="297,3 285,32 268,15"
+            fill="#7a5030" opacity="0.12" filter="url(#corner-glow)"/>
+          <polygon points="295,5 286,30 270,14"
+            fill="#5a3820" opacity="0.22"/>
+          <polygon points="293,7 286,27 273,14"
+            fill="#3e2c1a" opacity="0.9"/>
+          <polygon points="291,9 286,21 279,14"
+            fill="#6a4828" opacity="0.45"/>
+
+          <!-- BL -->
+          <polygon points="3,417 32,405 15,388"
+            fill="#7a5030" opacity="0.12" filter="url(#corner-glow)"/>
+          <polygon points="5,415 30,406 14,390"
+            fill="#5a3820" opacity="0.22"/>
+          <polygon points="7,413 27,406 14,393"
+            fill="#3e2c1a" opacity="0.9"/>
+          <polygon points="9,411 21,406 14,399"
+            fill="#6a4828" opacity="0.45"/>
+
+          <!-- BR -->
+          <polygon points="297,417 268,405 285,388"
+            fill="#7a5030" opacity="0.12" filter="url(#corner-glow)"/>
+          <polygon points="295,415 270,406 286,390"
+            fill="#5a3820" opacity="0.22"/>
+          <polygon points="293,413 273,406 286,393"
+            fill="#3e2c1a" opacity="0.9"/>
+          <polygon points="291,411 279,406 286,399"
+            fill="#6a4828" opacity="0.45"/>
+
+          <!-- Mid — top -->
+          <polygon points="150,7 157,14 143,14"
+            fill="#3e2c1a" opacity="0.85"/>
+          <polygon points="150,9 155,14 145,14"
+            fill="#6a4828" opacity="0.4"/>
+          <!-- Mid — bottom -->
+          <polygon points="150,413 143,406 157,406"
+            fill="#3e2c1a" opacity="0.85"/>
+          <polygon points="150,411 145,406 155,406"
+            fill="#6a4828" opacity="0.4"/>
+          <!-- Mid — left -->
+          <polygon points="7,210 14,203 14,217"
+            fill="#3e2c1a" opacity="0.85"/>
+          <polygon points="9,210 14,205 14,215"
+            fill="#6a4828" opacity="0.4"/>
+          <!-- Mid — right -->
+          <polygon points="293,210 286,217 286,203"
+            fill="#3e2c1a" opacity="0.85"/>
+          <polygon points="291,210 286,215 286,205"
+            fill="#6a4828" opacity="0.4"/>
+
+          <!-- Stitching -->
+          <line x1="42"  y1="14" x2="126" y2="14"
+            stroke="#281806" stroke-width="0.8" stroke-dasharray="5,4"/>
+          <line x1="174" y1="14" x2="258" y2="14"
+            stroke="#281806" stroke-width="0.8" stroke-dasharray="5,4"/>
+          <line x1="42"  y1="406" x2="126" y2="406"
+            stroke="#281806" stroke-width="0.8" stroke-dasharray="5,4"/>
+          <line x1="174" y1="406" x2="258" y2="406"
+            stroke="#281806" stroke-width="0.8" stroke-dasharray="5,4"/>
+          <line x1="14" y1="46"  x2="14" y2="186"
+            stroke="#281806" stroke-width="0.8" stroke-dasharray="5,4"/>
+          <line x1="14" y1="234" x2="14" y2="374"
+            stroke="#281806" stroke-width="0.8" stroke-dasharray="5,4"/>
+          <line x1="286" y1="46"  x2="286" y2="186"
+            stroke="#281806" stroke-width="0.8" stroke-dasharray="5,4"/>
+          <line x1="286" y1="234" x2="286" y2="374"
+            stroke="#281806" stroke-width="0.8" stroke-dasharray="5,4"/>
+        </svg>
+      </div>
+    </div>
+    <div class="option-label" style="color:#5a3a08">White / Dark</div>
+    <div class="option-desc" style="color:#8a6838">
+      Light page, dark card fill.<br>
+      Tests frame edge definition against a bright<br>
+      environment (print preview, light UI mode).
+    </div>
+  </div>
+
+</div>
+
+<!-- Inline script to tint page background for variant 3 context -->
+<script>
+  // Variant 3 sits in the same dark page — wrap it in a light swatch
+  // so the white-outer context is visible without changing the whole page.
+  const v3 = document.querySelectorAll('.option')[2];
+  const wrap = document.createElement('div');
+  wrap.style.cssText = `
+    background: #ede8e0;
+    border-radius: 12px;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+  `;
+  v3.parentNode.insertBefore(wrap, v3);
+  wrap.appendChild(v3);
+</script>
+
+</body>
+</html>

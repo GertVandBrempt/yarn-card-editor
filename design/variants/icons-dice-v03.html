@@ -1,0 +1,87 @@
+<!-- icon-demo: icons-dice-v03 | die-constitution, die-zeal, die-path (star pip, 3D) -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { margin: 0; display: flex; gap: 16px; padding: 16px; background: #ffffff; }
+</style>
+</head>
+<body>
+
+<svg style="display:none" xmlns="http://www.w3.org/2000/svg">
+<defs>
+
+  <!-- DIE-CONSTITUTION: red -->
+  <symbol id="icon-die-constitution" viewBox="0 0 48 48">
+    <!-- top face (parallelogram) -->
+    <polygon points="10,8 38,8 44,14 16,14"
+             fill="#b02010" stroke="#1a0e04" stroke-width="2.5"
+             stroke-linecap="round" stroke-linejoin="round"/>
+    <!-- front face -->
+    <rect x="10" y="14" width="34" height="26" rx="2"
+          fill="#e84020" stroke="#1a0e04" stroke-width="2.5"
+          stroke-linecap="round" stroke-linejoin="round"/>
+    <!-- left edge connecting top and front -->
+    <line x1="10" y1="8" x2="10" y2="40"
+          stroke="#1a0e04" stroke-width="2.5" stroke-linecap="round"/>
+    <!-- star pip (6-point) punched out via evenodd, centered on front face at x=27, y=27 -->
+    <path fill-rule="evenodd"
+          d="M10 14h34v26H10z
+             M27 18
+             L28.5 23.2 L34 23.2 L29.8 26.4 L31.3 31.6 L27 28.4 L22.7 31.6 L24.2 26.4 L20 23.2 L25.5 23.2 Z"
+          fill="#1a0e04" stroke="none"/>
+  </symbol>
+
+  <!-- DIE-ZEAL: blue -->
+  <symbol id="icon-die-zeal" viewBox="0 0 48 48">
+    <!-- top face (parallelogram) -->
+    <polygon points="10,8 38,8 44,14 16,14"
+             fill="#2060b0" stroke="#1a0e04" stroke-width="2.5"
+             stroke-linecap="round" stroke-linejoin="round"/>
+    <!-- front face -->
+    <rect x="10" y="14" width="34" height="26" rx="2"
+          fill="#4090e0" stroke="#1a0e04" stroke-width="2.5"
+          stroke-linecap="round" stroke-linejoin="round"/>
+    <!-- left edge connecting top and front -->
+    <line x1="10" y1="8" x2="10" y2="40"
+          stroke="#1a0e04" stroke-width="2.5" stroke-linecap="round"/>
+    <!-- star pip (6-point) punched out via evenodd -->
+    <path fill-rule="evenodd"
+          d="M10 14h34v26H10z
+             M27 18
+             L28.5 23.2 L34 23.2 L29.8 26.4 L31.3 31.6 L27 28.4 L22.7 31.6 L24.2 26.4 L20 23.2 L25.5 23.2 Z"
+          fill="#1a0e04" stroke="none"/>
+  </symbol>
+
+  <!-- DIE-PATH: green -->
+  <symbol id="icon-die-path" viewBox="0 0 48 48">
+    <!-- top face (parallelogram) -->
+    <polygon points="10,8 38,8 44,14 16,14"
+             fill="#208040" stroke="#1a0e04" stroke-width="2.5"
+             stroke-linecap="round" stroke-linejoin="round"/>
+    <!-- front face -->
+    <rect x="10" y="14" width="34" height="26" rx="2"
+          fill="#40c060" stroke="#1a0e04" stroke-width="2.5"
+          stroke-linecap="round" stroke-linejoin="round"/>
+    <!-- left edge connecting top and front -->
+    <line x1="10" y1="8" x2="10" y2="40"
+          stroke="#1a0e04" stroke-width="2.5" stroke-linecap="round"/>
+    <!-- star pip (6-point) punched out via evenodd -->
+    <path fill-rule="evenodd"
+          d="M10 14h34v26H10z
+             M27 18
+             L28.5 23.2 L34 23.2 L29.8 26.4 L31.3 31.6 L27 28.4 L22.7 31.6 L24.2 26.4 L20 23.2 L25.5 23.2 Z"
+          fill="#1a0e04" stroke="none"/>
+  </symbol>
+
+</defs>
+</svg>
+
+<svg width="48" height="48"><use href="#icon-die-constitution"/></svg>
+<svg width="48" height="48"><use href="#icon-die-zeal"/></svg>
+<svg width="48" height="48"><use href="#icon-die-path"/></svg>
+
+</body>
+</html>

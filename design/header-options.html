@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Yarn — Gradient Reference</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Crimson+Text:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+<style>
+
+/* ══════════════════════════════════════════
+   ROOT
+   ══════════════════════════════════════════ */
+:root {
+  --card-w: 300px;
+  --card-h: 420px;
+  --card-r: 10px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  background: #080604;
+  font-family: Georgia, serif;
+  padding: 60px 48px 80px;
+}
+
+h1 { color: #c8a030; font-size: 18px; letter-spacing: 4px; text-transform: uppercase; margin-bottom: 4px; }
+.page-sub { color: #3a2808; font-size: 10px; font-family: sans-serif; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 60px; }
+
+.options-row { display: flex; flex-wrap: nowrap; gap: 64px; align-items: flex-start; }
+.option      { display: flex; flex-direction: column; align-items: center; gap: 12px; }
+.option-label { color: #c8a030; font-size: 10px; font-family: sans-serif; letter-spacing: 3px; text-transform: uppercase; }
+.option-desc  { color: #3a2808; font-size: 9px; font-family: sans-serif; line-height: 1.7; text-align: center; max-width: var(--card-w); }
+
+/* ══════════════════════════════════════════
+   CARD TYPE ACCENT
+   ══════════════════════════════════════════ */
+.t-persona {
+  --bg-top:      #221004;
+  --bg-bot:      #180c02;
+  --type-border: #7a4818;
+  --type-text:   #c8860c;
+  --type-glow:   rgba(160,90,10,0.28);
+}
+
+/* ══════════════════════════════════════════
+   BASE CARD
+   ══════════════════════════════════════════ */
+.card {
+  position: relative;
+  width: var(--card-w);
+  height: var(--card-h);
+  border-radius: var(--card-r);
+  overflow: hidden;
+  flex-shrink: 0;
+  box-shadow: 0 24px 70px rgba(0,0,0,0.97), 0 6px 16px rgba(0,0,0,0.8);
+}
+
+/* ── z-index layer map ───────────────────
+    0   card-fill       dark base
+    1   card-image      full-bleed art
+    2   grad-top        readability gradient — header area
+    2   grad-body       readability gradient — mechanics area
+   10   card-frame      frame overlay
+   11   card-header     type / title / subtitle
+   ─────────────────────────────────────── */
+
+.card-fill { position: absolute; inset: 0; z-index: 0; border-radius: var(--card-r); background: #0d0a06; }
+
+.card-image { position: absolute; inset: 0; z-index: 1; }
+.card-image > svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+
+.grad-top {
+  position: absolute;
+  left: 10px; right: 10px; top: 10px;
+  height: 155px;
+  z-index: 2;
+  pointer-events: none;
+}
+.grad-body {
+  position: absolute;
+  left: 10px; right: 10px; bottom: 10px;
+  height: 210px;
+  z-index: 2;
+  pointer-events: none;
+}
+
+/* ══════════════════════════════════════════
+   CHOSEN — Radial medium type tint
+   ══════════════════════════════════════════ */
+#type-r2 .grad-top  { background: radial-gradient(ellipse 90% 100% at 50% 0%,   rgba(122,72,24,.60) 0%, rgba(122,72,24,.25) 55%, transparent 100%); }
+#type-r2 .grad-body { background: radial-gradient(ellipse 90% 100% at 50% 100%, rgba(122,72,24,.45) 0%, rgba(122,72,24,.18) 55%, transparent 100%); }
+
+/* ══════════════════════════════════════════
+   REFERENCE — Heavy black
+   ══════════════════════════════════════════ */
+#black-r3 .grad-top  { background: radial-gradient(ellipse 90% 100% at 50% 0%,   rgba(0,0,0,.82) 0%, rgba(0,0,0,.45) 55%, transparent 100%); }
+#black-r3 .grad-body { background: radial-gradient(ellipse 90% 100% at 50% 100%, rgba(0,0,0,.70) 0%, rgba(0,0,0,.32) 55%, transparent 100%); }
+
+/* ══════════════════════════════════════════
+   FRAME
+   ══════════════════════════════════════════ */
+.card-frame {
+  position: absolute; inset: 0; z-index: 10;
+  pointer-events: none;
+  border-radius: var(--card-r);
+}
+.card-frame > svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+.frame-tome {
+  box-shadow:
+    inset 0 0 0 6px  #100a04,
+    inset 0 0 0 7px  #3a2410,
+    inset 0 0 0 9px  #100a04,
+    inset 0 0 0 10px #1e1408;
+}
+
+/* ══════════════════════════════════════════
+   CARD HEADER (z:11 — above frame)
+   ══════════════════════════════════════════ */
+.card-header { position: absolute; inset: 0; z-index: 11; pointer-events: none; }
+
+.type-band {
+  position: absolute;
+  left: 10px; right: 10px; top: 14px;
+  height: 28px;
+  background: linear-gradient(180deg, var(--bg-top) 0%, var(--bg-bot) 100%);
+  border-top:    1.5px solid var(--type-border);
+  border-bottom: 1.5px solid var(--type-border);
+  box-shadow: 0 5px 20px 0 var(--type-glow), inset 0 1px 0 rgba(255,200,80,0.04);
+  display: flex; align-items: center; justify-content: center; overflow: hidden;
+}
+.type-band::before, .type-band::after {
+  content: ''; display: block; flex: 1; height: 1px; opacity: 0.5;
+}
+.type-band::before { background: linear-gradient(to right, transparent 0%, var(--type-border) 100%); margin-right: 10px; }
+.type-band::after  { background: linear-gradient(to left,  transparent 0%, var(--type-border) 100%); margin-left:  10px; }
+.type-label {
+  color: var(--type-text);
+  font-family: 'Cinzel', Georgia, serif;
+  font-size: 7.5px; font-weight: 700; letter-spacing: 5px; text-transform: uppercase;
+  white-space: nowrap; flex-shrink: 0;
+  text-shadow: 0 0 12px var(--type-glow);
+}
+
+.card-title {
+  position: absolute; left: 18px; right: 18px; top: 52px;
+  text-align: center; color: #dcc06a;
+  font-family: 'Cinzel', Georgia, serif;
+  font-size: 21px; font-weight: 700; letter-spacing: 0.5px; line-height: 1.2;
+  text-shadow: 0 1px 10px rgba(0,0,0,0.95);
+}
+.title-rule {
+  position: absolute; left: 54px; right: 54px; top: 82px; height: 1px;
+  background: linear-gradient(to right, transparent, var(--type-border) 25%, var(--type-border) 75%, transparent);
+  opacity: 0.6;
+}
+.card-subtitle {
+  position: absolute; left: 18px; right: 18px; top: 90px;
+  text-align: center; color: #7a5828;
+  font-family: 'Crimson Text', Georgia, serif;
+  font-size: 12px; font-style: italic; letter-spacing: 0.2px;
+}
+
+</style>
+</head>
+<body>
+
+<!-- ══════════ SHARED SVG DEFS ══════════════════════
+     card art and frame defined once, referenced everywhere
+     ═══════════════════════════════════════════════ -->
+<svg style="display:none" xmlns="http://www.w3.org/2000/svg">
+<defs>
+
+  <filter id="corner-glow" x="-80%" y="-80%" width="260%" height="260%">
+    <feGaussianBlur stdDeviation="3.5" result="blur"/>
+    <feComposite in="blur" operator="over"/>
+  </filter>
+
+  <!-- ── Frame symbol ── -->
+  <symbol id="frame-d" viewBox="0 0 300 420" overflow="visible">
+    <rect x="14" y="14" width="272" height="392" rx="4"
+      fill="none" stroke="#3a2410" stroke-width="0.65" opacity="0.75"/>
+    <!-- TL -->
+    <polygon points="3,3 15,32 32,15"  fill="#7a5030" opacity="0.12" filter="url(#corner-glow)"/>
+    <polygon points="5,5 14,30 30,14"  fill="#5a3820" opacity="0.22"/>
+    <polygon points="7,7 14,27 27,14"  fill="#3e2c1a" opacity="0.9"/>
+    <polygon points="9,9 14,21 21,14"  fill="#6a4828" opacity="0.45"/>
+    <!-- TR -->
+    <polygon points="297,3 285,32 268,15"  fill="#7a5030" opacity="0.12" filter="url(#corner-glow)"/>
+    <polygon points="295,5 286,30 270,14"  fill="#5a3820" opacity="0.22"/>
+    <polygon points="293,7 286,27 273,14"  fill="#3e2c1a" opacity="0.9"/>
+    <polygon points="291,9 286,21 279,14"  fill="#6a4828" opacity="0.45"/>
+    <!-- BL -->
+    <polygon points="3,417 32,405 15,388"  fill="#7a5030" opacity="0.12" filter="url(#corner-glow)"/>
+    <polygon points="5,415 30,406 14,390"  fill="#5a3820" opacity="0.22"/>
+    <polygon points="7,413 27,406 14,393"  fill="#3e2c1a" opacity="0.9"/>
+    <polygon points="9,411 21,406 14,399"  fill="#6a4828" opacity="0.45"/>
+    <!-- BR -->
+    <polygon points="297,417 268,405 285,388"  fill="#7a5030" opacity="0.12" filter="url(#corner-glow)"/>
+    <polygon points="295,415 270,406 286,390"  fill="#5a3820" opacity="0.22"/>
+    <polygon points="293,413 273,406 286,393"  fill="#3e2c1a" opacity="0.9"/>
+    <polygon points="291,411 279,406 286,399"  fill="#6a4828" opacity="0.45"/>
+    <!-- Mid edges -->
+    <polygon points="150,7 157,14 143,14"     fill="#3e2c1a" opacity="0.85"/>
+    <polygon points="150,9 155,14 145,14"     fill="#6a4828" opacity="0.4"/>
+    <polygon points="150,413 143,406 157,406"  fill="#3e2c1a" opacity="0.85"/>
+    <polygon points="150,411 145,406 155,406"  fill="#6a4828" opacity="0.4"/>
+    <polygon points="7,210 14,203 14,217"     fill="#3e2c1a" opacity="0.85"/>
+    <polygon points="9,210 14,205 14,215"     fill="#6a4828" opacity="0.4"/>
+    <polygon points="293,210 286,217 286,203"  fill="#3e2c1a" opacity="0.85"/>
+    <polygon points="291,210 286,215 286,205"  fill="#6a4828" opacity="0.4"/>
+    <!-- Stitching -->
+    <line x1="42"  y1="14"  x2="126" y2="14"  stroke="#281806" stroke-width="0.8" stroke-dasharray="5,4"/>
+    <line x1="174" y1="14"  x2="258" y2="14"  stroke="#281806" stroke-width="0.8" stroke-dasharray="5,4"/>
+    <line x1="42"  y1="406" x2="126" y2="406" stroke="#281806" stroke-width="0.8" stroke-dasharray="5,4"/>
+    <line x1="174" y1="406" x2="258" y2="406" stroke="#281806" stroke-width="0.8" stroke-dasharray="5,4"/>
+    <line x1="14" y1="46"   x2="14"  y2="186" stroke="#281806" stroke-width="0.8" stroke-dasharray="5,4"/>
+    <line x1="14" y1="234"  x2="14"  y2="374" stroke="#281806" stroke-width="0.8" stroke-dasharray="5,4"/>
+    <line x1="286" y1="46"  x2="286" y2="186" stroke="#281806" stroke-width="0.8" stroke-dasharray="5,4"/>
+    <line x1="286" y1="234" x2="286" y2="374" stroke="#281806" stroke-width="0.8" stroke-dasharray="5,4"/>
+  </symbol>
+
+  <!-- ── Art symbol — shared by all cards ── -->
+  <symbol id="art-d" viewBox="0 0 300 420">
+    <defs>
+      <linearGradient id="s-stone" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%"   stop-color="#28180e"/>
+        <stop offset="30%"  stop-color="#1c1208"/>
+        <stop offset="70%"  stop-color="#120e08"/>
+        <stop offset="100%" stop-color="#080604"/>
+      </linearGradient>
+      <radialGradient id="s-arch" cx="50%" cy="78%" r="40%">
+        <stop offset="0%"   stop-color="#c07830" stop-opacity="0.22"/>
+        <stop offset="100%" stop-color="#080604" stop-opacity="0"/>
+      </radialGradient>
+      <radialGradient id="s-win" cx="50%" cy="50%" r="50%">
+        <stop offset="0%"   stop-color="#d09850" stop-opacity="0.32"/>
+        <stop offset="70%"  stop-color="#804820" stop-opacity="0.08"/>
+        <stop offset="100%" stop-color="transparent" stop-opacity="0"/>
+      </radialGradient>
+      <radialGradient id="s-vig" cx="50%" cy="50%" r="68%" gradientUnits="objectBoundingBox">
+        <stop offset="35%"  stop-color="transparent"/>
+        <stop offset="100%" stop-color="#000000" stop-opacity="0.72"/>
+      </radialGradient>
+    </defs>
+    <!-- Stone base -->
+    <rect width="300" height="420" fill="url(#s-stone)"/>
+    <rect width="300" height="420" fill="url(#s-arch)"/>
+    <!-- Left column -->
+    <rect x="58" y="195" width="26" height="225" fill="#0d0b07"/>
+    <rect x="55" y="189" width="32" height="9"   fill="#171410"/>
+    <rect x="52" y="180" width="38" height="12"  fill="#121008"/>
+    <polygon points="71,180 52,165 90,165" fill="#0e0c08"/>
+    <rect x="55" y="162" width="32" height="5" fill="#181410" opacity="0.7"/>
+    <!-- Right column -->
+    <rect x="216" y="195" width="26" height="225" fill="#0d0b07"/>
+    <rect x="213" y="189" width="32" height="9"   fill="#171410"/>
+    <rect x="210" y="180" width="38" height="12"  fill="#121008"/>
+    <polygon points="229,180 210,165 248,165" fill="#0e0c08"/>
+    <rect x="213" y="162" width="32" height="5" fill="#181410" opacity="0.7"/>
+    <!-- Gothic arch — outer stone -->
+    <path d="M 58 420 L 58 300 C 58 208,150 204,150 204 C 150 204,242 208,242 300 L 242 420 Z"
+      fill="#0c0906" stroke="#1c1508" stroke-width="1.2"/>
+    <!-- Arch — middle stone ring -->
+    <path d="M 80 420 L 80 308 C 80 230,150 226,150 226 C 150 226,220 230,220 308 L 220 420 Z"
+      fill="#161008"/>
+    <!-- Arch — inner passage -->
+    <path d="M 100 420 L 100 316 C 100 252,150 248,150 248 C 150 248,200 252,200 316 L 200 420 Z"
+      fill="#1e1408"/>
+    <!-- Warm light through arch -->
+    <path d="M 118 420 L 118 322 C 118 272,150 268,150 268 C 150 268,182 272,182 322 L 182 420 Z"
+      fill="url(#s-arch)" opacity="0.9"/>
+    <!-- Ground torch glow -->
+    <ellipse cx="150" cy="415" rx="60" ry="18" fill="#a06020" opacity="0.10"/>
+    <!-- Left lancet window -->
+    <path d="M 118,155 L 118,105 Q 118,88 128,88 Q 138,88 138,105 L 138,155 Z"
+      fill="#0c0a06" stroke="#201808" stroke-width="1" opacity="0.65"/>
+    <!-- Right lancet window -->
+    <path d="M 162,155 L 162,105 Q 162,88 172,88 Q 182,88 182,105 L 182,155 Z"
+      fill="#0c0a06" stroke="#201808" stroke-width="1" opacity="0.65"/>
+    <!-- Central pointed arch window -->
+    <path d="M 134,165 L 134,95 Q 134,72 150,72 Q 166,72 166,95 L 166,165 Z"
+      fill="#0e0b06" stroke="#221a0a" stroke-width="1" opacity="0.55"/>
+    <ellipse cx="150" cy="118" rx="38" ry="55" fill="url(#s-win)"/>
+    <!-- Window tracery -->
+    <line x1="150" y1="75"  x2="150" y2="162" stroke="#1e1a0e" stroke-width="0.8" opacity="0.4"/>
+    <line x1="120" y1="118" x2="180" y2="118" stroke="#1e1a0e" stroke-width="0.8" opacity="0.4"/>
+    <ellipse cx="150" cy="118" rx="18" ry="18" fill="none" stroke="#1e1a0e" stroke-width="0.8" opacity="0.3"/>
+    <!-- Hanging chains -->
+    <line x1="106" y1="14" x2="103" y2="185" stroke="#1e180e" stroke-width="1.8" stroke-dasharray="4,3" opacity="0.55"/>
+    <line x1="194" y1="14" x2="197" y2="170" stroke="#1e180e" stroke-width="1.8" stroke-dasharray="4,3" opacity="0.55"/>
+    <line x1="150" y1="14" x2="150" y2="80"  stroke="#1e180e" stroke-width="1.4" stroke-dasharray="3,3" opacity="0.30"/>
+    <rect x="100" y="182" width="6" height="8" rx="1" fill="#1a1408" opacity="0.6"/>
+    <rect x="191" y="167" width="6" height="8" rx="1" fill="#1a1408" opacity="0.6"/>
+    <!-- Ground mist -->
+    <ellipse cx="150" cy="420" rx="145" ry="28" fill="#18120a" opacity="0.55"/>
+    <ellipse cx="150" cy="420" rx="95"  ry="16" fill="#201a10" opacity="0.35"/>
+    <!-- Vignette -->
+    <rect width="300" height="420" fill="url(#s-vig)"/>
+  </symbol>
+
+</defs>
+</svg>
+
+<!-- ══════════ PAGE HEADER ══════════ -->
+<h1>YARN</h1>
+<p class="page-sub">Gradient Reference — Chosen · Alternative</p>
+
+<div class="options-row">
+
+  <!-- ════════════════════════════
+       CHOSEN: Radial medium type tint
+       ════════════════════════════ -->
+  <div class="option">
+    <div id="type-r2" class="card t-persona">
+      <div class="card-fill"></div>
+      <div class="card-image"><svg viewBox="0 0 300 420" xmlns="http://www.w3.org/2000/svg"><use href="#art-d"/></svg></div>
+      <div class="grad-top"></div>
+      <div class="grad-body"></div>
+      <div class="card-frame frame-tome"><svg xmlns="http://www.w3.org/2000/svg"><use href="#frame-d"/></svg></div>
+      <div class="card-header">
+        <div class="type-band"><span class="type-label">Persona</span></div>
+        <div class="card-title">Aldric Voss</div>
+        <div class="title-rule"></div>
+        <div class="card-subtitle">The Wandering Blade</div>
+      </div>
+    </div>
+    <div class="option-label">Chosen — Type Radial</div>
+    <div class="option-desc">#type-r2 · radial medium amber tint</div>
+  </div>
+
+  <!-- ════════════════════════════
+       REFERENCE: Radial heavy black
+       ════════════════════════════ -->
+  <div class="option">
+    <div id="black-r3" class="card t-persona">
+      <div class="card-fill"></div>
+      <div class="card-image"><svg viewBox="0 0 300 420" xmlns="http://www.w3.org/2000/svg"><use href="#art-d"/></svg></div>
+      <div class="grad-top"></div>
+      <div class="grad-body"></div>
+      <div class="card-frame frame-tome"><svg xmlns="http://www.w3.org/2000/svg"><use href="#frame-d"/></svg></div>
+      <div class="card-header">
+        <div class="type-band"><span class="type-label">Persona</span></div>
+        <div class="card-title">Aldric Voss</div>
+        <div class="title-rule"></div>
+        <div class="card-subtitle">The Wandering Blade</div>
+      </div>
+    </div>
+    <div class="option-label">Reference — Black Radial</div>
+    <div class="option-desc">#black-r3 · radial heavy black</div>
+  </div>
+
+</div>
+</body>
+</html>

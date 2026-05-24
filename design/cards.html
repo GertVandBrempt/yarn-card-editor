@@ -1,0 +1,1281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Yarn — Card Designs</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: #0a0704;
+  font-family: 'Georgia', 'Times New Roman', serif;
+  padding: 40px;
+  color: #2a1808;
+}
+
+h1 { color: #c8a030; font-size: 24px; margin-bottom: 4px; letter-spacing: 4px; text-transform: uppercase; }
+.page-subtitle { color: #3a2808; font-family: sans-serif; font-size: 11px; margin-bottom: 50px; letter-spacing: 2px; text-transform: uppercase; }
+
+.section-title {
+  color: #c8a030; font-size: 14px; margin: 50px 0 6px;
+  border-bottom: 1px solid #221508; padding-bottom: 8px;
+  letter-spacing: 3px; text-transform: uppercase;
+}
+.subsection-title {
+  color: #4a3010; font-family: sans-serif; font-size: 9px;
+  text-transform: uppercase; letter-spacing: 2.5px; margin: 20px 0 8px;
+}
+
+/* ─── ICON LEGEND ─── */
+.icon-grid { display: flex; flex-wrap: wrap; gap: 8px; }
+.icon-item {
+  display: flex; flex-direction: column; align-items: center; gap: 5px;
+  background: #120e06; border: 1px solid #251808;
+  border-radius: 2px; padding: 10px 8px; min-width: 60px;
+}
+.icon-item svg { width: 28px; height: 28px; }
+.icon-item span {
+  color: #6a4818; font-size: 8px; font-family: sans-serif;
+  text-align: center; line-height: 1.3;
+  text-transform: uppercase; letter-spacing: 0.5px;
+}
+
+/* ─── CARD ─── */
+.cards-grid { display: flex; flex-wrap: wrap; gap: 28px; align-items: flex-start; margin-top: 20px; }
+
+.card {
+  width: 260px;
+  border: 2px solid #0c0804;
+  box-shadow: 0 0 0 1px #3a2006, 0 20px 60px rgba(0,0,0,0.97);
+  border-radius: 2px;
+  overflow: hidden;
+  flex-shrink: 0;
+  font-family: 'Georgia', serif;
+}
+
+.card-header {
+  display: flex; align-items: center; gap: 6px;
+  padding: 5px 9px;
+  font-size: 8px; font-family: sans-serif; font-weight: bold;
+  letter-spacing: 2px; text-transform: uppercase;
+  color: rgba(255,210,90,0.6);
+}
+.card-header svg { width: 12px; height: 12px; flex-shrink: 0; }
+
+.card-image {
+  width: 100%; height: 130px; overflow: hidden;
+  border-bottom: 2px solid #0c0804;
+}
+.card-image svg { width: 100%; height: 100%; display: block; }
+
+.card-title-bar {
+  padding: 7px 9px 5px;
+  display: flex; justify-content: space-between; align-items: flex-start;
+  border-bottom: 1px solid rgba(12,8,4,0.5);
+}
+.card-title { font-size: 13px; font-weight: bold; color: #140800; line-height: 1.2; }
+.card-subtitle { font-size: 8px; color: #4a3008; font-style: italic; margin-top: 2px; font-family: sans-serif; }
+.card-badge {
+  font-size: 7px; padding: 2px 5px; border-radius: 1px;
+  font-family: sans-serif; font-weight: bold; white-space: nowrap;
+  letter-spacing: 1px; margin-left: 5px; flex-shrink: 0;
+  align-self: flex-start; margin-top: 2px; text-transform: uppercase;
+}
+.card-badge.enemy { background: #400008; color: #d06070; }
+
+.card-body { padding: 6px 9px 8px; }
+
+/* ─── TRIGGER BLOCK ─── */
+.trigger-block {
+  background: rgba(0,0,0,0.09);
+  border-left: 2px solid rgba(140,90,10,0.55);
+  padding: 3px 5px 3px 6px; margin: 3px 0;
+  display: flex; align-items: flex-start; gap: 5px;
+}
+.t-icon { flex-shrink: 0; margin-top: 1px; display: flex; }
+.t-icon svg { width: 13px; height: 13px; }
+.trigger-content { display: flex; flex-direction: column; flex: 1; gap: 1px; }
+.t-text { font-size: 9px; font-family: sans-serif; color: #140800; line-height: 1.35; }
+
+/* ─── ACTION BLOCK ─── */
+.action-block {
+  background: rgba(8,24,64,0.07);
+  border-left: 2px solid rgba(30,70,160,0.4);
+  padding: 3px 5px 3px 6px; margin: 3px 0;
+}
+.a-name {
+  font-weight: bold; font-size: 8px; font-family: sans-serif; color: #0a1c3c;
+  letter-spacing: 0.5px; text-transform: uppercase;
+  display: flex; align-items: center; justify-content: space-between; margin-bottom: 2px;
+}
+.a-text { font-size: 9px; font-family: sans-serif; color: #140800; line-height: 1.35; }
+
+/* ─── PASSIVE BLOCK ─── */
+.passive-block {
+  background: rgba(8,40,16,0.07);
+  border-left: 2px solid rgba(20,90,40,0.4);
+  padding: 3px 5px 3px 6px; margin: 3px 0;
+}
+.p-name {
+  font-weight: bold; font-size: 8px; font-family: sans-serif; color: #082410;
+  letter-spacing: 0.5px; text-transform: uppercase; margin-bottom: 1px;
+}
+.p-text { font-size: 9px; font-family: sans-serif; color: #140800; line-height: 1.35; }
+
+/* ─── DICE ROW (rolled effects) ─── */
+.dice-row { display: flex; gap: 2px; align-items: center; margin-bottom: 2px; }
+.dice-row svg { width: 13px; height: 13px; }
+
+/* ─── FLAVOR ─── */
+.flavor {
+  font-style: italic; font-size: 8px; color: #4a2808;
+  border-top: 1px solid rgba(12,8,0,0.18);
+  margin-top: 5px; padding-top: 5px; line-height: 1.45;
+}
+
+/* ─── TRACK MARKERS ─── */
+.track { display: flex; align-items: center; gap: 3px; }
+.m-act { width: 10px; height: 10px; border-radius: 50%; background: #2858a0; border: 1.5px solid #143070; flex-shrink: 0; }
+.m-flow { width: 10px; height: 10px; border-radius: 50%; background: transparent; border: 1.5px solid #2858a0; flex-shrink: 0; }
+.m-use { width: 10px; height: 10px; border-radius: 50%; background: #5a2408; border: 1.5px solid #301000; flex-shrink: 0; }
+.m-arrow { font-size: 7px; color: #3a2010; font-family: sans-serif; }
+
+/* ─── LIFE ROW ─── */
+.life-row { display: flex; align-items: center; gap: 2px; margin: 3px 0; }
+.lp-slot { width: 12px; height: 12px; opacity: 0.72; }
+
+/* ─── CONNECTIONS ─── */
+.connections { display: flex; flex-wrap: wrap; gap: 5px; margin: 2px 0 4px; }
+.conn { display: flex; align-items: center; gap: 3px; font-size: 8px; font-family: sans-serif; color: #241008; }
+.conn svg { width: 11px; height: 11px; }
+
+/* ─── PROP ROW ─── */
+.prop { display: flex; align-items: center; gap: 5px; font-size: 9px; font-family: sans-serif; color: #241008; margin: 2px 0; }
+.prop svg { width: 12px; height: 12px; flex-shrink: 0; }
+
+/* ─── SLOTS ─── */
+.slots { margin: 3px 0; }
+.slot-row { display: flex; align-items: center; gap: 4px; font-family: sans-serif; color: #241008; margin: 2px 0; }
+.slot-box {
+  width: 15px; height: 15px; border: 1.5px solid #5a3808; border-radius: 2px;
+  display: inline-flex; align-items: center; justify-content: center;
+  font-size: 7px; font-weight: bold; color: #5a3808; font-family: sans-serif;
+  background: rgba(0,0,0,0.07);
+}
+.slot-label { font-size: 8px; color: #4a2808; font-family: sans-serif; font-style: italic; }
+
+/* ─── EVENT EFFECT ─── */
+.event-effect {
+  font-size: 9.5px; font-family: sans-serif; color: #200000;
+  line-height: 1.5; padding: 2px 0 4px;
+}
+
+/* ─── OBJECTIVES ─── */
+.objective {
+  background: rgba(0,0,0,0.07); border: 1px solid rgba(150,110,10,0.35);
+  border-radius: 2px; padding: 4px 6px; margin: 3px 0;
+}
+.obj-title { font-weight: bold; font-size: 9px; font-family: sans-serif; color: #140800; }
+.obj-desc { font-size: 8px; font-family: sans-serif; color: #382008; margin-top: 1px; line-height: 1.3; }
+.obj-complete {
+  display: flex; align-items: flex-start; gap: 3px;
+  font-size: 8px; font-family: sans-serif; color: #182808;
+  margin-top: 3px; padding-top: 2px;
+  border-top: 1px solid rgba(0,0,0,0.1);
+}
+.obj-complete svg { width: 10px; height: 10px; flex-shrink: 0; margin-top: 1px; }
+
+/* ─── SCRIPT TABLE ─── */
+.script-table { width: 100%; border-collapse: collapse; font-family: sans-serif; font-size: 8px; }
+.script-table th {
+  background: rgba(0,0,0,0.18); color: #6a4010; padding: 3px 5px;
+  text-align: left; font-weight: normal; letter-spacing: 1px; text-transform: uppercase;
+}
+.script-table td { padding: 3px 5px; border-bottom: 1px solid rgba(0,0,0,0.08); color: #140800; }
+.script-table tr.repeat td { background: rgba(0,0,50,0.07); }
+.event-pips { display: flex; gap: 2px; }
+.event-pips svg { width: 11px; height: 11px; }
+
+/* ─── LINKED (OR/AND) ─── */
+.linked { border: 1px solid rgba(12,8,0,0.22); border-radius: 2px; margin: 3px 0; overflow: hidden; }
+.link-label {
+  background: rgba(0,0,0,0.14); text-align: center;
+  font-size: 8px; font-family: sans-serif; font-weight: bold; color: #241008;
+  padding: 2px; letter-spacing: 3px; text-transform: uppercase;
+}
+.linked .action-block { margin: 0; border-radius: 0; border-left: none; border-top: 1px solid rgba(12,8,0,0.12); }
+
+/* ─── ALLY ─── */
+.ally-divider {
+  background: #080e1c; color: #4878a0;
+  font-size: 8px; font-family: sans-serif; font-weight: bold;
+  padding: 3px 9px; letter-spacing: 2px; text-transform: uppercase;
+  display: flex; align-items: center; gap: 5px;
+  border-top: 1px solid #0c0804;
+}
+.ally-divider svg { width: 11px; height: 11px; }
+.ally-body { padding: 6px 9px 8px; }
+
+/* ─── FOOTER ─── */
+.card-footer {
+  padding: 3px 9px;
+  display: flex; justify-content: space-between;
+  font-size: 7px; font-family: sans-serif;
+  color: rgba(255,205,80,0.3); letter-spacing: 0.5px;
+}
+
+/* ════ TYPE THEMES ════ */
+.card.core-persona .card-header  { background: linear-gradient(135deg,#301600,#5a2e00); }
+.card.core-persona .card-title-bar { background: linear-gradient(180deg,#d0a848,#c09838); }
+.card.core-persona .card-body    { background: linear-gradient(160deg,#c8a040 0%,#b89030 100%); }
+.card.core-persona .card-footer  { background: #301600; }
+
+.card.persona .card-header  { background: linear-gradient(135deg,#1a0840,#382060); }
+.card.persona .card-title-bar { background: linear-gradient(180deg,#baa080,#aa9070); }
+.card.persona .card-body    { background: linear-gradient(160deg,#b29878 0%,#a28868 100%); }
+.card.persona .card-footer  { background: #1a0840; }
+
+.card.location .card-header  { background: linear-gradient(135deg,#061410,#0e3c18); }
+.card.location .card-title-bar { background: linear-gradient(180deg,#b0c082,#a0b072); }
+.card.location .card-body    { background: linear-gradient(160deg,#a8b868 0%,#98a858 100%); }
+.card.location .card-footer  { background: #061410; }
+
+.card.setpiece .card-header  { background: linear-gradient(135deg,#020c08,#083018); }
+.card.setpiece .card-title-bar { background: linear-gradient(180deg,#b8b058,#a8a048); border-left: 3px solid #a89000; }
+.card.setpiece .card-body    { background: linear-gradient(160deg,#b0a850 0%,#a09840 100%); }
+.card.setpiece .card-footer  { background: #020c08; }
+
+.card.character .card-header  { background: linear-gradient(135deg,#040c18,#101828); }
+.card.character .card-title-bar { background: linear-gradient(180deg,#a8b0c0,#98a0b0); }
+.card.character .card-body    { background: linear-gradient(160deg,#a0aabb 0%,#9098ab 100%); }
+.card.character .ally-body    { background: linear-gradient(160deg,#aabbc8 0%,#9aaab8 100%); }
+.card.character .card-footer  { background: #040c18; }
+
+.card.item .card-header  { background: linear-gradient(135deg,#180600,#301008); }
+.card.item .card-title-bar { background: linear-gradient(180deg,#c8a050,#b89040); }
+.card.item .card-body    { background: linear-gradient(160deg,#c09840 0%,#b08830 100%); }
+.card.item .card-footer  { background: #180600; }
+
+.card.event .card-header  { background: linear-gradient(135deg,#140000,#380006); }
+.card.event .card-title-bar { background: linear-gradient(180deg,#c09080,#b08070); }
+.card.event .card-body    { background: linear-gradient(160deg,#b88878 0%,#a87868 100%); }
+.card.event .card-footer  { background: #140000; }
+
+.card.main-quest .card-header  { background: linear-gradient(135deg,#180e00,#302008); }
+.card.main-quest .card-title-bar { background: linear-gradient(180deg,#d0b040,#c0a030); }
+.card.main-quest .card-body    { background: linear-gradient(160deg,#c8a840 0%,#b89830 100%); }
+.card.main-quest .card-footer  { background: #180e00; }
+
+.card.side-quest .card-header  { background: linear-gradient(135deg,#100c00,#282000); }
+.card.side-quest .card-title-bar { background: linear-gradient(180deg,#c8a040,#b89030); }
+.card.side-quest .card-body    { background: linear-gradient(160deg,#c09838 0%,#b08828 100%); }
+.card.side-quest .card-footer  { background: #100c00; }
+
+.card.script .card-header  { background: linear-gradient(135deg,#020408,#080e18); }
+.card.script .card-title-bar { background: linear-gradient(180deg,#90a0b8,#8090a8); }
+.card.script .card-body    { background: linear-gradient(160deg,#8898ac 0%,#78889c 100%); }
+.card.script .card-footer  { background: #020408; }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════ HIDDEN SVG DEFS ══ -->
+<svg style="display:none" xmlns="http://www.w3.org/2000/svg">
+<defs>
+
+<!-- DIE TYPE ICONS -->
+<symbol id="d-con" viewBox="0 0 24 24">
+  <polygon points="12,2 20,7 20,17 12,22 4,17 4,7" fill="#cc2222" stroke="#881111" stroke-width="1"/>
+  <text x="12" y="16" text-anchor="middle" fill="white" font-size="11" font-family="sans-serif" font-weight="bold">C</text>
+</symbol>
+<symbol id="d-zeal" viewBox="0 0 24 24">
+  <path d="M12 2 C14 5 19 9 17 15 C16 19 14 21 12 22 C10 21 8 19 7 15 C5 9 10 5 12 2Z" fill="#e07000" stroke="#aa4800" stroke-width="1"/>
+  <path d="M12 9 C13 11 15 14 14 17 C13.5 19 12 20 12 20 C12 20 10.5 19 10 17 C9 14 11 11 12 9Z" fill="#ffb040" opacity="0.8"/>
+</symbol>
+<symbol id="d-path" viewBox="0 0 24 24">
+  <circle cx="12" cy="12" r="9" fill="#1a6e38" stroke="#0d4820" stroke-width="1"/>
+  <line x1="12" y1="4" x2="12" y2="20" stroke="white" stroke-width="1.2" opacity="0.6"/>
+  <line x1="4" y1="12" x2="20" y2="12" stroke="white" stroke-width="1.2" opacity="0.6"/>
+  <polygon points="12,4 10.5,8 13.5,8" fill="#ffd700"/>
+  <circle cx="12" cy="12" r="2" fill="white"/>
+</symbol>
+<symbol id="d-gold" viewBox="0 0 24 24">
+  <polygon points="12,2 14,9 21,9 15.5,13.5 17.5,20.5 12,16.5 6.5,20.5 8.5,13.5 3,9 10,9" fill="#ffd700" stroke="#cc9900" stroke-width="1"/>
+</symbol>
+
+<!-- DIE FACE ICONS -->
+<symbol id="f-blank" viewBox="0 0 24 24">
+  <rect x="3" y="3" width="18" height="18" rx="3" fill="#999" stroke="#777" stroke-width="1.5"/>
+  <line x1="8" y1="8" x2="16" y2="16" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="16" y1="8" x2="8" y2="16" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
+</symbol>
+<symbol id="f-exhaust" viewBox="0 0 24 24">
+  <rect x="3" y="3" width="18" height="18" rx="3" fill="#6688aa" stroke="#446688" stroke-width="1.5"/>
+  <path d="M6 9 Q9 6 12 9 Q15 12 18 9" fill="none" stroke="white" stroke-width="2" stroke-linecap="round"/>
+  <path d="M6 15 Q9 12 12 15 Q15 18 18 15" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" opacity="0.7"/>
+</symbol>
+<symbol id="f-success" viewBox="0 0 24 24">
+  <rect x="3" y="3" width="18" height="18" rx="3" fill="#226a38" stroke="#144828" stroke-width="1.5"/>
+  <polygon points="12,5 13.8,10 19,10 14.8,13.2 16.4,18.5 12,15.5 7.6,18.5 9.2,13.2 5,10 10.2,10" fill="#ffd700"/>
+</symbol>
+
+<!-- TRIGGER ICONS -->
+<symbol id="t-reveal" viewBox="0 0 24 24">
+  <ellipse cx="12" cy="12" rx="9" ry="5.5" fill="none" stroke="#7a6020" stroke-width="1.5"/>
+  <circle cx="12" cy="12" r="3.5" fill="#7a6020"/>
+  <circle cx="13.2" cy="10.8" r="1.2" fill="white"/>
+</symbol>
+<symbol id="t-enter" viewBox="0 0 24 24">
+  <rect x="15" y="5" width="5" height="14" rx="1.5" fill="none" stroke="#2B5EA7" stroke-width="1.5"/>
+  <line x1="3" y1="12" x2="13" y2="12" stroke="#2B5EA7" stroke-width="1.5" stroke-linecap="round"/>
+  <polyline points="10,8.5 13.5,12 10,15.5" fill="none" stroke="#2B5EA7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+</symbol>
+<symbol id="t-leave" viewBox="0 0 24 24">
+  <rect x="4" y="5" width="5" height="14" rx="1.5" fill="none" stroke="#2B5EA7" stroke-width="1.5"/>
+  <line x1="10" y1="12" x2="21" y2="12" stroke="#2B5EA7" stroke-width="1.5" stroke-linecap="round"/>
+  <polyline points="17,8.5 20.5,12 17,15.5" fill="none" stroke="#2B5EA7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+</symbol>
+<symbol id="t-charphase" viewBox="0 0 24 24">
+  <ellipse cx="12" cy="7" rx="4" ry="3.5" fill="#3a2060" stroke="#20104a" stroke-width="1"/>
+  <path d="M8 7 Q5 12 8 17 L16 17 Q19 12 16 7Z" fill="#3a2060" stroke="#20104a" stroke-width="1"/>
+  <line x1="8" y1="7" x2="16" y2="7" stroke="white" stroke-width="1" opacity="0.5"/>
+  <line x1="8" y1="17" x2="16" y2="17" stroke="white" stroke-width="1" opacity="0.5"/>
+  <ellipse cx="12" cy="15" rx="2.5" ry="1.5" fill="#ffd700" opacity="0.7"/>
+</symbol>
+<symbol id="t-complete" viewBox="0 0 24 24">
+  <circle cx="12" cy="12" r="9" fill="#1a6030" stroke="#0c4020" stroke-width="1"/>
+  <polyline points="7,12 10,16 17,7.5" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+</symbol>
+<symbol id="t-flow" viewBox="0 0 24 24">
+  <circle cx="12" cy="12" r="9" fill="none" stroke="#2B5EA7" stroke-width="1.5"/>
+  <line x1="7" y1="12" x2="15" y2="12" stroke="#2B5EA7" stroke-width="1.5" stroke-linecap="round"/>
+  <polyline points="12,9 15.5,12 12,15" fill="none" stroke="#2B5EA7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+</symbol>
+
+<!-- CARD TYPE ICONS -->
+<symbol id="i-persona" viewBox="0 0 24 24">
+  <path d="M5 7 Q5 2 12 2 Q19 2 19 7 L19 14 Q19 20 12 22 Q5 20 5 14Z" fill="white" opacity="0.85"/>
+  <ellipse cx="9" cy="10" rx="2" ry="2.5" fill="#5B3FA0" opacity="0.4"/>
+  <ellipse cx="15" cy="10" rx="2" ry="2.5" fill="#5B3FA0" opacity="0.4"/>
+  <path d="M9 16 Q12 18 15 16" fill="none" stroke="#5B3FA0" stroke-width="1" opacity="0.6"/>
+</symbol>
+<symbol id="i-location" viewBox="0 0 24 24">
+  <path d="M12 2 C8 2 5 5.5 5 9.5 C5 15.5 12 22 12 22 C12 22 19 15.5 19 9.5 C19 5.5 16 2 12 2Z" fill="white" opacity="0.85"/>
+  <circle cx="12" cy="9.5" r="3" fill="#1a6030" opacity="0.6"/>
+</symbol>
+<symbol id="i-character" viewBox="0 0 24 24">
+  <circle cx="12" cy="8" r="4.5" fill="white" opacity="0.85"/>
+  <path d="M5 22 Q5 15 12 15 Q19 15 19 22Z" fill="white" opacity="0.85"/>
+</symbol>
+<symbol id="i-item" viewBox="0 0 24 24">
+  <rect x="6" y="9" width="12" height="13" rx="3" fill="white" opacity="0.85"/>
+  <path d="M9 9 Q9 4.5 12 4.5 Q15 4.5 15 9" fill="none" stroke="white" stroke-width="2" opacity="0.85"/>
+  <line x1="6" y1="15" x2="18" y2="15" stroke="rgba(0,0,0,0.15)" stroke-width="1"/>
+</symbol>
+<symbol id="i-event" viewBox="0 0 24 24">
+  <polygon points="13,2 5,14 12,14 11,22 19,10 12,10" fill="white" opacity="0.85"/>
+</symbol>
+<symbol id="i-quest" viewBox="0 0 24 24">
+  <rect x="6" y="3" width="14" height="19" rx="2" fill="white" opacity="0.85"/>
+  <line x1="9" y1="8" x2="17" y2="8" stroke="rgba(0,0,0,0.2)" stroke-width="1"/>
+  <line x1="9" y1="11" x2="17" y2="11" stroke="rgba(0,0,0,0.2)" stroke-width="1"/>
+  <line x1="9" y1="14" x2="14" y2="14" stroke="rgba(0,0,0,0.2)" stroke-width="1"/>
+  <ellipse cx="6" cy="12" rx="2" ry="9" fill="white" opacity="0.7"/>
+</symbol>
+<symbol id="i-script" viewBox="0 0 24 24">
+  <circle cx="12" cy="12" r="9" fill="none" stroke="white" stroke-width="1.5" opacity="0.85"/>
+  <polyline points="12,6 12,12 15,15" stroke="white" stroke-width="1.8" stroke-linecap="round" opacity="0.85"/>
+  <circle cx="12" cy="12" r="1.2" fill="white" opacity="0.85"/>
+</symbol>
+
+<!-- CONCEPT ICONS -->
+<symbol id="c-damage" viewBox="0 0 24 24">
+  <path d="M12 20.5 L3.5 11.5 Q1.5 7.5 5.5 5.5 Q8.5 4 10.5 7 L12 9.5 L13.5 7 Q15.5 4 18.5 5.5 Q22.5 7.5 20.5 11.5Z" fill="#cc2222" stroke="#881111" stroke-width="1"/>
+  <polyline points="12,9.5 10,13 13,13 11,17" stroke="white" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+</symbol>
+<symbol id="c-move" viewBox="0 0 24 24">
+  <ellipse cx="9" cy="9" rx="3.5" ry="5" fill="#5a3800" transform="rotate(-20 9 9)"/>
+  <ellipse cx="15" cy="15" rx="3.5" ry="5" fill="#5a3800" transform="rotate(20 15 15)" opacity="0.5"/>
+</symbol>
+<symbol id="c-draw" viewBox="0 0 24 24">
+  <rect x="3" y="4" width="14" height="18" rx="2.5" fill="none" stroke="#444" stroke-width="1.5"/>
+  <line x1="17" y1="13" x2="23" y2="13" stroke="#444" stroke-width="1.5" stroke-linecap="round"/>
+  <polyline points="20,10 23,13 20,16" fill="none" stroke="#444" stroke-width="1.5" stroke-linecap="round"/>
+</symbol>
+<symbol id="c-tuck" viewBox="0 0 24 24">
+  <rect x="6" y="9" width="14" height="13" rx="2" fill="#ddd" stroke="#aaa" stroke-width="1"/>
+  <rect x="4" y="5" width="14" height="13" rx="2" fill="white" stroke="#888" stroke-width="1.5"/>
+  <line x1="7" y1="9" x2="15" y2="9" stroke="rgba(0,0,0,0.1)" stroke-width="1"/>
+</symbol>
+<symbol id="c-retrieve" viewBox="0 0 24 24">
+  <rect x="4" y="4" width="14" height="18" rx="2.5" fill="none" stroke="#7a5500" stroke-width="1.5"/>
+  <line x1="18" y1="13" x2="22" y2="13" stroke="#7a5500" stroke-width="1.5" stroke-linecap="round"/>
+  <polyline points="20,10 17,13 20,16" fill="none" stroke="#7a5500" stroke-width="1.5" stroke-linecap="round"/>
+</symbol>
+<symbol id="c-heart" viewBox="0 0 24 24">
+  <path d="M12 20 L3.5 11 Q1.5 7 5.5 5 Q8.5 3.5 10.5 6.5 L12 9 L13.5 6.5 Q15.5 3.5 18.5 5 Q22.5 7 20.5 11Z" fill="#dd3344" stroke="#aa1122" stroke-width="1"/>
+</symbol>
+
+</defs>
+</svg>
+
+<!-- ═══════════════════════════════════════════════ PAGE HEADER ══ -->
+<h1>YARN</h1>
+<p class="page-subtitle">Card Designs &amp; Icon Set — Reference Document</p>
+
+<!-- ═══════════════════════════════════════════════ ICON LEGEND ══ -->
+<div class="section-title">Icon Set</div>
+
+<div class="subsection-title">Die Types</div>
+<div class="icon-grid">
+  <div class="icon-item"><svg><use href="#d-con"/></svg><span>Constitution</span></div>
+  <div class="icon-item"><svg><use href="#d-zeal"/></svg><span>Zeal</span></div>
+  <div class="icon-item"><svg><use href="#d-path"/></svg><span>Path</span></div>
+  <div class="icon-item"><svg><use href="#d-gold"/></svg><span>Golden</span></div>
+</div>
+
+<div class="subsection-title">Die Faces</div>
+<div class="icon-grid">
+  <div class="icon-item"><svg><use href="#f-blank"/></svg><span>Blank</span></div>
+  <div class="icon-item"><svg><use href="#f-exhaust"/></svg><span>Exhaust</span></div>
+  <div class="icon-item"><svg><use href="#f-success"/></svg><span>Success</span></div>
+</div>
+
+<div class="subsection-title">Triggers</div>
+<div class="icon-grid">
+  <div class="icon-item"><svg><use href="#t-reveal"/></svg><span>On Reveal</span></div>
+  <div class="icon-item"><svg><use href="#t-enter"/></svg><span>On Enter</span></div>
+  <div class="icon-item"><svg><use href="#t-leave"/></svg><span>On Leave</span></div>
+  <div class="icon-item"><svg><use href="#t-charphase"/></svg><span>Char. Phase</span></div>
+  <div class="icon-item"><svg><use href="#t-complete"/></svg><span>On Complete</span></div>
+  <div class="icon-item"><svg><use href="#t-flow"/></svg><span>On Flow</span></div>
+</div>
+
+<div class="subsection-title">Card Types</div>
+<div class="icon-grid" style="background:#141008;padding:12px;border-radius:3px">
+  <div class="icon-item" style="background:#382060"><svg><use href="#i-persona"/></svg><span>Persona</span></div>
+  <div class="icon-item" style="background:#0e3c18"><svg><use href="#i-location"/></svg><span>Location</span></div>
+  <div class="icon-item" style="background:#101828"><svg><use href="#i-character"/></svg><span>Character</span></div>
+  <div class="icon-item" style="background:#301008"><svg><use href="#i-item"/></svg><span>Item</span></div>
+  <div class="icon-item" style="background:#380006"><svg><use href="#i-event"/></svg><span>Event</span></div>
+  <div class="icon-item" style="background:#302008"><svg><use href="#i-quest"/></svg><span>Quest</span></div>
+  <div class="icon-item" style="background:#080e18"><svg><use href="#i-script"/></svg><span>Script</span></div>
+</div>
+
+<div class="subsection-title">Concepts</div>
+<div class="icon-grid">
+  <div class="icon-item"><svg><use href="#c-damage"/></svg><span>Damage</span></div>
+  <div class="icon-item"><svg><use href="#c-move"/></svg><span>Move</span></div>
+  <div class="icon-item"><svg><use href="#c-draw"/></svg><span>Draw</span></div>
+  <div class="icon-item"><svg><use href="#c-tuck"/></svg><span>Tuck</span></div>
+  <div class="icon-item"><svg><use href="#c-retrieve"/></svg><span>Retrieve</span></div>
+  <div class="icon-item"><svg><use href="#c-heart"/></svg><span>Life Point</span></div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ CARDS ══ -->
+<div class="section-title">Card Designs</div>
+<div class="cards-grid">
+
+
+<!-- ══ CARD 1: CORE PERSONA ══ -->
+<div class="card core-persona">
+  <div class="card-header">
+    <svg><use href="#i-persona"/></svg> Core Persona — Path
+  </div>
+  <div class="card-image">
+    <svg viewBox="0 0 260 130" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="g-exile-sky" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#0a0a18"/>
+          <stop offset="100%" stop-color="#1a1a40"/>
+        </linearGradient>
+      </defs>
+      <rect width="260" height="130" fill="url(#g-exile-sky)"/>
+      <circle cx="30" cy="15" r="1" fill="white" opacity="0.8"/>
+      <circle cx="80" cy="8" r="1.2" fill="white" opacity="0.6"/>
+      <circle cx="140" cy="20" r="0.8" fill="white" opacity="0.9"/>
+      <circle cx="200" cy="10" r="1" fill="white" opacity="0.7"/>
+      <circle cx="240" cy="25" r="0.8" fill="white" opacity="0.5"/>
+      <circle cx="55" cy="35" r="0.7" fill="white" opacity="0.6"/>
+      <circle cx="170" cy="5" r="1" fill="white" opacity="0.8"/>
+      <circle cx="220" cy="40" r="0.8" fill="white" opacity="0.5"/>
+      <circle cx="210" cy="30" r="16" fill="#f8f0d0" opacity="0.9"/>
+      <circle cx="218" cy="24" r="14" fill="#1a1a40"/>
+      <rect x="0" y="95" width="260" height="35" fill="#0d1020"/>
+      <polygon points="120,130 140,130 160,95 100,95" fill="#1e1e38" opacity="0.8"/>
+      <rect x="0" y="95" width="260" height="3" fill="#151530"/>
+      <ellipse cx="130" cy="88" rx="8" ry="9" fill="#080810"/>
+      <polygon points="122,97 138,97 140,130 120,130" fill="#080810"/>
+      <path d="M122 97 Q110 105 115 115 L120 130 Z" fill="#0d0d20"/>
+      <path d="M138 97 Q150 105 145 115 L140 130 Z" fill="#0d0d20"/>
+      <line x1="138" y1="82" x2="148" y2="130" stroke="#2a1a08" stroke-width="2"/>
+      <ellipse cx="130" cy="112" rx="30" ry="8" fill="#4060a0" opacity="0.15"/>
+    </svg>
+  </div>
+  <div class="card-title-bar">
+    <div>
+      <div class="card-title">The Exile</div>
+      <div class="card-subtitle">Path · Solo Wanderer</div>
+    </div>
+    <span class="card-badge" style="background:#5a2e00;color:#e8b870">PATH</span>
+  </div>
+  <div class="card-body">
+    <div class="life-row">
+      <svg class="lp-slot"><use href="#c-heart"/></svg>
+      <svg class="lp-slot"><use href="#c-heart"/></svg>
+      <svg class="lp-slot"><use href="#c-heart"/></svg>
+      <svg class="lp-slot"><use href="#c-heart"/></svg>
+    </div>
+    <div class="prop">
+      <svg><use href="#d-path"/></svg>
+      <span style="font-size:9px;font-family:sans-serif;color:#4a2808">Lv1</span>
+    </div>
+    <div class="slots">
+      <div class="slot-row">
+        <span class="slot-box">Z</span><span class="slot-box">Z</span>
+        <span class="slot-label">Zeal · any</span>
+      </div>
+      <div class="slot-row">
+        <span class="slot-box">C</span>
+        <span class="slot-label">Constitution · Instinct</span>
+      </div>
+    </div>
+    <div class="passive-block">
+      <div class="p-name">Lone Wolf</div>
+      <div class="p-text">+1 Path success when no Allies are in your tableau.</div>
+    </div>
+    <div class="action-block">
+      <div class="a-name">Endure
+        <div class="track"><div class="m-act"></div></div>
+      </div>
+      <div class="a-text">Ignore the next 1 damage assigned to this card this turn.</div>
+    </div>
+    <div class="prop">
+      <svg><use href="#i-character"/></svg>
+      <span style="font-size:9px;font-family:sans-serif;font-style:italic;color:#4a2808">Stray Cat</span>
+    </div>
+    <div class="flavor">"Every road taken alone is both a wound and a lesson."</div>
+  </div>
+  <div class="card-footer">
+    <span>The Wanderers · Core Set</span><span>Core Persona</span>
+  </div>
+</div>
+
+
+<!-- ══ CARD 2: PERSONA ══ -->
+<div class="card persona">
+  <div class="card-header">
+    <svg><use href="#i-persona"/></svg> Persona — Zeal / Instinct
+  </div>
+  <div class="card-image">
+    <svg viewBox="0 0 260 130" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <radialGradient id="g-senses" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#ff9000" stop-opacity="0.3"/>
+          <stop offset="100%" stop-color="#200a30" stop-opacity="1"/>
+        </radialGradient>
+      </defs>
+      <rect width="260" height="130" fill="#180828"/>
+      <ellipse cx="130" cy="65" rx="80" ry="60" fill="url(#g-senses)"/>
+      <line x1="130" y1="65" x2="50" y2="20" stroke="#ff9000" stroke-width="0.8" opacity="0.3"/>
+      <line x1="130" y1="65" x2="210" y2="20" stroke="#ff9000" stroke-width="0.8" opacity="0.3"/>
+      <line x1="130" y1="65" x2="20" y2="65" stroke="#ff9000" stroke-width="0.8" opacity="0.3"/>
+      <line x1="130" y1="65" x2="240" y2="65" stroke="#ff9000" stroke-width="0.8" opacity="0.3"/>
+      <line x1="130" y1="65" x2="50" y2="110" stroke="#ff9000" stroke-width="0.8" opacity="0.3"/>
+      <line x1="130" y1="65" x2="210" y2="110" stroke="#ff9000" stroke-width="0.8" opacity="0.3"/>
+      <circle cx="130" cy="65" r="45" fill="none" stroke="#e08000" stroke-width="1" opacity="0.4"/>
+      <circle cx="130" cy="65" r="30" fill="none" stroke="#e08000" stroke-width="1.2" opacity="0.5"/>
+      <ellipse cx="130" cy="65" rx="50" ry="30" fill="none" stroke="#c06000" stroke-width="2" opacity="0.6"/>
+      <ellipse cx="130" cy="65" rx="16" ry="22" fill="#100818" stroke="#e08000" stroke-width="1.5"/>
+      <ellipse cx="130" cy="65" rx="10" ry="15" fill="#080410"/>
+      <ellipse cx="122" cy="56" rx="4" ry="5" fill="white" opacity="0.25"/>
+    </svg>
+  </div>
+  <div class="card-title-bar">
+    <div>
+      <div class="card-title">Sharpened Senses</div>
+      <div class="card-subtitle">Zeal · Instinct</div>
+    </div>
+    <span class="card-badge" style="background:#382060;color:#c0a0e0">ZEAL</span>
+  </div>
+  <div class="card-body">
+    <div class="life-row">
+      <svg class="lp-slot"><use href="#c-heart"/></svg>
+      <svg class="lp-slot"><use href="#c-heart"/></svg>
+    </div>
+    <div class="prop">
+      <svg><use href="#d-zeal"/></svg>
+      <span style="font-size:9px;font-family:sans-serif;color:#4a2808">Lv1</span>
+    </div>
+    <div class="passive-block">
+      <div class="p-name">Keen Edge</div>
+      <div class="p-text">+1 success on all On Enter triggered rolls.</div>
+    </div>
+    <div class="action-block">
+      <div class="a-name">Scout
+        <div class="track">
+          <div class="m-act"></div>
+          <div class="m-arrow">→</div>
+          <div class="m-flow"></div>
+        </div>
+      </div>
+      <div class="dice-row"><svg><use href="#d-zeal"/></svg></div>
+      <div class="a-text">1+ → look at top 2 Location deck cards.</div>
+      <div class="trigger-block" style="margin-top:4px">
+        <div class="t-icon"><svg><use href="#t-flow"/></svg></div>
+        <div class="t-text">Choose 1 card to remain on top, return the other to the bottom.</div>
+      </div>
+    </div>
+    <div class="flavor">"Trust the hackles. They know before you do."</div>
+  </div>
+  <div class="card-footer">
+    <span>The Wanderers · Core Set</span><span>Persona</span>
+  </div>
+</div>
+
+
+<!-- ══ CARD 3: LOCATION (GENERIC) ══ -->
+<div class="card location">
+  <div class="card-header">
+    <svg><use href="#i-location"/></svg> Location
+  </div>
+  <div class="card-image">
+    <svg viewBox="0 0 260 130" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="g-mill-sky" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#d46020"/>
+          <stop offset="40%" stop-color="#e88030"/>
+          <stop offset="100%" stop-color="#602010"/>
+        </linearGradient>
+        <linearGradient id="g-mill-ground" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#2a1a08"/>
+          <stop offset="100%" stop-color="#180c04"/>
+        </linearGradient>
+      </defs>
+      <rect width="260" height="130" fill="url(#g-mill-sky)"/>
+      <ellipse cx="60" cy="25" rx="30" ry="12" fill="#c05018" opacity="0.5"/>
+      <ellipse cx="200" cy="18" rx="25" ry="10" fill="#c05018" opacity="0.4"/>
+      <rect x="0" y="90" width="260" height="40" fill="url(#g-mill-ground)"/>
+      <ellipse cx="130" cy="108" rx="60" ry="8" fill="#1a3060" opacity="0.7"/>
+      <ellipse cx="130" cy="108" rx="55" ry="5" fill="#2040a0" opacity="0.3"/>
+      <polygon points="100,90 160,90 150,40 110,40" fill="#2a1a08"/>
+      <rect x="115" y="65" width="30" height="25" fill="#1a1008"/>
+      <rect x="123" y="75" width="14" height="15" rx="7" fill="#0a0804"/>
+      <polygon points="105,40 155,40 140,28 120,28" fill="#3a2010"/>
+      <line x1="130" y1="35" x2="130" y2="5" stroke="#4a2a10" stroke-width="4"/>
+      <line x1="130" y1="35" x2="160" y2="35" stroke="#4a2a10" stroke-width="4"/>
+      <line x1="130" y1="35" x2="130" y2="65" stroke="#4a2a10" stroke-width="4"/>
+      <line x1="130" y1="35" x2="100" y2="35" stroke="#4a2a10" stroke-width="4"/>
+      <polygon points="130,35 134,5 126,5" fill="#6a3a18" opacity="0.8"/>
+      <polygon points="130,35 160,31 160,39" fill="#6a3a18" opacity="0.8"/>
+      <polygon points="130,35 126,65 134,65" fill="#6a3a18" opacity="0.8"/>
+      <polygon points="130,35 100,39 100,31" fill="#6a3a18" opacity="0.8"/>
+      <circle cx="100" cy="90" r="14" fill="none" stroke="#3a2010" stroke-width="3"/>
+      <line x1="100" y1="76" x2="100" y2="104" stroke="#3a2010" stroke-width="2"/>
+      <line x1="86" y1="90" x2="114" y2="90" stroke="#3a2010" stroke-width="2"/>
+      <line x1="90" y1="80" x2="110" y2="100" stroke="#3a2010" stroke-width="2"/>
+      <line x1="110" y1="80" x2="90" y2="100" stroke="#3a2010" stroke-width="2"/>
+    </svg>
+  </div>
+  <div class="card-title-bar">
+    <div>
+      <div class="card-title">Abandoned Mill</div>
+      <div class="card-subtitle">Ruin · Countryside</div>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="connections">
+      <div class="conn">
+        <svg viewBox="0 0 12 12"><polygon points="6,1 11,6 6,11 1,6" fill="#241408" stroke="#100600" stroke-width="0.5"/></svg>
+        N
+      </div>
+      <div class="conn">
+        <svg viewBox="0 0 12 12"><polygon points="6,1 11,6 6,11 1,6" fill="none" stroke="#241408" stroke-width="1.5"/></svg>
+        E
+      </div>
+    </div>
+    <div class="trigger-block">
+      <div class="t-icon"><svg><use href="#t-reveal"/></svg></div>
+      <div class="t-text">Tuck 2 generic Item cards under this card.</div>
+    </div>
+    <div class="trigger-block">
+      <div class="t-icon"><svg><use href="#t-enter"/></svg></div>
+      <div class="t-text">Draw 1 generic Character and place in Game Area.</div>
+    </div>
+    <div class="action-block">
+      <div class="a-name">Search <div class="track"><div class="m-act"></div></div></div>
+      <div class="dice-row"><svg><use href="#d-path"/></svg></div>
+      <div class="a-text">1 → reveal 1 tucked Item; 2+ → reveal 2.</div>
+    </div>
+    <div class="flavor">"The wheel still turns. Old habits."</div>
+  </div>
+  <div class="card-footer">
+    <span>The Old Country · Location Set</span><span>Generic Location</span>
+  </div>
+</div>
+
+
+<!-- ══ CARD 4: SETPIECE ══ -->
+<div class="card setpiece">
+  <div class="card-header">
+    <svg><use href="#i-location"/></svg> Setpiece
+  </div>
+  <div class="card-image">
+    <svg viewBox="0 0 260 130" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <radialGradient id="g-shack-fog" cx="50%" cy="80%" r="60%">
+          <stop offset="0%" stop-color="#a0c8a0" stop-opacity="0.3"/>
+          <stop offset="100%" stop-color="#060e06" stop-opacity="1"/>
+        </radialGradient>
+      </defs>
+      <rect width="260" height="130" fill="#060e06"/>
+      <rect x="0" y="30" width="15" height="100" fill="#0a120a"/>
+      <rect x="10" y="20" width="18" height="110" fill="#0d160d"/>
+      <rect x="235" y="25" width="15" height="105" fill="#0a120a"/>
+      <rect x="242" y="15" width="18" height="115" fill="#0d160d"/>
+      <polygon points="40,130 55,50 70,130" fill="#0f1a0f"/>
+      <polygon points="60,130 75,40 90,130" fill="#111c11"/>
+      <polygon points="180,130 195,45 210,130" fill="#0f1a0f"/>
+      <polygon points="200,130 215,35 230,130" fill="#111c11"/>
+      <polygon points="95,130 110,55 125,130" fill="#101810"/>
+      <polygon points="145,130 160,50 175,130" fill="#111c11"/>
+      <rect width="260" height="130" fill="url(#g-shack-fog)"/>
+      <rect x="95" y="70" width="70" height="50" fill="#1a1008"/>
+      <polygon points="85,72 175,72 160,52 100,52" fill="#241408"/>
+      <rect x="140" y="42" width="10" height="18" fill="#1e1008"/>
+      <ellipse cx="145" cy="38" rx="5" ry="3" fill="#404040" opacity="0.6"/>
+      <ellipse cx="143" cy="32" rx="6" ry="3" fill="#404040" opacity="0.4"/>
+      <ellipse cx="146" cy="26" rx="7" ry="3" fill="#404040" opacity="0.25"/>
+      <rect x="108" y="78" width="16" height="14" rx="1" fill="#806020" opacity="0.9"/>
+      <rect x="109" y="79" width="7" height="12" fill="#c08030" opacity="0.5"/>
+      <rect x="116" y="79" width="7" height="12" fill="#c08030" opacity="0.4"/>
+      <ellipse cx="116" cy="85" rx="20" ry="15" fill="#c08030" opacity="0.08"/>
+      <rect x="125" y="88" width="16" height="32" rx="2" fill="#120c04"/>
+      <polygon points="110,130 150,130 148,105 112,105" fill="#1e1808" opacity="0.5"/>
+    </svg>
+  </div>
+  <div class="card-title-bar" style="border-left:3px solid #a89000">
+    <div>
+      <div class="card-title">The Hermit's Shack</div>
+      <div class="card-subtitle">Setpiece · Hidden Dwelling</div>
+    </div>
+    <span class="card-badge" style="background:#a89000;color:#1a1000">SETPIECE</span>
+  </div>
+  <div class="card-body">
+    <div class="connections">
+      <div class="conn">
+        <svg viewBox="0 0 12 12"><polygon points="6,1 11,6 6,11 1,6" fill="none" stroke="#241408" stroke-width="1.5"/></svg>
+        W: Forest Path
+      </div>
+      <div class="conn">
+        <svg viewBox="0 0 12 12"><polygon points="6,1 11,6 6,11 1,6" fill="#241408" stroke="#100600" stroke-width="0.5"/></svg>
+        S
+      </div>
+    </div>
+    <div class="trigger-block">
+      <div class="t-icon"><svg><use href="#t-reveal"/></svg></div>
+      <div class="t-text">Retrieve <em>The Hermit</em>. Tuck Key Item <em>Hermit's Staff</em> + 1 generic Item under this card.</div>
+    </div>
+    <div class="trigger-block">
+      <div class="t-icon"><svg><use href="#t-enter"/></svg></div>
+      <div class="trigger-content">
+        <div class="dice-row"><svg><use href="#d-path"/></svg><svg><use href="#d-path"/></svg></div>
+        <div class="t-text">0 → suspicious; 1–2 → wary; 3+ → welcoming (gain 1 free action this turn).</div>
+      </div>
+    </div>
+    <div class="action-block">
+      <div class="a-name">Knock <div class="track"><div class="m-act"></div></div></div>
+      <div class="a-text">If <em>The Hermit</em> is in the Game Area, trigger his On Reveal effect.</div>
+    </div>
+    <div class="flavor">"Smoke rises. Someone is home."</div>
+  </div>
+  <div class="card-footer">
+    <span>The Wandering Scholar · Quest Set</span><span>Setpiece</span>
+  </div>
+</div>
+
+
+<!-- ══ CARD 5: CHARACTER (WITH ALLY) ══ -->
+<div class="card character">
+  <div class="card-header">
+    <svg><use href="#i-character"/></svg> Character
+  </div>
+  <div class="card-image">
+    <svg viewBox="0 0 260 130" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="g-guard-bg" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#1a2030"/>
+          <stop offset="100%" stop-color="#0a0e18"/>
+        </linearGradient>
+      </defs>
+      <rect width="260" height="130" fill="url(#g-guard-bg)"/>
+      <rect x="0" y="50" width="260" height="80" fill="#1c1c24"/>
+      <rect x="0" y="50" width="60" height="20" fill="none" stroke="#252530" stroke-width="1"/>
+      <rect x="60" y="50" width="60" height="20" fill="none" stroke="#252530" stroke-width="1"/>
+      <rect x="120" y="50" width="60" height="20" fill="none" stroke="#252530" stroke-width="1"/>
+      <rect x="180" y="50" width="80" height="20" fill="none" stroke="#252530" stroke-width="1"/>
+      <rect x="30" y="70" width="70" height="20" fill="none" stroke="#252530" stroke-width="1"/>
+      <rect x="100" y="70" width="70" height="20" fill="none" stroke="#252530" stroke-width="1"/>
+      <rect x="170" y="70" width="90" height="20" fill="none" stroke="#252530" stroke-width="1"/>
+      <rect x="0" y="90" width="80" height="20" fill="none" stroke="#252530" stroke-width="1"/>
+      <rect x="80" y="90" width="80" height="20" fill="none" stroke="#252530" stroke-width="1"/>
+      <rect x="160" y="90" width="100" height="20" fill="none" stroke="#252530" stroke-width="1"/>
+      <rect x="0" y="0" width="260" height="50" fill="#0d1428"/>
+      <ellipse cx="130" cy="80" rx="80" ry="60" fill="#c08010" opacity="0.06"/>
+      <ellipse cx="130" cy="48" rx="14" ry="16" fill="#2a3048"/>
+      <ellipse cx="130" cy="38" rx="14" ry="8" fill="#383e52"/>
+      <polygon points="116,38 144,38 144,32 116,32" fill="#383e52"/>
+      <rect x="116" y="30" width="28" height="10" rx="2" fill="#404860"/>
+      <rect x="122" y="38" width="16" height="5" rx="1" fill="#202830"/>
+      <rect x="116" y="55" width="28" height="35" rx="3" fill="#2a3048"/>
+      <rect x="120" y="58" width="20" height="28" rx="2" fill="#303850"/>
+      <rect x="144" y="55" width="8" height="30" rx="3" fill="#2a3048"/>
+      <line x1="150" y1="5" x2="150" y2="85" stroke="#404860" stroke-width="3"/>
+      <polygon points="148,5 152,5 150,0" fill="#a0a8c0"/>
+      <rect x="118" y="88" width="10" height="30" rx="3" fill="#222838"/>
+      <rect x="132" y="88" width="10" height="30" rx="3" fill="#222838"/>
+      <line x1="80" y1="30" x2="80" y2="75" stroke="#604020" stroke-width="3"/>
+      <ellipse cx="80" cy="28" rx="5" ry="7" fill="#e07000" opacity="0.9"/>
+      <ellipse cx="80" cy="24" rx="4" ry="5" fill="#ffa000" opacity="0.8"/>
+      <ellipse cx="80" cy="35" rx="25" ry="25" fill="#c06000" opacity="0.07"/>
+    </svg>
+  </div>
+  <div class="card-title-bar">
+    <div>
+      <div class="card-title">Village Guard</div>
+      <div class="card-subtitle">Soldier · Town Watch</div>
+    </div>
+    <span class="card-badge enemy">ENEMY</span>
+  </div>
+  <div class="card-body">
+    <div class="prop">
+      <svg><use href="#t-charphase"/></svg>
+      <span style="font-size:10px;font-weight:bold;color:#180800">4</span>
+    </div>
+    <div class="trigger-block">
+      <div class="t-icon"><svg><use href="#t-reveal"/></svg></div>
+      <div class="t-text">Tuck 1 generic Item under this card.</div>
+    </div>
+    <div class="trigger-block">
+      <div class="t-icon"><svg><use href="#t-charphase"/></svg></div>
+      <div class="trigger-content">
+        <div class="dice-row"><svg><use href="#d-con"/></svg><svg><use href="#d-con"/></svg></div>
+        <div class="t-text">1 → 1 damage to nearest player; 2+ → 2 damage.</div>
+      </div>
+    </div>
+    <div class="action-block">
+      <div class="a-name">Parley <div class="track"><div class="m-act"></div></div></div>
+      <div class="dice-row"><svg><use href="#d-zeal"/></svg><svg><use href="#d-zeal"/></svg></div>
+      <div class="a-text">2+ → recruit this card as Ally into your Tableau.</div>
+    </div>
+  </div>
+  <div class="ally-divider">
+    <svg><use href="#i-character"/></svg> Ally Mode
+  </div>
+  <div class="ally-body">
+    <div class="life-row">
+      <svg class="lp-slot"><use href="#c-heart"/></svg>
+      <svg class="lp-slot"><use href="#c-heart"/></svg>
+    </div>
+    <div class="prop">
+      <svg><use href="#d-con"/></svg>
+      <span style="font-size:9px;font-family:sans-serif;color:#4a2808">Lv1</span>
+    </div>
+    <div class="passive-block">
+      <div class="p-name">Steadfast</div>
+      <div class="p-text">Adjacent players take 1 less damage from enemy Character Phase effects.</div>
+    </div>
+    <div class="linked">
+      <div class="link-label">OR</div>
+      <div class="action-block">
+        <div class="a-name">Shield Bash
+          <div class="track"><div class="m-act"></div><div class="m-arrow">|</div><div class="m-act" style="opacity:0.3"></div></div>
+        </div>
+        <div class="dice-row"><svg><use href="#d-con"/></svg><svg><use href="#d-con"/></svg></div>
+        <div class="a-text">1+ → 2 damage to 1 enemy; 2+ → also stun (skip their next Character Phase).</div>
+      </div>
+      <div class="action-block">
+        <div class="a-name">Intercept
+          <div class="track"><div class="m-act" style="opacity:0.3"></div><div class="m-arrow">|</div><div class="m-act"></div></div>
+        </div>
+        <div class="a-text">Redirect next attack targeting any player to this card instead.</div>
+      </div>
+    </div>
+    <div class="flavor">"With the right word, a wall becomes a door."</div>
+  </div>
+  <div class="card-footer">
+    <span>The Old Country · Location Set</span><span>Character</span>
+  </div>
+</div>
+
+
+<!-- ══ CARD 6: ITEM ══ -->
+<div class="card item">
+  <div class="card-header">
+    <svg><use href="#i-item"/></svg> Item
+  </div>
+  <div class="card-image">
+    <svg viewBox="0 0 260 130" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <radialGradient id="g-lantern-glow" cx="50%" cy="55%" r="50%">
+          <stop offset="0%" stop-color="#ffcc40" stop-opacity="0.9"/>
+          <stop offset="40%" stop-color="#e08000" stop-opacity="0.4"/>
+          <stop offset="100%" stop-color="#080808" stop-opacity="1"/>
+        </radialGradient>
+      </defs>
+      <rect width="260" height="130" fill="#080808"/>
+      <ellipse cx="130" cy="72" rx="100" ry="80" fill="url(#g-lantern-glow)"/>
+      <line x1="130" y1="0" x2="130" y2="20" stroke="#8a6028" stroke-width="2"/>
+      <ellipse cx="130" cy="22" rx="4" ry="3" fill="none" stroke="#8a6028" stroke-width="1.5"/>
+      <polygon points="115,25 145,25 140,30 120,30" fill="#8a6028"/>
+      <rect x="120" y="30" width="20" height="6" rx="1" fill="#6a4818"/>
+      <rect x="112" y="36" width="36" height="52" rx="3" fill="none" stroke="#8a6028" stroke-width="2"/>
+      <rect x="114" y="38" width="15" height="48" fill="#ffcc40" opacity="0.25"/>
+      <rect x="131" y="38" width="15" height="48" fill="#ffcc40" opacity="0.15"/>
+      <line x1="129" y1="36" x2="129" y2="88" stroke="#8a6028" stroke-width="1.5"/>
+      <line x1="120" y1="36" x2="120" y2="88" stroke="#8a6028" stroke-width="1" opacity="0.5"/>
+      <line x1="140" y1="36" x2="140" y2="88" stroke="#8a6028" stroke-width="1" opacity="0.5"/>
+      <line x1="112" y1="52" x2="148" y2="52" stroke="#8a6028" stroke-width="1.5"/>
+      <line x1="112" y1="72" x2="148" y2="72" stroke="#8a6028" stroke-width="1.5"/>
+      <ellipse cx="130" cy="62" rx="6" ry="9" fill="#ffcc40" opacity="0.9"/>
+      <ellipse cx="130" cy="60" rx="4" ry="6" fill="#fff0a0" opacity="0.8"/>
+      <ellipse cx="130" cy="58" rx="2" ry="3" fill="white" opacity="0.6"/>
+      <polygon points="112,88 148,88 143,96 117,96" fill="#6a4818"/>
+      <line x1="117" y1="96" x2="115" y2="103" stroke="#8a6028" stroke-width="1.5"/>
+      <line x1="143" y1="96" x2="145" y2="103" stroke="#8a6028" stroke-width="1.5"/>
+      <line x1="112" y1="62" x2="60" y2="50" stroke="#ffcc40" stroke-width="0.5" opacity="0.3"/>
+      <line x1="112" y1="62" x2="55" y2="75" stroke="#ffcc40" stroke-width="0.5" opacity="0.3"/>
+      <line x1="148" y1="62" x2="200" y2="50" stroke="#ffcc40" stroke-width="0.5" opacity="0.3"/>
+      <line x1="148" y1="62" x2="205" y2="75" stroke="#ffcc40" stroke-width="0.5" opacity="0.3"/>
+    </svg>
+  </div>
+  <div class="card-title-bar">
+    <div>
+      <div class="card-title">Iron Lantern</div>
+      <div class="card-subtitle">Tool · Light Source</div>
+    </div>
+    <span class="card-badge" style="background:#301008;color:#e0a060">ITEM</span>
+  </div>
+  <div class="card-body">
+    <div class="passive-block">
+      <div class="p-name">Ward Against Shadows</div>
+      <div class="p-text">Enemies at your current location cannot trigger surprise attacks.</div>
+    </div>
+    <div class="action-block">
+      <div class="a-name">Illuminate
+        <div class="track">
+          <div class="m-use"></div>
+          <div class="m-use"></div>
+          <div class="m-use"></div>
+        </div>
+      </div>
+      <div class="a-text">Reveal all face-down connections of your current Location.</div>
+    </div>
+    <div class="flavor">"Darkness is just fear given shape. Light has a way with fear."</div>
+  </div>
+  <div class="card-footer">
+    <span>The Old Country · Location Set</span><span>Item</span>
+  </div>
+</div>
+
+
+<!-- ══ CARD 7: EVENT ══ -->
+<div class="card event">
+  <div class="card-header">
+    <svg><use href="#i-event"/></svg> Generic Event
+  </div>
+  <div class="card-image">
+    <svg viewBox="0 0 260 130" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="g-ambush-bg" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#200008"/>
+          <stop offset="100%" stop-color="#080008"/>
+        </linearGradient>
+      </defs>
+      <rect width="260" height="130" fill="url(#g-ambush-bg)"/>
+      <rect x="0" y="0" width="50" height="130" fill="#100006"/>
+      <rect x="210" y="0" width="50" height="130" fill="#100006"/>
+      <line x1="0" y1="20" x2="50" y2="20" stroke="#180008" stroke-width="1"/>
+      <line x1="0" y1="40" x2="50" y2="40" stroke="#180008" stroke-width="1"/>
+      <line x1="0" y1="60" x2="50" y2="60" stroke="#180008" stroke-width="1"/>
+      <line x1="0" y1="80" x2="50" y2="80" stroke="#180008" stroke-width="1"/>
+      <line x1="0" y1="100" x2="50" y2="100" stroke="#180008" stroke-width="1"/>
+      <line x1="210" y1="20" x2="260" y2="20" stroke="#180008" stroke-width="1"/>
+      <line x1="210" y1="40" x2="260" y2="40" stroke="#180008" stroke-width="1"/>
+      <line x1="210" y1="60" x2="260" y2="60" stroke="#180008" stroke-width="1"/>
+      <line x1="210" y1="80" x2="260" y2="80" stroke="#180008" stroke-width="1"/>
+      <line x1="210" y1="100" x2="260" y2="100" stroke="#180008" stroke-width="1"/>
+      <rect x="0" y="100" width="260" height="30" fill="#0c0005"/>
+      <ellipse cx="130" cy="115" rx="120" ry="20" fill="#800010" opacity="0.15"/>
+      <ellipse cx="70" cy="70" rx="12" ry="20" fill="#080004"/>
+      <polygon points="58,90 82,90 88,130 52,130" fill="#080004"/>
+      <line x1="82" y1="65" x2="100" y2="55" stroke="#606070" stroke-width="2"/>
+      <polygon points="100,55 103,52 104,57" fill="#808090"/>
+      <ellipse cx="190" cy="68" rx="12" ry="20" fill="#080004"/>
+      <polygon points="178,88 202,88 208,130 172,130" fill="#080004"/>
+      <line x1="178" y1="63" x2="160" y2="53" stroke="#606070" stroke-width="2"/>
+      <polygon points="160,53 157,50 158,55" fill="#808090"/>
+      <ellipse cx="66" cy="65" rx="2" ry="1.5" fill="#dd2020" opacity="0.9"/>
+      <ellipse cx="74" cy="65" rx="2" ry="1.5" fill="#dd2020" opacity="0.9"/>
+      <ellipse cx="186" cy="63" rx="2" ry="1.5" fill="#dd2020" opacity="0.9"/>
+      <ellipse cx="194" cy="63" rx="2" ry="1.5" fill="#dd2020" opacity="0.9"/>
+      <rect x="50" y="40" width="160" height="50" fill="#200008" opacity="0.4"/>
+      <line x1="95" y1="45" x2="105" y2="85" stroke="#dd2020" stroke-width="1" opacity="0.6"/>
+      <line x1="100" y1="45" x2="110" y2="85" stroke="#dd2020" stroke-width="0.8" opacity="0.4"/>
+      <line x1="155" y1="45" x2="165" y2="85" stroke="#dd2020" stroke-width="1" opacity="0.6"/>
+      <line x1="160" y1="45" x2="170" y2="85" stroke="#dd2020" stroke-width="0.8" opacity="0.4"/>
+    </svg>
+  </div>
+  <div class="card-title-bar">
+    <div>
+      <div class="card-title">Bandit Ambush</div>
+      <div class="card-subtitle">Assault · Immediate</div>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="event-effect">
+      Place 2 generic Enemy Character cards at each player's current Location. Each player takes 1 damage, assigned freely across their Persona Cards.
+    </div>
+    <div class="flavor">"They had been watching. Waiting. Counting."</div>
+  </div>
+  <div class="card-footer">
+    <span>The Old Country · Location Set</span><span>Event</span>
+  </div>
+</div>
+
+
+<!-- ══ CARD 8: MAIN QUEST ══ -->
+<div class="card main-quest">
+  <div class="card-header">
+    <svg><use href="#i-quest"/></svg> Main Quest — Act 1
+  </div>
+  <div class="card-image">
+    <svg viewBox="0 0 260 130" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="g-quest-bg" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#302010"/>
+          <stop offset="100%" stop-color="#1a1008"/>
+        </linearGradient>
+      </defs>
+      <rect width="260" height="130" fill="url(#g-quest-bg)"/>
+      <rect x="20" y="10" width="220" height="110" rx="5" fill="#c8a060" opacity="0.15"/>
+      <rect x="30" y="50" width="20" height="60" fill="#2a1c0c" opacity="0.8"/>
+      <polygon points="30,50 50,50 40,38" fill="#2a1c0c" opacity="0.8"/>
+      <rect x="55" y="40" width="15" height="70" fill="#251808" opacity="0.8"/>
+      <polygon points="55,40 70,40 62,28" fill="#251808" opacity="0.8"/>
+      <rect x="205" y="45" width="20" height="65" fill="#2a1c0c" opacity="0.8"/>
+      <polygon points="205,45 225,45 215,33" fill="#2a1c0c" opacity="0.8"/>
+      <rect x="70" y="30" width="120" height="80" rx="4" fill="#d4b060" opacity="0.9"/>
+      <ellipse cx="70" cy="70" rx="8" ry="40" fill="#b89040" opacity="0.9"/>
+      <ellipse cx="190" cy="70" rx="8" ry="40" fill="#b89040" opacity="0.9"/>
+      <line x1="85" y1="45" x2="175" y2="45" stroke="#8a6020" stroke-width="1" opacity="0.5"/>
+      <line x1="85" y1="52" x2="175" y2="52" stroke="#8a6020" stroke-width="1" opacity="0.5"/>
+      <line x1="85" y1="59" x2="160" y2="59" stroke="#8a6020" stroke-width="1" opacity="0.5"/>
+      <line x1="85" y1="82" x2="175" y2="82" stroke="#8a6020" stroke-width="1" opacity="0.5"/>
+      <line x1="85" y1="89" x2="175" y2="89" stroke="#8a6020" stroke-width="1" opacity="0.5"/>
+      <line x1="85" y1="96" x2="160" y2="96" stroke="#8a6020" stroke-width="1" opacity="0.5"/>
+      <circle cx="138" cy="68" r="18" fill="none" stroke="#6a4010" stroke-width="3"/>
+      <circle cx="138" cy="68" r="16" fill="#b8d8f0" opacity="0.3"/>
+      <line x1="151" y1="81" x2="165" y2="97" stroke="#6a4010" stroke-width="4" stroke-linecap="round"/>
+      <circle cx="138" cy="68" r="10" fill="#8a6020" opacity="0.4"/>
+      <ellipse cx="138" cy="64" rx="5" ry="6" fill="#6a4808" opacity="0.6"/>
+      <path d="M128 76 Q138 72 148 76" fill="#6a4808" opacity="0.5"/>
+    </svg>
+  </div>
+  <div class="card-title-bar">
+    <div>
+      <div class="card-title">The Missing Scholar</div>
+      <div class="card-subtitle">Act 1 of 3 · The Wandering Scholar</div>
+    </div>
+    <span class="card-badge" style="background:#302008;color:#e0c060">ACT 1</span>
+  </div>
+  <div class="card-body">
+    <div class="objective">
+      <div class="obj-title">① Reach the University District</div>
+      <div class="obj-desc">At least one player must be at a Location tagged University.</div>
+      <div class="obj-complete">
+        <svg><use href="#t-complete"/></svg>
+        Reveal Setpiece <em>University Gates</em>
+      </div>
+    </div>
+    <div class="objective">
+      <div class="obj-title">② Recover the Scholar's Notes</div>
+      <div class="obj-desc">Retrieve Key Item <em>Research Journal</em> from set-aside.</div>
+      <div class="obj-complete">
+        <svg><use href="#t-complete"/></svg>
+        Retrieve Key Quest <em>The Vanishing</em>; each player draws 1 Item
+      </div>
+    </div>
+    <div class="flavor">"He was last seen heading east. That was three weeks ago."</div>
+  </div>
+  <div class="card-footer">
+    <span>The Wandering Scholar · Quest Set</span><span>Main Quest</span>
+  </div>
+</div>
+
+
+<!-- ══ CARD 9: SIDE QUEST ══ -->
+<div class="card side-quest">
+  <div class="card-header">
+    <svg><use href="#i-quest"/></svg> Side Quest
+  </div>
+  <div class="card-image">
+    <svg viewBox="0 0 260 130" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <radialGradient id="g-locket-glow" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#ffd070" stop-opacity="0.6"/>
+          <stop offset="100%" stop-color="#1a0a00" stop-opacity="1"/>
+        </radialGradient>
+      </defs>
+      <rect width="260" height="130" fill="#180e04"/>
+      <rect x="0" y="0" width="260" height="130" fill="url(#g-locket-glow)"/>
+      <line x1="0" y1="30" x2="260" y2="32" stroke="#120a02" stroke-width="2" opacity="0.6"/>
+      <line x1="0" y1="55" x2="260" y2="57" stroke="#120a02" stroke-width="2" opacity="0.5"/>
+      <line x1="0" y1="80" x2="260" y2="82" stroke="#120a02" stroke-width="2" opacity="0.6"/>
+      <line x1="0" y1="105" x2="260" y2="107" stroke="#120a02" stroke-width="2" opacity="0.5"/>
+      <path d="M130 15 Q160 20 170 40 Q175 55 165 60" fill="none" stroke="#c8a030" stroke-width="1.5" stroke-dasharray="3,2"/>
+      <path d="M130 15 Q100 20 90 40 Q85 55 95 60" fill="none" stroke="#c8a030" stroke-width="1.5" stroke-dasharray="3,2"/>
+      <ellipse cx="130" cy="75" rx="28" ry="32" fill="#c8a030" stroke="#a07810" stroke-width="2"/>
+      <ellipse cx="130" cy="75" rx="25" ry="29" fill="#d4b040" stroke="#b08820" stroke-width="1"/>
+      <ellipse cx="130" cy="75" rx="20" ry="24" fill="none" stroke="#a07810" stroke-width="1" opacity="0.6"/>
+      <path d="M118 68 Q130 60 142 68 Q148 75 142 82 Q130 90 118 82 Q112 75 118 68Z" fill="none" stroke="#a07810" stroke-width="1" opacity="0.4"/>
+      <line x1="104" y1="75" x2="156" y2="75" stroke="#906808" stroke-width="1.5"/>
+      <ellipse cx="130" cy="46" rx="6" ry="4" fill="#b89028" stroke="#906808" stroke-width="1"/>
+      <ellipse cx="130" cy="95" rx="35" ry="12" fill="#ffd070" opacity="0.08"/>
+      <ellipse cx="138" cy="108" rx="30" ry="5" fill="#080402" opacity="0.4"/>
+    </svg>
+  </div>
+  <div class="card-title-bar">
+    <div>
+      <div class="card-title">Lost and Found</div>
+      <div class="card-subtitle">Side Quest</div>
+    </div>
+    <span class="card-badge" style="background:#282000;color:#c8a840">OPTIONAL</span>
+  </div>
+  <div class="card-body">
+    <div class="objective">
+      <div class="obj-title">① Find the Silver Locket</div>
+      <div class="obj-desc">Retrieve Key Item <em>Silver Locket</em> from set-aside.</div>
+      <div class="obj-complete">
+        <svg><use href="#t-complete"/></svg>
+        Place Silver Locket in active player's tableau
+      </div>
+    </div>
+    <div class="objective">
+      <div class="obj-title">② Return it to its Owner</div>
+      <div class="obj-desc">Reach Location <em>Merchant's Quarter</em> with Silver Locket in tableau.</div>
+      <div class="obj-complete">
+        <svg><use href="#t-complete"/></svg>
+        Retrieve Main Character <em>Grateful Merchant</em>; each player gains 1 Golden die
+      </div>
+    </div>
+    <div class="flavor">"It was her mother's. She thought it lost forever."</div>
+  </div>
+  <div class="card-footer">
+    <span>The Old Country · Location Set</span><span>Side Quest</span>
+  </div>
+</div>
+
+
+<!-- ══ CARD 10: SCRIPT ══ -->
+<div class="card script">
+  <div class="card-header">
+    <svg><use href="#i-script"/></svg> Script Card
+  </div>
+  <div class="card-image">
+    <svg viewBox="0 0 260 130" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="g-storm-sky" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#080818"/>
+          <stop offset="60%" stop-color="#101828"/>
+          <stop offset="100%" stop-color="#1a1a10"/>
+        </linearGradient>
+        <radialGradient id="g-storm-light" cx="60%" cy="30%" r="40%">
+          <stop offset="0%" stop-color="#c0d8ff" stop-opacity="0.3"/>
+          <stop offset="100%" stop-color="#000010" stop-opacity="0"/>
+        </radialGradient>
+      </defs>
+      <rect width="260" height="130" fill="url(#g-storm-sky)"/>
+      <rect width="260" height="130" fill="url(#g-storm-light)"/>
+      <ellipse cx="60" cy="35" rx="55" ry="28" fill="#1a1e28"/>
+      <ellipse cx="130" cy="28" rx="65" ry="30" fill="#1c2030"/>
+      <ellipse cx="200" cy="38" rx="55" ry="26" fill="#1a1e28"/>
+      <ellipse cx="100" cy="48" rx="50" ry="22" fill="#1e2232"/>
+      <ellipse cx="165" cy="45" rx="55" ry="25" fill="#1c2030"/>
+      <polygon points="138,18 128,52 136,52 122,90 148,45 138,45" fill="#e0f0ff" opacity="0.9"/>
+      <polygon points="138,18 128,52 136,52 122,90 148,45 138,45" fill="white" opacity="0.3" style="filter:blur(3px)"/>
+      <polygon points="70,30 66,48 70,48 62,65 74,42 70,42" fill="#b0d0ff" opacity="0.5"/>
+      <polygon points="196,25 192,40 196,40 188,56 200,36 196,36" fill="#b0d0ff" opacity="0.4"/>
+      <rect x="0" y="95" width="260" height="35" fill="#0c0c08"/>
+      <polygon points="20,95 26,65 32,95" fill="#080808"/>
+      <polygon points="235,95 241,60 247,95" fill="#080808"/>
+      <polygon points="50,95 57,70 64,95" fill="#0a0a08"/>
+      <polygon points="200,95 207,72 214,95" fill="#0a0a08"/>
+      <line x1="40" y1="60" x2="36" y2="80" stroke="#6080c0" stroke-width="0.8" opacity="0.4"/>
+      <line x1="80" y1="55" x2="76" y2="75" stroke="#6080c0" stroke-width="0.8" opacity="0.3"/>
+      <line x1="170" y1="58" x2="166" y2="78" stroke="#6080c0" stroke-width="0.8" opacity="0.4"/>
+      <line x1="210" y1="52" x2="206" y2="72" stroke="#6080c0" stroke-width="0.8" opacity="0.3"/>
+      <line x1="240" y1="60" x2="236" y2="80" stroke="#6080c0" stroke-width="0.8" opacity="0.4"/>
+      <ellipse cx="135" cy="95" rx="40" ry="6" fill="#d0e8ff" opacity="0.15"/>
+    </svg>
+  </div>
+  <div class="card-title-bar">
+    <div>
+      <div class="card-title">The Gathering Storm</div>
+      <div class="card-subtitle">Script · Act 1</div>
+    </div>
+    <span class="card-badge" style="background:#0c1828;color:#7090b8">∞</span>
+  </div>
+  <div class="card-body">
+    <table class="script-table">
+      <thead>
+        <tr>
+          <th>Turn</th>
+          <th><svg style="width:11px;height:11px;vertical-align:middle"><use href="#i-event"/></svg></th>
+          <th>Fated</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1</td>
+          <td><div class="event-pips"><svg><use href="#i-event"/></svg></div></td>
+          <td>—</td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td><div class="event-pips"><svg><use href="#i-event"/></svg></div></td>
+          <td>—</td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td><div class="event-pips"><svg><use href="#i-event"/></svg><svg><use href="#i-event"/></svg></div></td>
+          <td>—</td>
+        </tr>
+        <tr>
+          <td>4</td>
+          <td><div class="event-pips"><svg><use href="#i-event"/></svg><svg><use href="#i-event"/></svg></div></td>
+          <td>Pool draw</td>
+        </tr>
+        <tr>
+          <td>5</td>
+          <td><div class="event-pips"><svg><use href="#i-event"/></svg><svg><use href="#i-event"/></svg><svg><use href="#i-event"/></svg></div></td>
+          <td><em>The Storm Breaks</em> ★</td>
+        </tr>
+        <tr class="repeat">
+          <td>↺</td>
+          <td><div class="event-pips"><svg><use href="#i-event"/></svg><svg><use href="#i-event"/></svg><svg><use href="#i-event"/></svg></div></td>
+          <td>Pool draw</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="flavor">"It started as a distant rumble. Now it is overhead."</div>
+  </div>
+  <div class="card-footer">
+    <span>The Wandering Scholar · Quest Set</span><span>Script</span>
+  </div>
+</div>
+
+
+</div><!-- end cards-grid -->
+</body>
+</html>
