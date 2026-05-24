@@ -31,7 +31,7 @@ The structural foundation is `design/BASELINE.html` (Persona palette). All type 
 |---|---|---|---|
 | Type band label | Cinzel | 700 | 9 px, letter-spacing 5 px, uppercase |
 | Card title | Cinzel | 700 | 26 px |
-| Body / effect text | Crimson Text | 400 / italic | — |
+| Body / effect text | Crimson Text | 400 | Not italic |
 
 ---
 
@@ -49,6 +49,7 @@ Each card type uses a distinct color palette on the type band, frame accents, ca
 | Item | Teal / light blue |
 | Main Quest | Deep gold *(more saturated / yellower than Persona amber)* |
 | Side Quest | Silver / steel blue |
+| Script | Cream / off-white |
 
 ### Named Card Visual Accent
 
@@ -86,6 +87,16 @@ The mechanics frame (bottom panel) is divided into four sections top-to-bottom:
 
 Treatment: 0.15 translucent fill + gradient-fade 1 px top and bottom border per section (opacity 0.7, fading transparent → color 18%–82% → transparent).
 
+### 6.1 Effect Display Model
+
+- **No section labels** — section identity is communicated by background color only; do not render "PASSIVE", "ON REVEAL", "ACTION", etc. as text
+- **Sym+modifier group** — `[icon][modifier]` is an atomic inline unit; a modifier is either a number (amount) or a short label (set-aside card name); the group floats inline in flowing effect text
+- **Row format** — every effect row uses the pattern: `[leading symbol] [effect text]`
+  - Trigger rows: leading symbol = trigger symbol (On Reveal, On Enter, On Leave, etc.)
+  - Action rows: leading symbol = activation marker for that action's track
+  - Passive rows: no leading symbol — effect text only
+- **Text and trigger/action rows share the same formatting rules** — no visual distinction between a trigger row and an action row beyond the leading symbol
+
 ---
 
 ## 7. Icons
@@ -116,3 +127,48 @@ Icons are used inline in effect text to represent game concepts. The accepted ic
 - `icon-move` (boot) — move spaces
 - `icon-tuck-character`, `icon-tuck-item` — tuck mechanic
 - `icon-die-constitution`, `icon-die-zeal`, `icon-die-path` — persona dice
+
+---
+
+## 8. Activation Tracks
+
+Activation tracks appear on cards to represent how a card's actions can be used. All track designs use **shapes, colors, and connecting lines only — no text**. Each design must distinguish:
+
+- **Activation marker** — the slot/shape a player places their activation token onto to use an action
+- **Cooldown marker** — a slot/shape that holds a used token during cooldown
+- **Trigger marker** — a slot/shape that fires automatically (not player-placed)
+- **Token flow path** — lines showing the direction tokens move between markers
+
+### Primitive track types
+
+These are the building blocks. Each describes the lifecycle of a single token on a single track segment:
+
+| Track | Description |
+|---|---|
+| Basic | Single activation slot; token is removed on use — no cooldown |
+| Multi-turn | Single activation slot → cooldown slot → token returns after N turns |
+| Multi-use | Multiple activation slots on one track; each can be used independently per round |
+| Use | One-time use; token is consumed permanently and not returned |
+
+### Compound track types
+
+AND and OR are **compound containers** — each holds two or more sub-tracks. Each sub-track is a primitive track (Basic, Multi-turn, Multi-use, or Use) with its own activation markers, cooldown slots, and token flow. Visually, sub-tracks are drawn as distinct track segments connected by a shared AND/OR gate element.
+
+| Compound | Gate logic |
+|---|---|
+| AND | All sub-tracks must have ≥ 1 token on an activation marker simultaneously before any token proceeds further. Once the gate condition is met, each token advances along its own sub-track per that sub-track's rules. |
+| OR | Activating any one sub-track (placing a token on its activation marker) disables all other sub-tracks until that sub-track is fully resolved (token returned or consumed). Choice reopens after full resolution. |
+
+**Design note:** nested AND/OR (a sub-track that is itself an AND/OR compound) is conceptually valid but should not be expected in the visual design. Design for one level of nesting only.
+
+All six track type designs are pending — to be created as SVG reference variants by the orchestrator sub-agent.
+
+---
+
+## 9. App-Agent Design Task Queue
+
+App agents add entries here when the live preview requires a visual element that is not yet designed. Card Design agents pick these up after completing queued tasks in §7 and §8.
+
+*Format: `- [ ] [short title] — [what the app needs; where it appears in the preview]`*
+
+*(empty — app v1 build not yet started; entries will be added by the app sub-agent)*

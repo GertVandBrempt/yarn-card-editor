@@ -4,6 +4,8 @@
 >
 > Durable design decisions only. Mark superseded decisions rather than deleting them.
 
+**Status: Accepted 2026-05-24 — build v1 (see ORCHESTRATOR.md App Design stream)**
+
 ---
 
 ## Core Loop
@@ -217,6 +219,60 @@ Each card is a typed record. All types share a common base; type-specific fields
 3. **Set-type enforcement**: should the editor restrict which card types can appear in a Quest Set vs. Location Set? Or free collections in v1?
 4. **Within-set card ID references** (hard-coded connections, fated events, narrative clusters): how does the editor surface and validate these in v1?
 5. **Print layout**: fixed A4/Letter at fixed card density, or configurable?
+
+---
+
+## Tech Stack — v1
+
+| Concern | Decision |
+|---|---|
+| Framework | Angular — project root is `yarn-card-editor/` subfolder |
+| Build | `ng build --base-href /yarn-card-editor/editor/` |
+| Deployment | Build output to `docs/editor/`; committed to master; GitHub Pages serves `docs/` folder |
+| Live URL | `https://gertvandtbrempt.github.io/yarn-card-editor/editor/` |
+| Storage | IndexedDB (browser-local) |
+| Live preview | Angular component loads accepted baseline HTML template per card type; reactive form binding updates preview in real time |
+| Undesigned elements | Form fields built; preview shows `⏳ Design pending` placeholder |
+| Script card preview | Unavailable until script baseline accepted into card-index.md |
+
+**⚠ Repo prerequisite**: `yarn-card-editor/` was previously added to `.gitignore` to fix a submodule conflict. The inner `.git` directory in `yarn-card-editor/` must be deleted and the folder committed to the outer repo as a normal subdirectory before the app agent can build. If this is not done, the app agent will notify the user via PushNotification and wait.
+
+---
+
+## Deployment
+
+- App lives in `editor/` at repo root
+- GitHub Pages serves it automatically from master branch
+- Orchestrator commits and pushes after every meaningful build increment
+- After each deploy, a PushNotification is sent with the live URL
+
+---
+
+## Design Gap Protocol
+
+When the live preview requires a visual element that is not yet designed:
+
+1. App agent adds a task to `design/VISUAL.md §9` (App-Agent Design Task Queue)
+2. App agent adds a row to the Known Design Gaps table below
+3. Form field for that element is built and functional
+4. Live preview shows a styled `⏳ Design pending` placeholder for that element
+5. App agent does NOT design the element — Card Design stream picks it up from VISUAL.md §9
+
+App agents never do visual design work in any capacity.
+
+---
+
+## Known Design Gaps
+
+Elements needed by the live preview that are not yet designed. Card Design stream resolves these via VISUAL.md §9.
+
+| Element | Used in preview for | VISUAL.md §9 task added | Resolved |
+|---|---|---|---|
+| Trigger symbols (On Reveal, On Enter, etc.) | Effect rows with trigger leading symbol | _(app agent adds when building)_ | — |
+| Activation track visuals | Action rows in effects panel | _(app agent adds when building)_ | — |
+| Inline sym+modifier rendering | Effect text with icon+number groups | _(app agent adds when building)_ | — |
+| Script card baseline | Script card live preview | n/a — queued in Card Design stream | — |
+| Character dual-mode layout | Character card Ally Mode preview | _(app agent adds when building)_ | — |
 
 ---
 

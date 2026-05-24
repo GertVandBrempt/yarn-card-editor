@@ -32,17 +32,32 @@ Streams are **independent** — a blocked stream does not pause other streams.
 ### Card Design
 - **Mode**: autonomous
 - **Source**: design/VISUAL.md, design/card-index.md
-- **Status**: two variants created this run; one blocker
-- **Next task**: Resolve Script card colour before adding to card-index.md; review effects-v02 direction
-- **Blocked on**: Script card colour not in VISUAL.md — purple used as placeholder in script-v01; user must confirm colour before VISUAL.md can be updated
+- **Status**: active — Script colour confirmed (cream/off-white); effects display model defined; activation track spec added; 3 tasks queued
+- **Next task**: Three queued tasks (execute in order):
+  1. **effects-v03** — inline sym+modifier effect display: non-italic Crimson Text, no section labels, trigger-symbol→text and activation-marker→text row format; use effects-v02 as base but apply the §6.1 rules
+  2. **trigger-symbols-v01** — SVG reference variant for all trigger symbols: On Reveal, On Enter, On Leave, Character Phase, On Complete, On Flow Marker; each as a distinct icon per §7 style rules
+  3. **activation-tracks-v01** — SVG reference variant for all 6 activation track types (Basic, Multi-turn, Multi-use, AND, OR, Use); shapes/colors/lines only, no text; per §8 spec in VISUAL.md
+- **Blocked on**: —
 - **Last notified**: 2026-05-24T08:53:53Z
 
 ### App Design
 - **Mode**: autonomous
-- **Source**: app.md
-- **Status**: Blocked — initial app.md drafted; awaiting user review
-- **Next task**: Await user feedback on app.md, then resolve open questions
-- **Blocked on**: Awaiting user review of initial app.md draft
+- **Source**: APP.md
+- **Status**: active — APP.md accepted; build v1 editor for today's review session; **HIGH PRIORITY this run**
+- **Next task**: Build and deploy the v1 card editor. Full spec in APP.md. Execute before Card Design tasks this run.
+  - **Tech stack**: Angular — project root is `yarn-card-editor/` subfolder; build with `ng build`; deploy built output to `docs/editor/` (GitHub Pages serves `docs/` folder on master); served at `https://gertvandtbrempt.github.io/yarn-card-editor/editor/`; remember to set `--base-href /yarn-card-editor/editor/` on build
+  - **⚠ Pre-flight check**: `yarn-card-editor/` was previously added to `.gitignore` to resolve a submodule conflict. Before building, verify `yarn-card-editor/` exists in the cloned repo. If the directory is missing or empty, **stop and send a PushNotification** asking the user to commit the Angular source (`yarn-card-editor/` without its inner `.git` directory) to the repo before the app agent can proceed. Do not create a new Angular project from scratch.
+  - **Live preview**: Angular component renders the accepted baseline HTML template per card type (loaded from `design/card-index.md` at runtime); form reactive binding updates the preview on every change
+  - **Accepted baselines** (live preview ready): all types listed in card-index.md. Script card NOT yet in card-index.md — build the Script form but show a "Preview unavailable — baseline pending" placeholder in the preview pane
+  - **Design gap protocol** — if the live preview requires a visual element not yet in VISUAL.md (trigger symbols, activation track visuals, inline sym+modifier rendering, etc.):
+    1. Add a task entry to `VISUAL.md §9` describing what is needed and where it is used
+    2. Add a row to APP.md §Known Design Gaps table
+    3. Build the form field normally
+    4. Show a styled `⏳ Design pending` placeholder in the live preview for that element
+    5. Do NOT design the element — that is Card Design stream's responsibility
+  - **App agents never do visual design work in any capacity**
+  - After commit+push, send a PushNotification with the live editor URL and a one-line summary of what was built
+- **Blocked on**: —
 - **Last notified**: 2026-05-24T08:53:53Z
 
 ## Active Sub-Agents

@@ -57,6 +57,19 @@ Visual design is documented in `design/VISUAL.md`. Per-type HTML baseline files 
 - **Update `design/VISUAL.md` whenever a design element is finalized** — a reference file is created, a variant is accepted, or a visual pattern is locked in. Iteration (writing variants, logging diffs) does not require a VISUAL.md update; finalization always does.
 - At the start of a new session, run `/resume` to reload context before doing anything else.
 
+### ⚠ Interactive session boundary — STRICTLY ENFORCED
+
+**Interactive sessions (invoked by the user via Claude Code CLI) write `.md` files ONLY.**
+
+- ✅ Allowed: edits to `DESIGN.md`, `design/VISUAL.md`, `design/card-index.md`, `ORCHESTRATOR.md`, `RESUME.md`, `app.md`, and any other Markdown files
+- ❌ Forbidden: creating or editing any `.html`, `.css`, `.ts`, `.js`, or other non-Markdown files
+- ❌ Forbidden: creating card variant files (e.g. `design/variants/*.html`) — even if the user asks
+- ❌ Forbidden: creating icon reference files, gallery files, or any other output artifacts
+
+The orchestrator and its sub-agents (scheduled CCR routines) are responsible for **all HTML creation and iteration**. Interactive sessions feed them instructions via MD files. If a card design decision needs to be implemented, write the specification to `VISUAL.md` and/or `ORCHESTRATOR.md` — the orchestrator picks it up on its next run.
+
+Violating this boundary breaks the autonomous workflow and bypasses the orchestrator.
+
 ## Session Skills
 
 - `/resume` — load context at session start (reads VISUAL.md, card-index.md, RESUME.md)

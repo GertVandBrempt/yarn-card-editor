@@ -7,7 +7,8 @@
       "Bash(start \"C:\\\\Users\\\\gertv\\\\Documents\\\\Projects\\\\Yarn\\\\design\\\\variants\\\\icons-combat-v02.html\")",
       "Bash(start \"C:\\\\Users\\\\gertv\\\\Documents\\\\Projects\\\\Yarn\\\\design\\\\variants\\\\icons-action-v02.html\")",
       "Bash(start *)",
-      "Skill(schedule)"
+      "Skill(schedule)",
+      "Bash(git check-ignore *)"
     ]
   }
 }
