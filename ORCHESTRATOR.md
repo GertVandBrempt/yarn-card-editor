@@ -11,23 +11,6 @@ last_orchestrator_run: 2026-05-24T12:05:49Z
 last_status_notification: 2026-05-24T08:53:53Z
 ```
 
-## Orchestrator Architecture
-
-The orchestrator runs as a CCR scheduled routine (`yarn-orchestrator`, every 6h). On each run it:
-
-1. Checks the weekly gate (`blocked_for_weekly_review`)
-2. Reads ORCHESTRATOR.md and shared context files
-3. **Dispatches 3 sub-agents in parallel** (one per stream) using the Agent tool — all three run simultaneously
-4. Collects results from all sub-agents
-5. Regenerates `review/index.html` if card work was done
-6. Updates ORCHESTRATOR.md and RESUME.md with all stream outcomes
-7. Makes a single `git commit + push` covering all stream work
-8. Sends a completion PushNotification summarising all streams
-
-Sub-agents do not commit — the orchestrator commits once after all three complete.
-
----
-
 ## Work Streams
 
 Streams are **independent** — a blocked stream does not pause other streams.
