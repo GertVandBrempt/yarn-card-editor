@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Yarn — Card Review Gallery</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: #0f0f13;
+      color: #e8e0d5;
+      min-height: 100vh;
+      padding: 1.5rem 1rem 4rem;
+    }
+
+    header {
+      max-width: 680px;
+      margin: 0 auto 2rem;
+    }
+
+    header h1 {
+      font-size: 1.6rem;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      color: #f5f0e8;
+      margin-bottom: 0.25rem;
+    }
+
+    header p {
+      font-size: 0.85rem;
+      color: #8a8070;
+    }
+
+    header p strong {
+      color: #b0a890;
+    }
+
+    .filter-bar {
+      max-width: 680px;
+      margin: 0 auto 1.5rem;
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .filter-btn {
+      background: #1e1c24;
+      border: 1px solid #2e2c38;
+      color: #9a9080;
+      font-size: 0.78rem;
+      padding: 0.3rem 0.75rem;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .filter-btn:hover,
+    .filter-btn.active {
+      background: #2e2c38;
+      border-color: #4a4860;
+      color: #e8e0d5;
+    }
+
+    .card-list {
+      max-width: 680px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .empty-state {
+      max-width: 680px;
+      margin: 3rem auto;
+      text-align: center;
+      color: #5a5545;
+    }
+
+    .empty-state .icon { font-size: 3rem; margin-bottom: 1rem; }
+    .empty-state h2 { font-size: 1.1rem; color: #7a7060; margin-bottom: 0.5rem; }
+    .empty-state p { font-size: 0.85rem; line-height: 1.6; }
+
+    .card-entry {
+      background: #1a1820;
+      border: 1px solid #26242e;
+      border-radius: 10px;
+      padding: 1rem 1.1rem;
+      transition: border-color 0.15s;
+    }
+
+    .card-entry:hover { border-color: #3a3848; }
+
+    .card-entry-top {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      margin-bottom: 0.45rem;
+    }
+
+    .type-badge {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 0.15rem 0.55rem;
+      border-radius: 4px;
+      background: #2a2838;
+      color: #a098c0;
+    }
+
+    .type-badge.location  { background: #1e2a1e; color: #80c080; }
+    .type-badge.character { background: #2a1e1e; color: #c08080; }
+    .type-badge.item      { background: #2a2a1e; color: #c0b880; }
+    .type-badge.event     { background: #1e2a2a; color: #80c0c0; }
+    .type-badge.quest     { background: #2a1e2a; color: #c080c0; }
+    .type-badge.persona   { background: #2a221e; color: #c09868; }
+    .type-badge.script    { background: #1e2028; color: #8898c0; }
+
+    .variant-id {
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: #d8d0c5;
+    }
+
+    .variant-version {
+      font-size: 0.75rem;
+      color: #6a6055;
+      margin-left: auto;
+    }
+
+    .card-desc {
+      font-size: 0.82rem;
+      color: #9a9080;
+      line-height: 1.5;
+      margin-bottom: 0.75rem;
+    }
+
+    .card-actions {
+      display: flex;
+      gap: 0.6rem;
+    }
+
+    .card-actions a {
+      font-size: 0.78rem;
+      color: #8898c0;
+      text-decoration: none;
+      padding: 0.25rem 0.65rem;
+      border: 1px solid #2e3048;
+      border-radius: 5px;
+      transition: all 0.15s;
+    }
+
+    .card-actions a:hover {
+      background: #2e3048;
+      color: #b8c8f0;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>🧵 Yarn — Card Review Gallery</h1>
+    <p>Updated: <strong>2026-05-24T08:30:38Z</strong> · 0 variants</p>
+  </header>
+
+  <div class="filter-bar">
+    <button class="filter-btn active" onclick="filterCards('all', this)">All</button>
+    <button class="filter-btn" onclick="filterCards('location', this)">Location</button>
+    <button class="filter-btn" onclick="filterCards('character', this)">Character</button>
+    <button class="filter-btn" onclick="filterCards('item', this)">Item</button>
+    <button class="filter-btn" onclick="filterCards('event', this)">Event</button>
+    <button class="filter-btn" onclick="filterCards('quest', this)">Quest</button>
+    <button class="filter-btn" onclick="filterCards('persona', this)">Persona</button>
+    <button class="filter-btn" onclick="filterCards('script', this)">Script</button>
+  </div>
+
+  <div class="card-list" id="card-list">
+    <div class="empty-state">
+      <div class="icon">🃏</div>
+      <h2>No card variants yet</h2>
+      <p>Card variants will appear here once the Card Design stream is unblocked.<br>
+         Create <code>design/VISUAL.md</code> and <code>design/card-index.md</code> to get started.</p>
+    </div>
+  </div>
+
+  <script>
+    function filterCards(type, btn) {
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      document.querySelectorAll('.card-entry').forEach(el => {
+        el.style.display = (type === 'all' || el.dataset.type === type) ? '' : 'none';
+      });
+    }
+  </script>
+</body>
+</html>
