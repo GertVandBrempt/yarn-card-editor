@@ -762,10 +762,29 @@ export class App implements OnInit, AfterViewInit {
     }
 
     // ── 8. Build mech-sections content ──
-    out = out.replace(
-      /<div class="mech-sections">[\s\S]*?<\/div>\s*(<div class="mech-rule mech-rule-bot">)/,
-      `<div class="mech-sections">${this.buildMechSections()}</div>$1`
-    );
+    // The templates have a fixed inner structure of 4 empty .sec divs inside .mech-sections.
+    // We replace the entire inner content (from first sec to last sec) using a split approach
+    // to avoid regex nesting issues with multiple </div> tags.
+    const mechStart = '<div class="mech-sections">';
+    const mechEnd = '</div>';
+    const mechRuleBot = '<div class="mech-rule mech-rule-bot">';
+    const mechIdx = out.indexOf(mechStart);
+    if (mechIdx >= 0) {
+      // Find the closing </div> of mech-sections: it precedes mech-rule-bot
+      const ruleIdx = out.indexOf(mechRuleBot, mechIdx);
+      if (ruleIdx >= 0) {
+        // Work backwards from ruleIdx to find the </div> that closes mech-sections
+        const closingIdx = out.lastIndexOf(mechEnd, ruleIdx - 1);
+        if (closingIdx >= 0 && closingIdx > mechIdx) {
+          out =
+            out.slice(0, mechIdx) +
+            mechStart +
+            this.buildMechSections() +
+            mechEnd +
+            out.slice(closingIdx + mechEnd.length);
+        }
+      }
+    }
 
     return out;
   }

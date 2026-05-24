@@ -252,3 +252,18 @@ Changed:
 - trig-flow-marker: blue solid chevron → track-advance: dark outer chevron + dark left-edge marker block + light amber inner chevron fill + light marker face
 - Card mockup: trigger-entry section expanded to 2 rows (trig-reveal + trig-enter); trigger-exit section expanded to 4 rows (trig-leave + trig-char-phase + trig-complete + trig-flow-marker); mech-frame height 200px → 260px
 - Activation marker in actions row: unchanged placeholder (§8 redesign deferred to activation-tracks-v02)
+
+## activation-tracks-v02 — redesigned 6 activation track types per §8: dark body + lighter detail, vertical layout in card context (2026-05-24)
+Base: design/variants/activation-tracks-v01.html (concept only — display format completely replaced)
+Changed:
+- Display format: isolated 2-column reference grid → real card mockup (375×525 Persona card, "The Chronicler")
+- Track palette: per-track color fills (red hexagons, gold diamonds, blue flow lines, green/purple gates) → unified dark body (#1a0e04) + warm light amber detail (#d4b87a); no per-track color variation
+- Layout: horizontal diagram strips → vertical SVG strips (narrow leading markers in action rows)
+- track-basic: colored hexagon + colored arc → dark circle (activation slot) + light inner circle (slot face/token) + light center pip; vertical axis line
+- track-multiturn: colored hexagon + horizontal gold diamonds + colored arc → dark circle (activation) + dark square (cooldown) stacked vertically, downward flow arrow, dashed left-side return arc with return arrowhead
+- track-multiuse: three colored hexagons horizontal → three dark circles stacked vertically; bottom slot shown spent (dimmed, outline only); separator dots between slots
+- track-use: colored hexagon + horizontal charge dots + X → dark square activation + descending light charge pips + X cross at bottom; vertical one-way layout
+- track-and (compound): horizontal Y-merge into AND gate (D-shape) → two side-by-side vertical sub-track columns (each dark circle + light face); horizontal bracket gate bar with light detail strip; single downward output arrow; compound rows use wider 44px lead slot (effect-lead-compound)
+- track-or (compound): horizontal Y-merge into OR gate (curved shape) + lock X → two side-by-side vertical sub-track columns; left (active) full opacity, right (locked) dimmed with light X cross; diagonal arms converge to light diamond OR gate point; downward output arrow; compound rows use wider 44px lead slot
+- Card mockup: actions section expanded to 6 rows (one per track type); AND + OR rows use effect-row-compound (48px height); mech-frame height 260px → 310px
+- Action section sub-dividers: hairline gradient lines between action rows for readability
