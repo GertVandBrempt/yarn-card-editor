@@ -1,6 +1,6 @@
 # Yarn — Session Resume Context
 
-_Updated: 2026-05-24T13:00:00Z (orchestrator run)_
+_Updated: 2026-05-24T18:02:35Z (orchestrator run)_
 
 ---
 
@@ -18,42 +18,48 @@ This rule is also enforced in `CLAUDE.md § Working Style`.
 
 ## Current task
 
-Card design review session — user feedback recorded; 2 redesign tasks queued for orchestrator.
+Orchestrator run complete — all streams active, no blockers.
 
 ---
 
 ## What was done this run
 
-### 🖥️ App Design (HIGH PRIORITY — completed)
-- **Built and deployed v1 Angular card editor** to `editor/` at repo root
-- **Live URL**: https://gertvandtbrempt.github.io/yarn-card-editor/editor/
-- Features: all 8 card types, type selector, form fields, live preview (baseline HTML + title injection via iframe), localStorage persistence, JSON import/export
-- Design gaps noted in VISUAL.md §9 and APP.md — trigger symbols, activation tracks, sym+modifier, dual-mode layout
+### 🎨 Card Design (2 tasks done)
+1. **trigger-symbols-v02** — 6 trigger symbols redesigned per §7: dark body + lighter detail, 20×20, no per-trigger color variation; shown as leading symbols in trigger rows on a real card mockup (NOT an isolated reference sheet)
+2. **activation-tracks-v02** — 6 activation track types redesigned per §8: vertical layout covering the action container, simple shapes, dark body + lighter detail palette; AND/OR compound sub-tracks shown as separate vertical columns with shared gate element; shown as leading markers in action rows on a real card mockup
 
-### 🎨 Card Design (all 3 queued tasks done)
-1. **effects-v03** — §6.1 display model: no section labels, non-italic Crimson Text, 4 sections (passive / trigger-entry / actions / trigger-exit), placeholder leading symbols for trigger and activation rows
-2. **trigger-symbols-v01** — SVG reference: 6 trigger symbol designs (On Reveal ⭐, On Enter →, On Leave ←, Character Phase ⬡, On Complete ✓, On Flow Marker ›)
-3. **activation-tracks-v01** — SVG reference: 6 activation track type diagrams with legend (Basic, Multi-turn, Multi-use, AND, OR, Use)
+### 🖥️ App Design (all 6 priority fixes done + built)
+Fixed all v1 review issues:
+1. **Wired all form fields** to live preview (every field now functional)
+2. **Fixed image upload** — local file picker → base64 data URI; drag-and-drop supported; URL input removed
+3. **Fixed live preview rendering** — injectCardData rewrote with indexOf/lastIndexOf logic; SVG symbol injection fixed; DomSanitizer added for SafeHtml
+4. **Added Triggers section** — per-card add/remove list; trigger type dropdown + effect editor; ⏳ Design pending placeholder for leading symbols
+5. **Added Actions section** — per-card add/remove list; activation track type dropdown + effect editor
+6. **Effect editor with inline parsing** — `<iconname>[modifier]` syntax parsed in real time; correct SVG icons render inline in preview
+- CSS budget in angular.json raised from 8kB to 40kB (app.css is 9.6kB)
+- **Build**: clean compile, deployed to docs/editor
 
 ### 🎮 Game Design
-- No notification sent (< 48h since last)
-- 5 discussion items unchanged
+- No new items in DESIGN.md; last notified < 48h ago — no notification
+
+### 📋 Gallery
+- review/index.html regenerated — 39 card-variant entries (2 new: trigger-symbols-v02, activation-tracks-v02)
 
 ---
 
 ## Next actions for user
 
-1. **Review the v1 editor**: https://gertvandtbrempt.github.io/yarn-card-editor/editor/
+1. **Review trigger-symbols-v02**: https://gertvandtbrempt.github.io/yarn-card-editor/review/
+   - Accept or request changes; once accepted → effects-v04 can be created
+
+2. **Review activation-tracks-v02**: https://gertvandtbrempt.github.io/yarn-card-editor/review/
+   - Accept or request changes; once accepted → effects-v04 can be created
+
+3. **Test the fixed v1 editor**: https://gertvandtbrempt.github.io/yarn-card-editor/editor/
+   - All form fields now wire to preview; image upload (file picker + drag-and-drop); Triggers/Actions sections; `<damage>[2]` inline icon syntax
    - Say "editor feedback: [your thoughts]" to give feedback
-   - The editor is live and functional for all card types
 
-2. **Review the card design variants**: https://gertvandtbrempt.github.io/yarn-card-editor/review/
-   - **effects-v03** — does the §6.1 row format look right? Accept or request changes
-   - **trigger-symbols-v01** — approve individual symbols or request redesigns
-   - **activation-tracks-v01** — approve track diagrams or request changes
-   - **script-v01** — still needs cream/off-white colour applied (awaiting acceptance of script card colour decision from previous session)
-
-3. **Game Design session** — 5 items waiting, say "game design" to begin
+4. **Game Design session** — 5 items waiting, say "game design" to begin
 
 ---
 
@@ -62,14 +68,14 @@ Card design review session — user feedback recorded; 2 redesign tasks queued f
 | Stream | What to do |
 |---|---|
 | 🎮 Game Design | Say "game design" to open a discussion session |
-| 🎨 Card Design | Accept/reject effects-v03, trigger-symbols-v01, activation-tracks-v01; confirm Script cream colour |
-| 🖥️ App Design | Try the live editor; give feedback via "editor feedback: ..." |
+| 🎨 Card Design | Accept/reject trigger-symbols-v02 and activation-tracks-v02; confirm Script cream colour |
+| 🖥️ App Design | Test the fixed editor; give feedback via "editor feedback: ..." |
 
 ---
 
-## Key decisions from previous session (carry forward)
+## Key decisions from previous sessions (carry forward)
 
-- Script card colour: cream / off-white
+- Script card colour: cream / off-white (still needs applying — awaiting acceptance)
 - Effect text: Crimson Text 400, NOT italic
 - Section labels: none — background colour identifies section
 - Sym+modifier group: atomic inline unit `[icon][modifier]`
@@ -77,6 +83,7 @@ Card design review session — user feedback recorded; 2 redesign tasks queued f
 - Activation tracks — AND/OR are compound containers
 - App v1 tech stack: Angular 21 (zoneless)
 - App design gap protocol: note gaps in VISUAL.md §9 + APP.md; show `⏳ Design pending` in preview
+- Trigger/activation symbols: dark body `#1a0e04` + warm light amber `#d4b87a`, 20×20, no per-type color variation
 
 ---
 
@@ -88,8 +95,8 @@ Card design review session — user feedback recorded; 2 redesign tasks queued f
 | design/VISUAL.md | Locked visual decisions + §9 app gap queue | Orchestrator |
 | design/card-index.md | Per-type card HTML baselines | User + orchestrator reads |
 | design/variants/*.html | Card variant files | Orchestrator (autonomous) |
-| app.md | App design decisions | Orchestrator (with user feedback) |
-| editor/ | Deployed v1 Angular editor | Orchestrator builds |
+| APP.md | App design decisions | Orchestrator (with user feedback) |
+| docs/editor/ | Deployed v1 Angular editor | Orchestrator builds |
 | review/index.html | Mobile card review gallery | Orchestrator (regenerated) |
 | ORCHESTRATOR.md | System state / stream tracking | Orchestrator |
 | RESUME.md | This file — session context | Orchestrator |
@@ -100,4 +107,4 @@ Card design review session — user feedback recorded; 2 redesign tasks queued f
 
 Card review gallery (GitHub Pages): https://gertvandtbrempt.github.io/yarn-card-editor/review/
 Card editor v1 (GitHub Pages): https://gertvandtbrempt.github.io/yarn-card-editor/editor/
-_(25 card-variant entries in gallery; editor now live)_
+_(39 card-variant entries in gallery; editor v1 fixes deployed)_

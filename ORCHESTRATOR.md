@@ -7,8 +7,8 @@ This file is read and written by scheduled agents. Do not edit manually during a
 ```
 blocked_for_weekly_review: false
 weekly_review_due: 2026-05-30T08:00:00Z
-last_orchestrator_run: 2026-05-24T13:00:00Z
-last_status_notification: 2026-05-24T13:00:00Z
+last_orchestrator_run: 2026-05-24T18:02:35Z
+last_status_notification: 2026-05-24T18:02:35Z
 ```
 
 ## Work Streams
@@ -25,7 +25,7 @@ Streams are **independent** — a blocked stream does not pause other streams.
   1. Script Card colour — purple placeholder in script-v01; must confirm before card-index.md entry
   2. Trigger priority (§7) — explicitly TBD; affects card layout ordering rules
   3. Life point slots visual (§3.1) — slots overlapping damageable elements; not yet in VISUAL.md
-  4. Action track visual design (§4.4) — 6 track types defined; activation-tracks-v01 reference created — **ready for user review**
+  4. Action track visual design (§4.4) — 6 track types defined; activation-tracks-v02 in-card mockup created — **ready for user review**
   5. Character dual-mode layout (§3.4) — Character/Ally on one card; no visual design for split yet
 - **Last notified**: 2026-05-24T08:53:53Z
 - **Blocked on**: —
@@ -35,29 +35,20 @@ Streams are **independent** — a blocked stream does not pause other streams.
 ### Card Design
 - **Mode**: autonomous
 - **Source**: design/VISUAL.md, design/card-index.md
-- **Status**: active — effects-v03 accepted as direction (hold); trigger-symbols and activation-tracks need redesign; 2 tasks queued
-- **Next task**: Two queued tasks (execute in order):
-  1. **trigger-symbols-v02** — redesign all 6 trigger symbols per updated §7 trigger symbol style rules: dark body + lighter detail, 20×20, no per-trigger color variation, readable distinct shapes; show in use on a card (leading symbols in trigger rows inside the trigger sections of a real card mockup) — NOT as an isolated reference sheet
-  2. **activation-tracks-v02** — redesign all 6 activation track types per updated §8 activation track visual style rules: vertical layout covering the action container, simple shapes only, dark body + lighter detail palette, AND/OR must show compound sub-tracks as separate vertical columns with a shared gate element; show in use on a card (leading markers in action rows of a real card mockup) — NOT as an isolated diagram sheet
-  - **Hold:** effects-v04 (incorporate accepted trigger symbols + activation tracks into effects display) — create only after both v02 variants are accepted by user
+- **Status**: active — trigger-symbols-v02 and activation-tracks-v02 created; awaiting user acceptance before effects-v04
+- **Next task**: Hold — await user acceptance of trigger-symbols-v02 and activation-tracks-v02 before creating effects-v04 (incorporate accepted trigger symbols + activation tracks into effects display)
 - **Blocked on**: —
-- **Last notified**: 2026-05-24T13:00:00Z
+- **Last notified**: 2026-05-24T18:02:35Z
 
 ---
 
 ### App Design
 - **Mode**: autonomous
 - **Source**: APP.md
-- **Status**: active — v1 reviewed; fixes and new sections required; see APP.md §v1 Build Known Issues
-- **Next task**: Fix v1 editor based on first review. Full spec in APP.md. In priority order:
-  1. **Wire all form fields** to live preview — every field except title was non-functional
-  2. **Fix image upload** — local file picker → base64 data URI; remove URL input; drag-and-drop welcome
-  3. **Fix live preview rendering** — card drawing is janky; clean up iframe injection or switch to direct DOM rendering
-  4. **Add Triggers section** — per-card add/remove list; each entry: trigger type dropdown + effect editor; use `⏳ Design pending` placeholder for trigger leading symbol
-  5. **Add Actions section** — per-card add/remove list; each entry: activation track type dropdown + effect editor; use existing placeholder visuals for track marker at leading position
-  6. **Effect editor with inline parsing** — plain text input that parses `<iconname>[modifier]` syntax in real time and renders the correct SVG icon inline in the preview; see APP.md §Effect editor for full syntax table
+- **Status**: active — v1 editor fixes complete and built; all 6 priority items resolved
+- **Next task**: Await user feedback on fixed v1 editor. Then: refine effect editor parsing, improve preview fidelity, or begin v2 features per user direction.
 - **Blocked on**: —
-- **Last notified**: 2026-05-24T13:00:00Z
+- **Last notified**: 2026-05-24T18:02:35Z
 
 ---
 
@@ -91,6 +82,11 @@ _(none)_
 | 2026-05-24T13:00:00Z | Orchestrator | Gallery: regenerate | review/index.html updated — 25 card-variant entries |
 | 2026-05-24T13:00:00Z | Orchestrator | C: Build v1 Angular editor | Built + deployed to editor/; all 8 types with live preview via iframe; localStorage |
 | 2026-05-24T13:00:00Z | Orchestrator | C: Update VISUAL.md §9 | Added 4 app design gap tasks for trigger symbols, tracks, sym+modifier, dual-mode |
+| 2026-05-24T18:02:35Z | Orchestrator | A: Scan DESIGN.md | No new items; last notified < 48h ago — no notification |
+| 2026-05-24T18:02:35Z | Orchestrator | B: Create trigger-symbols-v02.html | 6 trigger symbols redesigned per §7: dark body + lighter detail, shown in card context |
+| 2026-05-24T18:02:35Z | Orchestrator | B: Create activation-tracks-v02.html | 6 activation track types redesigned per §8: vertical layout, shown in card context |
+| 2026-05-24T18:02:35Z | Orchestrator | Gallery: regenerate | review/index.html updated — 39 card-variant entries |
+| 2026-05-24T18:02:35Z | Orchestrator | C: Fix v1 editor | All 6 priority fixes: form fields wired, image upload base64, preview rendering, Triggers/Actions sections, inline icon parsing; built and deployed |
 
 ---
 

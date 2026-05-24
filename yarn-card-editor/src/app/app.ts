@@ -11,6 +11,7 @@ import {
 } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
 // ──────────────────────────────────────────────
 // Types
@@ -343,6 +344,7 @@ function parseEffectText(raw: string): string {
 export class App implements OnInit, AfterViewInit {
   private http = inject(HttpClient);
   private cdr = inject(ChangeDetectorRef);
+  private sanitizer = inject(DomSanitizer);
 
   @ViewChild('previewFrame') previewFrame!: ElementRef<HTMLIFrameElement>;
   @ViewChild('imageDropZone') imageDropZone?: ElementRef<HTMLDivElement>;
@@ -649,12 +651,14 @@ export class App implements OnInit, AfterViewInit {
   private injectCardData(html: string): string {
     let out = html;
 
-    // ── 1. Inject icon symbol defs into the hidden SVG defs block ──
-    // The baseline HTML has <svg style="display:none"><defs>...</defs></svg>
-    // Insert icon symbols before the closing </defs>
+    // ── 1. Inject icon symbol defs into the hidden SVG block ──
+    // The baseline HTML has <svg style="display:none">...</svg>
+    // Insert icon symbols (as top-level symbols) before the closing </svg>
+    // of that hidden svg element. We cannot inject into <defs> because the
+    // first </defs> encountered (non-greedy) is an inner one inside a <symbol>.
     out = out.replace(
-      /(<svg[^>]*style="display:none[^"]*"[^>]*>\s*<defs>)([\s\S]*?)(<\/defs>)/,
-      `$1$2${ICON_SYMBOLS}$3`
+      /(<\/svg>)/,
+      `${ICON_SYMBOLS}$1`
     );
 
     // ── 2. Inject inline styles for effect rows into <style> block ──
@@ -723,14 +727,14 @@ export class App implements OnInit, AfterViewInit {
     const title = this.formTitle() || 'Card Title';
     out = out.replace(
       /(<div class="card-title"[^>]*>)[^<]*/,
-      `$1${escapeHtml(title)}`
+      (_, prefix) => prefix + escapeHtml(title)
     );
 
     // ── 4. Inject type band label ──
     const typeLabel = getTypeDisplayLabel(this.formType(), this.formTier());
     out = out.replace(
       /(<span class="type-label">)[^<]*/,
-      `$1${escapeHtml(typeLabel)}`
+      (_, prefix) => prefix + escapeHtml(typeLabel)
     );
 
     // ── 5. Inject subtitle ──
@@ -738,7 +742,7 @@ export class App implements OnInit, AfterViewInit {
     if (subtitle) {
       out = out.replace(
         /(<div class="title-rule"[^>]*><\/div>)/,
-        `$1<div class="card-subtitle">${escapeHtml(subtitle)}</div>`
+        (_, m) => m + `<div class="card-subtitle">${escapeHtml(subtitle)}</div>`
       );
     }
 
@@ -747,7 +751,7 @@ export class App implements OnInit, AfterViewInit {
     if (flavour) {
       out = out.replace(
         /(<div class="mech-frame">)/,
-        `<div class="card-flavour">${escapeHtml(flavour)}</div>$1`
+        () => `<div class="card-flavour">${escapeHtml(flavour)}</div><div class="mech-frame">`
       );
     }
 
@@ -757,7 +761,7 @@ export class App implements OnInit, AfterViewInit {
       // Replace the card-image div content with actual image
       out = out.replace(
         /(<div class="card-image">)[\s\S]*?(<\/div>)/,
-        `$1<div class="card-image-overlay"><img src="${imageUri}" alt="card art"/></div>$2`
+        () => `<div class="card-image"><div class="card-image-overlay"><img src="${safeReplacement(imageUri)}" alt="card art"/></div></div>`
       );
     }
 
@@ -1035,12 +1039,14 @@ export class App implements OnInit, AfterViewInit {
   }
 
   /**
-   * Render a parsed effect string as HTML for the inline form preview row.
-   * Wraps the result in a span so Angular [innerHTML] binding works safely.
+   * Render a parsed effect string as SafeHtml for the inline form preview row.
+   * Uses DomSanitizer.bypassSecurityTrustHtml so SVG <use> references work.
+   * The icon content is generated from our own ICON_SYMBOLS, not user input.
    */
-  renderEffectPreview(raw: string): string {
-    if (!raw?.trim()) return '';
-    return `<span class="eff-inline-preview">${parseEffectText(raw)}</span>`;
+  renderEffectPreview(raw: string): SafeHtml {
+    if (!raw?.trim()) return this.sanitizer.bypassSecurityTrustHtml('');
+    const html = `<span class="eff-inline-preview">${parseEffectText(raw)}</span>`;
+    return this.sanitizer.bypassSecurityTrustHtml(html);
   }
 }
 
@@ -1061,4 +1067,12 @@ function escapeHtml(s: string): string {
     .replace(/</g, '&lt;')
     .replace(/>/g, '&gt;')
     .replace(/"/g, '&quot;');
+}
+
+/**
+ * Escape a string for safe use as a String.replace() replacement argument.
+ * Prevents $ patterns (e.g. $1, $&) from being treated as backreferences.
+ */
+function safeReplacement(s: string): string {
+  return s.replace(/\$/g, '$$$$');
 }
