@@ -253,6 +253,73 @@ Changed:
 - Card mockup: trigger-entry section expanded to 2 rows (trig-reveal + trig-enter); trigger-exit section expanded to 4 rows (trig-leave + trig-char-phase + trig-complete + trig-flow-marker); mech-frame height 200px → 260px
 - Activation marker in actions row: unchanged placeholder (§8 redesign deferred to activation-tracks-v02)
 
+## activation-track-basic-v01-b — Basic track option B: diamond marker (2026-05-25)
+Base: design/variants/activation-track-basic-v01-a.html
+Changed:
+- Activation marker shape: circle → diamond (45° rotated square, sharp geometric edges)
+- Outer body: dark circle r=22 → dark diamond points="26,8 48,30 26,52 4,30"
+- Diamond border stroke: #d4b87a, width 2, opacity 0.55 (emphasizes sharp edges)
+- Inner token face: light circle r=9 → amber diamond half-diagonal 13
+- Center pip: dark circle r=3.5 → dark diamond half-diagonal 5 (rotated square)
+- Exit arrow: same downward exit line + arrowhead as option A
+- viewBox: 0 0 52 80 (unchanged)
+
+## activation-track-basic-v01-c — Basic track option C: hexagon marker with glow (2026-05-25)
+Base: design/variants/activation-track-basic-v01-a.html
+Changed:
+- Activation marker shape: circle → flat-top hexagon (6-sided, horizontal flat edges)
+- Outer body: dark circle → dark flat-top hexagon inscribed-radius 22, fill #1a0e04
+- Hexagon edge stroke: #d4b87a, width 2.5, opacity 0.55
+- Glow halo: SVG filter (feGaussianBlur stdDeviation=3) on larger amber hex opacity 0.18
+- Inner token face: light circle → amber hexagon R=11, opacity 0.75
+- Center pip: dark circle r=3.5 (unchanged)
+- Exit arrow: same downward exit line + arrowhead
+- viewBox: 0 0 52 84 (slightly taller to accommodate flat-top hex)
+- Added: filter id="hex-glow" for soft ambient glow treatment
+
+## activation-track-multiturn-v01-a — Multi-turn track option A: circle + squares + dashed return (2026-05-25)
+Base: design/variants/activation-track-basic-v01-a.html (circle marker style)
+Changed:
+- Track type: Basic (single slot, exit) → Multi-turn (activation + 2 cooldown + return)
+- mech-frame height: 100px → 160px (taller to fit full track)
+- Activation marker: circle r=19 (dark body) + r=14 ring + r=10 face + r=3.5 pip
+- Cooldown slot 1: dark square 22×22 with inner amber square 12×12, opacity 0.55
+- Cooldown slot 2: same as cooldown slot 1
+- Flow arrows: solid downward arrowheads between each slot (pointing down)
+- Return path: dashed left-side lines (stroke #d4b87a, dasharray 3,3, opacity 0.7)
+  — horizontal stub from cooldown 2 left edge → vertical up to activation height
+  — return arrowhead pointing right back into activation circle
+- viewBox: 0 0 52 154
+
+## activation-track-multiturn-v01-b — Multi-turn track option B: diamond + round cooldowns + curved return (2026-05-25)
+Base: design/variants/activation-track-basic-v01-b.html (diamond marker style)
+Changed:
+- Track type: Basic (single slot, exit) → Multi-turn (activation + 2 cooldown + return)
+- mech-frame height: 100px → 160px
+- Activation marker: diamond (outer half-diag=20, inner amber half-diag=12, pip half-diag=4)
+- Cooldown slot 1: small dark circle r=11 + amber ring stroke r=8 (not filled, ring only) + center dot r=3 opacity 0.4
+- Cooldown slot 2: same as cooldown slot 1
+- Flow arrows: solid downward arrowheads between slots
+- Return path: dashed cubic bezier curve on right side (M 37,112 C 50,112 50,24 37,24)
+  — curved path visually distinct from option A's straight lines
+  — return arrowhead pointing left back into the diamond
+- viewBox: 0 0 52 154
+
+## activation-track-multiturn-v01-c — Multi-turn track option C: hexagon + elongated capsules + dotted return (2026-05-25)
+Base: design/variants/activation-track-basic-v01-c.html (hexagon marker style)
+Changed:
+- Track type: Basic (single slot, exit) → Multi-turn (activation + 2 cooldown + return)
+- mech-frame height: 100px → 160px
+- Activation marker: flat-top hexagon R=18 (dark body, amber edge stroke, inner hex R≈9, dark pip r=3)
+- Cooldown slot 1: elongated capsule (pill) shape: rect 36×14 rx=7, dark fill, amber edge, inner capsule 26×8 rx=4
+- Cooldown slot 2: same as cooldown slot 1
+- Connectors: dotted lines between slots (stroke-dasharray 2,2, opacity 0.5)
+  — softer connectors visually distinct from flow arrows (A) and no connectors (B)
+- Return path: dotted left-side path (dasharray 2,2, opacity 0.65)
+  — same geometry as option A but dotted vs dashed
+  — return arrowhead pointing right back into hex
+- viewBox: 0 0 52 154
+
 ## activation-tracks-v02 — redesigned 6 activation track types per §8: dark body + lighter detail, vertical layout in card context (2026-05-24)
 Base: design/variants/activation-tracks-v01.html (concept only — display format completely replaced)
 Changed:

@@ -1,8 +1,11 @@
+/* CardPreviewComponent — live card preview with responsive scaling */
+
 .card-preview {
   display: flex;
   flex-direction: column;
   height: 100%;
   border-left: 1px solid #e5e7eb;
+  overflow: hidden;
 }
 
 .preview-header {
@@ -13,6 +16,15 @@
   background: #f1f5f9;
   border-bottom: 1px solid #e5e7eb;
   font-size: 0.8rem;
+  flex-shrink: 0;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.preview-header-left {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
 .preview-label {
@@ -24,6 +36,23 @@
 
 .preview-status {
   color: #6b7280;
+}
+
+/* Toggle button — mobile only */
+.preview-toggle-btn {
+  background: none;
+  border: 1px solid #d1d5db;
+  color: #374151;
+  font-size: 0.78rem;
+  padding: 0.2rem 0.6rem;
+  border-radius: 4px;
+  cursor: pointer;
+  min-height: 44px;
+  display: none;
+}
+
+.preview-toggle-btn:hover {
+  background: #e5e7eb;
 }
 
 .no-card,
@@ -42,9 +71,47 @@
   color: #ef4444;
 }
 
-.preview-frame {
+/* Wrapper that handles scaling */
+.preview-frame-wrapper {
   flex: 1;
-  width: 100%;
+  overflow: hidden;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  position: relative;
+}
+
+.preview-frame {
   border: none;
   background: #fff;
+  /* Default: fill available space */
+  width: 100%;
+  height: 100%;
+}
+
+/* ── Mobile (< 768px): use transform:scale() to fit ── */
+@media (max-width: 767px) {
+  .card-preview {
+    border-left: none;
+    border-top: 1px solid #e5e7eb;
+  }
+
+  .preview-toggle-btn {
+    display: flex;
+    align-items: center;
+  }
+
+  .preview-frame-wrapper {
+    overflow: hidden;
+    align-items: center;
+  }
+
+  /* The iframe is sized for the card (375×525) and scaled down to fit */
+  .preview-frame {
+    width: 375px;
+    height: 525px;
+    transform-origin: top center;
+    /* Scale is set via inline style from the component */
+    flex-shrink: 0;
+  }
 }

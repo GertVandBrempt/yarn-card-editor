@@ -34,7 +34,7 @@ export class LayoutComponent implements OnInit {
     }
   }
 
-  @HostListener('window:resize', ['$event'])
+  @HostListener('window:resize')
   onResize(): void {
     this.isMobile.set(window.innerWidth < 768);
     if (!this.isMobile()) {

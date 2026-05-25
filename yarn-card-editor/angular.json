@@ -32,6 +32,11 @@
                 "glob": "**/*.html",
                 "input": "../design/variants",
                 "output": "design/variants"
+              },
+              {
+                "glob": "**/*",
+                "input": "src/assets",
+                "output": "assets"
               }
             ],
             "styles": [

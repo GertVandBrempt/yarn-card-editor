@@ -1,0 +1,55 @@
+<!-- card-variant: icons-reveal-v02 | reveal-character and reveal-item using overlapping-cards structure -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { margin: 0; display: flex; gap: 16px; padding: 16px; background: #ffffff; }
+</style>
+</head>
+<body>
+
+<svg style="display:none" xmlns="http://www.w3.org/2000/svg">
+<defs>
+
+  <!-- reveal-character: overlapping cards, yellow, person pip -->
+  <symbol id="icon-reveal-character" viewBox="0 0 24 24">
+    <!-- back card -->
+    <rect x="6" y="5" width="13" height="16" rx="1.5"
+          fill="#a89e18" stroke="#1a0e04" stroke-width="2.5"
+          stroke-linejoin="round" stroke-linecap="round"/>
+    <!-- front card -->
+    <rect x="2" y="2" width="13" height="16" rx="1.5"
+          fill="#d4cc30" stroke="#1a0e04" stroke-width="2.5"
+          stroke-linejoin="round" stroke-linecap="round"/>
+    <!-- person pip: head -->
+    <circle cx="8.5" cy="7.5" r="1.8" fill="#1a0e04"/>
+    <!-- person pip: body -->
+    <path d="M5.5 14.5 Q5.5 11 8.5 11 Q11.5 11 11.5 14.5"
+          fill="#1a0e04" stroke="none"/>
+  </symbol>
+
+  <!-- reveal-item: overlapping cards, teal, diamond pip -->
+  <symbol id="icon-reveal-item" viewBox="0 0 24 24">
+    <!-- back card -->
+    <rect x="6" y="5" width="13" height="16" rx="1.5"
+          fill="#206070" stroke="#1a0e04" stroke-width="2.5"
+          stroke-linejoin="round" stroke-linecap="round"/>
+    <!-- front card -->
+    <rect x="2" y="2" width="13" height="16" rx="1.5"
+          fill="#40a0c0" stroke="#1a0e04" stroke-width="2.5"
+          stroke-linejoin="round" stroke-linecap="round"/>
+    <!-- diamond pip -->
+    <polygon points="8.5,6.5 11,10 8.5,14 6,10"
+             fill="#1a0e04" stroke="none"/>
+  </symbol>
+
+</defs>
+</svg>
+
+<svg width="48" height="48"><use href="#icon-reveal-character" width="48" height="48"/></svg>
+<svg width="48" height="48"><use href="#icon-reveal-item" width="48" height="48"/></svg>
+
+</body>
+</html>

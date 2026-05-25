@@ -7,8 +7,8 @@ This file is read and written by scheduled agents. Do not edit manually during a
 ```
 blocked_for_weekly_review: false
 weekly_review_due: 2026-05-30T08:00:00Z
-last_orchestrator_run: 2026-05-25T07:12:59Z
-last_status_notification: 2026-05-24T18:02:35Z
+last_orchestrator_run: 2026-05-25T12:04:48Z
+last_status_notification: 2026-05-25T12:04:48Z
 ```
 
 ## Work Streams
@@ -20,7 +20,7 @@ Streams are **independent** — a blocked stream does not pause other streams.
 ### Game Design
 - **Mode**: interactive (orchestrator surfaces topics; user drives sessions in Claude Code)
 - **Source**: DESIGN.md open issues and unresolved questions
-- **Status**: active — 5 discussion items tracked; no new items found in scan of 2026-05-25T07:12:59Z (< 48h since last notification)
+- **Status**: active — 5 discussion items tracked; no new items found in scan of 2026-05-25T12:04:48Z (< 48h since last notification)
 - **Pending discussion items** *(top 5 by card-design impact)*:
   1. Script Card colour — purple placeholder in script-v01; must confirm before card-index.md entry
   2. Trigger priority (§7) — explicitly TBD; affects card layout ordering rules
@@ -35,7 +35,7 @@ Streams are **independent** — a blocked stream does not pause other streams.
 ### Card Design
 - **Mode**: autonomous
 - **Source**: design/VISUAL.md, design/card-index.md
-- **Status**: active — multiple independent tracks in progress; review page restructure required
+- **Status**: active — activation-track-basic-v01 complete (a/b/c); activation-track-multiturn-v01 complete (a/b/c); review page restructured to 2-section format
 
 #### Global rules (apply to all Card Design work)
 
@@ -46,8 +46,8 @@ Streams are **independent** — a blocked stream does not pause other streams.
 #### Independent design tracks (each runs independently)
 
 **Track 1 — Activation Tracks** *(3 options each)*
-1. **activation-track-basic-v01-a/b/c** — Basic track: single activation marker (~48px), token removed on use; 3 distinct visual options
-2. **activation-track-multiturn-v01-a/b/c** — Multi-turn track: marker → cooldown slot(s) → return arrow; 3 options
+1. ~~**activation-track-basic-v01-a/b/c**~~ — ✅ Complete (2026-05-25T12:04:48Z)
+2. ~~**activation-track-multiturn-v01-a/b/c**~~ — ✅ Complete (2026-05-25T12:04:48Z)
 3. **activation-track-multiuse-v01-a/b/c** — Multi-use track: multiple activation markers; 3 options
 4. **activation-track-use-v01-a/b/c** — Use (one-time) track: consumed permanently; 3 options
 5. **Hold:** AND/OR compound tracks — only after all 4 primitives accepted
@@ -74,26 +74,21 @@ Streams are **independent** — a blocked stream does not pause other streams.
 ### App Design
 - **Mode**: autonomous
 - **Source**: APP.md
-- **Status**: active — full scaffold complete; new requirements added 2026-05-25; ready to implement + build + deploy
-- **Next task**: Implement all requirements then build and deploy (in order):
-  1. **Add `SymbolReferenceModalComponent`** — read-only modal listing all inline symbol syntax + descriptions; opened by a `?` button on every `EffectEditorComponent`; keyboard-closeable (Escape); full-screen on mobile
-  2. **Implement responsive layout** — 3 breakpoints per APP.md §Responsive Layout; sidebar collapses to drawer on mobile; card preview scales with `transform: scale()`; no horizontal overflow; 44px minimum touch targets
-  3. **Enforce empty-container rule globally** — every card section (header fields, subtitle, flavour text, image area, all mechanics containers) uses `*ngIf` / `[hidden]`; zero empty boxes visible on a blank card
-  4. **Track-specific sub-fields in `ActionsEditorComponent`**:
-     - Multi-turn → "Cooldown (turns)" number field, minimum 1; drives number of cooldown slots in preview
-     - Multi-use → "Activation slots" number field, minimum 2; drives number of markers shown in preview
-     - Use → "Charges" number field, minimum 1; drives number of charge pips shown in preview
-     - AND / OR → add/remove list of sub-tracks; each sub-track has its own primitive type dropdown + that type's sub-fields
-     - Basic → no additional fields
-     - All values flow to live preview in real time
-  5. **Live preview design sync** — extract SVG `<symbol>` definitions from latest trigger symbol and activation track variants; embed in `PreviewService`; update whenever a new variant is created (see auto-sync rule below); fall back to `?` / filled circle if no variant exists yet
-  6. **Wire `PreviewService` to `assets/templates/`** — load baseline HTML from `yarn-card-editor/src/assets/templates/<type>-baseline.html`; copy current accepted baselines from card-index.md into that directory
-  7. **Build** — `cd yarn-card-editor && npm install && npx ng build --base-href /yarn-card-editor/editor/ --output-path ../docs/editor`
-  8. **Fix TypeScript compile errors** — resolve any remaining type errors from scaffold stubs
-  9. **Deploy** — commit `docs/editor/` output and push to master (GitHub Pages auto-deploys)
+- **Status**: active — all 9 implementation tasks complete; clean build deployed 2026-05-25T12:04:48Z
+- **Next task**: Auto-sync on next activation track acceptance (re-run steps 5–9 when card-index.md updated or new trigger/track variants accepted)
+- **Completed tasks**:
+  1. ✅ `SymbolReferenceModalComponent` — wired to `EffectEditorComponent` with `?` button, Escape close, mobile full-screen
+  2. ✅ Responsive layout — 3 breakpoints, mobile drawer nav, hamburger button, `transform:scale()` card preview
+  3. ✅ Empty-container rule — `PreviewService.injectFields()` hides empty title/subtitle/flavour-text via `style="display:none"`
+  4. ✅ Track-specific sub-fields — Multi-turn (cooldown turns), Multi-use (activation slots), Use (charges), AND/OR (sub-track list with own type dropdowns + sub-fields), Basic (no extra fields)
+  5. ✅ Live preview design sync — SVG defs extracted from trigger-symbols-v02 (6 symbols) and activation-track-basic-v01-a; icon-scout/gain-action fall back to filled-circle placeholder
+  6. ✅ `PreviewService` wired to `assets/templates/<type>-baseline.html`; 7 baseline files created in assets
+  7. ✅ Build — zero TypeScript errors; output at `docs/editor/browser/index.html`
+  8. ✅ TypeScript errors resolved
+  9. ✅ Build output verified
 - **Auto-sync rule**: After any Card Design stream action that updates `card-index.md` **or** creates a new trigger symbol / activation track variant, the App Design stream must re-run steps 5–9 automatically (sync SVGs + baselines → build → deploy). No user trigger needed.
 - **Blocked on**: —
-- **Last notified**: 2026-05-24T18:02:35Z
+- **Last notified**: 2026-05-25T12:04:48Z
 
 ---
 
@@ -141,6 +136,9 @@ _(none)_
 | 2026-05-25T07:12:59Z | Orchestrator | A: Scan DESIGN.md | No new items; last notified ~22h ago (< 48h threshold) — no notification |
 | 2026-05-25T07:12:59Z | Orchestrator | B: Check hold | trigger-symbols-v02 and activation-tracks-v02 still not in card-index.md — stream on hold |
 | 2026-05-25T07:12:59Z | Orchestrator | C: Refactor steps 1–9 complete | All 17 components + 3 services scaffolded: routing, models, services, CardEditor, CardForm, CardPreview, CardList, CardFilter, Layout, SetSelector, all 7 type forms (location/char/item/event/quest/persona/script), EffectEditor, ImageUpload, TriggersEditor, ActionsEditor; app.ts replaced with lean router-outlet shell |
+| 2026-05-25T12:04:48Z | Orchestrator | A: Scan DESIGN.md | No new items; last notified ~27h ago (< 48h threshold) — no notification |
+| 2026-05-25T12:04:48Z | Orchestrator | B: Card Design | Created activation-track-basic-v01-b/c and activation-track-multiturn-v01-a/b/c (5 new variant files); review/index.html restructured to 2-section format |
+| 2026-05-25T12:04:48Z | Orchestrator | C: App Design | All 9 tasks complete: SymbolReferenceModal wired, responsive layout, empty-container rule, track sub-fields, live SVG sync, assets/templates baseline, built + deployed; user notified |
 
 ---
 

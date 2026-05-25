@@ -26,6 +26,18 @@ export interface FlowMarker {
   effect?: Effect;         // Optional OnFlowMarker effect at this position
 }
 
+// Primitive track types (used by AND/OR sub-tracks)
+export type PrimitiveTrackType = 'basic' | 'multi-turn' | 'multi-use' | 'use';
+
+// A sub-track within an AND/OR compound action
+export interface SubTrack {
+  id: string;
+  trackType: PrimitiveTrackType;
+  cooldownTurns?: number;   // multi-turn: minimum 1
+  slotCount?: number;       // multi-use: minimum 2
+  chargeCount?: number;     // use: minimum 1
+}
+
 // A player-initiated action on a card
 export interface Action {
   id: string;
@@ -33,9 +45,11 @@ export interface Action {
   trackType: TrackType;
   effects: Effect[];
   flowMarkers?: FlowMarker[];  // Multi-turn tracks only
-  linkedActionIds?: string[];  // AND/OR tracks only
+  linkedActionIds?: string[];  // AND/OR tracks only (legacy — use subTracks)
+  subTracks?: SubTrack[];      // AND/OR tracks only — configured sub-tracks
   chargeCount?: number;        // Use tracks only
   slotCount?: number;          // Multi-use tracks only
+  cooldownTurns?: number;      // Multi-turn tracks only
 }
 
 // Passive effect (always-on)

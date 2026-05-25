@@ -1,8 +1,15 @@
 <div class="card-preview">
   <div class="preview-header">
-    <span class="preview-label">Live Preview</span>
-    @if (loading()) {
-      <span class="preview-status">Rendering…</span>
+    <div class="preview-header-left">
+      <span class="preview-label">Live Preview</span>
+      @if (loading()) {
+        <span class="preview-status">Rendering…</span>
+      }
+    </div>
+    @if (card) {
+      <button class="preview-toggle-btn" type="button" (click)="togglePreview()">
+        {{ previewExpanded() ? 'Hide' : 'Show preview' }}
+      </button>
     }
   </div>
 
@@ -10,12 +17,18 @@
     <div class="no-card">Select or create a card to preview.</div>
   } @else if (error()) {
     <div class="preview-error">{{ error() }}</div>
+  } @else if (previewExpanded() || !isMobileView()) {
+    <div class="preview-frame-wrapper" #previewWrapper>
+      <iframe
+        #previewFrame
+        class="preview-frame"
+        title="Card Preview"
+        sandbox="allow-same-origin"
+        [style.transform]="'scale(' + previewScale() + ')'"
+        [style.transform-origin]="'top center'"
+      ></iframe>
+    </div>
   } @else {
-    <iframe
-      #previewFrame
-      class="preview-frame"
-      title="Card Preview"
-      sandbox="allow-same-origin"
-    ></iframe>
+    <div class="no-card">Tap "Show preview" to expand the card preview.</div>
   }
 </div>

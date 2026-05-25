@@ -1,6 +1,6 @@
 # Yarn — Session Resume Context
 
-_Updated: 2026-05-25T07:12:59Z_
+_Updated: 2026-05-25T12:04:48Z_
 
 ---
 
@@ -16,7 +16,8 @@ Card types: **Location, Character, Item, Event, Quest, Persona, Script**
 
 ### 🎮 Stream A — Game Design
 **Status:** Active — 5 discussion items tracked  
-**Situation:** DESIGN.md exists and has been scanned. No new open questions since last scan. Last notified 2026-05-24T08:53:53Z (~21h ago, < 48h threshold).  
+**Last scan:** 2026-05-25T12:04:48Z — no new items found  
+**Last notified:** 2026-05-24T08:53:53Z (~27h ago; 48h threshold not yet reached)  
 **Pending items:**
 1. Script Card colour — purple placeholder in script-v01; must confirm before card-index.md entry
 2. Trigger priority (§7) — explicitly TBD; affects card layout ordering rules
@@ -25,23 +26,28 @@ Card types: **Location, Character, Item, Event, Quest, Persona, Script**
 5. Character dual-mode layout (§3.4) — Character/Ally on one card; no visual design for split yet
 
 ### 🎨 Stream B — Card Design
-**Status:** Active — 5 independent tracks running; review page restructure required  
-**New rules:** 3 options per design item (a/b/c variants); review page restructured into "Under Review" (grouped) + "Accepted" sections — see VISUAL.md §10  
-**Independent tracks:**
-1. **Activation Tracks** — 4 primitive types (Basic, Multi-turn, Multi-use, Use), 3 options each; AND/OR on hold until primitives accepted
-2. **Die Symbols** — Constitution, Zeal, Path; 3 full-set options; important for conditional roll effects
-3. **Subtitle** — header subtitle design; 3 options
-4. **Flavour Text** — italic lore text zone; 3 options
-5. **Set Symbol** — small corner glyph; 3 options
-**Existing hold:** trigger-symbols-v02 and activation-tracks-v02 (old format) unaccepted; effects-v04 on hold until trigger symbols + activation tracks resolved  
-**39 variants** in design/variants/ — review gallery needs restructuring per new layout rules
+**Status:** Active — 2 of 4 primitive activation track types complete  
+**Completed this run:**
+- `activation-track-basic-v01-a/b/c` ✅ (circle / diamond / hexagon markers)
+- `activation-track-multiturn-v01-a/b/c` ✅ (circle+squares / diamond+circles / hexagon+capsules)
+**Next tasks (in order):**
+- `activation-track-multiuse-v01-a/b/c` — multiple activation markers
+- `activation-track-use-v01-a/b/c` — one-time/consumed permanently
+- `die-symbols-v01-a/b/c`, `subtitle-v01-a/b/c`, `flavour-text-v01-a/b/c`, `set-symbol-v01-a/b/c`
+- AND/OR compound tracks on hold until all 4 primitives accepted  
+**Review page:** Restructured to 2-section format (Under Review + Accepted)
 
 ### 🖥️ Stream C — App Design
-**Status:** Active — requirements updated; ready to implement + build + deploy  
-**Situation:** Full architecture scaffold complete (17 components, 3 services). Requirements added 2026-05-25 (two sessions): mobile layout, symbol reference popup, global empty-container rule, auto visual sync, correct build command; track-specific sub-fields for Actions (turn count / slot count / charges / sub-tracks for AND/OR); live preview uses latest design variant for trigger symbols + activation markers — no placeholder wait.  
-**Next:** Orchestrator implements all 9 tasks in ORCHESTRATOR.md Stream C, then builds and deploys.  
-**Auto-sync rule:** After any card baseline change OR new trigger/track variant, orchestrator syncs SVGs + baselines, rebuilds, and redeploys without user input.  
-**Design gaps:** trigger symbols, activation tracks (in design — preview now uses latest variant, not placeholder); Character dual-mode layout still unresolved.
+**Status:** Complete — all 9 tasks done, clean build deployed ✅  
+**Deployed features:**
+- Responsive layout (3 breakpoints, mobile drawer nav, hamburger button, transform:scale() card preview)
+- `SymbolReferenceModalComponent` — wired to EffectEditor with `?` button, Escape close, mobile full-screen
+- Empty-container rule — empty title/subtitle/flavour-text sections hidden in preview
+- Track-specific sub-fields: Multi-turn (cooldown turns), Multi-use (slots), Use (charges), AND/OR (sub-track list)
+- Live SVG sync — trigger-symbols-v02 and activation-track-basic-v01-a symbols embedded in PreviewService
+- Baseline templates wired from `src/assets/templates/<type>-baseline.html` (7 types)
+**Auto-sync rule:** On next card-index.md update OR new trigger/track variant → orchestrator re-syncs SVGs + baselines, rebuilds, deploys automatically (no user input needed)  
+**Next:** Auto-sync when Card Design accepts a baseline
 
 ---
 
@@ -52,7 +58,7 @@ Card types: **Location, Character, Item, Event, Quest, Persona, Script**
 | DESIGN.md | Game design document | User only |
 | design/VISUAL.md | Locked visual decisions | User + orchestrator reads |
 | design/card-index.md | Per-type card HTML baselines | User updates to accept variants |
-| design/variants/*.html | Card variant files (39 variants) | Orchestrator (autonomous) |
+| design/variants/*.html | Card variant files (44 variants) | Orchestrator (autonomous) |
 | design/variants/CHANGES.md | Variant change log | Orchestrator |
 | APP.md | App design decisions | Orchestrator (with user feedback) |
 | review/index.html | Mobile card review gallery | Orchestrator (regenerated) |
@@ -64,8 +70,9 @@ Card types: **Location, Character, Item, Event, Quest, Persona, Script**
 
 ## How to continue work
 
-- **Accept card variants:** view gallery at https://gertvandbrempt.github.io/yarn-card-editor/review/ — say "accept trigger-symbols-v02" and/or "accept activation-tracks-v02" to add them to card-index.md.
-- **Give app feedback:** try editor at https://gertvandbrempt.github.io/yarn-card-editor/editor/ and say what to improve.
+- **Accept card variants:** view gallery at https://gertvandbrempt.github.io/yarn-card-editor/review/ — say "accept activation-track-basic-v01-b" (or whichever option you prefer) to promote it to card-index.md. This triggers an auto-sync + rebuild.
+- **Try the editor:** https://gertvandbrempt.github.io/yarn-card-editor/editor/ — test the new responsive layout, track sub-fields, and symbol reference modal.
+- **Give app feedback:** say what to improve after trying the editor.
 - **Game design session:** open Claude Code and say "game design" to discuss the 5 pending items.
 - **Weekly review gate:** due 2026-05-30T08:00:00Z — orchestrator will pause and notify you then.
 
