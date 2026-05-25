@@ -114,6 +114,62 @@ const SVG_DEFS = `
     <polygon points="26,72 21,63 31,63" fill="#1a0e04"/>
   </symbol>
 
+  <!-- Multi-turn track markers — activation-track-multiturn-v02-a/b/c.html -->
+  <!-- v02a: diamond activation + 2 hollow cooldown diamonds, directional arrows (viewBox 0 0 52 136) -->
+  <symbol id="track-multiturn-v02a" viewBox="0 0 52 136">
+    <polygon points="26,4 46,24 26,44 6,24" fill="#1a0e04" stroke="none"/>
+    <polygon points="26,14 36,24 26,34 16,24" fill="#d4b87a" stroke="none"/>
+    <polygon points="26,20 30,24 26,28 22,24" fill="#1a0e04" stroke="none"/>
+    <line x1="26" y1="45" x2="26" y2="54" stroke="#1a0e04" stroke-width="1.5" stroke-linecap="round"/>
+    <polygon points="26,58 22,52 30,52" fill="#1a0e04"/>
+    <polygon points="26,60 42,76 26,92 10,76" fill="#1a0e04" stroke="none"/>
+    <polygon points="26,63 39,76 26,89 13,76" fill="none" stroke="#d4b87a" stroke-width="1.5" opacity="0.55"/>
+    <line x1="26" y1="93" x2="26" y2="102" stroke="#1a0e04" stroke-width="1.5" stroke-linecap="round"/>
+    <polygon points="26,106 22,100 30,100" fill="#1a0e04"/>
+    <polygon points="26,108 42,124 26,140 10,124" fill="#1a0e04" stroke="none"/>
+    <polygon points="26,111 39,124 26,137 13,124" fill="none" stroke="#d4b87a" stroke-width="1.5" opacity="0.55"/>
+  </symbol>
+
+  <!-- v02b: diamond activation + 3 cooldown slots (slot 2 = cooldown trigger with inner arrow) (viewBox 0 0 52 144) -->
+  <symbol id="track-multiturn-v02b-activation" viewBox="0 0 52 144">
+    <polygon points="26,4 44,22 26,40 8,22" fill="#1a0e04" stroke="none"/>
+    <polygon points="26,13 35,22 26,31 17,22" fill="#d4b87a" stroke="none"/>
+    <polygon points="26,18.5 29.5,22 26,25.5 22.5,22" fill="#1a0e04" stroke="none"/>
+    <line x1="26" y1="41" x2="26" y2="48" stroke="#1a0e04" stroke-width="1.5" stroke-linecap="round"/>
+    <polygon points="26,52 22,47 30,47" fill="#1a0e04"/>
+    <polygon points="26,54 40,68 26,82 12,68" fill="#1a0e04" stroke="none"/>
+    <polygon points="26,57 37,68 26,79 15,68" fill="none" stroke="#d4b87a" stroke-width="1.5" opacity="0.55"/>
+    <line x1="26" y1="83" x2="26" y2="90" stroke="#1a0e04" stroke-width="1.5" stroke-linecap="round"/>
+    <polygon points="26,94 22,89 30,89" fill="#1a0e04"/>
+    <polygon points="26,96 40,110 26,124 12,110" fill="#1a0e04" stroke="none"/>
+    <polygon points="26,99 37,110 26,121 15,110" fill="none" stroke="#d4b87a" stroke-width="1.5" opacity="0.55"/>
+    <line x1="26" y1="103" x2="26" y2="113" stroke="#d4b87a" stroke-width="2.5" stroke-linecap="round" opacity="0.9"/>
+    <polygon points="26,118 22,112 30,112" fill="#d4b87a" opacity="0.9"/>
+    <line x1="26" y1="125" x2="26" y2="131" stroke="#1a0e04" stroke-width="1.5" stroke-linecap="round"/>
+    <polygon points="26,135 22,130 30,130" fill="#1a0e04"/>
+    <polygon points="26,137 40,151 26,165 12,151" fill="#1a0e04" stroke="none"/>
+    <polygon points="26,140 37,151 26,162 15,151" fill="none" stroke="#d4b87a" stroke-width="1.5" opacity="0.55"/>
+  </symbol>
+
+  <!-- v02b cooldown trigger icon — used as inline effect-lead icon (viewBox 0 0 52 32) -->
+  <symbol id="track-cooldown-trigger-v02b" viewBox="0 0 52 32">
+    <polygon points="26,2 40,16 26,30 12,16" fill="#1a0e04" stroke="none"/>
+    <polygon points="26,5 37,16 26,27 15,16" fill="none" stroke="#d4b87a" stroke-width="1.5" opacity="0.55"/>
+    <line x1="26" y1="8" x2="26" y2="18" stroke="#d4b87a" stroke-width="2.5" stroke-linecap="round" opacity="0.9"/>
+    <polygon points="26,23 22,17 30,17" fill="#d4b87a" opacity="0.9"/>
+  </symbol>
+
+  <!-- v02c: large diamond activation + 1 hollow cooldown, generous spacing (viewBox 0 0 52 108) -->
+  <symbol id="track-multiturn-v02c" viewBox="0 0 52 108">
+    <polygon points="26,4 48,26 26,48 4,26" fill="#1a0e04" stroke="none"/>
+    <polygon points="26,15 37,26 26,37 15,26" fill="#d4b87a" stroke="none"/>
+    <polygon points="26,21.5 30.5,26 26,30.5 21.5,26" fill="#1a0e04" stroke="none"/>
+    <line x1="26" y1="49" x2="26" y2="64" stroke="#1a0e04" stroke-width="1.5" stroke-linecap="round"/>
+    <polygon points="26,69 22,63 30,63" fill="#1a0e04"/>
+    <polygon points="26,72 44,90 26,108 8,90" fill="#1a0e04" stroke="none"/>
+    <polygon points="26,75 41,90 26,105 11,90" fill="none" stroke="#d4b87a" stroke-width="1.5" opacity="0.55"/>
+  </symbol>
+
   <!-- Fallback filled circle for undesigned track types -->
   <symbol id="track-fallback" viewBox="0 0 24 24">
     <circle cx="12" cy="12" r="10" fill="#1a0e04"/>
@@ -235,12 +291,21 @@ export class PreviewService {
 
   /**
    * Returns the SVG activation track marker HTML for a given track type.
+   * Supported types: basic (v01-a), multiturn-v02a, multiturn-v02b, multiturn-v02c.
    * Falls back to a filled circle if no variant exists.
    */
   getActivationMarkerHtml(trackType: string, width = 52, height = 80): string {
-    // Only basic variant exists (activation-track-basic-v01-a.html)
     if (trackType === 'basic') {
       return `<svg width="${width}" height="${height}" viewBox="0 0 52 80" preserveAspectRatio="xMidYMid meet"><use href="#track-basic-a"/></svg>`;
+    }
+    if (trackType === 'multiturn-v02a') {
+      return `<svg width="${width}" height="${Math.round(width * 136 / 52)}" viewBox="0 0 52 136" preserveAspectRatio="xMidYMid meet"><use href="#track-multiturn-v02a"/></svg>`;
+    }
+    if (trackType === 'multiturn-v02b') {
+      return `<svg width="${width}" height="${Math.round(width * 144 / 52)}" viewBox="0 0 52 144" preserveAspectRatio="xMidYMid meet"><use href="#track-multiturn-v02b-activation"/></svg>`;
+    }
+    if (trackType === 'multiturn-v02c') {
+      return `<svg width="${width}" height="${Math.round(width * 108 / 52)}" viewBox="0 0 52 108" preserveAspectRatio="xMidYMid meet"><use href="#track-multiturn-v02c"/></svg>`;
     }
     // All other track types — fallback filled circle
     return `<svg width="20" height="20" viewBox="0 0 24 24"><use href="#track-fallback"/></svg>`;
