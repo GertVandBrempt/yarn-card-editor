@@ -16,7 +16,7 @@ Card types: **Location, Character, Item, Event, Quest, Persona, Script**
 
 ### 🎮 Stream A — Game Design
 **Status:** Active — 6 discussion items tracked  
-**Last scan:** 2026-05-25T18:10:29Z — no new items; last notified ~3h ago (< 48h threshold)  
+**Last scan:** 2026-05-25T18:10:29Z — no new items; last notified 3h ago (< 48h threshold)  
 **Last notified:** 2026-05-25T15:07:31Z  
 **Pending items:**
 1. Script Card colour — purple placeholder in script-v01; must confirm before card-index.md entry
@@ -27,23 +27,25 @@ Card types: **Location, Character, Item, Event, Quest, Persona, Script**
 6. Character dual-mode layout (§3.4) — Character/Ally on one card; no visual design for split yet
 
 ### 🎨 Stream B — Card Design
-**Status:** Active — 🔄 activation-track-multiuse-v01 in progress  
-**Completed:**
+**Status:** Active  
+**Completed activation track primitives:**
 - `activation-track-basic-v01-a/b/c` ✅
 - `activation-track-multiturn-v02-a/b/c` ✅ (corrected shapes)
-- `activation-track-multiuse-v01-a` ✅ (b/c still pending from background agent)
+- `activation-track-multiuse-v01-a/b/c` ✅ (3 / 4 / 5 filled diamond slots; vertical + horizontal layouts)
 
 **Next tasks (independent tracks, in queue order):**
-- Complete `activation-track-multiuse-v01-b/c` 🔄
 - `activation-track-use-v01-a/b/c` — one square with inner square (one-time track)
-- `die-symbols-v01-a/b/c`, `subtitle-v01-a/b/c`, `flavour-text-v01-a/b/c`, `set-symbol-v01-a/b/c`
+- `die-symbols-v01-a/b/c` — 3 die icons (Constitution, Zeal, Path)
+- `subtitle-v01-a/b/c`, `flavour-text-v01-a/b/c`, `set-symbol-v01-a/b/c`
 - `trigger-symbols-v03-a/b/c` — first 3-option round for trigger symbols
 - AND/OR compound tracks on hold until all 4 primitives accepted
 
 ### 🖥️ Stream C — App Design
-**Status:** Active — auto-sync complete for multiturn-v02  
+**Status:** Active — auto-sync complete  
 **Completed this run:**
-- Synced multiturn-v02 SVG symbol defs into `preview.service.ts` (auto-sync rule triggered)
+- Synced multiturn-v02 SVG symbol defs into `preview.service.ts`
+- Rebuilt Angular app — updated bundle deployed to `docs/editor/`
+- Removed spurious `docs/editor/design/` directory (was incorrectly copying design variants into editor output)
 **Next:** Auto-sync when Card Design accepts a baseline (card-index.md update → SVG sync → rebuild → deploy)
 
 ---
@@ -55,7 +57,7 @@ Card types: **Location, Character, Item, Event, Quest, Persona, Script**
 | DESIGN.md | Game design document | User only |
 | design/VISUAL.md | Locked visual decisions | User + orchestrator reads |
 | design/card-index.md | Per-type card HTML baselines | User updates to accept variants |
-| design/variants/*.html | Card variant files (50 variants) | Orchestrator (autonomous) |
+| design/variants/*.html | Card variant files (52 variants) | Orchestrator (autonomous) |
 | design/variants/CHANGES.md | Variant change log | Orchestrator |
 | APP.md | App design decisions | Orchestrator (with user feedback) |
 | review/index.html | Mobile card review gallery | Orchestrator (regenerated) |

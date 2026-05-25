@@ -8,7 +8,7 @@ This file is read and written by scheduled agents. Do not edit manually during a
 blocked_for_weekly_review: false
 weekly_review_due: 2026-05-30T08:00:00Z
 last_orchestrator_run: 2026-05-25T18:10:29Z
-last_status_notification: 2026-05-25T15:07:31Z
+last_status_notification: 2026-05-25T18:10:29Z
 ```
 
 ## Work Streams
@@ -36,7 +36,7 @@ Streams are **independent** — a blocked stream does not pause other streams.
 ### Card Design
 - **Mode**: autonomous
 - **Source**: design/VISUAL.md, design/card-index.md
-- **Status**: active — activation-track-basic-v01 ✅; activation-track-multiturn-v02 ✅; activation-track-multiuse-v01 🔄 in progress (a created, b/c pending)
+- **Status**: active — activation-track-basic-v01 ✅; activation-track-multiturn-v02 ✅; activation-track-multiuse-v01 ✅ complete (a/b/c, 2026-05-25T18:10:29Z)
 
 #### Global rules (apply to all Card Design work)
 
@@ -56,7 +56,7 @@ Streams are **independent** — a blocked stream does not pause other streams.
    - **No return arrow** — do not draw an arrow looping back from the last slot to the activation marker; that is the only arrow that must be omitted
    - All other sequential connecting arrows between markers are present and correct
    - Vary: presence/absence of cooldown trigger, slot count, and spacing across a/b/c
-4. **activation-track-multiuse-v01-a/b/c** — Multi-use track: **multiple filled diamonds in a row** (one per activation slot, user-confirmed shape); vary layout/spacing/count across a/b/c; shapes locked — do not experiment with other shapes
+4. ~~**activation-track-multiuse-v01-a/b/c**~~ — ✅ Complete (2026-05-25T18:10:29Z)
 5. **activation-track-use-v01-a/b/c** — Use (one-time) track: **one square with inner square** — activation marker design rotated 45° (diamond → square); same inner/outer relationship as the activation marker; consumed permanently; vary sizing, proportions, and inner square scale across a/b/c; do not use a plain rectangle
 6. **Hold:** AND/OR compound tracks — only after all 4 primitives accepted
 
@@ -85,7 +85,7 @@ Streams are **independent** — a blocked stream does not pause other streams.
 ### App Design
 - **Mode**: autonomous
 - **Source**: APP.md
-- **Status**: active — ✅ Deployment fix complete; ✅ multiturn-v02 SVG defs synced to preview.service.ts (2026-05-25T18:10:29Z)
+- **Status**: active — ✅ Deployment fix complete; ✅ multiturn-v02 SVG defs synced + app rebuilt with updated bundle (2026-05-25T18:10:29Z); spurious docs/editor/design/ directory removed
 - **Next task**: Auto-sync when Card Design accepts a baseline (card-index.md updated → re-sync SVGs + baselines → rebuild → deploy)
 - **Completed tasks**:
   1. ✅ `SymbolReferenceModalComponent` — wired to `EffectEditorComponent` with `?` button, Escape close, mobile full-screen
@@ -155,8 +155,8 @@ _(none)_
 | 2026-05-25T15:07:31Z | Orchestrator | B: Card Design | Created activation-track-multiturn-v02-a/b/c (corrected shapes: diamond+inner-diamond, hollow cooldown diamonds, cooldown trigger in option b, no return arrow); CHANGES.md updated |
 | 2026-05-25T15:07:31Z | Orchestrator | C: App Design | Deployment fix complete — flattened docs/editor/browser/ to docs/editor/; fixed angular.json outputPath; updated deploy.yml to not pass --output-path; rebuilt; user notified |
 | 2026-05-25T18:10:29Z | Orchestrator | A: Game Design | No new items; last notified 3h ago (< 48h) — no notification |
-| 2026-05-25T18:10:29Z | Orchestrator | B: Card Design | activation-track-multiuse-v01-a created; b/c in progress |
-| 2026-05-25T18:10:29Z | Orchestrator | C: App Design | Synced multiturn-v02 SVG defs to preview.service.ts (auto-sync of new variant) |
+| 2026-05-25T18:10:29Z | Orchestrator | B: Card Design | activation-track-multiuse-v01-a/b/c complete; review/index.html updated |
+| 2026-05-25T18:10:29Z | Orchestrator | C: App Design | Synced multiturn-v02 SVG defs → rebuilt app bundle; removed spurious docs/editor/design/ |
 
 ---
 
