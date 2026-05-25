@@ -47,10 +47,17 @@ Streams are **independent** — a blocked stream does not pause other streams.
 
 **Track 1 — Activation Tracks** *(3 options each)*
 1. ~~**activation-track-basic-v01-a/b/c**~~ — ✅ Complete (2026-05-25T12:04:48Z)
-2. ~~**activation-track-multiturn-v01-a/b/c**~~ — ✅ Complete (2026-05-25T12:04:48Z)
-3. **activation-track-multiuse-v01-a/b/c** — Multi-use track: multiple activation markers; 3 options
-4. **activation-track-use-v01-a/b/c** — Use (one-time) track: consumed permanently; 3 options
-5. **Hold:** AND/OR compound tracks — only after all 4 primitives accepted
+2. ~~**activation-track-multiturn-v01-a/b/c**~~ — ❌ Needs revision (return arrow must be removed; trigger marker shape corrected — see v02 below)
+3. **activation-track-multiturn-v02-a/b/c** — Corrected multi-turn track per VISUAL.md §8 locked shapes:
+   - **Activation marker**: diamond with inner diamond — player places token here
+   - **Cooldown slots**: hollow/empty diamond — passive wait; connected to previous marker by a small directional arrow
+   - **Cooldown trigger** (optional — show in at least one option): diamond with inner arrow — same outer diamond silhouette as other markers, inner arrow instead of inner diamond; sits in any cooldown position; fires its own effect row; connected by directional arrow from previous marker like any other slot
+   - **No return arrow** — do not draw an arrow looping back from the last slot to the activation marker; that is the only arrow that must be omitted
+   - All other sequential connecting arrows between markers are present and correct
+   - Vary: presence/absence of cooldown trigger, slot count, and spacing across a/b/c
+4. **activation-track-multiuse-v01-a/b/c** — Multi-use track: **multiple filled diamonds in a row** (one per activation slot, user-confirmed shape); vary layout/spacing/count across a/b/c; shapes locked — do not experiment with other shapes
+5. **activation-track-use-v01-a/b/c** — Use (one-time) track: **one square with inner square** — activation marker design rotated 45° (diamond → square); same inner/outer relationship as the activation marker; consumed permanently; vary sizing, proportions, and inner square scale across a/b/c; do not use a plain rectangle
+6. **Hold:** AND/OR compound tracks — only after all 4 primitives accepted
 
 **Track 2 — Die Symbols** *(3 options for the full set of 3 die icons)*
 - **die-symbols-v01-a/b/c** — Design 3 die icons (Constitution, Zeal, Path) per VISUAL.md §7; each option shows all 3 die icons on a single card in an effect row context; options must be visually distinct from each other
@@ -64,6 +71,9 @@ Streams are **independent** — a blocked stream does not pause other streams.
 **Track 5 — Set Symbol** *(3 options)*
 - **set-symbol-v01-a/b/c** — Set symbol position/size/treatment per VISUAL.md §9.3; small glyph in corner; consistent across all card types
 
+**Track 6 — Trigger Symbols** *(3 options)*
+- **trigger-symbols-v03-a/b/c** — 6 trigger symbols (On Reveal, On Enter, On Leave, Character Phase, On Complete, On Flow Marker) per VISUAL.md §7 style rules; prior versions (v01, v02) were single-variant — this is the first 3-option round; all 6 symbols shown in use on a single card per option; dark body + lighter detail; options must be visually distinct from each other
+
 **Hold:** effects-v04 — create only after trigger symbols + activation tracks both accepted
 
 - **Blocked on**: —
@@ -75,7 +85,17 @@ Streams are **independent** — a blocked stream does not pause other streams.
 - **Mode**: autonomous
 - **Source**: APP.md
 - **Status**: active — all 9 implementation tasks complete; clean build deployed 2026-05-25T12:04:48Z
-- **Next task**: Auto-sync on next activation track acceptance (re-run steps 5–9 when card-index.md updated or new trigger/track variants accepted)
+- **Next task**: Fix GitHub Pages deployment (URGENT — editor currently unreachable at /editor/):
+  1. **Fix `angular.json` `outputPath`** — in `yarn-card-editor/angular.json`, find the `"outputPath"` string `"../docs/editor"` in the build configuration and replace it with:
+     ```json
+     "outputPath": { "base": "../docs/editor", "browser": "" }
+     ```
+     This flattens the Angular 17+ `browser/` subdirectory so `index.html` lands directly at `docs/editor/index.html`.
+  2. **Fix existing deployment** — move all files from `docs/editor/browser/` up to `docs/editor/` and delete the now-empty `docs/editor/browser/` directory. Preserve the `docs/editor/browser/assets/` → `docs/editor/assets/` copy.
+  3. **Create `.github/workflows/deploy.yml`** — GitHub Actions workflow per APP.md §Deployment; triggers on push to master when `yarn-card-editor/**` or `design/card-index.md` changes; builds, commits `docs/editor/`, pushes with `[skip ci]`
+  4. **Rebuild** — `cd yarn-card-editor && npm install && npx ng build --base-href /yarn-card-editor/editor/ --output-path ../docs/editor` — verify output lands at `docs/editor/index.html` (not `docs/editor/browser/index.html`)
+  5. **Commit and push** — commit `angular.json`, `docs/editor/`, `.github/workflows/deploy.yml`; push to master
+  6. **Notify** — PushNotification with editor URL once confirmed live
 - **Completed tasks**:
   1. ✅ `SymbolReferenceModalComponent` — wired to `EffectEditorComponent` with `?` button, Escape close, mobile full-screen
   2. ✅ Responsive layout — 3 breakpoints, mobile drawer nav, hamburger button, `transform:scale()` card preview

@@ -38,7 +38,7 @@ Card types: **Location, Character, Item, Event, Quest, Persona, Script**
 **Review page:** Restructured to 2-section format (Under Review + Accepted)
 
 ### 🖥️ Stream C — App Design
-**Status:** Complete — all 9 tasks done, clean build deployed ✅  
+**Status:** Blocked — deployment fix required (editor unreachable at /editor/ endpoint)  
 **Deployed features:**
 - Responsive layout (3 breakpoints, mobile drawer nav, hamburger button, transform:scale() card preview)
 - `SymbolReferenceModalComponent` — wired to EffectEditor with `?` button, Escape close, mobile full-screen

@@ -203,14 +203,50 @@ AND and OR are **compound containers** — each holds two or more sub-tracks. Ea
 
 - **Color scheme:** same dark body + lighter detail palette as trigger symbols — no separate color per track type; shape and structure alone distinguish types
 - **Layout:** vertical — each track runs top-to-bottom inside its action row, covering the full width of the action container
-- **Simplicity:** minimal shapes only — avoid decoration; a marker is a shape (circle, square, diamond, etc.), a flow path is a line or arrow; nothing more
+- **Simplicity:** minimal shapes only — avoid decoration; a marker is a shape, a flow path is a line or arrow; nothing more
 - **Marker size:** all activation markers, cooldown markers, and trigger markers must be the **same size** across all track types — large enough to physically place a standard board game cube (~8 mm, e.g. Pandemic cubes); target ~48 px diameter/side at card scale (375 px wide)
 - **Consistent sizing:** all icons and markers across the entire card (effect icons, trigger symbols, activation markers) share the same base size — no marker may be larger or smaller than another
 - **One track per card:** each primitive track type (Basic, Multi-turn, Multi-use, Use) gets its own dedicated card variant with one sample action row using that track
 - **AND/OR:** hold — design only after all four primitive track types are accepted
 - **Display context:** shown in use on a card — leading marker in an action row; include whatever containers are useful for the reference mockup
 
-Primitive track type designs pending (one card each): Basic, Multi-turn, Multi-use, Use.
+### Conceptual framework — marker shapes *(locked — 2026-05-25)*
+
+Every marker shape communicates **who or what fires the trigger**. All shapes share the same visual weight and size.
+
+#### Shape vocabulary
+
+The diamond is the **unifying design element** across all marker types. All activation/cooldown markers are variants of the same diamond silhouette — close visual relatives that share a family look while remaining distinct:
+
+| Marker | Shape | Meaning |
+|---|---|---|
+| **Activation marker** | Diamond with inner diamond | Player-fired trigger — diamond orientation (point up/down); inner diamond signals ready to receive a token |
+| **Cooldown slot** | Empty / hollow diamond | Passive wait slot — same outer diamond silhouette as activation marker; no inner element |
+| **Cooldown trigger** | Diamond with inner arrow | Auto-fires an effect when token reaches this slot; same outer diamond silhouette; inner arrow distinguishes it as a trigger |
+| **Consumed marker** | Square with inner square | Activation marker design rotated 45° — square orientation (flat sides); same inner/outer relationship as activation marker; signals permanent consumption through the rotation alone |
+
+All four marker types share the **same design element** (a shape with an optional inner element) and differ only in orientation and inner detail. The diamond family is unified — a reader familiar with one marker immediately understands the others.
+
+#### Connecting arrows between markers
+
+Sequential markers in a track are connected by **small directional arrows** showing the token's path:
+
+- Activation marker → cooldown slot(s) → (optional cooldown trigger) — all connected by arrows showing flow direction
+- **The return arrow looping back from the last slot to the activation marker is not needed and should not be drawn** — the cycle is implicit; the design does not need to depict it
+
+#### The "each marker = its own effect line" rule
+
+Each marker that fires an effect corresponds to exactly one effect row in the card's mechanics frame, with that marker's symbol as the leading icon:
+- Activation marker → one effect row, led by the activation marker symbol
+- Cooldown trigger → one effect row, led by the cooldown trigger symbol
+- Passive cooldown slots (hollow diamonds) → no effect row — they are structural, not triggers
+
+#### Shape usage per track type
+
+- **Basic** — one activation marker; token removed on use; one effect row
+- **Multi-turn** — one activation marker → one or more cooldown slots (hollow diamonds) connected by arrows; optionally one or more cooldown triggers (diamond with inner arrow) at any cooldown position, each with its own effect row; no return arrow at the end
+- **Multi-use** — multiple activation markers in a row, each connected by flow indicators; each marker = one effect row
+- **Use** — one consumed marker (square with inner square — activation marker rotated 45°); permanently consumed; one effect row
 
 ---
 

@@ -163,7 +163,7 @@ Each card is a typed record. All types share a common base; type-specific fields
 | label | string | Short name shown on card |
 | trackType | Basic \| MultiTurn \| MultiUse \| AND \| OR \| Use | |
 | effects | Effect[] | The triggered effects for this action |
-| flowMarkers | FlowMarker[]? | Multi-turn tracks only — each may carry an OnFlowMarker effect |
+| flowMarkers | FlowMarker[]? | Multi-turn tracks only — each entry is a cooldown slot; if `triggersEffect: true`, renders as a cooldown trigger marker (diamond with inner arrow) with its own effect row; passive slots render as hollow diamonds with no effect row |
 | linkedActionIds | string[]? | AND/OR tracks only — IDs of co-linked actions on this card |
 | chargeCount | number? | Use tracks only — initial charge count (printed slot count) |
 | slotCount | number? | Multi-use tracks only — number of independent activation slots |
@@ -443,8 +443,8 @@ When a card baseline changes in `design/card-index.md` (i.e. a variant is accept
 | Concern | Decision |
 |---|---|
 | Framework | Angular — project root is `yarn-card-editor/` subfolder |
-| Build | `ng build --base-href /yarn-card-editor/editor/ --output-path ../docs/editor` |
-| Deployment | Build output to `docs/editor/`; committed to master; GitHub Pages serves `docs/` folder from master branch |
+| Build | `ng build --base-href /yarn-card-editor/editor/ --output-path ../docs/editor` (with `angular.json` `outputPath.browser: ""` to flatten output) |
+| Deployment | Build output to `docs/editor/` (flat, no `browser/` subdir); committed to master; GitHub Pages serves `docs/` folder from master branch; also auto-deployed via `.github/workflows/deploy.yml` on push |
 | Live URL | `https://gertvandbrempt.github.io/yarn-card-editor/editor/` |
 | Storage | IndexedDB (browser-local) |
 | Live preview | `PreviewService` loads baseline HTML from `assets/templates/<type>-baseline.html`; reactive form binding injects field values; updates in real time |
@@ -458,11 +458,75 @@ When a card baseline changes in `design/card-index.md` (i.e. a variant is accept
 
 ## Deployment
 
-- App is built to `docs/editor/` via `ng build --base-href /yarn-card-editor/editor/ --output-path ../docs/editor`
-- GitHub Pages serves the `docs/` folder from the master branch — app is live at `https://gertvandbrempt.github.io/yarn-card-editor/editor/`
-- Orchestrator commits and pushes `docs/editor/` after every successful build
-- After each deploy, a PushNotification is sent with the live URL
-- **Auto-deploy on baseline change**: orchestrator runs the build+deploy pipeline automatically whenever a card baseline is updated in `card-index.md` (see Auto Visual Sync above)
+### Known issue — Angular 17+ `browser/` subdirectory
+
+Angular 17+ places build output in a `browser/` subdirectory inside `--output-path`. This means a build to `../docs/editor` actually produces `docs/editor/browser/index.html`, not `docs/editor/index.html`. GitHub Pages cannot serve the app from the `/editor/` endpoint when files live one level deeper.
+
+**Fix (must be applied once by the orchestrator):**
+
+1. In `yarn-card-editor/angular.json`, replace the `outputPath` string with an object that sets `browser` to `""` (empty), so Angular writes browser files directly into the base output directory:
+   ```json
+   "outputPath": {
+     "base": "../docs/editor",
+     "browser": ""
+   }
+   ```
+2. Move any files already built under `docs/editor/browser/` up to `docs/editor/` and delete the now-empty `browser/` folder.
+3. Rebuild and redeploy so the corrected structure is committed.
+
+After this fix the build command remains `ng build --base-href /yarn-card-editor/editor/ --output-path ../docs/editor` and all output lands directly at `docs/editor/index.html` etc.
+
+### GitHub Actions — continuous deployment
+
+A workflow at `.github/workflows/deploy.yml` auto-builds the app on every push to master. This runs in addition to (and as a safety net for) orchestrator-triggered builds.
+
+```yaml
+name: Deploy editor to GitHub Pages
+
+on:
+  push:
+    branches: [master]
+    paths:
+      - 'yarn-card-editor/**'
+      - 'design/card-index.md'
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: yarn-card-editor/package-lock.json
+      - name: Install
+        run: cd yarn-card-editor && npm install
+      - name: Build
+        run: cd yarn-card-editor && npx ng build --base-href /yarn-card-editor/editor/ --output-path ../docs/editor
+      - name: Commit build output
+        run: |
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+          git add docs/editor
+          git diff --cached --quiet || git commit -m "Deploy: update editor build [skip ci]"
+          git push
+```
+
+`[skip ci]` prevents the commit from re-triggering the workflow. The `paths` filter means the workflow only fires when app source or card baselines change, not on every commit.
+
+### Deployment summary
+
+| Step | Who | What |
+|---|---|---|
+| Push app source changes | Developer / orchestrator | Triggers GitHub Actions workflow |
+| GitHub Actions runs | CI | `npm install` → `ng build` → commit `docs/editor/` → push |
+| GitHub Pages serves | GitHub | Reads `docs/` folder on master; app live at `/yarn-card-editor/editor/` |
+| Orchestrator manual deploy | Orchestrator | Same `ng build` + commit + push — used when card baselines change or manual trigger |
+
+- GitHub Pages must be configured to serve from the **`docs/` folder on the `master` branch** (Settings → Pages → Source).
+- After each orchestrator-triggered deploy, a PushNotification is sent with the live URL.
+- **Auto-deploy on baseline change**: orchestrator runs the build+deploy pipeline automatically whenever a card baseline is updated in `card-index.md` (see Auto Visual Sync above).
 
 ---
 
@@ -518,3 +582,5 @@ Elements needed by the live preview that are not yet designed. Card Design strea
 | 2026-05-25 | Build command: `ng build --base-href /yarn-card-editor/editor/ --output-path ../docs/editor` | Correct base-href for GitHub Pages /editor route; output goes directly into docs/editor |
 | 2026-05-25 | Track-specific sub-fields per activation track type (turn count, slot count, charges, sub-tracks for AND/OR) | Data model already supported these; form must expose them; values must flow to live preview |
 | 2026-05-25 | Live preview uses latest design variant for trigger symbols and activation markers — no wait for acceptance | Designer needs real visual feedback during design iteration, not a placeholder |
+| 2026-05-25 | `angular.json` `outputPath.browser` set to `""` to flatten Angular 17+ build output | Angular 17+ defaults to a `browser/` subdirectory which broke GitHub Pages serving from `/editor/` |
+| 2026-05-25 | GitHub Actions workflow added at `.github/workflows/deploy.yml` for continuous deployment | Auto-builds on push to master when app source or card baselines change; `[skip ci]` prevents loop |
