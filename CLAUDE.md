@@ -57,6 +57,13 @@ Visual design is documented in `design/VISUAL.md`. Per-type HTML baseline files 
 - **Update `design/VISUAL.md` whenever a design element is finalized** — a reference file is created, a variant is accepted, or a visual pattern is locked in. Iteration (writing variants, logging diffs) does not require a VISUAL.md update; finalization always does.
 - At the start of a new session, run `/resume` to reload context before doing anything else.
 
+### ⚠ Git — STRICTLY ENFORCED
+
+**Never run any git commands.** The user handles all git operations.
+
+- ❌ Forbidden: `git add`, `git commit`, `git push`, `git pull`, or any other git command
+- ✅ Allowed: writing and editing files only — the user commits and pushes when ready
+
 ### ⚠ Interactive session boundary — STRICTLY ENFORCED
 
 **Interactive sessions (invoked by the user via Claude Code CLI) write `.md` files ONLY.**

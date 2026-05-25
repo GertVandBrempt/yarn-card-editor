@@ -87,6 +87,16 @@ The mechanics frame (bottom panel) is divided into four sections top-to-bottom:
 
 Treatment: 0.15 translucent fill + gradient-fade 1 px top and bottom border per section (opacity 0.7, fading transparent → color 18%–82% → transparent).
 
+### 6.0 Dynamic Container Rule
+
+Mechanics frame containers are **dynamic** in the final rendered card:
+
+- A container is only rendered if it contains at least one effect or action row
+- Container height auto-adjusts to its contents — no fixed heights, no empty space
+- A card with only triggers shows only the trigger container(s); a card with only actions shows only the actions container; a card with both shows both
+
+This is a rendering rule for the live editor and exported cards. Design variants may include empty containers when useful for reference context.
+
 ### 6.1 Effect Display Model
 
 - **No section labels** — section identity is communicated by background color only; do not render "PASSIVE", "ON REVEAL", "ACTION", etc. as text
@@ -176,10 +186,13 @@ AND and OR are **compound containers** — each holds two or more sub-tracks. Ea
 - **Color scheme:** same dark body + lighter detail palette as trigger symbols — no separate color per track type; shape and structure alone distinguish types
 - **Layout:** vertical — each track runs top-to-bottom inside its action row, covering the full width of the action container
 - **Simplicity:** minimal shapes only — avoid decoration; a marker is a shape (circle, square, diamond, etc.), a flow path is a line or arrow; nothing more
-- **AND/OR compound layout:** sub-tracks are rendered as separate vertical track columns side by side within a shared container; a gate element (simple bracket or connecting bar) links them; each sub-track must visually show its own activation marker(s) and flow independently
-- **Display context:** always shown in use on a card — leading marker in the action rows of a real card mockup; never displayed as an isolated diagram sheet
+- **Marker size:** all activation markers, cooldown markers, and trigger markers must be the **same size** across all track types — large enough to physically place a standard board game cube (~8 mm, e.g. Pandemic cubes); target ~48 px diameter/side at card scale (375 px wide)
+- **Consistent sizing:** all icons and markers across the entire card (effect icons, trigger symbols, activation markers) share the same base size — no marker may be larger or smaller than another
+- **One track per card:** each primitive track type (Basic, Multi-turn, Multi-use, Use) gets its own dedicated card variant with one sample action row using that track
+- **AND/OR:** hold — design only after all four primitive track types are accepted
+- **Display context:** shown in use on a card — leading marker in an action row; include whatever containers are useful for the reference mockup
 
-All six track type designs are pending — to be created as SVG reference variants by the orchestrator sub-agent.
+Primitive track type designs pending (one card each): Basic, Multi-turn, Multi-use, Use.
 
 ---
 

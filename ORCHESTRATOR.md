@@ -35,8 +35,14 @@ Streams are **independent** — a blocked stream does not pause other streams.
 ### Card Design
 - **Mode**: autonomous
 - **Source**: design/VISUAL.md, design/card-index.md
-- **Status**: active — trigger-symbols-v02 and activation-tracks-v02 created; awaiting user acceptance before effects-v04
-- **Next task**: Hold — await user acceptance of trigger-symbols-v02 and activation-tracks-v02 before creating effects-v04 (incorporate accepted trigger symbols + activation tracks into effects display)
+- **Status**: active — trigger-symbols-v02 accepted as direction; activation-tracks-v02 needs full redesign; 5 tasks queued
+- **Next task**: Five queued tasks (execute in order):
+  1. **activation-track-basic-v01** — Basic track on its own card: single activation marker (~48px), token removed on use, no cooldown; marker sized for cube placement; dark body + lighter detail per §8 style rules
+  2. **activation-track-multiturn-v01** — Multi-turn track on its own card: activation marker → cooldown slot(s) → return arrow; same marker size as Basic
+  3. **activation-track-multiuse-v01** — Multi-use track on its own card: multiple activation markers in a row; same marker size
+  4. **activation-track-use-v01** — Use (one-time) track on its own card: single activation marker, consumed permanently (shown as spent/crossed); same marker size
+  5. **Hold:** AND/OR compound tracks — design only after all four primitive tracks above are accepted by user
+  - **Hold:** effects-v04 — create only after trigger symbols + activation tracks both accepted
 - **Blocked on**: —
 - **Last notified**: 2026-05-24T18:02:35Z
 

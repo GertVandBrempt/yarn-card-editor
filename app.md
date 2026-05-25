@@ -199,6 +199,17 @@ Each card is a typed record. All types share a common base; type-specific fields
 - Art upload: local file picker only (no URLs in v1); image stored as base64 data URI in the card record; drag-and-drop welcome but file picker is minimum.
 - **Template selection** is fixed per type in v1 — one canonical template per type.
 
+### Dynamic containers — live preview rule
+
+The mechanics frame in the live preview must reflect the actual card content at all times:
+
+- **Only render a section container (Passive, Trigger — entry, Actions, Trigger — exit) if it contains at least one row**
+- **Container height auto-adjusts** to its content — no fixed heights, no empty sections taking up space
+- As the user adds or removes effects/triggers/actions in the form, the preview updates immediately — containers appear and disappear accordingly
+- This gives the designer an accurate feel of the real card layout at all times
+
+This must be implemented in `CardPreviewComponent` and `PreviewService`. It is not optional — an empty container should never be visible in the preview.
+
 ### v1 Build — Known Issues (from first review)
 
 | Issue | Fix required |
