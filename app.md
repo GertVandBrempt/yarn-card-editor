@@ -4,7 +4,7 @@
 >
 > Durable design decisions only. Mark superseded decisions rather than deleting them.
 
-**Status: Accepted 2026-05-24 — build v1 (see ORCHESTRATOR.md App Design stream)**
+**Status: v1 deployed; architecture refactor required — see §Component Architecture**
 
 ---
 
@@ -272,6 +272,74 @@ The editor stores the raw syntax string; the preview renders the parsed version.
 
 ---
 
+## Component Architecture
+
+The v1 monolithic `app.ts` must be replaced with a proper Angular component structure. All logic must be split into focused, reusable components.
+
+### Component tree
+
+```
+AppComponent                        — root; routing only
+└── LayoutComponent                 — shell: sidebar nav + main content area
+    ├── CardListComponent           — browse all cards in the active set
+    │   └── CardFilterComponent     — filter chips (by type) + search input
+    └── CardEditorComponent         — split view: form + preview
+        ├── CardFormComponent       — delegates to type-specific sub-form
+        │   ├── LocationFormComponent
+        │   ├── CharacterFormComponent
+        │   ├── ItemFormComponent
+        │   ├── EventFormComponent
+        │   ├── QuestFormComponent  — shared for Main + Side Quest
+        │   ├── PersonaFormComponent
+        │   └── ScriptFormComponent
+        └── CardPreviewComponent    — live card preview; re-renders on form changes
+```
+
+### Shared form sub-components (used by multiple type forms)
+
+| Component | Purpose |
+|---|---|
+| `TriggersEditorComponent` | Add/remove trigger list; trigger type dropdown + EffectEditorComponent per entry |
+| `ActionsEditorComponent` | Add/remove action list; activation track type dropdown + EffectEditorComponent per entry |
+| `EffectEditorComponent` | Single effect text input; parses `<icon>[modifier]` syntax; emits parsed + raw value |
+| `ImageUploadComponent` | File picker → base64 data URI; drag-and-drop; preview thumbnail |
+
+### Per-type trigger and action availability
+
+Each type-specific form must only expose the triggers and actions that are valid for that type:
+
+| Card Type | Triggers available | Actions |
+|---|---|---|
+| Location | On Reveal, On Enter, On Leave | ✅ |
+| Character (game area) | On Reveal, Character Phase | ✅ |
+| Character (ally mode tab) | — | ✅ (separate Actions list) |
+| Item | — | ✅ |
+| Event | On Reveal (required, not removable) | ❌ |
+| Main Quest | On Complete (per objective) | ❌ |
+| Side Quest | On Complete (per objective) | ❌ |
+| Persona | — | ✅ |
+| Script | — | ❌ (turn schedule only) |
+
+### Services
+
+| Service | Responsibility |
+|---|---|
+| `CardSetService` | Active set CRUD; IndexedDB persistence |
+| `CardService` | Card CRUD within a set; typed card factory |
+| `PreviewService` | Loads baseline HTML template per card type; injects field values; returns rendered HTML string |
+
+### Routing
+
+```
+/                     → redirect to /sets
+/sets                 → set selector (create / open)
+/sets/:setId          → CardListComponent
+/sets/:setId/cards/new?type=X  → CardEditorComponent (new card)
+/sets/:setId/cards/:cardId     → CardEditorComponent (edit card)
+```
+
+---
+
 ## Tech Stack — v1
 
 | Concern | Decision |
@@ -340,4 +408,6 @@ Elements needed by the live preview that are not yet designed. Card Design strea
 | 2026-05-24 | Image upload: local file → base64 data URI only; no URL input in v1 | Simpler, no external dependency, works offline |
 | 2026-05-24 | Effect editor: inline `<iconname>[modifier]` syntax parsed in real time | Keeps effect text human-readable while rendering rich icons in preview |
 | 2026-05-24 | Triggers and Actions as separate add/remove sections per card | Matches DESIGN.md structure; clear separation of trigger-driven vs player-initiated effects |
+| 2026-05-25 | Full component architecture refactor required — monolithic app.ts rejected | Code quality; per-type trigger/action availability cannot be maintained in a single file |
+| 2026-05-25 | Per-type trigger availability enforced in each type-specific form component | Prevents invalid data; each type's form only exposes the triggers valid for that type |
 | 2026-05-24 | v1 editor built and deployed to `editor/` at repo root | Angular 21 zoneless app; all 8 card types with base fields + type-specific fields; live preview via iframe srcdoc; localStorage persistence; JSON import/export |

@@ -45,8 +45,18 @@ Streams are **independent** — a blocked stream does not pause other streams.
 ### App Design
 - **Mode**: autonomous
 - **Source**: APP.md
-- **Status**: active — v1 editor fixes complete and built; all 6 priority items resolved
-- **Next task**: Await user feedback on fixed v1 editor. Then: refine effect editor parsing, improve preview fidelity, or begin v2 features per user direction.
+- **Status**: active — v1 monolithic app.ts reviewed; full architecture refactor required
+- **Next task**: Refactor Angular app per APP.md §Component Architecture. Execute in order:
+  1. **Scaffold component structure** — generate all components and services listed in §Component Architecture using Angular CLI (`ng generate`); establish routing per §Routing
+  2. **Migrate card data model** — move typed interfaces (from APP.md §Card Data Model) into `src/app/models/`; one file per card type
+  3. **Implement services** — `CardSetService` (IndexedDB), `CardService` (typed card factory), `PreviewService` (baseline HTML loader + field injector)
+  4. **Build shared sub-components** — `EffectEditorComponent` (inline `<icon>[mod]` parsing), `ImageUploadComponent` (file → base64), `TriggersEditorComponent`, `ActionsEditorComponent`
+  5. **Build type-specific form components** — one per card type; each uses only the triggers/actions valid for that type per APP.md §Per-type trigger and action availability
+  6. **Build CardPreviewComponent** — loads baseline HTML from card-index.md via PreviewService; reactive update on form changes
+  7. **Build CardListComponent + CardFilterComponent** — filter by type, search by title
+  8. **Build LayoutComponent** — sidebar + main area shell
+  9. **Wire AppComponent + routing** — replace monolithic app.ts with lean root + router-outlet
+  10. **Build and deploy** — `ng build`, output to `docs/editor/`, push
 - **Blocked on**: —
 - **Last notified**: 2026-05-24T18:02:35Z
 
