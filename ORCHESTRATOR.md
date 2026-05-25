@@ -52,11 +52,11 @@ Streams are **independent** — a blocked stream does not pause other streams.
 3. **activation-track-multiturn-v02-a/b/c** — Corrected multi-turn track per VISUAL.md §8 locked shapes:
    - **Activation marker**: diamond with inner diamond — player places token here
    - **Cooldown slots**: hollow/empty diamond — passive wait; connected to previous marker by a small directional arrow
-   - **Cooldown trigger** (optional — show in at least one option): diamond with inner arrow — same outer diamond silhouette as other markers, inner arrow instead of inner diamond; sits in any cooldown position; fires its own effect row; connected by directional arrow from previous marker like any other slot
+   - **Cooldown trigger** (optional — show in at least one option): diamond with inner **right-pointing arrow (→)** — same outer diamond silhouette as other markers; inner arrow points RIGHT toward the effect it triggers, not down; sits in any cooldown position; fires its own effect row; connected by directional arrow from previous marker like any other slot
    - **No return arrow** — do not draw an arrow looping back from the last slot to the activation marker; that is the only arrow that must be omitted
    - All other sequential connecting arrows between markers are present and correct
    - Vary: presence/absence of cooldown trigger, slot count, and spacing across a/b/c
-4. **activation-track-multiuse-v01-a/b/c** — Multi-use track: **multiple filled diamonds in a row** (one per activation slot, user-confirmed shape); vary layout/spacing/count across a/b/c; shapes locked — do not experiment with other shapes
+4. **activation-track-multiuse-v01-a/b/c** — Multi-use track: **multiple filled diamonds in a row** (one per activation slot, user-confirmed shape); vary layout/spacing/count across a/b/c; shapes locked — do not experiment with other shapes; **action row container must expand to fit all markers at full size — no overflow, no clipping, no scaling markers down**
 5. **activation-track-use-v01-a/b/c** — Use (one-time) track: **one square with inner square** — activation marker design rotated 45° (diamond → square); same inner/outer relationship as the activation marker; consumed permanently; vary sizing, proportions, and inner square scale across a/b/c; do not use a plain rectangle
 6. **Hold:** AND/OR compound tracks — only after all 4 primitives accepted
 
@@ -86,7 +86,52 @@ Streams are **independent** — a blocked stream does not pause other streams.
 - **Mode**: autonomous
 - **Source**: APP.md
 - **Status**: active — ✅ Deployment fix complete (2026-05-25T15:07:31Z); editor now live at /editor/
-- **Next task**: Auto-sync when Card Design accepts a baseline (card-index.md updated → re-sync SVGs + baselines → rebuild → deploy)
+- **Next tasks** (in order):
+  1. **Fix `APP.md` filename casing** — run `git mv app.md APP.md` (git rename to restore uppercase); commit; this must be done before any other file edits this run
+  2. **Update `.github/workflows/deploy.yml`** for proper GitHub Actions Pages deployment — user has changed GitHub Pages source to "GitHub Actions" in repo settings; workflow must now use `actions/upload-pages-artifact` + `actions/deploy-pages` instead of committing to `docs/`; full updated workflow:
+     ```yaml
+     name: Deploy to GitHub Pages
+     on:
+       push:
+         branches: [master]
+         paths: ['yarn-card-editor/**', 'design/card-index.md', 'review/**', 'design/variants/**']
+     permissions:
+       contents: read
+       pages: write
+       id-token: write
+     concurrency:
+       group: pages
+       cancel-in-progress: true
+     jobs:
+       build:
+         runs-on: ubuntu-latest
+         steps:
+           - uses: actions/checkout@v4
+           - uses: actions/setup-node@v4
+             with:
+               node-version: '20'
+               cache: 'npm'
+               cache-dependency-path: yarn-card-editor/package-lock.json
+           - name: Install
+             run: cd yarn-card-editor && npm install
+           - name: Build
+             run: cd yarn-card-editor && npx ng build --base-href /yarn-card-editor/editor/
+           - name: Upload Pages artifact
+             uses: actions/upload-pages-artifact@v3
+             with:
+               path: docs/
+       deploy:
+         environment:
+           name: github-pages
+           url: ${{ steps.deployment.outputs.page_url }}
+         runs-on: ubuntu-latest
+         needs: build
+         steps:
+           - name: Deploy to GitHub Pages
+             id: deployment
+             uses: actions/deploy-pages@v4
+     ```
+  3. **Auto-sync** — when Card Design creates new activation track or trigger symbol variants, extract SVG defs and re-run build+deploy pipeline
 - **Completed tasks**:
   1. ✅ `SymbolReferenceModalComponent` — wired to `EffectEditorComponent` with `?` button, Escape close, mobile full-screen
   2. ✅ Responsive layout — 3 breakpoints, mobile drawer nav, hamburger button, `transform:scale()` card preview

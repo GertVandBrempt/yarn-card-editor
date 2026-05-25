@@ -209,6 +209,7 @@ AND and OR are **compound containers** — each holds two or more sub-tracks. Ea
 - **One track per card:** each primitive track type (Basic, Multi-turn, Multi-use, Use) gets its own dedicated card variant with one sample action row using that track
 - **AND/OR:** hold — design only after all four primitive track types are accepted
 - **Display context:** shown in use on a card — leading marker in an action row; include whatever containers are useful for the reference mockup
+- **Container scaling — no overflow:** the action row container must grow to fit all markers at their target size; markers are never scaled down to fit a fixed container and never allowed to overflow or clip; if a track has many markers (e.g. multi-use with 4+ slots), the container height increases to accommodate them at full size
 
 ### Conceptual framework — marker shapes *(locked — 2026-05-25)*
 
@@ -222,7 +223,7 @@ The diamond is the **unifying design element** across all marker types. All acti
 |---|---|---|
 | **Activation marker** | Diamond with inner diamond | Player-fired trigger — diamond orientation (point up/down); inner diamond signals ready to receive a token |
 | **Cooldown slot** | Empty / hollow diamond | Passive wait slot — same outer diamond silhouette as activation marker; no inner element |
-| **Cooldown trigger** | Diamond with inner arrow | Auto-fires an effect when token reaches this slot; same outer diamond silhouette; inner arrow distinguishes it as a trigger |
+| **Cooldown trigger** | Diamond with inner right-pointing arrow (→) | Auto-fires an effect when token reaches this slot; same outer diamond silhouette; inner arrow points **right** — toward the effect it triggers, not down |
 | **Consumed marker** | Square with inner square | Activation marker design rotated 45° — square orientation (flat sides); same inner/outer relationship as activation marker; signals permanent consumption through the rotation alone |
 
 All four marker types share the **same design element** (a shape with an optional inner element) and differ only in orientation and inner detail. The diamond family is unified — a reader familiar with one marker immediately understands the others.

@@ -234,6 +234,7 @@ The mechanics frame in the live preview must reflect the actual card content at 
 
 - **Only render a section container (Passive, Trigger — entry, Actions, Trigger — exit) if it contains at least one row**
 - **Container height auto-adjusts** to its content — no fixed heights, no empty sections taking up space
+- **Action row containers must expand to fit all markers** — markers are always rendered at their target size; if a track has many markers (e.g. multi-use with 4+ slots), the action row grows vertically to accommodate them; markers are never scaled down, clipped, or allowed to overflow their container
 - As the user adds or removes effects/triggers/actions in the form, the preview updates immediately — containers appear and disappear accordingly
 - This applies to **all containers across the whole card** — not just the mechanics frame. Any header field, subtitle, flavour text, image area, or type-specific section that has no content must be hidden entirely (CSS `display:none` or `*ngIf`), not left as an empty box.
 - This gives the designer an accurate feel of the real card layout at all times
