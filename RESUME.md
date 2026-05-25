@@ -1,6 +1,6 @@
 # Yarn — Session Resume Context
 
-_Updated: 2026-05-25T06:02:30Z_
+_Updated: 2026-05-25T07:12:59Z_
 
 ---
 
@@ -31,9 +31,8 @@ Card types: **Location, Character, Item, Event, Quest, Persona, Script**
 **39 variants** in design/variants/ — see review gallery.
 
 ### 🖥️ Stream C — App Design
-**Status:** On hold — awaiting user feedback  
-**Situation:** v1 editor is fully deployed with all 6 priority fixes: form fields wired, image upload base64, preview rendering, Triggers/Actions sections, inline icon parsing.  
-**To unblock:** Use the live editor at https://gertvandtbrempt.github.io/yarn-card-editor/editor/ and give feedback, or say "v2 features: [direction]".  
+**Status:** Active — refactor in progress  
+**Situation:** Architecture refactor well underway. Routing, all 7 typed data models, CardSetService/CardService/PreviewService, CardListComponent, CardFilterComponent, LayoutComponent, and SetSelectorComponent all scaffolded. Remaining: shared sub-components (step 4), type-specific form components (step 5), CardPreviewComponent (step 6), wire AppComponent (step 9), build+deploy (step 10).  
 **Design gaps pending card acceptance:** trigger symbols, activation tracks, inline icon rendering, Character dual-mode layout.
 
 ---

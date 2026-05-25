@@ -7,7 +7,7 @@ This file is read and written by scheduled agents. Do not edit manually during a
 ```
 blocked_for_weekly_review: false
 weekly_review_due: 2026-05-30T08:00:00Z
-last_orchestrator_run: 2026-05-25T06:02:30Z
+last_orchestrator_run: 2026-05-25T07:12:59Z
 last_status_notification: 2026-05-24T18:02:35Z
 ```
 
@@ -20,7 +20,7 @@ Streams are **independent** — a blocked stream does not pause other streams.
 ### Game Design
 - **Mode**: interactive (orchestrator surfaces topics; user drives sessions in Claude Code)
 - **Source**: DESIGN.md open issues and unresolved questions
-- **Status**: active — 5 discussion items tracked; no new items found in scan of 2026-05-25T06:02:30Z (< 48h since last notification)
+- **Status**: active — 5 discussion items tracked; no new items found in scan of 2026-05-25T07:12:59Z (< 48h since last notification)
 - **Pending discussion items** *(top 5 by card-design impact)*:
   1. Script Card colour — purple placeholder in script-v01; must confirm before card-index.md entry
   2. Trigger priority (§7) — explicitly TBD; affects card layout ordering rules
@@ -45,17 +45,12 @@ Streams are **independent** — a blocked stream does not pause other streams.
 ### App Design
 - **Mode**: autonomous
 - **Source**: APP.md
-- **Status**: active — v1 monolithic app.ts reviewed; full architecture refactor required
+- **Status**: active — refactor in progress; routing, all 7 typed data models, services, card list/filter, layout, and set-selector scaffolded (steps 1–3, 7–8 complete; SetSelectorComponent added)
 - **Next task**: Refactor Angular app per APP.md §Component Architecture. Execute in order:
-  1. **Scaffold component structure** — generate all components and services listed in §Component Architecture using Angular CLI (`ng generate`); establish routing per §Routing
-  2. **Migrate card data model** — move typed interfaces (from APP.md §Card Data Model) into `src/app/models/`; one file per card type
-  3. **Implement services** — `CardSetService` (IndexedDB), `CardService` (typed card factory), `PreviewService` (baseline HTML loader + field injector)
   4. **Build shared sub-components** — `EffectEditorComponent` (inline `<icon>[mod]` parsing), `ImageUploadComponent` (file → base64), `TriggersEditorComponent`, `ActionsEditorComponent`
   5. **Build type-specific form components** — one per card type; each uses only the triggers/actions valid for that type per APP.md §Per-type trigger and action availability
   6. **Build CardPreviewComponent** — loads baseline HTML from card-index.md via PreviewService; reactive update on form changes
-  7. **Build CardListComponent + CardFilterComponent** — filter by type, search by title
-  8. **Build LayoutComponent** — sidebar + main area shell
-  9. **Wire AppComponent + routing** — replace monolithic app.ts with lean root + router-outlet
+  9. **Wire AppComponent + routing** — update app.ts to use router-outlet; wire app.config.ts to use provideRouter(routes)
   10. **Build and deploy** — `ng build`, output to `docs/editor/`, push
 - **Blocked on**: —
 - **Last notified**: 2026-05-24T18:02:35Z
@@ -103,6 +98,9 @@ _(none)_
 | 2026-05-25T06:02:30Z | Orchestrator | A: Scan DESIGN.md | No new items; last notified ~21h ago (< 48h threshold) — no notification |
 | 2026-05-25T06:02:30Z | Orchestrator | B: Check hold | trigger-symbols-v02 and activation-tracks-v02 still unaccepted — stream on hold |
 | 2026-05-25T06:02:30Z | Orchestrator | C: Check hold | No new app direction; awaiting user feedback on v1 editor — stream on hold |
+| 2026-05-25T07:12:59Z | Orchestrator | A: Scan DESIGN.md | No new items; last notified ~22h ago (< 48h threshold) — no notification |
+| 2026-05-25T07:12:59Z | Orchestrator | B: Check hold | trigger-symbols-v02 and activation-tracks-v02 still not in card-index.md — stream on hold |
+| 2026-05-25T07:12:59Z | Orchestrator | C: Refactor steps 1–3, 7–8 | Routing (app.routes.ts), all 7 card data models (models/), CardSetService + CardService + PreviewService, CardListComponent, CardFilterComponent, LayoutComponent, SetSelectorComponent scaffolded |
 
 ---
 

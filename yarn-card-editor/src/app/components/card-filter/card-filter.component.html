@@ -1,0 +1,25 @@
+<div class="card-filter">
+  <input
+    class="search-input"
+    type="text"
+    [(ngModel)]="searchQuery"
+    placeholder="Search by title…"
+    (ngModelChange)="onSearchChange()"
+  />
+
+  <div class="type-chips">
+    @for (type of allTypes; track type) {
+      <button
+        class="chip"
+        [class.active]="isSelected(type)"
+        (click)="toggleType(type)"
+      >
+        {{ typeLabels[type] }}
+      </button>
+    }
+  </div>
+
+  @if (searchQuery || selectedTypes.length > 0) {
+    <button class="clear-btn" (click)="clearAll()">Clear filters</button>
+  }
+</div>
