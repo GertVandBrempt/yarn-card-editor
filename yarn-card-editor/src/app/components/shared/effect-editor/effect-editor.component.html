@@ -1,0 +1,27 @@
+<div class="effect-editor">
+  <label class="effect-label">{{ label }}</label>
+
+  <div class="effect-row">
+    <select
+      class="variant-select"
+      [ngModel]="effect.variant"
+      (ngModelChange)="onVariantChange($event)"
+    >
+      @for (opt of variantOptions; track opt.value) {
+        <option [value]="opt.value">{{ opt.label }}</option>
+      }
+    </select>
+
+    <textarea
+      class="effect-input"
+      [(ngModel)]="rawText"
+      (ngModelChange)="onTextChange()"
+      placeholder="Effect text… use &lt;damage&gt;[2], &lt;shield&gt;, etc."
+      rows="2"
+    ></textarea>
+  </div>
+
+  @if (rawText) {
+    <div class="effect-preview" [innerHTML]="parsedPreview"></div>
+  }
+</div>

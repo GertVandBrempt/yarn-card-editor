@@ -1,0 +1,97 @@
+<div class="script-form card-form">
+  <div class="design-pending-note">⏳ Design pending — Script card baseline not yet accepted. Preview unavailable.</div>
+
+  <div class="form-group">
+    <label>Title</label>
+    <input type="text" [ngModel]="local.title" (ngModelChange)="onTitleChange($event)" placeholder="Script name…" />
+  </div>
+
+  <div class="form-group">
+    <label>Subtitle</label>
+    <input type="text" [ngModel]="local.subtitle" (ngModelChange)="onSubtitleChange($event)" placeholder="Secondary label…" />
+  </div>
+
+  <div class="form-row">
+    <div class="form-group">
+      <label>Mode</label>
+      <select [ngModel]="local.mode" (ngModelChange)="onModeChange($event)">
+        <option value="timed">Timed (finite sequence — lose at end)</option>
+        <option value="infinite">Infinite (finite + repeating tail)</option>
+      </select>
+    </div>
+
+    @if (local.mode === 'infinite') {
+      <div class="form-group">
+        <label>Loop From Turn</label>
+        <input
+          type="number"
+          min="1"
+          [max]="local.turns.length || 1"
+          [ngModel]="local.loopFromTurn"
+          (ngModelChange)="onLoopFromTurnChange(+$event)"
+          placeholder="Turn # where tail begins…"
+        />
+        <span class="field-hint">1-indexed; repeating tail starts from this turn.</span>
+      </div>
+    }
+  </div>
+
+  <!-- Turn Schedule -->
+  <div class="form-section">
+    <div class="turns-header">
+      <span class="section-label">Turn Schedule</span>
+      <button class="add-btn" (click)="addTurn()">+ Add Turn</button>
+    </div>
+
+    @if (local.turns.length === 0) {
+      <p class="empty-msg">No turns scheduled.</p>
+    } @else {
+      <div class="turn-list">
+        @for (turn of local.turns; track $index) {
+          <div class="turn-entry" [class.loop-start]="local.mode === 'infinite' && local.loopFromTurn === ($index + 1)">
+            <div class="turn-label-row">
+              <span class="turn-num">Turn {{ $index + 1 }}</span>
+              @if (local.mode === 'infinite' && local.loopFromTurn === ($index + 1)) {
+                <span class="loop-badge">Loop Start</span>
+              }
+              <div class="turn-actions">
+                <button class="icon-btn" (click)="moveTurnUp($index)" [disabled]="$index === 0" title="Move up">↑</button>
+                <button class="icon-btn" (click)="moveTurnDown($index)" [disabled]="$index === local.turns.length - 1" title="Move down">↓</button>
+                <button class="icon-btn danger" (click)="removeTurn($index)" title="Remove turn">✕</button>
+              </div>
+            </div>
+
+            <div class="turn-fields">
+              <div class="form-group">
+                <label>Generic Events</label>
+                <input
+                  type="number"
+                  min="0"
+                  [ngModel]="turn.genericEventCount"
+                  (ngModelChange)="onTurnGenericCountChange($index, +$event)"
+                />
+              </div>
+
+              <div class="form-group">
+                <label>Fated Event</label>
+                <select
+                  [ngModel]="turn.fatedEvent"
+                  (ngModelChange)="onTurnFatedEventChange($index, $event)"
+                >
+                  <option value="none">None</option>
+                  <option value="random">Random</option>
+                  <!-- Within-set card ID references: free-text fallback in v1 -->
+                </select>
+                @if (turn.fatedEvent !== 'none' && turn.fatedEvent !== 'random') {
+                  <span class="field-hint">Card ID: {{ turn.fatedEvent }}</span>
+                }
+              </div>
+            </div>
+          </div>
+        }
+      </div>
+    }
+  </div>
+
+  <!-- No triggers or actions on Script cards -->
+</div>

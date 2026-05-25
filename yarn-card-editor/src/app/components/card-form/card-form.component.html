@@ -1,0 +1,32 @@
+<div class="card-form-wrapper">
+  @if (!card) {
+    <p class="no-card">No card loaded.</p>
+  } @else {
+    @switch (card.type) {
+      @case ('persona') {
+        <app-persona-form [card]="asPersona" (cardChange)="onCardChange($event)" />
+      }
+      @case ('location') {
+        <app-location-form [card]="asLocation" (cardChange)="onCardChange($event)" />
+      }
+      @case ('character') {
+        <app-character-form [card]="asCharacter" (cardChange)="onCardChange($event)" />
+      }
+      @case ('item') {
+        <app-item-form [card]="asItem" (cardChange)="onCardChange($event)" />
+      }
+      @case ('event') {
+        <app-event-form [card]="asEvent" (cardChange)="onCardChange($event)" />
+      }
+      @case ('main-quest') {
+        <app-quest-form [card]="asQuest" (cardChange)="onCardChange($event)" />
+      }
+      @case ('side-quest') {
+        <app-quest-form [card]="asQuest" (cardChange)="onCardChange($event)" />
+      }
+      @case ('script') {
+        <app-script-form [card]="asScript" (cardChange)="onCardChange($event)" />
+      }
+    }
+  }
+</div>

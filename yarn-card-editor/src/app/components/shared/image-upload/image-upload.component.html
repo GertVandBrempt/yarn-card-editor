@@ -1,0 +1,29 @@
+<div
+  class="image-upload"
+  [class.drag-over]="isDragOver"
+  (dragover)="onDragOver($event)"
+  (dragleave)="onDragLeave()"
+  (drop)="onDrop($event)"
+>
+  @if (imageUrl) {
+    <div class="preview-container">
+      <img class="preview-thumb" [src]="imageUrl" alt="Card art preview" />
+      <button class="remove-btn" (click)="removeImage()" title="Remove image">✕</button>
+    </div>
+  } @else {
+    <label class="drop-zone">
+      <input
+        type="file"
+        accept="image/*"
+        class="file-input"
+        (change)="onFileSelected($event)"
+      />
+      <span class="drop-icon">🖼</span>
+      <span class="drop-label">Drop image or click to browse</span>
+    </label>
+  }
+
+  @if (error) {
+    <p class="upload-error">{{ error }}</p>
+  }
+</div>

@@ -1,0 +1,42 @@
+<div class="triggers-editor">
+  <div class="triggers-header">
+    <span class="section-label">Triggers</span>
+    <button class="add-btn" (click)="addTrigger()">+ Add Trigger</button>
+  </div>
+
+  @if (localTriggers.length === 0) {
+    <p class="empty-msg">No triggers configured.</p>
+  } @else {
+    <div class="trigger-list">
+      @for (trigger of localTriggers; track $index) {
+        <div class="trigger-entry">
+          <div class="trigger-header-row">
+            <!-- ⏳ Design pending: trigger leading symbol -->
+            <span class="trigger-symbol-placeholder" title="⏳ Design pending">⏳</span>
+
+            <select
+              class="trigger-type-select"
+              [ngModel]="trigger.type"
+              (ngModelChange)="onTypeChange($index, $event)"
+              [disabled]="firstRequired && $index === 0"
+            >
+              @for (opt of triggerOptions; track opt.value) {
+                <option [value]="opt.value">{{ opt.label }}</option>
+              }
+            </select>
+
+            @if (!(firstRequired && $index === 0)) {
+              <button class="remove-btn" (click)="removeTrigger($index)" title="Remove trigger">✕</button>
+            }
+          </div>
+
+          <app-effect-editor
+            [effect]="trigger.effect"
+            [label]="'Effect'"
+            (effectChange)="onEffectChange($index, $event)"
+          />
+        </div>
+      }
+    </div>
+  }
+</div>

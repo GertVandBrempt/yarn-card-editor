@@ -1,0 +1,84 @@
+<div class="quest-form card-form">
+  <div class="form-group">
+    <label>Title</label>
+    <input type="text" [ngModel]="local.title" (ngModelChange)="onTitleChange($event)" placeholder="Quest name…" />
+  </div>
+
+  <div class="form-group">
+    <label>Subtitle</label>
+    <input type="text" [ngModel]="local.subtitle" (ngModelChange)="onSubtitleChange($event)" placeholder="Secondary label…" />
+  </div>
+
+  @if (isMainQuest) {
+    <div class="form-group">
+      <label>Act</label>
+      <input type="number" min="1" [ngModel]="mainLocal.act" (ngModelChange)="onActChange(+$event)" />
+    </div>
+  }
+
+  @if (isSideQuest) {
+    <div class="form-row">
+      <div class="form-group">
+        <label>Tier</label>
+        <select [ngModel]="sideLocal.tier" (ngModelChange)="onTierChange($event)">
+          <option value="side">Side</option>
+          <option value="key">Key</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="checkbox-label">
+          <input type="checkbox" [checked]="sideLocal.mandatory" (change)="onMandatoryChange($any($event.target).checked)" />
+          Mandatory (must complete before act's Main Quest)
+        </label>
+      </div>
+    </div>
+  }
+
+  <div class="form-group">
+    <label>Flavour Text</label>
+    <textarea [ngModel]="local.flavourText" (ngModelChange)="onFlavourChange($event)" rows="2" placeholder="Italic lore text…"></textarea>
+  </div>
+
+  <div class="form-group">
+    <label>Card Art</label>
+    <app-image-upload [imageUrl]="local.imageUrl" (imageUrlChange)="onImageChange($event)" />
+  </div>
+
+  <!-- Objectives -->
+  <div class="form-section">
+    <div class="objectives-header">
+      <span class="section-label">Objectives</span>
+      <button class="add-btn" (click)="addObjective()">+ Add Objective</button>
+    </div>
+
+    @if (local.objectives.length === 0) {
+      <p class="empty-msg">No objectives configured.</p>
+    } @else {
+      <div class="objective-list">
+        @for (obj of local.objectives; track $index) {
+          <div class="objective-entry">
+            <div class="objective-header-row">
+              <span class="objective-num">{{ $index + 1 }}</span>
+              <button class="remove-btn" (click)="removeObjective($index)" title="Remove objective">✕</button>
+            </div>
+            <div class="form-group">
+              <label>Objective Title</label>
+              <input type="text" [ngModel]="obj.title" (ngModelChange)="onObjectiveTitleChange($index, $event)" placeholder="Short label…" />
+            </div>
+            <div class="form-group">
+              <label>Completion Conditions</label>
+              <textarea [ngModel]="obj.description" (ngModelChange)="onObjectiveDescriptionChange($index, $event)" rows="2" placeholder="How to complete this objective…"></textarea>
+            </div>
+            <app-triggers-editor
+              [triggers]="getObjectiveTriggers(obj)"
+              [allowedTriggerTypes]="allowedTriggerTypes"
+              (triggersChange)="onObjectiveTriggerChange($index, $event)"
+            />
+          </div>
+        }
+      </div>
+    }
+  </div>
+
+  <!-- No top-level actions on quest cards -->
+</div>

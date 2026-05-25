@@ -1,0 +1,57 @@
+<div class="actions-editor">
+  <div class="actions-header">
+    <span class="section-label">Actions</span>
+    <button class="add-btn" (click)="addAction()">+ Add Action</button>
+  </div>
+
+  @if (localActions.length === 0) {
+    <p class="empty-msg">No actions configured.</p>
+  } @else {
+    <div class="action-list">
+      @for (action of localActions; track action.id; let ai = $index) {
+        <div class="action-entry">
+          <div class="action-header-row">
+            <!-- ⏳ Design pending: activation track visual placeholder -->
+            <span class="track-placeholder" title="⏳ Design pending">⏳</span>
+
+            <select
+              class="track-type-select"
+              [ngModel]="action.trackType"
+              (ngModelChange)="onTrackTypeChange(ai, $event)"
+            >
+              @for (trackType of trackTypes; track trackType) {
+                <option [value]="trackType">{{ trackTypeLabels[trackType] }}</option>
+              }
+            </select>
+
+            <input
+              class="action-label-input"
+              type="text"
+              [ngModel]="action.label"
+              (ngModelChange)="onLabelChange(ai, $event)"
+              placeholder="Action label…"
+            />
+
+            <button class="remove-btn" (click)="removeAction(ai)" title="Remove action">✕</button>
+          </div>
+
+          <div class="effects-list">
+            @for (effect of action.effects; track $index; let ei = $index) {
+              <div class="effect-row-wrapper">
+                <app-effect-editor
+                  [effect]="effect"
+                  [label]="'Effect ' + (ei + 1)"
+                  (effectChange)="onEffectChange(ai, ei, $event)"
+                />
+                @if (action.effects.length > 1) {
+                  <button class="remove-effect-btn" (click)="removeEffect(ai, ei)" title="Remove effect">✕</button>
+                }
+              </div>
+            }
+            <button class="add-effect-btn" (click)="addEffect(ai)">+ Effect</button>
+          </div>
+        </div>
+      }
+    </div>
+  }
+</div>

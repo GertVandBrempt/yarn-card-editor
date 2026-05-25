@@ -1,0 +1,21 @@
+<div class="card-preview">
+  <div class="preview-header">
+    <span class="preview-label">Live Preview</span>
+    @if (loading()) {
+      <span class="preview-status">Rendering…</span>
+    }
+  </div>
+
+  @if (!card) {
+    <div class="no-card">Select or create a card to preview.</div>
+  } @else if (error()) {
+    <div class="preview-error">{{ error() }}</div>
+  } @else {
+    <iframe
+      #previewFrame
+      class="preview-frame"
+      title="Card Preview"
+      sandbox="allow-same-origin"
+    ></iframe>
+  }
+</div>

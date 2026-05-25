@@ -1,0 +1,88 @@
+<div class="character-form card-form">
+  <div class="tab-bar">
+    <button class="tab-btn" [class.active]="activeTab === 'character'" (click)="activeTab = 'character'">Character</button>
+    <button class="tab-btn" [class.active]="activeTab === 'ally'" (click)="activeTab = 'ally'">Ally Mode</button>
+  </div>
+
+  @if (activeTab === 'character') {
+    <div class="form-group">
+      <label>Title</label>
+      <input type="text" [ngModel]="local.title" (ngModelChange)="onTitleChange($event)" placeholder="Character name…" />
+    </div>
+
+    <div class="form-group">
+      <label>Subtitle</label>
+      <input type="text" [ngModel]="local.subtitle" (ngModelChange)="onSubtitleChange($event)" placeholder="Secondary label…" />
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label>Tier</label>
+        <select [ngModel]="local.tier" (ngModelChange)="onTierChange($event)">
+          <option value="generic">Generic</option>
+          <option value="main">Main</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Alignment</label>
+        <select [ngModel]="local.alignment" (ngModelChange)="onAlignmentChange($event)">
+          <option value="ally">Ally</option>
+          <option value="neutral">Neutral</option>
+          <option value="enemy">Enemy</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Initiative</label>
+        <input type="number" min="0" [ngModel]="local.initiative" (ngModelChange)="onInitiativeChange(+$event)" />
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Flavour Text</label>
+      <textarea [ngModel]="local.flavourText" (ngModelChange)="onFlavourChange($event)" rows="2" placeholder="Italic lore text…"></textarea>
+    </div>
+
+    <div class="form-group">
+      <label>Card Art</label>
+      <app-image-upload [imageUrl]="local.imageUrl" (imageUrlChange)="onImageChange($event)" />
+    </div>
+
+    <div class="form-section">
+      <app-triggers-editor
+        [triggers]="triggers"
+        [allowedTriggerTypes]="allowedTriggerTypes"
+        (triggersChange)="onTriggersChange($event)"
+      />
+    </div>
+
+    <div class="form-section">
+      <app-actions-editor
+        [actions]="local.actions"
+        (actionsChange)="onActionsChange($event)"
+      />
+    </div>
+  }
+
+  @if (activeTab === 'ally') {
+    <div class="form-group ally-toggle">
+      <label class="checkbox-label">
+        <input type="checkbox" [checked]="allyModeEnabled" (change)="toggleAllyMode($any($event.target).checked)" />
+        Enable Ally Mode (recruitable to Tableau)
+      </label>
+    </div>
+
+    @if (allyModeEnabled && local.allyMode) {
+      <!-- Ally mode: no triggers; separate Actions list -->
+      <div class="form-section">
+        <app-actions-editor
+          [actions]="local.allyMode.actions"
+          (actionsChange)="onAllyActionsChange($event)"
+        />
+      </div>
+    } @else {
+      <p class="ally-note">Enable Ally Mode to add ally-specific actions.</p>
+    }
+  }
+</div>

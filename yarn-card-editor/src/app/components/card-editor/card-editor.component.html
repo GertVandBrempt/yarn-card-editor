@@ -1,0 +1,36 @@
+<div class="card-editor">
+  <div class="editor-toolbar">
+    <button class="back-btn" (click)="navigateBack()">← Back to list</button>
+
+    @if (card()) {
+      <span class="card-type-label">{{ card()!.type }}</span>
+      <span class="card-title-label">{{ card()!.title || 'Untitled' }}</span>
+    }
+
+    <div class="save-status">
+      @if (saving()) {
+        <span class="status saving">Saving…</span>
+      } @else if (saved()) {
+        <span class="status saved">Saved</span>
+      }
+    </div>
+
+    @if (error()) {
+      <span class="status error">{{ error() }}</span>
+    }
+  </div>
+
+  @if (card()) {
+    <div class="editor-body">
+      <div class="form-panel">
+        <app-card-form [card]="card()!" (cardChange)="onCardChange($event)" />
+      </div>
+
+      <div class="preview-panel">
+        <app-card-preview [card]="card()" />
+      </div>
+    </div>
+  } @else if (!error()) {
+    <div class="loading">Loading card…</div>
+  }
+</div>

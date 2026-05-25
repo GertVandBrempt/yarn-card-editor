@@ -1,0 +1,58 @@
+/* Global form field styles shared by all type-specific form components */
+:host ::ng-deep .card-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding: 1rem;
+}
+
+:host ::ng-deep .form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+:host ::ng-deep .form-group label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #374151;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+:host ::ng-deep .form-group input[type="text"],
+:host ::ng-deep .form-group input[type="number"],
+:host ::ng-deep .form-group textarea,
+:host ::ng-deep .form-group select {
+  padding: 0.4rem 0.6rem;
+  border: 1px solid #d1d5db;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  color: #111827;
+  background: #fff;
+}
+
+:host ::ng-deep .form-group input:focus,
+:host ::ng-deep .form-group textarea:focus,
+:host ::ng-deep .form-group select:focus {
+  outline: none;
+  border-color: #2563eb;
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.15);
+}
+
+:host ::ng-deep .form-section {
+  border-top: 1px solid #e5e7eb;
+  padding-top: 0.75rem;
+  margin-top: 0.25rem;
+}
+
+.no-card {
+  color: #9ca3af;
+  text-align: center;
+  padding: 2rem;
+}
+
+.card-form-wrapper {
+  height: 100%;
+  overflow-y: auto;
+}

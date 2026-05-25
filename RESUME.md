@@ -32,7 +32,7 @@ Card types: **Location, Character, Item, Event, Quest, Persona, Script**
 
 ### 🖥️ Stream C — App Design
 **Status:** Active — refactor in progress  
-**Situation:** Architecture refactor well underway. Routing, all 7 typed data models, CardSetService/CardService/PreviewService, CardListComponent, CardFilterComponent, LayoutComponent, and SetSelectorComponent all scaffolded. Remaining: shared sub-components (step 4), type-specific form components (step 5), CardPreviewComponent (step 6), wire AppComponent (step 9), build+deploy (step 10).  
+**Situation:** Full architecture scaffold complete. All 17 components + 3 services created and wired. `app.ts` replaced with lean router-outlet shell. Ready to build: `cd yarn-card-editor && npm install && npx ng build`. Next step is build + fix TypeScript errors + deploy to `docs/editor/`.  
 **Design gaps pending card acceptance:** trigger symbols, activation tracks, inline icon rendering, Character dual-mode layout.
 
 ---

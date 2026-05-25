@@ -1,0 +1,42 @@
+<div class="event-form card-form">
+  <div class="form-group">
+    <label>Title</label>
+    <input type="text" [ngModel]="local.title" (ngModelChange)="onTitleChange($event)" placeholder="Event name…" />
+  </div>
+
+  <div class="form-group">
+    <label>Subtitle</label>
+    <input type="text" [ngModel]="local.subtitle" (ngModelChange)="onSubtitleChange($event)" placeholder="Secondary label…" />
+  </div>
+
+  <div class="form-group">
+    <label>Tier</label>
+    <select [ngModel]="local.tier" (ngModelChange)="onTierChange($event)">
+      <option value="generic">Generic</option>
+      <option value="fated">Fated</option>
+    </select>
+  </div>
+
+  <div class="form-group">
+    <label>Flavour Text</label>
+    <textarea [ngModel]="local.flavourText" (ngModelChange)="onFlavourChange($event)" rows="2" placeholder="Italic lore text…"></textarea>
+  </div>
+
+  <div class="form-group">
+    <label>Card Art</label>
+    <app-image-upload [imageUrl]="local.imageUrl" (imageUrlChange)="onImageChange($event)" />
+  </div>
+
+  <!-- On Reveal is required and not removable -->
+  <div class="form-section">
+    <app-triggers-editor
+      [triggers]="triggers"
+      [allowedTriggerTypes]="allowedTriggerTypes"
+      [firstRequired]="true"
+      (triggersChange)="onTriggersChange($event)"
+    />
+    <p class="trigger-note">On Reveal is required for Event cards and fires when the card is drawn or placed.</p>
+  </div>
+
+  <!-- No actions on Event cards -->
+</div>

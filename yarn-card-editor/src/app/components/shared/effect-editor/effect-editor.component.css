@@ -1,0 +1,72 @@
+.effect-editor {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.effect-label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #374151;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.effect-row {
+  display: flex;
+  gap: 0.5rem;
+  align-items: flex-start;
+}
+
+.variant-select {
+  flex-shrink: 0;
+  padding: 0.35rem 0.5rem;
+  border: 1px solid #d1d5db;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  color: #374151;
+  background: #fff;
+}
+
+.effect-input {
+  flex: 1;
+  padding: 0.35rem 0.5rem;
+  border: 1px solid #d1d5db;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  font-family: monospace;
+  resize: vertical;
+}
+
+.effect-input:focus {
+  outline: none;
+  border-color: #2563eb;
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.15);
+}
+
+.effect-preview {
+  font-size: 0.85rem;
+  color: #374151;
+  padding: 0.35rem 0.5rem;
+  background: #f8fafc;
+  border: 1px solid #e5e7eb;
+  border-radius: 4px;
+  min-height: 1.5rem;
+}
+
+/* Inline icon rendering */
+:host ::ng-deep .icon {
+  display: inline-block;
+  font-weight: bold;
+  color: #7c3aed;
+}
+
+:host ::ng-deep .icon-modifier {
+  display: inline-block;
+  background: #7c3aed;
+  color: #fff;
+  border-radius: 2px;
+  padding: 0 3px;
+  font-size: 0.8em;
+  vertical-align: middle;
+}

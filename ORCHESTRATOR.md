@@ -51,13 +51,11 @@ Streams are **independent** — a blocked stream does not pause other streams.
 ### App Design
 - **Mode**: autonomous
 - **Source**: APP.md
-- **Status**: active — refactor in progress; routing, all 7 typed data models, services, card list/filter, layout, and set-selector scaffolded (steps 1–3, 7–8 complete; SetSelectorComponent added)
-- **Next task**: Refactor Angular app per APP.md §Component Architecture. Execute in order:
-  4. **Build shared sub-components** — `EffectEditorComponent` (inline `<icon>[mod]` parsing), `ImageUploadComponent` (file → base64), `TriggersEditorComponent`, `ActionsEditorComponent`
-  5. **Build type-specific form components** — one per card type; each uses only the triggers/actions valid for that type per APP.md §Per-type trigger and action availability
-  6. **Build CardPreviewComponent** — loads baseline HTML from card-index.md via PreviewService; reactive update on form changes
-  9. **Wire AppComponent + routing** — update app.ts to use router-outlet; wire app.config.ts to use provideRouter(routes)
-  10. **Build and deploy** — `ng build`, output to `docs/editor/`, push
+- **Status**: active — full scaffold complete (steps 1–9 done); ready to build and deploy
+- **Next task**: Build and deploy the refactored Angular app:
+  1. **Build** — `cd yarn-card-editor && npm install && npx ng build --base-href /yarn-card-editor/editor/ --output-path ../docs/editor`
+  2. **Fix any TypeScript compile errors** — the scaffold has stubs; resolve missing imports and type errors
+  3. **Deploy** — commit built `docs/editor/` output and push to master (GitHub Pages auto-deploys)
 - **Blocked on**: —
 - **Last notified**: 2026-05-24T18:02:35Z
 
@@ -106,7 +104,7 @@ _(none)_
 | 2026-05-25T06:02:30Z | Orchestrator | C: Check hold | No new app direction; awaiting user feedback on v1 editor — stream on hold |
 | 2026-05-25T07:12:59Z | Orchestrator | A: Scan DESIGN.md | No new items; last notified ~22h ago (< 48h threshold) — no notification |
 | 2026-05-25T07:12:59Z | Orchestrator | B: Check hold | trigger-symbols-v02 and activation-tracks-v02 still not in card-index.md — stream on hold |
-| 2026-05-25T07:12:59Z | Orchestrator | C: Refactor steps 1–3, 7–8 | Routing (app.routes.ts), all 7 card data models (models/), CardSetService + CardService + PreviewService, CardListComponent, CardFilterComponent, LayoutComponent, SetSelectorComponent scaffolded |
+| 2026-05-25T07:12:59Z | Orchestrator | C: Refactor steps 1–9 complete | All 17 components + 3 services scaffolded: routing, models, services, CardEditor, CardForm, CardPreview, CardList, CardFilter, Layout, SetSelector, all 7 type forms (location/char/item/event/quest/persona/script), EffectEditor, ImageUpload, TriggersEditor, ActionsEditor; app.ts replaced with lean router-outlet shell |
 
 ---
 

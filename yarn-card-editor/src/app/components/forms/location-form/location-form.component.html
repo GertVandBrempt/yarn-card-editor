@@ -1,0 +1,44 @@
+<div class="location-form card-form">
+  <div class="form-group">
+    <label>Title</label>
+    <input type="text" [ngModel]="local.title" (ngModelChange)="onTitleChange($event)" placeholder="Location name…" />
+  </div>
+
+  <div class="form-group">
+    <label>Subtitle</label>
+    <input type="text" [ngModel]="local.subtitle" (ngModelChange)="onSubtitleChange($event)" placeholder="Secondary label…" />
+  </div>
+
+  <div class="form-group">
+    <label>Tier</label>
+    <select [ngModel]="local.tier" (ngModelChange)="onTierChange($event)">
+      <option value="generic">Generic</option>
+      <option value="setpiece">Setpiece</option>
+    </select>
+  </div>
+
+  <div class="form-group">
+    <label>Flavour Text</label>
+    <textarea [ngModel]="local.flavourText" (ngModelChange)="onFlavourChange($event)" rows="2" placeholder="Italic lore text…"></textarea>
+  </div>
+
+  <div class="form-group">
+    <label>Card Art</label>
+    <app-image-upload [imageUrl]="local.imageUrl" (imageUrlChange)="onImageChange($event)" />
+  </div>
+
+  <div class="form-section">
+    <app-triggers-editor
+      [triggers]="triggers"
+      [allowedTriggerTypes]="allowedTriggerTypes"
+      (triggersChange)="onTriggersChange($event)"
+    />
+  </div>
+
+  <div class="form-section">
+    <app-actions-editor
+      [actions]="local.actions"
+      (actionsChange)="onActionsChange($event)"
+    />
+  </div>
+</div>
