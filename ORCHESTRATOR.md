@@ -35,14 +35,37 @@ Streams are **independent** — a blocked stream does not pause other streams.
 ### Card Design
 - **Mode**: autonomous
 - **Source**: design/VISUAL.md, design/card-index.md
-- **Status**: active — trigger-symbols-v02 accepted as direction; activation-tracks-v02 needs full redesign; 5 tasks queued
-- **Next task**: Five queued tasks (execute in order):
-  1. **activation-track-basic-v01** — Basic track on its own card: single activation marker (~48px), token removed on use, no cooldown; marker sized for cube placement; dark body + lighter detail per §8 style rules
-  2. **activation-track-multiturn-v01** — Multi-turn track on its own card: activation marker → cooldown slot(s) → return arrow; same marker size as Basic
-  3. **activation-track-multiuse-v01** — Multi-use track on its own card: multiple activation markers in a row; same marker size
-  4. **activation-track-use-v01** — Use (one-time) track on its own card: single activation marker, consumed permanently (shown as spent/crossed); same marker size
-  5. **Hold:** AND/OR compound tracks — design only after all four primitive tracks above are accepted by user
-  - **Hold:** effects-v04 — create only after trigger symbols + activation tracks both accepted
+- **Status**: active — multiple independent tracks in progress; review page restructure required
+
+#### Global rules (apply to all Card Design work)
+
+- **Three options per design item**: every new visual element produces exactly 3 variants — option a, b, c — each a single card; named `<element>-v<N>-a.html`, `<element>-v<N>-b.html`, `<element>-v<N>-c.html`; design ID label visible on review page below each card
+- **Independence**: each design item is independent — holding or blocking one item does not affect any other
+- **Review page structure**: after any card design action, regenerate `review/index.html` with two sections: **Under Review** (grouped by design element, 3 options side by side per group) and **Accepted** (one entry per accepted item); see VISUAL.md §10 for full spec
+
+#### Independent design tracks (each runs independently)
+
+**Track 1 — Activation Tracks** *(3 options each)*
+1. **activation-track-basic-v01-a/b/c** — Basic track: single activation marker (~48px), token removed on use; 3 distinct visual options
+2. **activation-track-multiturn-v01-a/b/c** — Multi-turn track: marker → cooldown slot(s) → return arrow; 3 options
+3. **activation-track-multiuse-v01-a/b/c** — Multi-use track: multiple activation markers; 3 options
+4. **activation-track-use-v01-a/b/c** — Use (one-time) track: consumed permanently; 3 options
+5. **Hold:** AND/OR compound tracks — only after all 4 primitives accepted
+
+**Track 2 — Die Symbols** *(3 options for the full set of 3 die icons)*
+- **die-symbols-v01-a/b/c** — Design 3 die icons (Constitution, Zeal, Path) per VISUAL.md §7; each option shows all 3 die icons on a single card in an effect row context; options must be visually distinct from each other
+
+**Track 3 — Subtitle** *(3 options)*
+- **subtitle-v01-a/b/c** — Header subtitle design per VISUAL.md §9.1; each option shows a card with subtitle present and one without
+
+**Track 4 — Flavour Text** *(3 options)*
+- **flavour-text-v01-a/b/c** — Flavour text zone design per VISUAL.md §9.2; italic lore text, visual separator from mechanics, absent on cards without it
+
+**Track 5 — Set Symbol** *(3 options)*
+- **set-symbol-v01-a/b/c** — Set symbol position/size/treatment per VISUAL.md §9.3; small glyph in corner; consistent across all card types
+
+**Hold:** effects-v04 — create only after trigger symbols + activation tracks both accepted
+
 - **Blocked on**: —
 - **Last notified**: 2026-05-24T18:02:35Z
 
@@ -51,11 +74,24 @@ Streams are **independent** — a blocked stream does not pause other streams.
 ### App Design
 - **Mode**: autonomous
 - **Source**: APP.md
-- **Status**: active — full scaffold complete (steps 1–9 done); ready to build and deploy
-- **Next task**: Build and deploy the refactored Angular app:
-  1. **Build** — `cd yarn-card-editor && npm install && npx ng build --base-href /yarn-card-editor/editor/ --output-path ../docs/editor`
-  2. **Fix any TypeScript compile errors** — the scaffold has stubs; resolve missing imports and type errors
-  3. **Deploy** — commit built `docs/editor/` output and push to master (GitHub Pages auto-deploys)
+- **Status**: active — full scaffold complete; new requirements added 2026-05-25; ready to implement + build + deploy
+- **Next task**: Implement all requirements then build and deploy (in order):
+  1. **Add `SymbolReferenceModalComponent`** — read-only modal listing all inline symbol syntax + descriptions; opened by a `?` button on every `EffectEditorComponent`; keyboard-closeable (Escape); full-screen on mobile
+  2. **Implement responsive layout** — 3 breakpoints per APP.md §Responsive Layout; sidebar collapses to drawer on mobile; card preview scales with `transform: scale()`; no horizontal overflow; 44px minimum touch targets
+  3. **Enforce empty-container rule globally** — every card section (header fields, subtitle, flavour text, image area, all mechanics containers) uses `*ngIf` / `[hidden]`; zero empty boxes visible on a blank card
+  4. **Track-specific sub-fields in `ActionsEditorComponent`**:
+     - Multi-turn → "Cooldown (turns)" number field, minimum 1; drives number of cooldown slots in preview
+     - Multi-use → "Activation slots" number field, minimum 2; drives number of markers shown in preview
+     - Use → "Charges" number field, minimum 1; drives number of charge pips shown in preview
+     - AND / OR → add/remove list of sub-tracks; each sub-track has its own primitive type dropdown + that type's sub-fields
+     - Basic → no additional fields
+     - All values flow to live preview in real time
+  5. **Live preview design sync** — extract SVG `<symbol>` definitions from latest trigger symbol and activation track variants; embed in `PreviewService`; update whenever a new variant is created (see auto-sync rule below); fall back to `?` / filled circle if no variant exists yet
+  6. **Wire `PreviewService` to `assets/templates/`** — load baseline HTML from `yarn-card-editor/src/assets/templates/<type>-baseline.html`; copy current accepted baselines from card-index.md into that directory
+  7. **Build** — `cd yarn-card-editor && npm install && npx ng build --base-href /yarn-card-editor/editor/ --output-path ../docs/editor`
+  8. **Fix TypeScript compile errors** — resolve any remaining type errors from scaffold stubs
+  9. **Deploy** — commit `docs/editor/` output and push to master (GitHub Pages auto-deploys)
+- **Auto-sync rule**: After any Card Design stream action that updates `card-index.md` **or** creates a new trigger symbol / activation track variant, the App Design stream must re-run steps 5–9 automatically (sync SVGs + baselines → build → deploy). No user trigger needed.
 - **Blocked on**: —
 - **Last notified**: 2026-05-24T18:02:35Z
 

@@ -25,15 +25,23 @@ Card types: **Location, Character, Item, Event, Quest, Persona, Script**
 5. Character dual-mode layout (§3.4) — Character/Ally on one card; no visual design for split yet
 
 ### 🎨 Stream B — Card Design
-**Status:** On hold — awaiting user acceptance  
-**Blocked on:** User must accept trigger-symbols-v02 and activation-tracks-v02 (review at gallery). Neither is yet in card-index.md as an accepted baseline.  
-**Next:** Once both are accepted, create effects-v04 incorporating accepted trigger symbols + activation tracks.  
-**39 variants** in design/variants/ — see review gallery.
+**Status:** Active — 5 independent tracks running; review page restructure required  
+**New rules:** 3 options per design item (a/b/c variants); review page restructured into "Under Review" (grouped) + "Accepted" sections — see VISUAL.md §10  
+**Independent tracks:**
+1. **Activation Tracks** — 4 primitive types (Basic, Multi-turn, Multi-use, Use), 3 options each; AND/OR on hold until primitives accepted
+2. **Die Symbols** — Constitution, Zeal, Path; 3 full-set options; important for conditional roll effects
+3. **Subtitle** — header subtitle design; 3 options
+4. **Flavour Text** — italic lore text zone; 3 options
+5. **Set Symbol** — small corner glyph; 3 options
+**Existing hold:** trigger-symbols-v02 and activation-tracks-v02 (old format) unaccepted; effects-v04 on hold until trigger symbols + activation tracks resolved  
+**39 variants** in design/variants/ — review gallery needs restructuring per new layout rules
 
 ### 🖥️ Stream C — App Design
-**Status:** Active — refactor in progress  
-**Situation:** Full architecture scaffold complete. All 17 components + 3 services created and wired. `app.ts` replaced with lean router-outlet shell. Ready to build: `cd yarn-card-editor && npm install && npx ng build`. Next step is build + fix TypeScript errors + deploy to `docs/editor/`.  
-**Design gaps pending card acceptance:** trigger symbols, activation tracks, inline icon rendering, Character dual-mode layout.
+**Status:** Active — requirements updated; ready to implement + build + deploy  
+**Situation:** Full architecture scaffold complete (17 components, 3 services). Requirements added 2026-05-25 (two sessions): mobile layout, symbol reference popup, global empty-container rule, auto visual sync, correct build command; track-specific sub-fields for Actions (turn count / slot count / charges / sub-tracks for AND/OR); live preview uses latest design variant for trigger symbols + activation markers — no placeholder wait.  
+**Next:** Orchestrator implements all 9 tasks in ORCHESTRATOR.md Stream C, then builds and deploys.  
+**Auto-sync rule:** After any card baseline change OR new trigger/track variant, orchestrator syncs SVGs + baselines, rebuilds, and redeploys without user input.  
+**Design gaps:** trigger symbols, activation tracks (in design — preview now uses latest variant, not placeholder); Character dual-mode layout still unresolved.
 
 ---
 
@@ -56,8 +64,8 @@ Card types: **Location, Character, Item, Event, Quest, Persona, Script**
 
 ## How to continue work
 
-- **Accept card variants:** view gallery at https://gertvandtbrempt.github.io/yarn-card-editor/review/ — say "accept trigger-symbols-v02" and/or "accept activation-tracks-v02" to add them to card-index.md.
-- **Give app feedback:** try editor at https://gertvandtbrempt.github.io/yarn-card-editor/editor/ and say what to improve.
+- **Accept card variants:** view gallery at https://gertvandbrempt.github.io/yarn-card-editor/review/ — say "accept trigger-symbols-v02" and/or "accept activation-tracks-v02" to add them to card-index.md.
+- **Give app feedback:** try editor at https://gertvandbrempt.github.io/yarn-card-editor/editor/ and say what to improve.
 - **Game design session:** open Claude Code and say "game design" to discuss the 5 pending items.
 - **Weekly review gate:** due 2026-05-30T08:00:00Z — orchestrator will pause and notify you then.
 
@@ -65,5 +73,5 @@ Card types: **Location, Character, Item, Event, Quest, Persona, Script**
 
 ## Gallery & Editor
 
-Card review gallery (GitHub Pages): https://gertvandtbrempt.github.io/yarn-card-editor/review/  
-Live editor (GitHub Pages): https://gertvandtbrempt.github.io/yarn-card-editor/editor/
+Card review gallery (GitHub Pages): https://gertvandbrempt.github.io/yarn-card-editor/review/  
+Live editor (GitHub Pages): https://gertvandbrempt.github.io/yarn-card-editor/editor/

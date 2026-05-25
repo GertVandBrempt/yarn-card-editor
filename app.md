@@ -191,6 +191,35 @@ Each card is a typed record. All types share a common base; type-specific fields
 
 ---
 
+## Responsive Layout (Mobile-Friendly)
+
+The editor must be fully usable on a mobile phone (portrait, ~390px wide) through to a desktop (1440px+). There is no separate mobile app — the same Angular app adapts.
+
+### Breakpoints
+
+| Width | Layout |
+|---|---|
+| < 768px (mobile) | Single-column; form stacked above preview; preview collapsed by default with a toggle to expand |
+| 768px – 1199px (tablet) | Two-column side-by-side; form ≈ 50%, preview ≈ 50% |
+| ≥ 1200px (desktop) | Two-column side-by-side; form ≈ 40%, preview ≈ 60% |
+
+### Mobile-specific rules
+
+- **No horizontal overflow** — nothing bleeds outside the viewport; all fixed-width elements (card preview, tables) scale down or scroll within their container
+- **Touch targets** — all interactive controls (buttons, dropdowns, list items, file picker) at minimum 44×44px touch area
+- **Sidebar nav** — collapses to a hamburger/drawer on mobile; the `LayoutComponent` manages open/closed state
+- **Card preview on mobile** — the live card preview renders at a scaled-down size to fit the viewport; aspect ratio is preserved; no content is clipped
+- **Form fields** — full-width inputs on mobile; no side-by-side field pairs below 768px
+- **Modals** (e.g. symbol reference popup) — full-screen on mobile, centred overlay on tablet/desktop
+
+### Implementation
+
+- Use CSS custom properties + `@media` queries (no external responsive grid library required)
+- `LayoutComponent` owns the sidebar-collapse state and exposes a `isMobile` signal/observable other components can use
+- `CardPreviewComponent` scales the preview card using a CSS `transform: scale()` approach so the card HTML template itself does not need mobile-specific overrides
+
+---
+
 ## Visual Editor
 
 - Each card type has a canonical visual template (defined in `design/card-index.md`; style rules in `design/VISUAL.md`).
@@ -206,9 +235,12 @@ The mechanics frame in the live preview must reflect the actual card content at 
 - **Only render a section container (Passive, Trigger — entry, Actions, Trigger — exit) if it contains at least one row**
 - **Container height auto-adjusts** to its content — no fixed heights, no empty sections taking up space
 - As the user adds or removes effects/triggers/actions in the form, the preview updates immediately — containers appear and disappear accordingly
+- This applies to **all containers across the whole card** — not just the mechanics frame. Any header field, subtitle, flavour text, image area, or type-specific section that has no content must be hidden entirely (CSS `display:none` or `*ngIf`), not left as an empty box.
 - This gives the designer an accurate feel of the real card layout at all times
 
 This must be implemented in `CardPreviewComponent` and `PreviewService`. It is not optional — an empty container should never be visible in the preview.
+
+**Implementation note for the build agent:** This rule must be verified during the build step. After scaffold compilation, spot-check each card type with an empty form — zero containers should be visible other than the card frame itself.
 
 ### v1 Build — Known Issues (from first review)
 
@@ -227,16 +259,38 @@ Each card type that supports triggers (Location, Character, Event, Item, Quest) 
 1. **Trigger type dropdown** — values: On Reveal, On Enter, On Leave, Character Phase, On Complete, On Flow Marker
 2. **Effect editor** (see Effect Editor below)
 
-Use `⏳ Design pending` placeholder for the trigger leading symbol in the preview until trigger-symbols-v02 is accepted.
+**Live preview trigger symbols:** use the SVG `<symbol>` definitions from the **latest trigger symbol variant** in `design/variants/` (currently `trigger-symbols-v02.html`). Do not wait for formal acceptance — always reflect the current design direction. The orchestrator updates the app's embedded SVG definitions whenever a new trigger symbol variant is created. If no variant exists at all, fall back to a `?` text placeholder.
 
 ### Actions section
 
 Each card type that supports actions (Location, Character, Item, Persona) must have an **Actions** section in the form with an add/remove list. Each action entry:
 
 1. **Activation track type dropdown** — values: Basic, Multi-turn, Multi-use, AND, OR, Use
-2. **Effect editor** (see Effect Editor below)
+2. **Track-specific sub-fields** — shown immediately below the type dropdown; fields change when the type changes (see table below)
+3. **Effect editor** (see Effect Editor below)
 
-Use existing placeholder visuals for activation track markers in the preview until activation-tracks-v02 is accepted. Show track placeholder at leading position of the action row.
+#### Track-specific sub-fields
+
+When the user selects a track type, the following additional fields must appear beneath the dropdown. Fields not listed for a type must not be rendered (no empty rows).
+
+| Track type | Additional fields |
+|---|---|
+| Basic | *(none)* |
+| Multi-turn | **Turn count** — `number`, label "Cooldown (turns)", minimum 1; how many turns the token spends in the cooldown slot before returning to the activation marker |
+| Multi-use | **Slot count** — `number`, label "Activation slots", minimum 2; how many independent activation markers exist on this track |
+| Use | **Charge count** — `number`, label "Charges", minimum 1; how many one-time uses are printed on the card (each charge is consumed permanently) |
+| AND | **Sub-tracks** — add/remove list of sub-tracks; each sub-track has its own type dropdown (primitives only: Basic / Multi-turn / Multi-use / Use) and its own track-specific sub-fields as above |
+| OR | Same as AND — each sub-track is independently configured |
+
+All track parameter values (turn count, slot count, charge count, sub-track configuration) must be reflected in the live preview immediately when changed:
+- **Multi-turn**: preview shows the correct number of cooldown slots in the track diagram
+- **Multi-use**: preview shows the correct number of activation markers
+- **Use**: preview shows the correct number of charge slots (e.g. printed pips or slots)
+- **AND/OR**: preview shows each sub-track's markers and gate element
+
+These values map to the `Action` data model fields: `flowMarkers` (multi-turn), `slotCount` (multi-use), `chargeCount` (use), `linkedActionIds` / sub-track configuration (AND/OR).
+
+**Live preview activation markers:** use the SVG marker shapes from the **latest activation track variant** for each track type in `design/variants/` (e.g. `activation-track-basic-v01-a.html` once created). Do not wait for formal acceptance — always reflect the current design direction. The orchestrator updates the app's embedded SVG definitions whenever a new activation track variant is created. If no variant exists for a given track type, render a filled circle at the leading position of the action row.
 
 ### Effect editor
 
@@ -259,6 +313,18 @@ The effect editor is a rich text input that parses inline syntax and renders ico
 Example: `Deal <damage>[2] to each enemy` renders as: "Deal **⬡2** to each enemy" (with the damage icon + 2 badge inline).
 
 The editor stores the raw syntax string; the preview renders the parsed version. Both the form input and the live preview update in real time.
+
+#### Symbol reference popup
+
+Every `EffectEditorComponent` instance must include a **symbol reference button** (e.g. `?` or `⌖`) adjacent to the text input. Clicking it opens a modal panel listing every available inline symbol with:
+
+- The exact syntax string to type (e.g. `<damage>`)
+- A short description (e.g. "Deal damage to a target")
+- A rendered preview of the icon itself
+
+The popup is read-only (reference only — it does not insert text). It must be keyboard-accessible (close on Escape). One shared `SymbolReferenceModalComponent` used across all `EffectEditorComponent` instances.
+
+The canonical symbol list for the modal is defined in `EffectEditorComponent` (or a shared constant) and must match the inline syntax table above. When new symbols are added to the syntax table, the modal list must be updated in the same change.
 
 ### Known editor complexity points
 
@@ -312,8 +378,9 @@ AppComponent                        — root; routing only
 |---|---|
 | `TriggersEditorComponent` | Add/remove trigger list; trigger type dropdown + EffectEditorComponent per entry |
 | `ActionsEditorComponent` | Add/remove action list; activation track type dropdown + EffectEditorComponent per entry |
-| `EffectEditorComponent` | Single effect text input; parses `<icon>[modifier]` syntax; emits parsed + raw value |
+| `EffectEditorComponent` | Single effect text input; parses `<icon>[modifier]` syntax; emits parsed + raw value; includes symbol reference button |
 | `ImageUploadComponent` | File picker → base64 data URI; drag-and-drop; preview thumbnail |
+| `SymbolReferenceModalComponent` | Read-only modal listing all inline symbol syntax + descriptions + rendered icons; shared singleton opened by EffectEditorComponent |
 
 ### Per-type trigger and action availability
 
@@ -351,18 +418,39 @@ Each type-specific form must only expose the triggers and actions that are valid
 
 ---
 
+## Auto Visual Sync — Baseline Change Detection
+
+When a card baseline changes in `design/card-index.md` (i.e. a variant is accepted), the Angular app's preview templates must be updated and the app redeployed **automatically without user input**.
+
+### How it works
+
+1. The orchestrator's App Design stream runs after every Card Design stream action that modifies `card-index.md`.
+2. It reads `card-index.md`, extracts the current baseline HTML path for each card type, and copies those files into `yarn-card-editor/src/assets/templates/` (one file per type, e.g. `location-baseline.html`).
+3. `PreviewService` loads templates from `assets/templates/` — it does not hard-code HTML inline.
+4. The orchestrator then triggers a full rebuild + deploy (same steps as the regular build task).
+5. No user input is required at any point. The orchestrator self-triggers this flow.
+
+### Rules
+
+- The `assets/templates/` directory is **generated, not hand-edited**. The source of truth is always `card-index.md`.
+- If a card type has no accepted baseline yet, `PreviewService` falls back to showing the `⏳ Design pending` placeholder for that type.
+- The orchestrator logs each auto-sync in ORCHESTRATOR.md work log with the card type(s) updated and the new baseline file(s) used.
+
+---
+
 ## Tech Stack — v1
 
 | Concern | Decision |
 |---|---|
 | Framework | Angular — project root is `yarn-card-editor/` subfolder |
-| Build | `ng build --base-href /yarn-card-editor/editor/` |
-| Deployment | Build output to `docs/editor/`; committed to master; GitHub Pages serves `docs/` folder |
-| Live URL | `https://gertvandtbrempt.github.io/yarn-card-editor/editor/` |
+| Build | `ng build --base-href /yarn-card-editor/editor/ --output-path ../docs/editor` |
+| Deployment | Build output to `docs/editor/`; committed to master; GitHub Pages serves `docs/` folder from master branch |
+| Live URL | `https://gertvandbrempt.github.io/yarn-card-editor/editor/` |
 | Storage | IndexedDB (browser-local) |
-| Live preview | Angular component loads accepted baseline HTML template per card type; reactive form binding updates preview in real time |
+| Live preview | `PreviewService` loads baseline HTML from `assets/templates/<type>-baseline.html`; reactive form binding injects field values; updates in real time |
 | Undesigned elements | Form fields built; preview shows `⏳ Design pending` placeholder |
 | Script card preview | Unavailable until script baseline accepted into card-index.md |
+| Template source | `yarn-card-editor/src/assets/templates/` — auto-synced from `card-index.md` by orchestrator on every baseline change |
 
 **⚠ Repo prerequisite**: `yarn-card-editor/` was previously added to `.gitignore` to fix a submodule conflict. The inner `.git` directory in `yarn-card-editor/` must be deleted and the folder committed to the outer repo as a normal subdirectory before the app agent can build. If this is not done, the app agent will notify the user via PushNotification and wait.
 
@@ -370,10 +458,11 @@ Each type-specific form must only expose the triggers and actions that are valid
 
 ## Deployment
 
-- App lives in `editor/` at repo root
-- GitHub Pages serves it automatically from master branch
-- Orchestrator commits and pushes after every meaningful build increment
+- App is built to `docs/editor/` via `ng build --base-href /yarn-card-editor/editor/ --output-path ../docs/editor`
+- GitHub Pages serves the `docs/` folder from the master branch — app is live at `https://gertvandbrempt.github.io/yarn-card-editor/editor/`
+- Orchestrator commits and pushes `docs/editor/` after every successful build
 - After each deploy, a PushNotification is sent with the live URL
+- **Auto-deploy on baseline change**: orchestrator runs the build+deploy pipeline automatically whenever a card baseline is updated in `card-index.md` (see Auto Visual Sync above)
 
 ---
 
@@ -422,3 +511,10 @@ Elements needed by the live preview that are not yet designed. Card Design strea
 | 2026-05-25 | Full component architecture refactor required — monolithic app.ts rejected | Code quality; per-type trigger/action availability cannot be maintained in a single file |
 | 2026-05-25 | Per-type trigger availability enforced in each type-specific form component | Prevents invalid data; each type's form only exposes the triggers valid for that type |
 | 2026-05-24 | v1 editor built and deployed to `editor/` at repo root | Angular 21 zoneless app; all 8 card types with base fields + type-specific fields; live preview via iframe srcdoc; localStorage persistence; JSON import/export |
+| 2026-05-25 | Editor must be mobile-friendly; responsive at 3 breakpoints (<768 / 768–1199 / ≥1200px) | Usable on phone in the field without a separate mobile build |
+| 2026-05-25 | Symbol reference popup added to EffectEditorComponent | Reduces friction entering icon syntax; inline reference without leaving the editor |
+| 2026-05-25 | Empty containers hidden everywhere on the card, not just mechanics frame | Consistent with "no empty space" design principle across all card sections |
+| 2026-05-25 | Baseline templates auto-synced to `assets/templates/` on every card-index.md change; auto-rebuild+deploy | Visual changes flow into the app automatically; no manual trigger needed |
+| 2026-05-25 | Build command: `ng build --base-href /yarn-card-editor/editor/ --output-path ../docs/editor` | Correct base-href for GitHub Pages /editor route; output goes directly into docs/editor |
+| 2026-05-25 | Track-specific sub-fields per activation track type (turn count, slot count, charges, sub-tracks for AND/OR) | Data model already supported these; form must expose them; values must flow to live preview |
+| 2026-05-25 | Live preview uses latest design variant for trigger symbols and activation markers — no wait for acceptance | Designer needs real visual feedback during design iteration, not a placeholder |

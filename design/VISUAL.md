@@ -142,11 +142,29 @@ Trigger symbols follow the same sizing and stroke rules as effect icons but use 
 | `icon-reveal-character` | Reveal a character | `#d4cc30` yellow | Overlapping cards, person pip |
 | `icon-reveal-item` | Reveal an item | `#40a0c0` teal | Overlapping cards, diamond pip |
 
+### Die symbols — in design
+
+Each persona die type has a distinct icon used inline in conditional effect text (e.g. "if you rolled 2+ <die-constitution>"). Three die types, one icon each:
+
+| ID | Die type | Persona role |
+|---|---|---|
+| `icon-die-constitution` | Constitution | Endurance / body |
+| `icon-die-zeal` | Zeal | Spirit / drive |
+| `icon-die-path` | Path | Mind / skill |
+
+**Style rules (same as all icons):**
+- ViewBox `0 0 24 24`; rendered at 20×20 inline
+- Stroke: `#1a0e04`, `stroke-width="2.5"`, round linecap/join
+- Single bold shape per icon; no internal line detail
+- Base shape: a **die face** (cube perspective or flat face) — shape variant distinguishes die type (number of pips, or a unique face symbol per role)
+- Do **not** use three identical die shapes; the three types must be visually distinct at a glance at 20 px
+
+Three design options required (see §Review Page Rules).
+
 ### Shelved (pending design)
 
 - `icon-move` (boot) — move spaces
 - `icon-tuck-character`, `icon-tuck-item` — tuck mechanic
-- `icon-die-constitution`, `icon-die-zeal`, `icon-die-path` — persona dice
 
 ---
 
@@ -196,7 +214,86 @@ Primitive track type designs pending (one card each): Basic, Multi-turn, Multi-u
 
 ---
 
-## 9. App-Agent Design Task Queue
+## 9. Header Elements
+
+### 9.1 Subtitle
+
+The subtitle is a secondary classification label in the header area, rendered **between the type band and the card title** (or below the title — three options required). It is a short designer-defined string (e.g. "Skill", "Instinct", "Coastal Village").
+
+**Known constraints:**
+- Must not compete visually with the card title (title is the primary label)
+- Must remain legible against the background gradient tint at top of card
+- Present only if a subtitle value exists — absent cards must show no empty gap where the subtitle would be
+
+Three design options required (see §Review Page Rules). Each option must show a card with a subtitle present *and* demonstrate what the header looks like without one.
+
+### 9.2 Flavour Text
+
+Flavour text is lore-only prose, rendered in italics, with no mechanical effect. It occupies a designated zone on the card, visually separated from the mechanics frame.
+
+**Known constraints:**
+- Must be clearly distinct from effect text — italic treatment is required; a visual separator (rule line, spacing, or fade) between flavour text and mechanics frame is expected
+- Flavour text zone should only appear if the card has flavour text — no empty zone on cards without it
+- Position: likely below the image zone and above (or within) the mechanics frame — three options required
+- Font: Crimson Text italic (same family as body, distinct weight/style)
+
+Three design options required (see §Review Page Rules).
+
+### 9.3 Set Symbol
+
+A small glyph indicating which card set a card belongs to. Provides a quick visual identifier when cards from multiple sets are mixed.
+
+**Known constraints:**
+- Must be unobtrusive — small, positioned in a corner or along the card edge (bottom corner preferred)
+- Rendered as a simple geometric shape or monogram placeholder for now (actual per-set symbols are future work); the design task is to lock in the **position, size, and visual treatment** — not the specific symbol per set
+- Must be legible against the card background at small size (~16–20 px)
+- Must work for any card type (appears on every card type that has a set assigned)
+
+Three design options required (see §Review Page Rules).
+
+---
+
+## 10. Review Page Rules
+
+These rules govern how the Card Design orchestrator generates `review/index.html`.
+
+### Three options per design item
+
+Whenever a new visual element is designed, the orchestrator produces **exactly three variants** — option A, option B, option C — each a single card showing that element in context.
+
+- File naming: `<element>-v<N>-a.html`, `<element>-v<N>-b.html`, `<element>-v<N>-c.html`
+- Each variant carries a **design ID** as a label: shown both in the HTML comment on line 1 and as a small visible label on the review page (below or overlaid on the card)
+- The three options for a design item are presented **side by side** on the review page under that item's group heading
+- Options within a round are lettered (a/b/c); if all three are rejected and a new round is needed, bump to v<N+1>
+
+### Review page structure
+
+`review/index.html` is divided into two sections:
+
+1. **Under Review** — design items currently awaiting user acceptance; each item is a named group with its 3 options shown side by side; items are independent of each other
+2. **Accepted** — previously accepted baselines; shown as a reference gallery; one entry per accepted item (the winning option only)
+
+Within **Under Review**, items are grouped by design element. Current groups (add as new items are created):
+
+| Group | Design items |
+|---|---|
+| Die Symbols | icon-die-constitution, icon-die-zeal, icon-die-path (all three as one group) |
+| Subtitle | subtitle options |
+| Flavour Text | flavour-text options |
+| Set Symbol | set-symbol options |
+| Activation Tracks | one group per primitive track type: Basic, Multi-turn, Multi-use, Use |
+| Trigger Symbols | trigger-symbols group |
+| Effects | effects layout group |
+
+Each group has a header with the design element name. Inside, the 3 options for the current design round are shown side by side with their design IDs as labels.
+
+### Independence rule
+
+Each design item group is **fully independent**. A blocked or unaccepted item in one group does not put any other group on hold. The orchestrator creates, iterates, and holds each group independently.
+
+---
+
+## 12. App-Agent Design Task Queue
 
 App agents add entries here when the live preview requires a visual element that is not yet designed. Card Design agents pick these up after completing queued tasks in §7 and §8.
 
