@@ -19,9 +19,22 @@
       placeholder="Effect text… use &lt;damage&gt;[2], &lt;shield&gt;, etc."
       rows="2"
     ></textarea>
+
+    <button
+      class="symbol-ref-btn"
+      type="button"
+      (click)="openSymbolModal()"
+      title="Symbol reference — click to see all inline symbols"
+      aria-label="Open symbol reference"
+    >?</button>
   </div>
 
   @if (rawText) {
     <div class="effect-preview" [innerHTML]="parsedPreview"></div>
   }
 </div>
+
+<app-symbol-reference-modal
+  [isOpen]="symbolModalOpen"
+  (closed)="closeSymbolModal()"
+/>

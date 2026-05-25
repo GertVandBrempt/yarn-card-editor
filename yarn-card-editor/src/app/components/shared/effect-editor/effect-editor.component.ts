@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Effect, EffectVariant } from '../../../models';
+import { SymbolReferenceModalComponent } from '../symbol-reference-modal/symbol-reference-modal.component';
 
 export interface EffectChange {
   raw: string;     // Raw inline syntax (stored value)
@@ -16,7 +17,7 @@ const ICON_NAMES = [
 @Component({
   selector: 'app-effect-editor',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, SymbolReferenceModalComponent],
   templateUrl: './effect-editor.component.html',
   styleUrl: './effect-editor.component.css',
 })
@@ -27,6 +28,7 @@ export class EffectEditorComponent implements OnChanges {
 
   rawText = '';
   parsedPreview = '';
+  symbolModalOpen = false;
 
   variantOptions: { value: EffectVariant; label: string }[] = [
     { value: 'passive', label: 'Passive' },
@@ -49,6 +51,14 @@ export class EffectEditorComponent implements OnChanges {
 
   onVariantChange(variant: EffectVariant): void {
     this.emit();
+  }
+
+  openSymbolModal(): void {
+    this.symbolModalOpen = true;
+  }
+
+  closeSymbolModal(): void {
+    this.symbolModalOpen = false;
   }
 
   private emit(): void {

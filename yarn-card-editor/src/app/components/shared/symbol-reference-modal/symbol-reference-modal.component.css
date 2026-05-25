@@ -1,0 +1,234 @@
+/* SymbolReferenceModal — full-screen on mobile, centred overlay on tablet/desktop */
+
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: rgba(0, 0, 0, 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+
+.modal-panel {
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  display: flex;
+  flex-direction: column;
+  max-width: 540px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 1.25rem 0.75rem;
+  border-bottom: 1px solid #e5e7eb;
+  flex-shrink: 0;
+}
+
+.modal-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #111827;
+  margin: 0;
+}
+
+.modal-close-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #6b7280;
+  font-size: 1rem;
+  min-width: 44px;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+}
+
+.modal-close-btn:hover {
+  background: #f3f4f6;
+  color: #111827;
+}
+
+.modal-hint {
+  padding: 0.75rem 1.25rem 0;
+  font-size: 0.82rem;
+  color: #6b7280;
+  margin: 0;
+  line-height: 1.4;
+}
+
+.modal-hint code {
+  background: #f3f4f6;
+  padding: 0.1rem 0.3rem;
+  border-radius: 3px;
+  font-size: 0.8rem;
+}
+
+/* Symbol table */
+.symbol-table {
+  padding: 0.75rem 1.25rem 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.symbol-table-header {
+  display: grid;
+  grid-template-columns: 32px 1fr 2fr;
+  gap: 0.75rem;
+  padding: 0.25rem 0;
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #9ca3af;
+  border-bottom: 1px solid #e5e7eb;
+  margin-bottom: 0.25rem;
+}
+
+.symbol-row {
+  display: grid;
+  grid-template-columns: 32px 1fr 2fr;
+  gap: 0.75rem;
+  align-items: center;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid #f3f4f6;
+  min-height: 44px;
+}
+
+.symbol-row:last-child {
+  border-bottom: none;
+}
+
+.symbol-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.symbol-icon svg {
+  display: block;
+}
+
+.icon-placeholder {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  border: 1.5px dashed #9ca3af;
+  border-radius: 50%;
+  font-size: 0.75rem;
+  color: #6b7280;
+  font-weight: bold;
+}
+
+.symbol-syntax {
+  font-family: monospace;
+  font-size: 0.82rem;
+  background: #f3f4f6;
+  padding: 0.15rem 0.4rem;
+  border-radius: 3px;
+  color: #374151;
+  white-space: nowrap;
+}
+
+.symbol-desc {
+  font-size: 0.85rem;
+  color: #374151;
+}
+
+/* Modifier section */
+.modifier-section {
+  padding: 0.75rem 1.25rem;
+  border-top: 1px solid #e5e7eb;
+  margin-top: 0.25rem;
+}
+
+.modifier-title {
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #6b7280;
+  margin: 0 0 0.5rem;
+}
+
+.modifier-rows {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.modifier-row {
+  display: flex;
+  gap: 0.75rem;
+  align-items: baseline;
+  font-size: 0.85rem;
+}
+
+.modifier-row code {
+  font-family: monospace;
+  font-size: 0.82rem;
+  background: #f3f4f6;
+  padding: 0.1rem 0.35rem;
+  border-radius: 3px;
+  color: #374151;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.modifier-row span {
+  color: #374151;
+}
+
+.modifier-row span code {
+  background: #e0e7ff;
+  color: #3730a3;
+}
+
+/* Footer */
+.modal-footer {
+  padding: 0.75rem 1.25rem;
+  border-top: 1px solid #f3f4f6;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.keyboard-hint {
+  font-size: 0.78rem;
+  color: #9ca3af;
+}
+
+kbd {
+  background: #f3f4f6;
+  border: 1px solid #d1d5db;
+  border-radius: 3px;
+  padding: 0.1rem 0.3rem;
+  font-size: 0.78rem;
+  font-family: inherit;
+}
+
+/* Mobile — full-screen */
+@media (max-width: 767px) {
+  .modal-backdrop {
+    padding: 0;
+    align-items: flex-end;
+  }
+
+  .modal-panel {
+    max-width: 100%;
+    width: 100%;
+    max-height: 85vh;
+    border-radius: 12px 12px 0 0;
+  }
+}
