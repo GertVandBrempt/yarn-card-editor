@@ -320,6 +320,38 @@ Changed:
   — return arrowhead pointing right back into hex
 - viewBox: 0 0 52 154
 
+## activation-track-multiturn-v02-a — Multi-turn track v02 option A: diamond+inner-diamond activation, 2 hollow cooldown diamonds, directional arrows, no return arrow (2026-05-25)
+Base: design/variants/activation-track-multiturn-v01-a.html (structure reused; shapes completely replaced per locked §8 spec)
+Changed:
+- Activation marker shape: circle → diamond with inner diamond (outer half-diag=20, inner half-diag=10, pip half-diag=4)
+- Cooldown slot 1 & 2: filled squares → hollow/empty diamonds (outer half-diag=16, amber edge stroke, no inner element)
+- Return arc: REMOVED — no return arrow per §8 locked spec
+- Slot count: 2 cooldown slots (unchanged from v01-a)
+- Cooldown trigger: absent
+- viewBox: 0 0 52 136
+
+## activation-track-multiturn-v02-b — Multi-turn track v02 option B: diamond+inner-diamond activation, 3 cooldown slots including a cooldown trigger in slot 2, directional arrows, no return arrow (2026-05-25)
+Base: design/variants/activation-track-multiturn-v02-a.html
+Changed:
+- Slot count: 2 cooldown slots → 3 cooldown slots (more than option A)
+- Cooldown trigger added at slot 2 position: same outer diamond silhouette as hollow slots; inner arrow (bold amber downward-pointing arrow) distinguishes it as a trigger
+- Cooldown trigger fires its own effect row → card now has TWO action rows (activation + cooldown trigger)
+- Second effect row leading marker: cooldown trigger symbol (diamond+inner arrow, 32×32 rendered)
+- Row divider: hairline gradient line between action rows
+- mech-frame height: 150px → 230px (taller to fit 2 rows + full 4-slot track)
+- viewBox for full track: 0 0 52 165
+
+## activation-track-multiturn-v02-c — Multi-turn track v02 option C: diamond+inner-diamond activation, 1 hollow cooldown diamond, generous spacing, no cooldown trigger, no return arrow (2026-05-25)
+Base: design/variants/activation-track-multiturn-v02-a.html
+Changed:
+- Slot count: 2 cooldown slots → 1 cooldown slot (fewer than option A)
+- Marker sizes increased: activation outer half-diag 20 → 22; cooldown outer half-diag 16 → 18 (larger shapes, airy layout)
+- Spacing: arrow between activation and cooldown lengthened from ~9px gap → ~20px gap
+- Cooldown trigger: absent
+- Return arrow: absent (consistent with all v02)
+- mech-frame height: 150px → 130px (shorter — only 1 cooldown slot)
+- viewBox: 0 0 52 108
+
 ## activation-tracks-v02 — redesigned 6 activation track types per §8: dark body + lighter detail, vertical layout in card context (2026-05-24)
 Base: design/variants/activation-tracks-v01.html (concept only — display format completely replaced)
 Changed:

@@ -4,7 +4,7 @@
 >
 > Durable design decisions only. Mark superseded decisions rather than deleting them.
 
-**Status: v1 deployed; architecture refactor required — see §Component Architecture**
+**Status: v1 deployed and live at https://gertvandbrempt.github.io/yarn-card-editor/editor/ — deployment fix applied 2026-05-25**
 
 ---
 

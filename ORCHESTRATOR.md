@@ -7,8 +7,8 @@ This file is read and written by scheduled agents. Do not edit manually during a
 ```
 blocked_for_weekly_review: false
 weekly_review_due: 2026-05-30T08:00:00Z
-last_orchestrator_run: 2026-05-25T12:04:48Z
-last_status_notification: 2026-05-25T12:04:48Z
+last_orchestrator_run: 2026-05-25T15:07:31Z
+last_status_notification: 2026-05-25T15:07:31Z
 ```
 
 ## Work Streams
@@ -20,14 +20,15 @@ Streams are **independent** — a blocked stream does not pause other streams.
 ### Game Design
 - **Mode**: interactive (orchestrator surfaces topics; user drives sessions in Claude Code)
 - **Source**: DESIGN.md open issues and unresolved questions
-- **Status**: active — 5 discussion items tracked; no new items found in scan of 2026-05-25T12:04:48Z (< 48h since last notification)
-- **Pending discussion items** *(top 5 by card-design impact)*:
+- **Status**: active — 6 discussion items tracked; 1 new item found in scan of 2026-05-25T15:07:31Z; user notified
+- **Pending discussion items** *(top 6 by card-design impact)*:
   1. Script Card colour — purple placeholder in script-v01; must confirm before card-index.md entry
   2. Trigger priority (§7) — explicitly TBD; affects card layout ordering rules
   3. Life point slots visual (§3.1) — slots overlapping damageable elements; not yet in VISUAL.md
   4. Action track visual design (§4.4) — 6 track types defined; activation-tracks-v02 in-card mockup created — **ready for user review**
-  5. Character dual-mode layout (§3.4) — Character/Ally on one card; no visual design for split yet
-- **Last notified**: 2026-05-24T08:53:53Z
+  5. **Location connections visual design (§3.3) — NEW** — solid vs hollow arrows for face-down/face-up state; intent stated in DESIGN.md but not yet in VISUAL.md
+  6. Character dual-mode layout (§3.4) — Character/Ally on one card; no visual design for split yet
+- **Last notified**: 2026-05-25T15:07:31Z
 - **Blocked on**: —
 
 ---
@@ -35,7 +36,7 @@ Streams are **independent** — a blocked stream does not pause other streams.
 ### Card Design
 - **Mode**: autonomous
 - **Source**: design/VISUAL.md, design/card-index.md
-- **Status**: active — activation-track-basic-v01 complete (a/b/c); activation-track-multiturn-v01 complete (a/b/c); review page restructured to 2-section format
+- **Status**: active — activation-track-basic-v01 complete (a/b/c); activation-track-multiturn-v02 complete (a/b/c, 2026-05-25T15:15:00Z)
 
 #### Global rules (apply to all Card Design work)
 
@@ -84,18 +85,8 @@ Streams are **independent** — a blocked stream does not pause other streams.
 ### App Design
 - **Mode**: autonomous
 - **Source**: APP.md
-- **Status**: active — all 9 implementation tasks complete; clean build deployed 2026-05-25T12:04:48Z
-- **Next task**: Fix GitHub Pages deployment (URGENT — editor currently unreachable at /editor/):
-  1. **Fix `angular.json` `outputPath`** — in `yarn-card-editor/angular.json`, find the `"outputPath"` string `"../docs/editor"` in the build configuration and replace it with:
-     ```json
-     "outputPath": { "base": "../docs/editor", "browser": "" }
-     ```
-     This flattens the Angular 17+ `browser/` subdirectory so `index.html` lands directly at `docs/editor/index.html`.
-  2. **Fix existing deployment** — move all files from `docs/editor/browser/` up to `docs/editor/` and delete the now-empty `docs/editor/browser/` directory. Preserve the `docs/editor/browser/assets/` → `docs/editor/assets/` copy.
-  3. **Create `.github/workflows/deploy.yml`** — GitHub Actions workflow per APP.md §Deployment; triggers on push to master when `yarn-card-editor/**` or `design/card-index.md` changes; builds, commits `docs/editor/`, pushes with `[skip ci]`
-  4. **Rebuild** — `cd yarn-card-editor && npm install && npx ng build --base-href /yarn-card-editor/editor/ --output-path ../docs/editor` — verify output lands at `docs/editor/index.html` (not `docs/editor/browser/index.html`)
-  5. **Commit and push** — commit `angular.json`, `docs/editor/`, `.github/workflows/deploy.yml`; push to master
-  6. **Notify** — PushNotification with editor URL once confirmed live
+- **Status**: active — ✅ Deployment fix complete (2026-05-25T15:07:31Z); editor now live at /editor/
+- **Next task**: Auto-sync when Card Design accepts a baseline (card-index.md updated → re-sync SVGs + baselines → rebuild → deploy)
 - **Completed tasks**:
   1. ✅ `SymbolReferenceModalComponent` — wired to `EffectEditorComponent` with `?` button, Escape close, mobile full-screen
   2. ✅ Responsive layout — 3 breakpoints, mobile drawer nav, hamburger button, `transform:scale()` card preview
@@ -106,9 +97,10 @@ Streams are **independent** — a blocked stream does not pause other streams.
   7. ✅ Build — zero TypeScript errors; output at `docs/editor/browser/index.html`
   8. ✅ TypeScript errors resolved
   9. ✅ Build output verified
+  10. ✅ **Deployment fix** — Root cause: `--output-path` CLI flag overrides only `base`, silently dropping `"browser": ""` config; fix: let `angular.json` control output path, workflow passes only `--base-href`; rebuilt flat to `docs/editor/index.html`; `.github/workflows/deploy.yml` updated
 - **Auto-sync rule**: After any Card Design stream action that updates `card-index.md` **or** creates a new trigger symbol / activation track variant, the App Design stream must re-run steps 5–9 automatically (sync SVGs + baselines → build → deploy). No user trigger needed.
 - **Blocked on**: —
-- **Last notified**: 2026-05-25T12:04:48Z
+- **Last notified**: 2026-05-25T15:07:31Z
 
 ---
 
@@ -159,6 +151,9 @@ _(none)_
 | 2026-05-25T12:04:48Z | Orchestrator | A: Scan DESIGN.md | No new items; last notified ~27h ago (< 48h threshold) — no notification |
 | 2026-05-25T12:04:48Z | Orchestrator | B: Card Design | Created activation-track-basic-v01-b/c and activation-track-multiturn-v01-a/b/c (5 new variant files); review/index.html restructured to 2-section format |
 | 2026-05-25T12:04:48Z | Orchestrator | C: App Design | All 9 tasks complete: SymbolReferenceModal wired, responsive layout, empty-container rule, track sub-fields, live SVG sync, assets/templates baseline, built + deployed; user notified |
+| 2026-05-25T15:07:31Z | Orchestrator | A: Scan DESIGN.md | 1 new item found: Location connections visual design (§3.3) — solid/hollow arrows not yet in VISUAL.md; user notified (6 items total) |
+| 2026-05-25T15:07:31Z | Orchestrator | B: Card Design | Created activation-track-multiturn-v02-a/b/c (corrected shapes: diamond+inner-diamond, hollow cooldown diamonds, cooldown trigger in option b, no return arrow); CHANGES.md updated |
+| 2026-05-25T15:07:31Z | Orchestrator | C: App Design | Deployment fix complete — flattened docs/editor/browser/ to docs/editor/; fixed angular.json outputPath; updated deploy.yml to not pass --output-path; rebuilt; user notified |
 
 ---
 
