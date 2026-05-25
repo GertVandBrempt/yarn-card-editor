@@ -1,0 +1,28 @@
+<div class="layout">
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <button class="back-btn" (click)="backToSets()">← Sets</button>
+      @if (activeSet()) {
+        <h2 class="set-title">{{ activeSet()!.name }}</h2>
+      }
+    </div>
+
+    <nav class="sidebar-nav">
+      <button class="nav-btn" (click)="navigateToList()">All Cards</button>
+
+      <div class="nav-section-label">New Card</div>
+      <button class="nav-btn new-card-btn" (click)="navigateToNewCard('persona')">Persona</button>
+      <button class="nav-btn new-card-btn" (click)="navigateToNewCard('location')">Location</button>
+      <button class="nav-btn new-card-btn" (click)="navigateToNewCard('character')">Character</button>
+      <button class="nav-btn new-card-btn" (click)="navigateToNewCard('item')">Item</button>
+      <button class="nav-btn new-card-btn" (click)="navigateToNewCard('event')">Event</button>
+      <button class="nav-btn new-card-btn" (click)="navigateToNewCard('main-quest')">Main Quest</button>
+      <button class="nav-btn new-card-btn" (click)="navigateToNewCard('side-quest')">Side Quest</button>
+      <button class="nav-btn new-card-btn" (click)="navigateToNewCard('script')">Script</button>
+    </nav>
+  </aside>
+
+  <main class="main-content">
+    <router-outlet />
+  </main>
+</div>

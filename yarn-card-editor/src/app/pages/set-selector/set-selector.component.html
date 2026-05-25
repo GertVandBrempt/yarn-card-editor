@@ -1,0 +1,41 @@
+<div class="set-selector">
+  <h1>Yarn Card Editor</h1>
+  <h2>Card Sets</h2>
+
+  @if (loading()) {
+    <p class="loading">Loading…</p>
+  } @else if (error()) {
+    <p class="error">{{ error() }}</p>
+  } @else {
+    <div class="create-set">
+      <input
+        type="text"
+        [(ngModel)]="newSetName"
+        placeholder="New set name…"
+        (keyup.enter)="createSet()"
+      />
+      <button (click)="createSet()" [disabled]="!newSetName.trim()">
+        Create Set
+      </button>
+    </div>
+
+    @if (sets().length === 0) {
+      <p class="empty">No card sets yet. Create one to get started.</p>
+    } @else {
+      <ul class="set-list">
+        @for (set of sets(); track set.id) {
+          <li class="set-item" (click)="openSet(set)">
+            <span class="set-name">{{ set.name }}</span>
+            @if (set.setType) {
+              <span class="set-type">{{ set.setType }}</span>
+            }
+            <span class="set-updated">{{ set.updatedAt | date:'mediumDate' }}</span>
+            <button class="delete-btn" (click)="deleteSet(set, $event)" title="Delete set">
+              ✕
+            </button>
+          </li>
+        }
+      </ul>
+    }
+  }
+</div>

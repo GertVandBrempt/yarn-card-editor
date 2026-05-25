@@ -1,0 +1,29 @@
+<div class="card-list-page">
+  <app-card-filter (filterChange)="onFilterChange($event)" />
+
+  <div class="card-list-content">
+    @if (loading()) {
+      <p class="state-msg">Loading cards…</p>
+    } @else if (error()) {
+      <p class="state-msg error">{{ error() }}</p>
+    } @else if (allCards().length === 0) {
+      <p class="state-msg empty">No cards yet. Use the sidebar to create one.</p>
+    } @else if (filteredCards().length === 0) {
+      <p class="state-msg empty">No cards match the current filter.</p>
+    } @else {
+      <ul class="card-list">
+        @for (card of filteredCards(); track card.id) {
+          <li class="card-item" (click)="openCard(card)">
+            <span class="card-type-badge">{{ typeLabel(card.type) }}</span>
+            <span class="card-title">{{ card.title || 'Untitled' }}</span>
+            @if (card.subtitle) {
+              <span class="card-subtitle">{{ card.subtitle }}</span>
+            }
+            <span class="card-updated">{{ card.updatedAt | date:'mediumDate' }}</span>
+            <button class="delete-btn" (click)="deleteCard(card, $event)" title="Delete card">✕</button>
+          </li>
+        }
+      </ul>
+    }
+  </div>
+</div>
