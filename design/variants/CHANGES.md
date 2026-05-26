@@ -407,3 +407,51 @@ Changed:
 - track-or (compound): horizontal Y-merge into OR gate (curved shape) + lock X → two side-by-side vertical sub-track columns; left (active) full opacity, right (locked) dimmed with light X cross; diagonal arms converge to light diamond OR gate point; downward output arrow; compound rows use wider 44px lead slot
 - Card mockup: actions section expanded to 6 rows (one per track type); AND + OR rows use effect-row-compound (48px height); mech-frame height 260px → 310px
 - Action section sub-dividers: hairline gradient lines between action rows for readability
+
+## activation-track-use-v01-a — Use (one-time) track option A: square with inner square, balanced proportions (2026-05-26)
+Base: design/variants/activation-track-multiuse-v01-a.html (CSS/frame structure reused; track SVG completely replaced)
+Changed:
+- Track type: Multi-use (multiple activation diamonds) → Use (single consumed marker, permanently spent)
+- Marker shape: diamond with inner diamond → square with inner square (activation marker rotated 45° per §8 locked spec)
+- Outer square: 36×36 px, centered in 52×52 viewBox
+- Inner square: 18×18 px (50% of outer) — balanced, medium-proportion amber fill
+- Center pip: 6×6 px dark square — small accent at center
+- Outer border: amber stroke 2px, opacity 0.6 — medium weight
+- Rendered marker size: 40×40 px (standard, matches multiuse A)
+- Lead slot width: 52px (standard)
+- Row count: 3 (multiuse) → 1 (single use, permanently consumed)
+- mech-frame height: 200px → 100px (one row only)
+- No connecting arrows — token permanently consumed, no return path
+- Card title: "The Arbiter"; effect: deal 5 damage to all enemies in range
+
+## activation-track-use-v01-b — Use (one-time) track option B: large square, wide inner square, no pip (2026-05-26)
+Base: design/variants/activation-track-use-v01-a.html
+Changed:
+- Outer square: 36×36 → 44×44 px (larger — 4px margin in 52×52 viewBox)
+- Inner square: 18×18 → 31×31 px — 70% of outer (much wider amber fill proportion)
+- Center pip: removed — inner fill is the focal element (no pip)
+- Outer body: dark 6.5px ring on each side vs option A's 9px ring (proportionally thinner frame)
+- Marker appearance: "wide-window" — mostly amber with a thin dark surround vs A's balanced ring
+- Rendered marker size: 40×40 → 48×48 px (larger)
+- Lead slot width: 52px → 58px (wider to accommodate 48px marker)
+- mech-frame height: 100px → 110px (slightly taller for larger marker)
+- Effect text references permanent single use: "Restore 6 HP — this action may never be used again"
+- Card title: "The Last Stand"
+
+## activation-track-use-v01-c — Use (one-time) track option C: small square, three-tier layering, corner bracket accents (2026-05-26)
+Base: design/variants/activation-track-use-v01-a.html
+Changed:
+- Outer square: 36×36 → 32×32 px (smaller — 6px margin in 44×44 viewBox)
+- Inner square: 18×18 → 20×20 px at 62% scale — creates visible amber ring between outer dark and center pip
+- Center pip: 6×6 → 8×8 px (proportionally much larger relative to inner square — 40% of inner)
+- Three visible tiers: dark outer → amber ring → dark center pip (layered "seal" composition)
+- Corner bracket accents added: 4 amber L-shaped polyline brackets (1.5px stroke, 5px legs) at each corner of outer square
+- Rendered marker size: 40×40 → 36×36 px (smallest of the three options)
+- Lead slot width: 52px (standard — unchanged)
+- mech-frame height: 100px → 95px (tighter for smaller marker)
+- Card title: "The Warden's Vow"; effect: mark target, deal 3 damage, exhaust one action slot permanently
+
+## activation-track-use-v01 (2026-05-26T00:05:22Z)
+- activation-track-use-v01-a.html — Use (one-time) track: square with inner square, option A — outer 36×36, inner 50% (18×18), center pip 6×6; amber stroke 2px; balanced compact proportions; single action row
+- activation-track-use-v01-b.html — Use (one-time) track: square with inner square, option B — outer 44×44, inner 70% (31×31), no pip; wide amber fill, thin dark border ring; heavy 3px stroke; large prominent marker; single action row
+- activation-track-use-v01-c.html — Use (one-time) track: square with inner square, option C — outer 32×32 (small), inner 62% (20×20), large pip 8×8; three-tier dark→amber→dark layering; corner-bracket accents; small precise seal-impression; single action row

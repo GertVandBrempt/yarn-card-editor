@@ -7,8 +7,8 @@ This file is read and written by scheduled agents. Do not edit manually during a
 ```
 blocked_for_weekly_review: false
 weekly_review_due: 2026-05-30T08:00:00Z
-last_orchestrator_run: 2026-05-25T18:10:29Z
-last_status_notification: 2026-05-25T18:10:29Z
+last_orchestrator_run: 2026-05-26T00:05:22Z
+last_status_notification: 2026-05-26T00:05:22Z
 ```
 
 ## Work Streams
@@ -20,14 +20,15 @@ Streams are **independent** — a blocked stream does not pause other streams.
 ### Game Design
 - **Mode**: interactive (orchestrator surfaces topics; user drives sessions in Claude Code)
 - **Source**: DESIGN.md open issues and unresolved questions
-- **Status**: active — 6 discussion items tracked; 1 new item found in scan of 2026-05-25T15:07:31Z; user notified
-- **Pending discussion items** *(top 6 by card-design impact)*:
+- **Status**: active — 7 discussion items tracked; 1 new item found in scan of 2026-05-26T00:05:22Z (inline sym+modifier rendering §6.1); < 48h since last notify — no notification sent
+- **Pending discussion items** *(top 7 by card-design impact)*:
   1. Script Card colour — purple placeholder in script-v01; must confirm before card-index.md entry
   2. Trigger priority (§7) — explicitly TBD; affects card layout ordering rules
   3. Life point slots visual (§3.1) — slots overlapping damageable elements; not yet in VISUAL.md
   4. Action track visual design (§4.4) — 6 track types defined; activation-tracks-v02 in-card mockup created — **ready for user review**
-  5. **Location connections visual design (§3.3) — NEW** — solid vs hollow arrows for face-down/face-up state; intent stated in DESIGN.md but not yet in VISUAL.md
+  5. Location connections visual design (§3.3) — solid vs hollow arrows for face-down/face-up state; intent stated in DESIGN.md but not yet in VISUAL.md
   6. Character dual-mode layout (§3.4) — Character/Ally on one card; no visual design for split yet
+  7. **Inline sym+modifier rendering (§6.1) — NEW** — effect text with `[icon][modifier]` groups; final inline layout/sizing rules not yet in VISUAL.md; effects-v03 demonstrates it
 - **Last notified**: 2026-05-25T15:07:31Z
 - **Blocked on**: —
 
@@ -36,7 +37,7 @@ Streams are **independent** — a blocked stream does not pause other streams.
 ### Card Design
 - **Mode**: autonomous
 - **Source**: design/VISUAL.md, design/card-index.md
-- **Status**: active — activation-track-basic-v01 ✅; activation-track-multiturn-v02 ✅; activation-track-multiuse-v01 ✅ complete (a/b/c, 2026-05-25T18:10:29Z)
+- **Status**: active — activation-track-basic-v01 ✅; activation-track-multiturn-v02 ✅; activation-track-multiuse-v01 ✅; activation-track-use-v01 ✅ complete (a/b/c, 2026-05-26T00:05:22Z)
 
 #### Global rules (apply to all Card Design work)
 
@@ -57,7 +58,7 @@ Streams are **independent** — a blocked stream does not pause other streams.
    - All other sequential connecting arrows between markers are present and correct
    - Vary: presence/absence of cooldown trigger, slot count, and spacing across a/b/c
 4. ~~**activation-track-multiuse-v01-a/b/c**~~ — ✅ Complete (2026-05-25T18:10:29Z)
-5. **activation-track-use-v01-a/b/c** — Use (one-time) track: **one square with inner square** — activation marker design rotated 45° (diamond → square); same inner/outer relationship as the activation marker; consumed permanently; vary sizing, proportions, and inner square scale across a/b/c; do not use a plain rectangle
+5. ~~**activation-track-use-v01-a/b/c**~~ — ✅ Complete (2026-05-26T00:05:22Z) — outer square with inner square; options vary in size (36/44/32px outer), inner scale (50%/70%/62%), pip treatment, and corner-bracket accents
 6. **Hold:** AND/OR compound tracks — only after all 4 primitives accepted
 
 **Track 2 — Die Symbols** *(3 options for the full set of 3 die icons)*
@@ -85,7 +86,7 @@ Streams are **independent** — a blocked stream does not pause other streams.
 ### App Design
 - **Mode**: autonomous
 - **Source**: APP.md
-- **Status**: active — ✅ Deployment fix complete; ✅ multiturn-v02 SVG defs synced + app rebuilt with updated bundle (2026-05-25T18:10:29Z); spurious docs/editor/design/ directory removed
+- **Status**: active — ✅ Deployment fix complete; ✅ multiturn-v02 SVG defs synced; ✅ use-v01 square-marker SVG defs synced + app rebuilt (2026-05-26T00:05:22Z); spurious docs/editor/design/ directory cleaned up
 - **Next task**: Auto-sync when Card Design accepts a baseline (card-index.md updated → re-sync SVGs + baselines → rebuild → deploy)
 - **Completed tasks**:
   1. ✅ `SymbolReferenceModalComponent` — wired to `EffectEditorComponent` with `?` button, Escape close, mobile full-screen
@@ -157,6 +158,9 @@ _(none)_
 | 2026-05-25T18:10:29Z | Orchestrator | A: Game Design | No new items; last notified 3h ago (< 48h) — no notification |
 | 2026-05-25T18:10:29Z | Orchestrator | B: Card Design | activation-track-multiuse-v01-a/b/c complete; review/index.html updated |
 | 2026-05-25T18:10:29Z | Orchestrator | C: App Design | Synced multiturn-v02 SVG defs → rebuilt app bundle; removed spurious docs/editor/design/ |
+| 2026-05-26T00:05:22Z | Orchestrator | A: Game Design | 1 new item found: inline sym+modifier rendering §6.1; last notified 9h ago (< 48h) — no notification; 7 items total |
+| 2026-05-26T00:05:22Z | Orchestrator | B: Card Design | activation-track-use-v01-a/b/c complete; square+inner-square marker variants; review/index.html updated; CHANGES.md updated; user notified |
+| 2026-05-26T00:05:22Z | Orchestrator | C: App Design | Synced use-v01 square-marker SVG defs into preview.service.ts; rebuilt app bundle; removed spurious docs/editor/design/ |
 
 ---
 

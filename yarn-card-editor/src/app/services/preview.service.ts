@@ -5,7 +5,10 @@ import { AnyCard, CardType } from '../models';
  * SVG symbol definitions extracted from the latest design variants.
  *
  * Trigger symbols: trigger-symbols-v02.html (highest version)
- * Activation track: activation-track-basic-v01-a.html (only basic variant exists)
+ * Activation track basic: activation-track-basic-v01-a.html
+ * Activation track multiturn: activation-track-multiturn-v02-a/b/c.html (highest version)
+ * Activation track multiuse: activation-track-multiuse-v01-a/b/c.html
+ * Activation track use (one-time): activation-track-use-v01-a.html
  *
  * These are embedded here so the preview iframe can use <use href="#sym-id"/>.
  */
@@ -170,6 +173,160 @@ const SVG_DEFS = `
     <polygon points="26,75 41,90 26,105 11,90" fill="none" stroke="#d4b87a" stroke-width="1.5" opacity="0.55"/>
   </symbol>
 
+  <!-- Multi-use track markers — activation-track-multiuse-v01-a/b/c.html -->
+
+  <!--
+    Option A — Multi-use Track v01 (activation-track-multiuse-v01-a.html)
+    3 filled diamond slots, VERTICAL layout, compact spacing.
+    Each slot: outer diamond half-diag=18, inner half-diag=9, pip half-diag=3.5.
+    viewBox 0 0 40 40 — single slot (used as lead for each effect row).
+    Color: dark body #1a0e04, amber detail #d4b87a.
+  -->
+  <symbol id="track-multiuse-a-slot" viewBox="0 0 40 40">
+    <!-- Outer diamond body: half-diagonal 18 -->
+    <polygon points="20,2 38,20 20,38 2,20"
+             fill="#1a0e04" stroke="none"/>
+    <!-- Inner diamond: half-diagonal 9, amber fill -->
+    <polygon points="20,11 29,20 20,29 11,20"
+             fill="#d4b87a" stroke="none"/>
+    <!-- Center pip: dark diamond half-diagonal 3.5 -->
+    <polygon points="20,16.5 23.5,20 20,23.5 16.5,20"
+             fill="#1a0e04" stroke="none"/>
+  </symbol>
+
+  <!--
+    Option B — Multi-use Track v01 (activation-track-multiuse-v01-b.html)
+    4 filled diamond slots, HORIZONTAL TRACK STRIP in each row's lead column.
+    Each row's symbol shows all 4 slots; the active slot is full opacity,
+    the others are dimmed (opacity 0.25).
+    viewBox 0 0 100 28 — horizontal strip of 4 slots.
+    Slot centers x: 13, 37, 61, 85. Small diamond half-diag=9; inner=5; pip=2.
+    Color: dark body #1a0e04, amber detail #d4b87a.
+  -->
+  <!-- Row 1 — slot 1 active (full), slots 2/3/4 dimmed -->
+  <symbol id="track-multiuse-b-row1" viewBox="0 0 100 28">
+    <polygon points="13,5 22,14 13,23 4,14"  fill="#1a0e04"/>
+    <polygon points="13,9 18,14 13,19 8,14"  fill="#d4b87a"/>
+    <polygon points="13,12 15,14 13,16 11,14" fill="#1a0e04"/>
+    <g opacity="0.25">
+      <polygon points="37,5 46,14 37,23 28,14" fill="#1a0e04"/>
+      <polygon points="37,9 42,14 37,19 32,14" fill="#d4b87a"/>
+      <polygon points="37,12 39,14 37,16 35,14" fill="#1a0e04"/>
+    </g>
+    <g opacity="0.25">
+      <polygon points="61,5 70,14 61,23 52,14" fill="#1a0e04"/>
+      <polygon points="61,9 66,14 61,19 56,14" fill="#d4b87a"/>
+      <polygon points="61,12 63,14 61,16 59,14" fill="#1a0e04"/>
+    </g>
+    <g opacity="0.25">
+      <polygon points="85,5 94,14 85,23 76,14" fill="#1a0e04"/>
+      <polygon points="85,9 90,14 85,19 80,14" fill="#d4b87a"/>
+      <polygon points="85,12 87,14 85,16 83,14" fill="#1a0e04"/>
+    </g>
+  </symbol>
+  <!-- Row 2 — slot 2 active (full), slots 1/3/4 dimmed -->
+  <symbol id="track-multiuse-b-row2" viewBox="0 0 100 28">
+    <g opacity="0.25">
+      <polygon points="13,5 22,14 13,23 4,14"  fill="#1a0e04"/>
+      <polygon points="13,9 18,14 13,19 8,14"  fill="#d4b87a"/>
+      <polygon points="13,12 15,14 13,16 11,14" fill="#1a0e04"/>
+    </g>
+    <polygon points="37,5 46,14 37,23 28,14" fill="#1a0e04"/>
+    <polygon points="37,9 42,14 37,19 32,14" fill="#d4b87a"/>
+    <polygon points="37,12 39,14 37,16 35,14" fill="#1a0e04"/>
+    <g opacity="0.25">
+      <polygon points="61,5 70,14 61,23 52,14" fill="#1a0e04"/>
+      <polygon points="61,9 66,14 61,19 56,14" fill="#d4b87a"/>
+      <polygon points="61,12 63,14 61,16 59,14" fill="#1a0e04"/>
+    </g>
+    <g opacity="0.25">
+      <polygon points="85,5 94,14 85,23 76,14" fill="#1a0e04"/>
+      <polygon points="85,9 90,14 85,19 80,14" fill="#d4b87a"/>
+      <polygon points="85,12 87,14 85,16 83,14" fill="#1a0e04"/>
+    </g>
+  </symbol>
+  <!-- Row 3 — slot 3 active (full), slots 1/2/4 dimmed -->
+  <symbol id="track-multiuse-b-row3" viewBox="0 0 100 28">
+    <g opacity="0.25">
+      <polygon points="13,5 22,14 13,23 4,14"  fill="#1a0e04"/>
+      <polygon points="13,9 18,14 13,19 8,14"  fill="#d4b87a"/>
+      <polygon points="13,12 15,14 13,16 11,14" fill="#1a0e04"/>
+    </g>
+    <g opacity="0.25">
+      <polygon points="37,5 46,14 37,23 28,14" fill="#1a0e04"/>
+      <polygon points="37,9 42,14 37,19 32,14" fill="#d4b87a"/>
+      <polygon points="37,12 39,14 37,16 35,14" fill="#1a0e04"/>
+    </g>
+    <polygon points="61,5 70,14 61,23 52,14" fill="#1a0e04"/>
+    <polygon points="61,9 66,14 61,19 56,14" fill="#d4b87a"/>
+    <polygon points="61,12 63,14 61,16 59,14" fill="#1a0e04"/>
+    <g opacity="0.25">
+      <polygon points="85,5 94,14 85,23 76,14" fill="#1a0e04"/>
+      <polygon points="85,9 90,14 85,19 80,14" fill="#d4b87a"/>
+      <polygon points="85,12 87,14 85,16 83,14" fill="#1a0e04"/>
+    </g>
+  </symbol>
+  <!-- Row 4 — slot 4 active (full), slots 1/2/3 dimmed -->
+  <symbol id="track-multiuse-b-row4" viewBox="0 0 100 28">
+    <g opacity="0.25">
+      <polygon points="13,5 22,14 13,23 4,14"  fill="#1a0e04"/>
+      <polygon points="13,9 18,14 13,19 8,14"  fill="#d4b87a"/>
+      <polygon points="13,12 15,14 13,16 11,14" fill="#1a0e04"/>
+    </g>
+    <g opacity="0.25">
+      <polygon points="37,5 46,14 37,23 28,14" fill="#1a0e04"/>
+      <polygon points="37,9 42,14 37,19 32,14" fill="#d4b87a"/>
+      <polygon points="37,12 39,14 37,16 35,14" fill="#1a0e04"/>
+    </g>
+    <g opacity="0.25">
+      <polygon points="61,5 70,14 61,23 52,14" fill="#1a0e04"/>
+      <polygon points="61,9 66,14 61,19 56,14" fill="#d4b87a"/>
+      <polygon points="61,12 63,14 61,16 59,14" fill="#1a0e04"/>
+    </g>
+    <polygon points="85,5 94,14 85,23 76,14" fill="#1a0e04"/>
+    <polygon points="85,9 90,14 85,19 80,14" fill="#d4b87a"/>
+    <polygon points="85,12 87,14 85,16 83,14" fill="#1a0e04"/>
+  </symbol>
+
+  <!--
+    Option C — Multi-use Track v01 (activation-track-multiuse-v01-c.html)
+    5 filled diamond slots, VERTICAL layout, spacious/premium look.
+    Each slot: outer diamond half-diag=22, inner half-diag=11, pip half-diag=4.5.
+    viewBox 0 0 48 48 — single slot (used as lead for each effect row).
+    Color: dark body #1a0e04, amber detail #d4b87a.
+  -->
+  <symbol id="track-multiuse-c-slot" viewBox="0 0 48 48">
+    <!-- Outer diamond body: half-diagonal 22 (total width/height 44px) -->
+    <polygon points="24,2 46,24 24,46 2,24"
+             fill="#1a0e04" stroke="none"/>
+    <!-- Inner diamond: half-diagonal 11, amber fill -->
+    <polygon points="24,13 35,24 24,35 13,24"
+             fill="#d4b87a" stroke="none"/>
+    <!-- Center pip: dark diamond half-diagonal 4.5 -->
+    <polygon points="24,19.5 28.5,24 24,28.5 19.5,24"
+             fill="#1a0e04" stroke="none"/>
+  </symbol>
+
+  <!--
+    Use track marker — activation-track-use-v01-a.html
+    Consumed marker (one-time use): square with inner square.
+    Outer square: 36×36 px centered at (26,26); inner square: 18×18 amber fill;
+    center pip: 6×6 dark square. No return path — permanently consumed.
+    viewBox 0 0 52 52 — square proportions.
+    Color: dark body #1a0e04, amber detail/stroke #d4b87a.
+  -->
+  <symbol id="track-use-a-marker" viewBox="0 0 52 52">
+    <!-- Outer square: 36×36 centered at (26,26) -->
+    <rect x="8" y="8" width="36" height="36"
+          fill="#1a0e04" stroke="#d4b87a" stroke-width="2" opacity="1"/>
+    <!-- Inner square: 18×18 centered at (26,26) — amber fill -->
+    <rect x="17" y="17" width="18" height="18"
+          fill="#d4b87a" stroke="none"/>
+    <!-- Center pip: 6×6 dark square centered at (26,26) -->
+    <rect x="23" y="23" width="6" height="6"
+          fill="#1a0e04" stroke="none"/>
+  </symbol>
+
   <!-- Fallback filled circle for undesigned track types -->
   <symbol id="track-fallback" viewBox="0 0 24 24">
     <circle cx="12" cy="12" r="10" fill="#1a0e04"/>
@@ -291,7 +448,13 @@ export class PreviewService {
 
   /**
    * Returns the SVG activation track marker HTML for a given track type.
-   * Supported types: basic (v01-a), multiturn-v02a, multiturn-v02b, multiturn-v02c.
+   * Supported types:
+   *   basic (v01-a): circle marker
+   *   multiturn-v02a/b/c: diamond + cooldown slots with directional arrows
+   *   multiuse-v01a: 3-slot vertical diamond column (slot marker, viewBox 40x40)
+   *   multiuse-v01b-row{1..4}: 4-slot horizontal strip with active slot highlighted (viewBox 100x28)
+   *   multiuse-v01c: 5-slot vertical diamond column (slot marker, viewBox 48x48)
+   *   use-v01a: square-with-inner-square consumed marker (viewBox 52x52); permanently consumed, no return
    * Falls back to a filled circle if no variant exists.
    */
   getActivationMarkerHtml(trackType: string, width = 52, height = 80): string {
@@ -306,6 +469,38 @@ export class PreviewService {
     }
     if (trackType === 'multiturn-v02c') {
       return `<svg width="${width}" height="${Math.round(width * 108 / 52)}" viewBox="0 0 52 108" preserveAspectRatio="xMidYMid meet"><use href="#track-multiturn-v02c"/></svg>`;
+    }
+    // Multi-use track variants (activation-track-multiuse-v01-a/b/c)
+    if (trackType === 'multiuse-v01a') {
+      // Option A: 3-slot vertical column; single slot marker 40x40
+      const h = Math.round(width * 40 / 40);
+      return `<svg width="${width}" height="${h}" viewBox="0 0 40 40" preserveAspectRatio="xMidYMid meet"><use href="#track-multiuse-a-slot"/></svg>`;
+    }
+    if (trackType === 'multiuse-v01b-row1') {
+      // Option B row 1: horizontal strip 100x28, slot 1 active
+      const h = Math.round(width * 28 / 100);
+      return `<svg width="${width}" height="${h}" viewBox="0 0 100 28" preserveAspectRatio="xMidYMid meet"><use href="#track-multiuse-b-row1"/></svg>`;
+    }
+    if (trackType === 'multiuse-v01b-row2') {
+      const h = Math.round(width * 28 / 100);
+      return `<svg width="${width}" height="${h}" viewBox="0 0 100 28" preserveAspectRatio="xMidYMid meet"><use href="#track-multiuse-b-row2"/></svg>`;
+    }
+    if (trackType === 'multiuse-v01b-row3') {
+      const h = Math.round(width * 28 / 100);
+      return `<svg width="${width}" height="${h}" viewBox="0 0 100 28" preserveAspectRatio="xMidYMid meet"><use href="#track-multiuse-b-row3"/></svg>`;
+    }
+    if (trackType === 'multiuse-v01b-row4') {
+      const h = Math.round(width * 28 / 100);
+      return `<svg width="${width}" height="${h}" viewBox="0 0 100 28" preserveAspectRatio="xMidYMid meet"><use href="#track-multiuse-b-row4"/></svg>`;
+    }
+    if (trackType === 'multiuse-v01c') {
+      // Option C: 5-slot vertical column; single slot marker 48x48
+      return `<svg width="${width}" height="${width}" viewBox="0 0 48 48" preserveAspectRatio="xMidYMid meet"><use href="#track-multiuse-c-slot"/></svg>`;
+    }
+    // Use track (one-time consumed) — activation-track-use-v01-a.html
+    if (trackType === 'use-v01a') {
+      // Square marker 52×52 viewBox; render at same width/height (square)
+      return `<svg width="${width}" height="${width}" viewBox="0 0 52 52" preserveAspectRatio="xMidYMid meet"><use href="#track-use-a-marker"/></svg>`;
     }
     // All other track types — fallback filled circle
     return `<svg width="20" height="20" viewBox="0 0 24 24"><use href="#track-fallback"/></svg>`;
