@@ -87,7 +87,8 @@ Streams are **independent** — a blocked stream does not pause other streams.
 - **Mode**: autonomous
 - **Source**: APP.md
 - **Status**: active — ✅ trigger-symbols-v03-a SVG defs synced into preview.service.ts + app rebuilt (2026-05-26T12:14:09Z); all 6 trigger symbols updated to v03 geometric/angular style
-- **Next task**: Auto-sync when Card Design accepts a baseline (card-index.md updated → re-sync SVGs + baselines → rebuild → deploy)
+- **Next task**: ⚠️ **PRIORITY** Fix deploy.yml — GitHub Pages deploy failing with 403; repo Workflow permissions already set to read/write by user; fix: add `git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}` before `git push origin master` in the "Commit and push built files" step; also add `env: GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}` to that step; after fix, re-run any pending deploy (review/ and docs/editor/ are stale since 2026-05-25T14:00:00Z)
+- **After deploy fix**: Auto-sync when Card Design accepts a baseline (card-index.md updated → re-sync SVGs + baselines → rebuild → deploy)
 - **Completed tasks**:
   1. ✅ `SymbolReferenceModalComponent` — wired to `EffectEditorComponent` with `?` button, Escape close, mobile full-screen
   2. ✅ Responsive layout — 3 breakpoints, mobile drawer nav, hamburger button, `transform:scale()` card preview
