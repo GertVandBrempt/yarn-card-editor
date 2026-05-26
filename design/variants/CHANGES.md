@@ -511,3 +511,9 @@ Base: design/variants/trigger-symbols-v02.html (card structure reused; all 6 sym
   - trig-complete: dark scroll silhouette (rect + ellipse rolled ends) + amber bold checkmark on scroll body
   - trig-flow-marker: dark three-bar track/rail silhouette (three horizontal rounded rects = ladder) + amber advancing token dot on top rail + dimmed trail dot on middle rail
   - Distinguishing trait: pictographic/literal concept objects; shapes differ completely from A and B in construction principle
+
+## subtitle-v01 — Three subtitle header design options (2026-05-26)
+Base: design/BASELINE.html (Persona palette; each file shows two cards side-by-side: with subtitle and without)
+- subtitle-v01-a.html — Option A: subtitle BELOW the card title; Cinzel 400 italic, 10px, amber #c8a050 at 72% opacity; letter-spacing 3px, uppercase; short centre rule beneath subtitle at top:118px; title at top:65px (unchanged from baseline); no layout shift when absent — the subtitle element simply is not rendered and the title rule moves up to top:105px
+- subtitle-v01-b.html — Option B: subtitle BETWEEN type band and title; Crimson Text italic, 11px, muted cream rgba(210,190,150,0.65), letter-spacing 1.5px; flanked by small 7×7px SVG diamond ornaments at 50% opacity; subtitle row at top:55px; title shifts to top:73px when present, reverts to top:65px when absent; fundamentally different font family and ornament treatment from A
+- subtitle-v01-c.html — Option C: subtitle EMBEDDED inside the type band as a second row; type band expands from 35px to 52px when subtitle present; row 1 = type label (Cinzel 700, standard); 0.5px hairline divider; row 2 = subtitle (Cinzel 400, 7.5px, letter-spacing 2px, title case, type-text color at 65% opacity); title shifts to top:82px when subtitle present; when absent type band stays 35px and title is at baseline top:65px — zero visual gap
