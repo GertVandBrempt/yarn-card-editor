@@ -1,0 +1,273 @@
+<!-- card-variant: script-v01 | Script card v1 — turn schedule layout, placeholder purple colour -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Crimson+Text:ital,wght@0,400;1,400;0,600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --card-w: 375px;
+  --card-h: 525px;
+  --card-r: 12.5px;
+  --bg-top:      #0c0618;
+  --bg-bot:      #080410;
+  --type-border: #4a2878;
+  --type-text:   #9870d8;
+  --type-glow:   rgba(100,60,180,0.28);
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { margin: 0; display: flex; justify-content: center; align-items: flex-start; }
+
+.card {
+  position: relative;
+  width: var(--card-w);
+  height: var(--card-h);
+  border-radius: var(--card-r);
+  overflow: hidden;
+  flex-shrink: 0;
+  box-shadow: 0 24px 70px rgba(0,0,0,0.97), 0 6px 16px rgba(0,0,0,0.8);
+}
+.card-fill {
+  position: absolute; inset: 0; z-index: 0;
+  border-radius: var(--card-r);
+  background: #080610;
+}
+
+.card-frame {
+  position: absolute; inset: 0; z-index: 10;
+  pointer-events: none;
+  border-radius: var(--card-r);
+  box-shadow:
+    inset 0 0 0 7.5px  #06030e,
+    inset 0 0 0 8.75px #2a1450,
+    inset 0 0 0 11.25px #06030e,
+    inset 0 0 0 12.5px #100820;
+}
+.card-frame > svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+
+.card-header { position: absolute; inset: 0; z-index: 11; pointer-events: none; }
+
+.type-band {
+  position: absolute;
+  left: 12.5px; right: 12.5px; top: 17.5px;
+  height: 35px;
+  background: linear-gradient(180deg, var(--bg-top) 0%, var(--bg-bot) 100%);
+  border-top:    1.5px solid var(--type-border);
+  border-bottom: 1.5px solid var(--type-border);
+  box-shadow: 0 5px 20px 0 var(--type-glow), inset 0 1px 0 rgba(180,100,255,0.04);
+  display: flex; align-items: center; justify-content: center; overflow: hidden;
+}
+.type-band::before, .type-band::after { content: ''; display: block; flex: 1; height: 1px; opacity: 0.5; }
+.type-band::before { background: linear-gradient(to right, transparent 0%, var(--type-border) 100%); margin-right: 10px; }
+.type-band::after  { background: linear-gradient(to left,  transparent 0%, var(--type-border) 100%); margin-left:  10px; }
+.type-label {
+  color: var(--type-text);
+  font-family: 'Cinzel', Georgia, serif;
+  font-size: 9px; font-weight: 700; letter-spacing: 5px; text-transform: uppercase;
+  white-space: nowrap; flex-shrink: 0;
+  text-shadow: 0 0 12px var(--type-glow);
+}
+
+.act-title {
+  position: absolute; left: 22.5px; right: 22.5px; top: 65px;
+  text-align: center; color: #c8a45a;
+  font-family: 'Cinzel', Georgia, serif;
+  font-size: 20px; font-weight: 700; letter-spacing: 0.5px; line-height: 1.2;
+  text-shadow: 0 1px 10px rgba(0,0,0,0.95);
+}
+.act-rule {
+  position: absolute; left: 67.5px; right: 67.5px; top: 95px; height: 1px;
+  background: linear-gradient(to right, transparent, var(--type-border) 25%, var(--type-border) 75%, transparent);
+  opacity: 0.6;
+}
+.mode-badge {
+  position: absolute; left: 50%; top: 106px;
+  transform: translateX(-50%);
+  font-family: 'Cinzel', Georgia, serif;
+  font-size: 8px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase;
+  color: var(--type-text);
+  background: rgba(74,40,120,0.20);
+  border: 1px solid var(--type-border);
+  border-radius: 3px;
+  padding: 3px 10px;
+  white-space: nowrap;
+}
+
+/* Schedule panel */
+.script-panel {
+  position: absolute;
+  left: 22.5px; right: 22.5px;
+  top: 133px; bottom: 22.5px;
+  z-index: 12;
+  border: 1px solid rgba(74,40,120,0.45);
+  border-radius: 4px;
+  background: rgba(8,4,16,0.65);
+  overflow: hidden;
+}
+
+.script-header {
+  display: grid;
+  grid-template-columns: 42px 1fr 1fr;
+  height: 26px;
+  background: rgba(74,40,120,0.30);
+  border-bottom: 1px solid rgba(74,40,120,0.55);
+}
+.script-header .col {
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Cinzel', Georgia, serif;
+  font-size: 7px; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase;
+  color: var(--type-text); opacity: 0.85;
+}
+.script-header .col + .col { border-left: 1px solid rgba(74,40,120,0.35); }
+
+.turn-row {
+  display: grid;
+  grid-template-columns: 42px 1fr 1fr;
+  height: 44px;
+  border-bottom: 1px solid rgba(74,40,120,0.15);
+}
+.turn-row.loop-row { background: rgba(74,40,120,0.12); }
+
+.turn-num {
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Cinzel', Georgia, serif;
+  font-size: 12px; font-weight: 700;
+  color: rgba(152,112,216,0.65);
+  border-right: 1px solid rgba(74,40,120,0.30);
+}
+.turn-events {
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Cinzel', Georgia, serif;
+  font-size: 18px; font-weight: 700;
+  color: #e8e0f0;
+  border-right: 1px solid rgba(74,40,120,0.15);
+}
+.turn-fated {
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Crimson Text', Georgia, serif;
+  font-size: 11.5px; font-style: italic;
+  color: rgba(200,164,90,0.85);
+  padding: 0 8px;
+  text-align: center;
+  line-height: 1.3;
+}
+.turn-fated.none {
+  color: rgba(120,100,160,0.38);
+  font-style: normal;
+  font-size: 13px;
+}
+
+.loop-indicator {
+  display: flex; align-items: center; justify-content: center; gap: 6px;
+  height: 24px;
+  background: rgba(74,40,120,0.18);
+  border-top: 1px solid rgba(74,40,120,0.40);
+  font-family: 'Cinzel', Georgia, serif;
+  font-size: 7.5px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+  color: var(--type-text); opacity: 0.70;
+}
+</style>
+</head>
+<body>
+
+<svg style="display:none" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <filter id="corner-glow" x="-80%" y="-80%" width="260%" height="260%">
+    <feGaussianBlur stdDeviation="3.5" result="blur"/>
+    <feComposite in="blur" operator="over"/>
+  </filter>
+  <symbol id="frame-script" viewBox="0 0 300 420" overflow="visible">
+    <rect x="14" y="14" width="272" height="392" rx="4" fill="none" stroke="#2a1450" stroke-width="0.65" opacity="0.75"/>
+    <polygon points="3,3 15,32 32,15"    fill="#4a2878" opacity="0.12" filter="url(#corner-glow)"/>
+    <polygon points="5,5 14,30 30,14"    fill="#3a1860" opacity="0.22"/>
+    <polygon points="7,7 14,27 27,14"    fill="#200c40" opacity="0.90"/>
+    <polygon points="9,9 14,21 21,14"    fill="#3a2060" opacity="0.45"/>
+    <polygon points="297,3 285,32 268,15"   fill="#4a2878" opacity="0.12" filter="url(#corner-glow)"/>
+    <polygon points="295,5 286,30 270,14"   fill="#3a1860" opacity="0.22"/>
+    <polygon points="293,7 286,27 273,14"   fill="#200c40" opacity="0.90"/>
+    <polygon points="291,9 286,21 279,14"   fill="#3a2060" opacity="0.45"/>
+    <polygon points="3,417 32,405 15,388"   fill="#4a2878" opacity="0.12" filter="url(#corner-glow)"/>
+    <polygon points="5,415 30,406 14,390"   fill="#3a1860" opacity="0.22"/>
+    <polygon points="7,413 27,406 14,393"   fill="#200c40" opacity="0.90"/>
+    <polygon points="9,411 21,406 14,399"   fill="#3a2060" opacity="0.45"/>
+    <polygon points="297,417 268,405 285,388" fill="#4a2878" opacity="0.12" filter="url(#corner-glow)"/>
+    <polygon points="295,415 270,406 286,390" fill="#3a1860" opacity="0.22"/>
+    <polygon points="293,413 273,406 286,393" fill="#200c40" opacity="0.90"/>
+    <polygon points="291,411 279,406 286,399" fill="#3a2060" opacity="0.45"/>
+    <polygon points="150,7 157,14 143,14"    fill="#200c40" opacity="0.85"/>
+    <polygon points="150,9 155,14 145,14"    fill="#3a2060" opacity="0.40"/>
+    <polygon points="150,413 143,406 157,406" fill="#200c40" opacity="0.85"/>
+    <polygon points="150,411 145,406 155,406" fill="#3a2060" opacity="0.40"/>
+    <polygon points="7,210 14,203 14,217"    fill="#200c40" opacity="0.85"/>
+    <polygon points="9,210 14,205 14,215"    fill="#3a2060" opacity="0.40"/>
+    <polygon points="293,210 286,217 286,203" fill="#200c40" opacity="0.85"/>
+    <polygon points="291,210 286,215 286,205" fill="#3a2060" opacity="0.40"/>
+    <line x1="42"  y1="14"  x2="126" y2="14"  stroke="#180830" stroke-width="0.8" stroke-dasharray="5,4"/>
+    <line x1="174" y1="14"  x2="258" y2="14"  stroke="#180830" stroke-width="0.8" stroke-dasharray="5,4"/>
+    <line x1="42"  y1="406" x2="126" y2="406" stroke="#180830" stroke-width="0.8" stroke-dasharray="5,4"/>
+    <line x1="174" y1="406" x2="258" y2="406" stroke="#180830" stroke-width="0.8" stroke-dasharray="5,4"/>
+    <line x1="14"  y1="46"  x2="14"  y2="186" stroke="#180830" stroke-width="0.8" stroke-dasharray="5,4"/>
+    <line x1="14"  y1="234" x2="14"  y2="374" stroke="#180830" stroke-width="0.8" stroke-dasharray="5,4"/>
+    <line x1="286" y1="46"  x2="286" y2="186" stroke="#180830" stroke-width="0.8" stroke-dasharray="5,4"/>
+    <line x1="286" y1="234" x2="286" y2="374" stroke="#180830" stroke-width="0.8" stroke-dasharray="5,4"/>
+  </symbol>
+</defs>
+</svg>
+
+<div class="card">
+  <div class="card-fill"></div>
+  <div class="card-frame"><svg xmlns="http://www.w3.org/2000/svg"><use href="#frame-script"/></svg></div>
+  <div class="card-header">
+    <div class="type-band"><span class="type-label">Script</span></div>
+    <div class="act-title">Act I — The Unraveling</div>
+    <div class="act-rule"></div>
+    <div class="mode-badge">∞ Infinite</div>
+  </div>
+
+  <div class="script-panel">
+    <div class="script-header">
+      <div class="col">Turn</div>
+      <div class="col">Events</div>
+      <div class="col">Fated</div>
+    </div>
+    <div class="turn-row">
+      <div class="turn-num">1</div>
+      <div class="turn-events">1</div>
+      <div class="turn-fated none">—</div>
+    </div>
+    <div class="turn-row">
+      <div class="turn-num">2</div>
+      <div class="turn-events">2</div>
+      <div class="turn-fated none">—</div>
+    </div>
+    <div class="turn-row">
+      <div class="turn-num">3</div>
+      <div class="turn-events">2</div>
+      <div class="turn-fated">The Stranger Arrives</div>
+    </div>
+    <div class="turn-row">
+      <div class="turn-num">4</div>
+      <div class="turn-events">3</div>
+      <div class="turn-fated none">—</div>
+    </div>
+    <div class="turn-row">
+      <div class="turn-num">5</div>
+      <div class="turn-events">3</div>
+      <div class="turn-fated none">—</div>
+    </div>
+    <div class="turn-row">
+      <div class="turn-num">6</div>
+      <div class="turn-events">3</div>
+      <div class="turn-fated">The Gate Opens</div>
+    </div>
+    <div class="turn-row loop-row">
+      <div class="turn-num">7+</div>
+      <div class="turn-events">4</div>
+      <div class="turn-fated none">random</div>
+    </div>
+    <div class="loop-indicator">↺ loops from turn 7</div>
+  </div>
+</div>
+
+</body>
+</html>
