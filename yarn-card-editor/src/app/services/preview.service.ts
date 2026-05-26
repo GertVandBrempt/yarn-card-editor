@@ -4,7 +4,7 @@ import { AnyCard, CardType } from '../models';
 /**
  * SVG symbol definitions extracted from the latest design variants.
  *
- * Trigger symbols: trigger-symbols-v02.html (highest version)
+ * Trigger symbols: trigger-symbols-v03-a.html (highest version)
  * Activation track basic: activation-track-basic-v01-a.html
  * Activation track multiturn: activation-track-multiturn-v02-a/b/c.html (highest version)
  * Activation track multiuse: activation-track-multiuse-v01-a/b/c.html
@@ -53,57 +53,70 @@ const SVG_DEFS = `
     <text x="12" y="16" text-anchor="middle" font-size="10" fill="#fff" font-family="sans-serif">?</text>
   </symbol>
 
-  <!-- Trigger symbols — trigger-symbols-v02.html -->
+  <!-- Trigger symbols — trigger-symbols-v03-a.html (geometric/angular approach) -->
+  <!-- §7 Trigger Symbols v03-a: sharp polygonal silhouettes; body #1a0e04, detail #d4b87a -->
+
+  <!-- On Reveal — 8-point sharp star (two overlapping squares rotated 45°), amber center pip -->
   <symbol id="trig-reveal" viewBox="0 0 24 24">
-    <circle cx="12" cy="12" r="5.5" fill="#1a0e04" stroke="none"/>
-    <circle cx="12" cy="12" r="2.5" fill="#d4b87a" stroke="none"/>
-    <line x1="12" y1="2"   x2="12" y2="6"   stroke="#1a0e04" stroke-width="2.5" stroke-linecap="round"/>
-    <line x1="12" y1="18"  x2="12" y2="22"  stroke="#1a0e04" stroke-width="2.5" stroke-linecap="round"/>
-    <line x1="2"  y1="12"  x2="6"  y2="12"  stroke="#1a0e04" stroke-width="2.5" stroke-linecap="round"/>
-    <line x1="18" y1="12"  x2="22" y2="12"  stroke="#1a0e04" stroke-width="2.5" stroke-linecap="round"/>
-    <line x1="4.93" y1="4.93"   x2="7.76" y2="7.76"   stroke="#1a0e04" stroke-width="2.5" stroke-linecap="round"/>
-    <line x1="16.24" y1="16.24" x2="19.07" y2="19.07" stroke="#1a0e04" stroke-width="2.5" stroke-linecap="round"/>
-    <line x1="19.07" y1="4.93"  x2="16.24" y2="7.76"  stroke="#1a0e04" stroke-width="2.5" stroke-linecap="round"/>
-    <line x1="7.76"  y1="16.24" x2="4.93"  y2="19.07" stroke="#1a0e04" stroke-width="2.5" stroke-linecap="round"/>
-    <circle cx="12"    cy="3.5"   r="1.2" fill="#d4b87a"/>
-    <circle cx="12"    cy="20.5"  r="1.2" fill="#d4b87a"/>
-    <circle cx="3.5"   cy="12"    r="1.2" fill="#d4b87a"/>
-    <circle cx="20.5"  cy="12"    r="1.2" fill="#d4b87a"/>
-    <circle cx="6.2"   cy="6.2"   r="1.2" fill="#d4b87a"/>
-    <circle cx="17.8"  cy="17.8"  r="1.2" fill="#d4b87a"/>
-    <circle cx="17.8"  cy="6.2"   r="1.2" fill="#d4b87a"/>
-    <circle cx="6.2"   cy="17.8"  r="1.2" fill="#d4b87a"/>
+    <!-- 8-point star: union of two squares -->
+    <polygon points="12,1 14.5,9.5 23,12 14.5,14.5 12,23 9.5,14.5 1,12 9.5,9.5"
+             fill="#1a0e04" stroke="none"/>
+    <!-- Amber center pip -->
+    <polygon points="12,9.5 14.5,12 12,14.5 9.5,12"
+             fill="#d4b87a" stroke="none"/>
   </symbol>
 
+  <!-- On Enter — upward-pointing solid triangle, amber inward chevron (arrow entering) -->
   <symbol id="trig-enter" viewBox="0 0 24 24">
-    <path d="M3 20 L3 10 Q3 3 12 3 Q21 3 21 10 L21 20 Z" fill="#1a0e04" stroke="none"/>
-    <polygon points="12,8 17.5,14 14.5,14 14.5,18 9.5,18 9.5,14 6.5,14" fill="#d4b87a" stroke="none"/>
+    <!-- Solid dark triangle (point up) -->
+    <polygon points="12,2 22,22 2,22" fill="#1a0e04" stroke="none"/>
+    <!-- Amber downward chevron inside triangle — entering motion -->
+    <polygon points="12,9 16,14 13.5,14 13.5,19 10.5,19 10.5,14 8,14"
+             fill="#d4b87a" stroke="none"/>
   </symbol>
 
+  <!-- On Leave — rightward arrow polygon, amber slot cut in the tail body -->
   <symbol id="trig-leave" viewBox="0 0 24 24">
-    <path d="M2 9 L14 9 L14 5 L22 12 L14 19 L14 15 L2 15 Z" fill="#1a0e04" stroke="none"/>
-    <rect x="4" y="10.5" width="7" height="3" rx="1" fill="#d4b87a"/>
+    <!-- Dark arrow block heading right -->
+    <polygon points="2,9 14,9 14,5 22,12 14,19 14,15 2,15"
+             fill="#1a0e04" stroke="none"/>
+    <!-- Amber slot in tail — signals departure/exit -->
+    <rect x="4" y="11" width="6" height="2" fill="#d4b87a"/>
   </symbol>
 
+  <!-- Character Phase — octagon body, amber clock hands + pip (angular vs v02 circle) -->
   <symbol id="trig-char-phase" viewBox="0 0 24 24">
-    <circle cx="12" cy="12" r="10" fill="#1a0e04" stroke="none"/>
-    <circle cx="12" cy="12" r="8" fill="none" stroke="#d4b87a" stroke-width="1.5"/>
-    <line x1="12" y1="12" x2="8.5" y2="7"  stroke="#d4b87a" stroke-width="2" stroke-linecap="round"/>
-    <line x1="12" y1="12" x2="12" y2="5"   stroke="#d4b87a" stroke-width="1.2" stroke-linecap="round"/>
-    <circle cx="12" cy="12" r="1.5" fill="#d4b87a"/>
+    <!-- Dark octagon body -->
+    <polygon points="8.5,2 15.5,2 21,7.5 21,15.5 15.5,21 8.5,21 3,15.5 3,7.5"
+             fill="#1a0e04" stroke="none"/>
+    <!-- Amber octagon edge ring -->
+    <polygon points="8.5,2 15.5,2 21,7.5 21,15.5 15.5,21 8.5,21 3,15.5 3,7.5"
+             fill="none" stroke="#d4b87a" stroke-width="1.5"/>
+    <!-- Amber hour hand ~10 o'clock, from center -->
+    <line x1="12" y1="11.5" x2="8.5" y2="7.5" stroke="#d4b87a" stroke-width="2" stroke-linecap="square"/>
+    <!-- Amber minute hand ~12 o'clock -->
+    <line x1="12" y1="11.5" x2="12" y2="5.5" stroke="#d4b87a" stroke-width="1.3" stroke-linecap="square"/>
+    <!-- Amber center pip (small square) -->
+    <rect x="10.5" y="10.5" width="3" height="3" fill="#d4b87a"/>
   </symbol>
 
+  <!-- On Complete — tilted square (diamond orientation), amber bold checkmark (angular) -->
   <symbol id="trig-complete" viewBox="0 0 24 24">
-    <polygon points="12,2 20,6 20,18 12,22 4,18 4,6" fill="#1a0e04" stroke="none"/>
-    <path d="M7.5 12 L10.5 15.5 L16.5 8.5"
-          fill="none" stroke="#d4b87a" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+    <!-- Dark diamond body (square tilted 45°) -->
+    <polygon points="12,2 22,12 12,22 2,12" fill="#1a0e04" stroke="none"/>
+    <!-- Amber bold checkmark (angular, no curves) -->
+    <polyline points="7.5,12 10.5,15.5 16.5,8.5"
+              fill="none" stroke="#d4b87a" stroke-width="2.8"
+              stroke-linecap="square" stroke-linejoin="miter"/>
   </symbol>
 
+  <!-- On Flow Marker — double angular chevron pointing right, amber inner double-chevron pip -->
   <symbol id="trig-flow-marker" viewBox="0 0 24 24">
-    <path d="M4 4 L15 12 L4 20 L7.5 20 L18.5 12 L7.5 4 Z" fill="#1a0e04" stroke="none"/>
-    <rect x="1.5" y="9" width="3" height="6" rx="1" fill="#1a0e04"/>
-    <path d="M7.5 7 L14.5 12 L7.5 17 L9.5 17 L16.5 12 L9.5 7 Z" fill="#d4b87a" stroke="none"/>
-    <rect x="2" y="10" width="2" height="4" rx="0.5" fill="#d4b87a"/>
+    <!-- Dark outer double-chevron block -->
+    <polygon points="2,5 10,12 2,19 5.5,19 13.5,12 5.5,5" fill="#1a0e04" stroke="none"/>
+    <polygon points="9,5 17,12 9,19 12.5,19 20.5,12 12.5,5" fill="#1a0e04" stroke="none"/>
+    <!-- Amber inner pip on right chevron interior -->
+    <polygon points="11,9 14.5,12 11,15 12,15 15.5,12 12,9" fill="#d4b87a" stroke="none"/>
   </symbol>
 
   <!-- Activation track markers — activation-track-basic-v01-a.html -->

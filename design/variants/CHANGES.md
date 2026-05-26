@@ -482,3 +482,32 @@ Changed:
 - (new) icon-die-path: dark rounded-square body; amber Y-fork (horizontal stem + two branches at right) — route choice/wayfinding
 - Palette: dark body #1a0e04 (same as trigger symbols); amber detail #d4b87a (matches trigger symbol detail color)
 - Display: all 3 die icons in same 3-section card layout as options A and B
+
+## trigger-symbols-v03 — First 3-option round for all 6 trigger symbols per §7 (2026-05-26)
+Base: design/variants/trigger-symbols-v02.html (card structure reused; all 6 symbols redesigned per option)
+- trigger-symbols-v03-a.html — Option A: GEOMETRIC / ANGULAR — all shapes are sharp-edged polygons with no curves on main bodies
+  - trig-reveal: 8-point star polygon (two overlapping squares) + amber inner diamond pip
+  - trig-enter: solid dark upward-pointing triangle + amber inward-pointing chevron (T-arrow) inside
+  - trig-leave: dark rightward arrow polygon + amber horizontal slot rect in tail
+  - trig-char-phase: dark octagon body + amber octagon ring stroke + amber square-ended clock hands + square pip
+  - trig-complete: dark diamond (square rotated 45°) body + amber square-cap checkmark
+  - trig-flow-marker: dark double angular chevron blocks (two overlapping arrow polygons) + amber inner right-pointing diamond pip
+  - Distinguishing trait: no curves anywhere; all polygon/polyline constructions; starkest geometric option
+
+- trigger-symbols-v03-b.html — Option B: ROUNDED / ORGANIC — shapes use curved paths, circles, and pill forms
+  - trig-reveal: 8 amber ray lines (round caps) radiating through dark filled circle + amber center pip — rays visible outside circle
+  - trig-enter: dark rounded-top arch (Q-bezier stadium) + amber downward teardrop/droplet inside (bezier curve)
+  - trig-leave: dark rounded arrow (pill-bodied arrowhead) + amber crescent-moon accent in tail + amber dot on tip
+  - trig-char-phase: dark filled circle + amber stroke ring + amber round-cap clock hands + amber center dot — fully circular
+  - trig-complete: dark rounded square (rx=5) + amber round-cap bezier checkmark
+  - trig-flow-marker: dark horizontal pill/capsule (rx=5) + amber rounded arrowhead inside + amber separator dot at left
+  - Distinguishing trait: all bodies are circles, pills, or softly rounded; no hard polygon corners
+
+- trigger-symbols-v03-c.html — Option C: PICTOGRAPHIC / SILHOUETTE — each is the bold silhouette of a recognizable concept-object; amber is a single interior detail or cutout
+  - trig-reveal: dark eye-almond silhouette (pointed oval) + amber iris circle + dark pupil — the act of seeing
+  - trig-enter: dark door-frame rectangle + amber doorway opening rect + dark threshold details (knob, floor) + amber threshold line
+  - trig-leave: dark foot/boot silhouette (simplified angled form) + three amber speed-lines behind foot
+  - trig-char-phase: dark person-figure silhouette (circle head + shoulder-to-hip triangle body) + amber diamond at chest center
+  - trig-complete: dark scroll silhouette (rect + ellipse rolled ends) + amber bold checkmark on scroll body
+  - trig-flow-marker: dark three-bar track/rail silhouette (three horizontal rounded rects = ladder) + amber advancing token dot on top rail + dimmed trail dot on middle rail
+  - Distinguishing trait: pictographic/literal concept objects; shapes differ completely from A and B in construction principle

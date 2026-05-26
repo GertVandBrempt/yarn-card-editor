@@ -1,4 +1,4 @@
-<!-- card-variant: activation-track-multiturn-v01-c | Multi-turn track option C — hexagon activation marker with elongated cooldown track segments, dotted connector line, return arrow -->
+<!-- card-variant: trigger-symbols-v03-a | Trigger symbols v03 option A: geometric/angular approach — sharp polygonal silhouettes per trigger type; dark body #1a0e04 + amber detail #d4b87a; all 6 shown in use on a Persona card -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -99,7 +99,7 @@ body { margin: 0; display: flex; justify-content: center; align-items: flex-star
   position: absolute;
   left: 22.5px; right: 22.5px;
   bottom: 22.5px;
-  height: 160px;
+  height: 262px;
   z-index: 12;
   pointer-events: none;
   background: linear-gradient(to bottom, transparent 0%, rgba(122,72,24,.25) 10%, rgba(122,72,24,.25) 90%, transparent 100%);
@@ -138,51 +138,49 @@ body { margin: 0; display: flex; justify-content: center; align-items: flex-star
 .sec::before { top: 0; }
 .sec::after  { bottom: 0; }
 
-.sec-actions { flex: 1; background: rgba(232,80,48,0.15); }
+.sec-passive { height: 38px; background: rgba(48,120,240,0.15); }
+.sec-passive::before, .sec-passive::after {
+  background: linear-gradient(to right, transparent, #3078f0 18%, #3078f0 82%, transparent);
+}
+.sec-trigger-entry { height: 76px; background: rgba(240,200,48,0.15); }
+.sec-trigger-entry::before, .sec-trigger-entry::after {
+  background: linear-gradient(to right, transparent, #f0c830 18%, #f0c830 82%, transparent);
+}
+.sec-actions { height: 48px; background: rgba(232,80,48,0.15); }
 .sec-actions::before, .sec-actions::after {
   background: linear-gradient(to right, transparent, #e85030 18%, #e85030 82%, transparent);
 }
+.sec-trigger-exit { height: 96px; background: rgba(240,200,48,0.15); }
+.sec-trigger-exit::before, .sec-trigger-exit::after {
+  background: linear-gradient(to right, transparent, #f0c830 18%, #f0c830 82%, transparent);
+}
 
 .effect-row {
+  flex: 1;
   display: flex;
   align-items: center;
-  gap: 8px;
-  padding: 0 10px;
-  flex: 1;
+  gap: 7px;
+  padding: 0 12px;
+  min-height: 0;
 }
-
 .effect-lead {
   flex-shrink: 0;
-  width: 52px;
-  align-self: stretch;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  width: 20px; height: 20px;
+  display: flex; align-items: center; justify-content: center;
 }
-
+.effect-row-passive { padding-left: 39px; }
 .effect-text {
   flex: 1;
   font-family: 'Crimson Text', Georgia, serif;
-  font-size: 14px;
-  font-style: normal;
-  font-weight: 400;
+  font-size: 13px; font-style: normal; font-weight: 400;
   color: rgba(220,200,160,0.82);
-  line-height: 1.3;
-  align-self: center;
+  line-height: 1.15;
 }
-
-.sym-group {
-  display: inline-flex;
-  align-items: center;
-  gap: 2px;
-  vertical-align: middle;
-}
+.sym-group { display: inline-flex; align-items: center; gap: 2px; vertical-align: middle; }
 .sym-mod {
   font-family: 'Crimson Text', Georgia, serif;
-  font-size: 14px;
-  font-weight: 600;
-  color: rgba(220,200,160,0.92);
-  line-height: 1;
+  font-size: 14px; font-weight: 600; font-style: normal;
+  color: rgba(220,200,160,0.92); line-height: 1;
 }
 </style>
 </head>
@@ -255,89 +253,108 @@ body { margin: 0; display: flex; justify-content: center; align-items: flex-star
     <rect width="300" height="420" fill="url(#a-vig)"/>
   </symbol>
 
+  <symbol id="icon-shield" viewBox="0 0 24 24">
+    <path d="M12 2 L20 5 L20 12 Q20 19 12 22 Q4 19 4 12 L4 5 Z"
+          fill="#4090e0" stroke="#205098" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  </symbol>
   <symbol id="icon-damage" viewBox="0 0 24 24">
     <polygon points="12,2 13.4,8.2 17.8,4.5 15.6,10.3 22,10.8 16.9,14.2 19.6,20.1 13.2,17 12,23 10.5,17.1 4.2,20.5 6.7,14.4 1,11.2 7.5,10.2 5,4.8 10.7,8.1"
              fill="#f0c030" stroke="#a08000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
   </symbol>
+  <symbol id="icon-heal" viewBox="0 0 24 24">
+    <path d="M12 21 C9 18 3 14 3 9 C3 6 5.5 4 8 5 C10 5.8 11 7.5 12 9 C13 7.5 14 5.8 16 5 C18.5 4 21 6 21 9 C21 14 15 18 12 21 Z"
+          fill="#e84020" stroke="#901808" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  </symbol>
+  <symbol id="icon-reveal-character" viewBox="0 0 24 24">
+    <rect x="6" y="5" width="13" height="16" rx="1.5" fill="#a89e18" stroke="#807800" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>
+    <rect x="2" y="2" width="13" height="16" rx="1.5" fill="#d4cc30" stroke="#807800" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>
+    <circle cx="8.5" cy="7.5" r="1.8" fill="#1a0e04"/>
+    <path d="M5.5 14.5 Q5.5 11 8.5 11 Q11.5 11 11.5 14.5" fill="#1a0e04" stroke="none"/>
+  </symbol>
 
   <!--
-    Option C — Multi-turn Track
-    ══════════════════════════════════════════════════
-    Layout (top to bottom, centered on x=26):
-      [HEXAGON activation marker]   ← flat-top hex, large
-           dotted connector line
-      [ELONGATED CAPSULE slot 1]    ← pill/capsule shape, wide, holds token turn 1
-           dotted connector line
-      [ELONGATED CAPSULE slot 2]    ← pill/capsule shape, holds token turn 2
-           ↩  return arrow at bottom pointing back up (centered, with upward arrow at top)
+    §7 Trigger Symbols — v03-a: GEOMETRIC / ANGULAR
+    ════════════════════════════════════════════════
+    Concept: each symbol is built from sharp-edged polygonal silhouettes.
+    No curves on the main body; detail marks are crisp straight cuts.
+    Body: #1a0e04 (dark)   Detail: #d4b87a (amber)
+    ViewBox: 0 0 24 24     Rendered: 20×20
 
-    Shapes:
-      • Activation hex: flat-top hexagon R=18, dark body, amber inner hex R=9, dark pip
-        (same flat-top orientation as basic-v01-c, but smaller to fit)
-      • Cooldown capsules: elongated horizontal pill shapes (rx=10, ry=6 rounded rect),
-        full width (36px wide), dark fill, amber inner narrow capsule (rx=7,ry=3)
-        The elongated capsule shape is entirely distinct from both the squares (A) and
-        circles (B) used in other options
-      • Dotted connector lines between shapes (not arrowheads — the flow is implied)
-      • Return indicator: at bottom, a horizontal dotted line sweeps left; then a vertical
-        dotted line runs back up the left side; upward arrowhead at top returns to hex
-        This uses the same left-side return convention as A, but with dotted (not dashed)
-        styling to distinguish the return path treatment
-
-    viewBox 0 0 52 154.
+    trig-reveal      — On Reveal       — starburst: 8-point star polygon, center amber pip
+    trig-enter       — On Enter        — upward-pointing triangle with inset amber chevron
+    trig-leave       — On Leave        — rightward arrow polygon, amber vertical slot in tail
+    trig-char-phase  — Character Phase — octagon ring, two amber clock-hand lines + pip
+    trig-complete    — On Complete     — square tilted 45° (diamond shape), amber checkmark cuts
+    trig-flow-marker — On Flow Marker  — right-pointing angular double-chevron, amber inner pip
   -->
-  <symbol id="track-multiturn-c" viewBox="0 0 52 154">
-    <!-- === ACTIVATION MARKER (flat-top hexagon) === -->
-    <!-- Flat-top hex R=18 centered at (26,21) -->
-    <!-- Points: (44,21),(35,5.4),(17,5.4),(8,21),(17,36.6),(35,36.6) -->
-    <polygon points="44,21 35,6 17,6 8,21 17,36 35,36"
+
+  <!-- On Reveal — 8-point sharp star, amber center pip
+       Two overlapping squares, rotated 45° from each other -->
+  <symbol id="trig-reveal" viewBox="0 0 24 24">
+    <!-- 8-point star: union of two squares -->
+    <polygon points="12,1 14.5,9.5 23,12 14.5,14.5 12,23 9.5,14.5 1,12 9.5,9.5"
              fill="#1a0e04" stroke="none"/>
-    <!-- Amber edge stroke -->
-    <polygon points="44,21 35,6 17,6 8,21 17,36 35,36"
-             fill="none" stroke="#d4b87a" stroke-width="1.5" opacity="0.5"/>
-    <!-- Inner hex R=9: (35,21)(30.5,13.2)(21.5,13.2)(17,21)(21.5,28.8)(30.5,28.8) -->
-    <polygon points="35,21 30,13 22,13 17,21 22,29 30,29"
-             fill="#d4b87a" opacity="0.75" stroke="none"/>
-    <!-- Center dark pip -->
-    <circle cx="26" cy="21" r="3" fill="#1a0e04" stroke="none"/>
+    <!-- Amber center pip -->
+    <polygon points="12,9.5 14.5,12 12,14.5 9.5,12"
+             fill="#d4b87a" stroke="none"/>
+  </symbol>
 
-    <!-- === DOTTED CONNECTOR 1: hex → capsule 1 === -->
-    <line x1="26" y1="37" x2="26" y2="49"
-          stroke="#d4b87a" stroke-width="1" stroke-dasharray="2,2" opacity="0.5"/>
+  <!-- On Enter — upward-pointing solid triangle, amber inward chevron (arrow entering)
+       Triangle silhouette = threshold/portal pointing inward -->
+  <symbol id="trig-enter" viewBox="0 0 24 24">
+    <!-- Solid dark triangle (point up) -->
+    <polygon points="12,2 22,22 2,22" fill="#1a0e04" stroke="none"/>
+    <!-- Amber downward chevron inside triangle — entering motion -->
+    <polygon points="12,9 16,14 13.5,14 13.5,19 10.5,19 10.5,14 8,14"
+             fill="#d4b87a" stroke="none"/>
+  </symbol>
 
-    <!-- === COOLDOWN SLOT 1 (elongated capsule) === -->
-    <!-- Outer dark capsule — wide pill shape -->
-    <rect x="8" y="50" width="36" height="14" rx="7" ry="7" fill="#1a0e04" stroke="none"/>
-    <!-- Amber edge ring -->
-    <rect x="8" y="50" width="36" height="14" rx="7" ry="7"
-          fill="none" stroke="#d4b87a" stroke-width="1.5" opacity="0.45"/>
-    <!-- Inner amber capsule face -->
-    <rect x="13" y="53" width="26" height="8" rx="4" ry="4"
-          fill="#d4b87a" opacity="0.45" stroke="none"/>
+  <!-- On Leave — rightward arrow polygon, amber slot cut in the tail body
+       Solid arrow block heading right; tail has amber interior rectangle -->
+  <symbol id="trig-leave" viewBox="0 0 24 24">
+    <!-- Dark arrow block heading right -->
+    <polygon points="2,9 14,9 14,5 22,12 14,19 14,15 2,15"
+             fill="#1a0e04" stroke="none"/>
+    <!-- Amber slot in tail — signals departure/exit -->
+    <rect x="4" y="11" width="6" height="2" fill="#d4b87a"/>
+  </symbol>
 
-    <!-- === DOTTED CONNECTOR 2: capsule 1 → capsule 2 === -->
-    <line x1="26" y1="64" x2="26" y2="76"
-          stroke="#d4b87a" stroke-width="1" stroke-dasharray="2,2" opacity="0.5"/>
+  <!-- Character Phase — octagon body (8 equal sides), amber clock hands + pip
+       Angular clock face — strict geometric octagon vs v02 circle -->
+  <symbol id="trig-char-phase" viewBox="0 0 24 24">
+    <!-- Dark octagon body -->
+    <polygon points="8.5,2 15.5,2 21,7.5 21,15.5 15.5,21 8.5,21 3,15.5 3,7.5"
+             fill="#1a0e04" stroke="none"/>
+    <!-- Amber octagon edge ring (outline only — lighter inner face) -->
+    <polygon points="8.5,2 15.5,2 21,7.5 21,15.5 15.5,21 8.5,21 3,15.5 3,7.5"
+             fill="none" stroke="#d4b87a" stroke-width="1.5"/>
+    <!-- Amber hour hand ~10 o'clock, from center -->
+    <line x1="12" y1="11.5" x2="8.5" y2="7.5" stroke="#d4b87a" stroke-width="2" stroke-linecap="square"/>
+    <!-- Amber minute hand ~12 o'clock -->
+    <line x1="12" y1="11.5" x2="12" y2="5.5" stroke="#d4b87a" stroke-width="1.3" stroke-linecap="square"/>
+    <!-- Amber center pip (small square) -->
+    <rect x="10.5" y="10.5" width="3" height="3" fill="#d4b87a"/>
+  </symbol>
 
-    <!-- === COOLDOWN SLOT 2 (elongated capsule) === -->
-    <rect x="8" y="77" width="36" height="14" rx="7" ry="7" fill="#1a0e04" stroke="none"/>
-    <rect x="8" y="77" width="36" height="14" rx="7" ry="7"
-          fill="none" stroke="#d4b87a" stroke-width="1.5" opacity="0.45"/>
-    <rect x="13" y="80" width="26" height="8" rx="4" ry="4"
-          fill="#d4b87a" opacity="0.45" stroke="none"/>
+  <!-- On Complete — tilted square (diamond orientation), amber bold X-to-check mark
+       Rotated square = "seal / stamp" shape; amber checkmark confirms completion -->
+  <symbol id="trig-complete" viewBox="0 0 24 24">
+    <!-- Dark diamond body (square tilted 45°) -->
+    <polygon points="12,2 22,12 12,22 2,12" fill="#1a0e04" stroke="none"/>
+    <!-- Amber bold checkmark (angular, no curves) -->
+    <polyline points="7.5,12 10.5,15.5 16.5,8.5"
+              fill="none" stroke="#d4b87a" stroke-width="2.8"
+              stroke-linecap="square" stroke-linejoin="miter"/>
+  </symbol>
 
-    <!-- === RETURN PATH: left side vertical line with upward arrowhead === -->
-    <!-- Bottom stub: horizontal from left edge of capsule 2 to far left -->
-    <line x1="8" y1="84" x2="4" y2="84"
-          stroke="#d4b87a" stroke-width="1.5" stroke-dasharray="2,2" opacity="0.65"/>
-    <!-- Vertical return up the left side -->
-    <line x1="4" y1="84" x2="4" y2="21"
-          stroke="#d4b87a" stroke-width="1.5" stroke-dasharray="2,2" opacity="0.65"/>
-    <!-- Horizontal stub back to left side of hex -->
-    <line x1="4" y1="21" x2="8" y2="21"
-          stroke="#d4b87a" stroke-width="1.5" opacity="0.65"/>
-    <!-- Return arrowhead pointing right into the hexagon -->
-    <polygon points="10,21 5,18 5,24" fill="#d4b87a" opacity="0.8"/>
+  <!-- On Flow Marker — double angular chevron pointing right, amber inner double-chevron pip
+       Two stacked chevrons = "advance"; angular version for geometric option -->
+  <symbol id="trig-flow-marker" viewBox="0 0 24 24">
+    <!-- Dark outer double-chevron block -->
+    <polygon points="2,5 10,12 2,19 5.5,19 13.5,12 5.5,5" fill="#1a0e04" stroke="none"/>
+    <polygon points="9,5 17,12 9,19 12.5,19 20.5,12 12.5,5" fill="#1a0e04" stroke="none"/>
+    <!-- Amber inner pip on right chevron interior -->
+    <polygon points="11,9 14.5,12 11,15 12,15 15.5,12 12,9" fill="#d4b87a" stroke="none"/>
   </symbol>
 
 </defs>
@@ -351,7 +368,7 @@ body { margin: 0; display: flex; justify-content: center; align-items: flex-star
   <div class="card-frame"><svg xmlns="http://www.w3.org/2000/svg"><use href="#frame-d"/></svg></div>
   <div class="card-header">
     <div class="type-band"><span class="type-label">Persona</span></div>
-    <div class="card-title">The Wayfarer</div>
+    <div class="card-title">The Wanderer</div>
     <div class="title-rule"></div>
   </div>
 
@@ -359,24 +376,77 @@ body { margin: 0; display: flex; justify-content: center; align-items: flex-star
     <div class="mech-rule mech-rule-top"></div>
     <div class="mech-sections">
 
-      <!--
-        Actions section — single Multi-turn-track action row.
-        Option C: Flat-top hexagon activation marker + two elongated capsule cooldown slots
-        + dotted return path on left side.
-        Flow: [hex] ···· [capsule1] ···· [capsule2] ↩ dotted left-side return.
-        The capsule/pill shape for cooldown is completely distinct from squares (A) or circles (B).
-      -->
+      <!-- Passive section -->
+      <div class="sec sec-passive">
+        <div class="effect-row effect-row-passive">
+          <span class="effect-text">
+            <span class="sym-group"><svg width="16" height="16"><use href="#icon-shield"/></svg><span class="sym-mod">1</span></span>
+            Armor while in a Location
+          </span>
+        </div>
+      </div>
+
+      <!-- Trigger-entry: On Reveal + On Enter -->
+      <div class="sec sec-trigger-entry">
+        <div class="effect-row">
+          <div class="effect-lead">
+            <svg width="20" height="20"><use href="#trig-reveal"/></svg>
+          </div>
+          <span class="effect-text">
+            Reveal <span class="sym-group"><svg width="16" height="16"><use href="#icon-reveal-character"/></svg><span class="sym-mod">2</span></span> from any deck
+          </span>
+        </div>
+        <div class="effect-row">
+          <div class="effect-lead">
+            <svg width="20" height="20"><use href="#trig-enter"/></svg>
+          </div>
+          <span class="effect-text">Draw 1 card when entering a new Location</span>
+        </div>
+      </div>
+
+      <!-- Actions -->
       <div class="sec sec-actions">
         <div class="effect-row">
           <div class="effect-lead">
-            <svg width="52" height="154" viewBox="0 0 52 154" preserveAspectRatio="xMidYMid meet">
-              <use href="#track-multiturn-c"/>
+            <svg width="16" height="16" viewBox="0 0 24 24">
+              <path d="M12 3 L21 12 L12 21 L3 12 Z"
+                    fill="rgba(232,80,48,0.18)" stroke="#e85030" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
           </div>
           <span class="effect-text">
-            Strike an adjacent enemy for
-            <span class="sym-group"><svg width="16" height="16"><use href="#icon-damage"/></svg><span class="sym-mod">2</span></span>
+            Strike <span class="sym-group"><svg width="16" height="16"><use href="#icon-damage"/></svg><span class="sym-mod">3</span></span> an adjacent enemy
           </span>
+        </div>
+      </div>
+
+      <!-- Trigger-exit: On Leave, Char Phase, On Complete, On Flow Marker -->
+      <div class="sec sec-trigger-exit">
+        <div class="effect-row">
+          <div class="effect-lead">
+            <svg width="20" height="20"><use href="#trig-leave"/></svg>
+          </div>
+          <span class="effect-text">
+            Gain <span class="sym-group"><svg width="16" height="16"><use href="#icon-heal"/></svg><span class="sym-mod">1</span></span> when leaving a hostile Location
+          </span>
+        </div>
+        <div class="effect-row">
+          <div class="effect-lead">
+            <svg width="20" height="20"><use href="#trig-char-phase"/></svg>
+          </div>
+          <span class="effect-text">Move 1 space at start of Character Phase</span>
+        </div>
+        <div class="effect-row">
+          <div class="effect-lead">
+            <svg width="20" height="20"><use href="#trig-complete"/></svg>
+          </div>
+          <span class="effect-text">Remove from play when quest is Complete</span>
+        </div>
+        <div class="effect-row">
+          <div class="effect-lead">
+            <svg width="20" height="20"><use href="#trig-flow-marker"/></svg>
+          </div>
+          <span class="effect-text">Advance track and draw 1 card</span>
         </div>
       </div>
 
