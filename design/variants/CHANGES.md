@@ -455,3 +455,30 @@ Changed:
 - activation-track-use-v01-a.html — Use (one-time) track: square with inner square, option A — outer 36×36, inner 50% (18×18), center pip 6×6; amber stroke 2px; balanced compact proportions; single action row
 - activation-track-use-v01-b.html — Use (one-time) track: square with inner square, option B — outer 44×44, inner 70% (31×31), no pip; wide amber fill, thin dark border ring; heavy 3px stroke; large prominent marker; single action row
 - activation-track-use-v01-c.html — Use (one-time) track: square with inner square, option C — outer 32×32 (small), inner 62% (20×20), large pip 8×8; three-tier dark→amber→dark layering; corner-bracket accents; small precise seal-impression; single action row
+
+## die-symbols-v01-a — Die icons option A: flat square face + pip-count arrangement (2026-05-26)
+Base: design/BASELINE.html (Persona palette, card "The Stalwart")
+Changed:
+- (new) icon-die-constitution: rounded-square die body (rx=4, dark fill #1a0e04, amber stroke #d4b87a 2.5px); 1 large center pip r=2.8 — singularity/endurance
+- (new) icon-die-zeal: same die body; 3 pips in upward-pointing triangle (top-center, bottom-left, bottom-right) r=2.3 — drive/momentum
+- (new) icon-die-path: same die body; 4 pips in compass/cardinal arrangement (N/S/E/W) r=2.1 — wayfinding/skill
+- Display: all 3 die icons shown inline in passive row ("Gain +1 armor/speed/insight per die rolled"), trigger row (die condition for draw), action row (die gate for damage)
+- mech-frame height: 231px → 180px (3 sections, no sec-leave)
+
+## die-symbols-v01-b — Die icons option B: die body SHAPE distinguishes type (2026-05-26)
+Base: design/BASELINE.html (Persona palette, card "The Stalwart")
+Changed:
+- (new) icon-die-constitution: rounded square (rx=4) — classic die; single center pip r=2.5
+- (new) icon-die-zeal: diamond (square rotated 45°, points at top/right/bottom/left) — angular/driven; single center pip r=2.5
+- (new) icon-die-path: flat-top hexagon (6 vertices at 30°/90°/150°/210°/270°/330°) — structured/many-routes; single center pip r=2.5
+- All three: dark fill #1a0e04, amber stroke #d4b87a 2.5px, viewBox 0 0 24 24, rendered 20×20
+- Display: all 3 die icons in same 3-section card layout as option A
+
+## die-symbols-v01-c — Die icons option C: thematic amber symbol inside dark die face (2026-05-26)
+Base: design/BASELINE.html (Persona palette, card "The Stalwart")
+Changed:
+- (new) icon-die-constitution: dark rounded-square body (rx=3.5, no amber stroke); amber ring/circle inside (r=4.5, stroke-width 2.5) — endurance loop
+- (new) icon-die-zeal: dark rounded-square body; amber upward chevron (V-shape, apex at top, 2.8px stroke) — drive/energy upward
+- (new) icon-die-path: dark rounded-square body; amber Y-fork (horizontal stem + two branches at right) — route choice/wayfinding
+- Palette: dark body #1a0e04 (same as trigger symbols); amber detail #d4b87a (matches trigger symbol detail color)
+- Display: all 3 die icons in same 3-section card layout as options A and B

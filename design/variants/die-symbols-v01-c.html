@@ -1,0 +1,408 @@
+<!-- card-variant: die-symbols-v01-c | Die Symbols option C — thematic symbol inside die face: dark body + amber cutout symbol per role: Constitution=ring/circle (endurance loop), Zeal=upward bolt (drive), Path=branching arrow (navigation); all 3 shown in effect rows on one card -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Crimson+Text:ital,wght@0,400;1,400;0,600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --card-w: 375px;
+  --card-h: 525px;
+  --card-r: 12.5px;
+  --bg-top:      #221004;
+  --bg-bot:      #180c02;
+  --type-border: #7a4818;
+  --type-text:   #c8860c;
+  --type-glow:   rgba(160,90,10,0.28);
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { margin: 0; display: flex; justify-content: center; align-items: flex-start; }
+
+.card {
+  position: relative;
+  width: var(--card-w);
+  height: var(--card-h);
+  border-radius: var(--card-r);
+  overflow: hidden;
+  flex-shrink: 0;
+  box-shadow: 0 24px 70px rgba(0,0,0,0.97), 0 6px 16px rgba(0,0,0,0.8);
+}
+.card-fill { position: absolute; inset: 0; z-index: 0; border-radius: var(--card-r); background: #0d0a06; }
+.card-image { position: absolute; inset: 0; z-index: 1; }
+.card-image > svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+
+.grad-top {
+  position: absolute;
+  left: 12.5px; right: 12.5px; top: 12.5px;
+  height: 194px;
+  z-index: 2;
+  pointer-events: none;
+  background: radial-gradient(ellipse 90% 100% at 50% 0%, rgba(0,0,0,.9) 0%, rgba(0,0,0,.6) 70%, transparent 100%);
+}
+.grad-body {
+  position: absolute;
+  left: 12.5px; right: 12.5px; bottom: 12.5px;
+  height: 313px;
+  z-index: 2;
+  pointer-events: none;
+  background: radial-gradient(ellipse 90% 100% at 50% 100%, rgba(0,0,0,.9) 0%, rgba(0,0,0,.6) 70%, transparent 100%);
+}
+
+.card-frame {
+  position: absolute; inset: 0; z-index: 10;
+  pointer-events: none;
+  border-radius: var(--card-r);
+  box-shadow:
+    inset 0 0 0 7.5px  #100a04,
+    inset 0 0 0 8.75px #3a2410,
+    inset 0 0 0 11.25px #100a04,
+    inset 0 0 0 12.5px #1e1408;
+}
+.card-frame > svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+
+.card-header { position: absolute; inset: 0; z-index: 11; pointer-events: none; }
+.type-band {
+  position: absolute;
+  left: 12.5px; right: 12.5px; top: 17.5px;
+  height: 35px;
+  background: linear-gradient(180deg, var(--bg-top) 0%, var(--bg-bot) 100%);
+  border-top:    1.5px solid var(--type-border);
+  border-bottom: 1.5px solid var(--type-border);
+  box-shadow: 0 5px 20px 0 var(--type-glow), inset 0 1px 0 rgba(255,200,80,0.04);
+  display: flex; align-items: center; justify-content: center; overflow: hidden;
+}
+.type-band::before, .type-band::after { content: ''; display: block; flex: 1; height: 1px; opacity: 0.5; }
+.type-band::before { background: linear-gradient(to right, transparent 0%, var(--type-border) 100%); margin-right: 10px; }
+.type-band::after  { background: linear-gradient(to left,  transparent 0%, var(--type-border) 100%); margin-left:  10px; }
+.type-label {
+  color: var(--type-text);
+  font-family: 'Cinzel', Georgia, serif;
+  font-size: 9px; font-weight: 700; letter-spacing: 5px; text-transform: uppercase;
+  white-space: nowrap; flex-shrink: 0;
+  text-shadow: 0 0 12px var(--type-glow);
+}
+
+.card-title {
+  position: absolute; left: 22.5px; right: 22.5px; top: 65px;
+  text-align: center; color: #dcc06a;
+  font-family: 'Cinzel', Georgia, serif;
+  font-size: 26px; font-weight: 700; letter-spacing: 0.5px; line-height: 1.2;
+  text-shadow: 0 1px 10px rgba(0,0,0,0.95);
+}
+.title-rule {
+  position: absolute; left: 67.5px; right: 67.5px; top: 103px; height: 1px;
+  background: linear-gradient(to right, transparent, var(--type-border) 25%, var(--type-border) 75%, transparent);
+  opacity: 0.6;
+}
+
+/*
+  Option C — Die Symbols v01-c
+  Thematic symbol inside die face: dark body, amber cutout symbol.
+  Matches trigger symbol aesthetic (dark body + lighter detail).
+  Die body: same rounded square for all three.
+  Distinction: a unique thematic amber symbol per die role.
+
+  Constitution — amber ring/circle stroke inside die face
+    A closed loop = endurance, resilience, the cycle of sustaining.
+    Ring motif is immediately distinct from linear symbols.
+
+  Zeal — amber upward-pointing chevron / lightning stroke
+    A bold angled V-stroke pointing up = drive, energy, momentum upward.
+    Angular and dynamic; clearly different from the ring and the fork.
+
+  Path — amber forked arrow / branch pointing right
+    A horizontal arrow with a small upper branch = choosing a route.
+    Navigation/mind/skill: the Y-fork is a decision point on a path.
+*/
+.mech-frame {
+  position: absolute;
+  left: 22.5px; right: 22.5px;
+  bottom: 22.5px;
+  height: 180px;
+  z-index: 12;
+  pointer-events: none;
+  background: linear-gradient(to bottom, transparent 0%, rgba(122,72,24,.25) 10%, rgba(122,72,24,.25) 90%, transparent 100%);
+}
+.mech-rule {
+  position: absolute;
+  left: 17.5px; right: 17.5px;
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--type-border) 18%, var(--type-border) 82%, transparent);
+  opacity: 0.55;
+}
+.mech-rule-top { top: 0; }
+.mech-rule-bot { bottom: 0; }
+
+.mech-sections {
+  position: absolute;
+  top: 1px; bottom: 1px; left: 0; right: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+.sec {
+  width: 100%;
+  flex-shrink: 0;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+.sec::before, .sec::after {
+  content: '';
+  position: absolute;
+  left: 0; right: 0;
+  height: 1px;
+  opacity: 0.7;
+}
+.sec::before { top: 0; }
+.sec::after  { bottom: 0; }
+
+.sec-passive { height: 56px; background: rgba(48,120,240,0.15); }
+.sec-passive::before, .sec-passive::after {
+  background: linear-gradient(to right, transparent, #3078f0 18%, #3078f0 82%, transparent);
+}
+.sec-trigger { height: 56px; background: rgba(240,200,48,0.15); }
+.sec-trigger::before, .sec-trigger::after {
+  background: linear-gradient(to right, transparent, #f0c830 18%, #f0c830 82%, transparent);
+}
+.sec-actions { height: 66px; background: rgba(232,80,48,0.15); }
+.sec-actions::before, .sec-actions::after {
+  background: linear-gradient(to right, transparent, #e85030 18%, #e85030 82%, transparent);
+}
+
+.effect-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 10px;
+  flex: 1;
+}
+
+.effect-text {
+  flex: 1;
+  font-family: 'Crimson Text', Georgia, serif;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  color: rgba(220,200,160,0.82);
+  line-height: 1.4;
+  align-self: center;
+}
+
+.sym-group {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  vertical-align: middle;
+}
+.sym-mod {
+  font-family: 'Crimson Text', Georgia, serif;
+  font-size: 14px;
+  font-weight: 600;
+  color: rgba(220,200,160,0.92);
+  line-height: 1;
+}
+</style>
+</head>
+<body>
+
+<svg style="display:none" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <filter id="corner-glow" x="-80%" y="-80%" width="260%" height="260%">
+    <feGaussianBlur stdDeviation="3.5" result="blur"/>
+    <feComposite in="blur" operator="over"/>
+  </filter>
+
+  <symbol id="frame-d" viewBox="0 0 300 420" overflow="visible">
+    <rect x="14" y="14" width="272" height="392" rx="4" fill="none" stroke="#3a2410" stroke-width="0.65" opacity="0.75"/>
+    <polygon points="3,3 15,32 32,15"  fill="#7a5030" opacity="0.12" filter="url(#corner-glow)"/>
+    <polygon points="5,5 14,30 30,14"  fill="#5a3820" opacity="0.22"/>
+    <polygon points="7,7 14,27 27,14"  fill="#3e2c1a" opacity="0.9"/>
+    <polygon points="9,9 14,21 21,14"  fill="#6a4828" opacity="0.45"/>
+    <polygon points="297,3 285,32 268,15"  fill="#7a5030" opacity="0.12" filter="url(#corner-glow)"/>
+    <polygon points="295,5 286,30 270,14"  fill="#5a3820" opacity="0.22"/>
+    <polygon points="293,7 286,27 273,14"  fill="#3e2c1a" opacity="0.9"/>
+    <polygon points="291,9 286,21 279,14"  fill="#6a4828" opacity="0.45"/>
+    <polygon points="3,417 32,405 15,388"  fill="#7a5030" opacity="0.12" filter="url(#corner-glow)"/>
+    <polygon points="5,415 30,406 14,390"  fill="#5a3820" opacity="0.22"/>
+    <polygon points="7,413 27,406 14,393"  fill="#3e2c1a" opacity="0.9"/>
+    <polygon points="9,411 21,406 14,399"  fill="#6a4828" opacity="0.45"/>
+    <polygon points="297,417 268,405 285,388"  fill="#7a5030" opacity="0.12" filter="url(#corner-glow)"/>
+    <polygon points="295,415 270,406 286,390"  fill="#5a3820" opacity="0.22"/>
+    <polygon points="293,413 273,406 286,393"  fill="#3e2c1a" opacity="0.9"/>
+    <polygon points="291,411 279,406 286,399"  fill="#6a4828" opacity="0.45"/>
+    <polygon points="150,7 157,14 143,14"     fill="#3e2c1a" opacity="0.85"/>
+    <polygon points="150,9 155,14 145,14"     fill="#6a4828" opacity="0.4"/>
+    <polygon points="150,413 143,406 157,406"  fill="#3e2c1a" opacity="0.85"/>
+    <polygon points="150,411 145,406 155,406"  fill="#6a4828" opacity="0.4"/>
+    <polygon points="7,210 14,203 14,217"     fill="#3e2c1a" opacity="0.85"/>
+    <polygon points="9,210 14,205 14,215"     fill="#6a4828" opacity="0.4"/>
+    <polygon points="293,210 286,217 286,203"  fill="#3e2c1a" opacity="0.85"/>
+    <polygon points="291,210 286,215 286,205"  fill="#6a4828" opacity="0.4"/>
+    <line x1="42"  y1="14"  x2="126" y2="14"  stroke="#281806" stroke-width="0.8" stroke-dasharray="5,4"/>
+    <line x1="174" y1="14"  x2="258" y2="14"  stroke="#281806" stroke-width="0.8" stroke-dasharray="5,4"/>
+    <line x1="42"  y1="406" x2="126" y2="406" stroke="#281806" stroke-width="0.8" stroke-dasharray="5,4"/>
+    <line x1="174" y1="406" x2="258" y2="406" stroke="#281806" stroke-width="0.8" stroke-dasharray="5,4"/>
+    <line x1="14"  y1="46"  x2="14"  y2="186" stroke="#281806" stroke-width="0.8" stroke-dasharray="5,4"/>
+    <line x1="14"  y1="234" x2="14"  y2="374" stroke="#281806" stroke-width="0.8" stroke-dasharray="5,4"/>
+    <line x1="286" y1="46"  x2="286" y2="186" stroke="#281806" stroke-width="0.8" stroke-dasharray="5,4"/>
+    <line x1="286" y1="234" x2="286" y2="374" stroke="#281806" stroke-width="0.8" stroke-dasharray="5,4"/>
+  </symbol>
+
+  <symbol id="art-d" viewBox="0 0 300 420">
+    <defs>
+      <linearGradient id="a-sky" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%"   stop-color="#0a0818"/>
+        <stop offset="40%"  stop-color="#161028"/>
+        <stop offset="100%" stop-color="#080a08"/>
+      </linearGradient>
+      <radialGradient id="a-glow" cx="50%" cy="42%" r="32%">
+        <stop offset="0%"   stop-color="#d8a050" stop-opacity="0.40"/>
+        <stop offset="60%"  stop-color="#603018" stop-opacity="0.18"/>
+        <stop offset="100%" stop-color="transparent"/>
+      </radialGradient>
+      <radialGradient id="a-vig" cx="50%" cy="50%" r="62%">
+        <stop offset="30%" stop-color="transparent"/>
+        <stop offset="100%" stop-color="#000" stop-opacity="0.85"/>
+      </radialGradient>
+    </defs>
+    <rect width="300" height="420" fill="url(#a-sky)"/>
+    <rect width="300" height="420" fill="url(#a-glow)"/>
+    <ellipse cx="150" cy="280" rx="220" ry="40" fill="#0a0a08" opacity="0.85"/>
+    <path d="M 0 230 L 30 200 L 50 220 L 80 180 L 110 215 L 140 195 L 170 220 L 200 185 L 230 215 L 260 200 L 300 230 L 300 420 L 0 420 Z" fill="#0c0808" opacity="0.92"/>
+    <rect width="300" height="420" fill="url(#a-vig)"/>
+  </symbol>
+
+  <!--
+    Option C — Die Symbols v01-c
+    ══════════════════════════════════════════════════
+    Approach: THEMATIC AMBER SYMBOL inside dark die body.
+    Same dark rounded-square body for all three; distinction is
+    a unique amber icon painted inside the face.
+    Matches the trigger-symbol aesthetic: dark body (#1a0e04) + lighter detail (#d4b87a).
+
+    icon-die-constitution — amber ring/O-circle (endurance, cycle, the body that persists)
+      A thick amber circle ring centered in the die face.
+      Circular = completeness, no endpoints, sustained effort.
+
+    icon-die-zeal — amber upward chevron / V-stroke (drive, energy pointing upward)
+      Bold amber chevron pointing up (like a rally mark).
+      Strokes angled sharply = momentum, urgency, fire.
+
+    icon-die-path — amber forked branch / Y-arrow (navigation, choice, wayfinding)
+      A horizontal trunk with a branch — the Y-fork of a path decision.
+      Forward momentum with a branch = choosing routes = skill/mind.
+
+    Style: die body rx=3.5; stroke #1a0e04 width 2.5; inner symbol fill/stroke #d4b87a.
+  -->
+
+  <!-- Constitution: dark rounded-square body + amber ring inside -->
+  <symbol id="icon-die-constitution" viewBox="0 0 24 24">
+    <!-- Die body -->
+    <rect x="2" y="2" width="20" height="20" rx="3.5"
+          fill="#1a0e04" stroke="#1a0e04" stroke-width="2.5"
+          stroke-linecap="round" stroke-linejoin="round"/>
+    <!-- Amber ring: thick stroke circle (endurance loop) -->
+    <circle cx="12" cy="12" r="4.5"
+            fill="none" stroke="#d4b87a" stroke-width="2.5"
+            stroke-linecap="round"/>
+  </symbol>
+
+  <!-- Zeal: dark rounded-square body + amber upward chevron (bold V) -->
+  <symbol id="icon-die-zeal" viewBox="0 0 24 24">
+    <!-- Die body -->
+    <rect x="2" y="2" width="20" height="20" rx="3.5"
+          fill="#1a0e04" stroke="#1a0e04" stroke-width="2.5"
+          stroke-linecap="round" stroke-linejoin="round"/>
+    <!-- Amber upward chevron: left arm from bottom-left up to apex, right arm down to bottom-right -->
+    <!-- Apex at (12, 7); left foot (7, 14); right foot (17, 14) — V pointing up -->
+    <polyline points="7,15 12,8 17,15"
+              fill="none" stroke="#d4b87a" stroke-width="2.8"
+              stroke-linecap="round" stroke-linejoin="round"/>
+  </symbol>
+
+  <!-- Path: dark rounded-square body + amber Y-fork arrow (branch = route choice) -->
+  <symbol id="icon-die-path" viewBox="0 0 24 24">
+    <!-- Die body -->
+    <rect x="2" y="2" width="20" height="20" rx="3.5"
+          fill="#1a0e04" stroke="#1a0e04" stroke-width="2.5"
+          stroke-linecap="round" stroke-linejoin="round"/>
+    <!-- Amber Y-fork: horizontal stem from left, then Y-branches at right -->
+    <!-- Stem: (6,12) → (13,12); upper branch: (13,12) → (18,8); lower branch: (13,12) → (18,16) -->
+    <line x1="6"  y1="12" x2="13" y2="12"
+          stroke="#d4b87a" stroke-width="2.5" stroke-linecap="round"/>
+    <line x1="13" y1="12" x2="18" y2="8"
+          stroke="#d4b87a" stroke-width="2.5" stroke-linecap="round"/>
+    <line x1="13" y1="12" x2="18" y2="16"
+          stroke="#d4b87a" stroke-width="2.5" stroke-linecap="round"/>
+  </symbol>
+
+  <symbol id="icon-damage" viewBox="0 0 24 24">
+    <polygon points="12,2 13.4,8.2 17.8,4.5 15.6,10.3 22,10.8 16.9,14.2 19.6,20.1 13.2,17 12,23 10.5,17.1 4.2,20.5 6.7,14.4 1,11.2 7.5,10.2 5,4.8 10.7,8.1"
+             fill="#f0c030" stroke="#a08000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  </symbol>
+
+</defs>
+</svg>
+
+<div class="card">
+  <div class="card-fill"></div>
+  <div class="card-image"><svg viewBox="0 0 300 420" xmlns="http://www.w3.org/2000/svg"><use href="#art-d"/></svg></div>
+  <div class="grad-top"></div>
+  <div class="grad-body"></div>
+  <div class="card-frame"><svg xmlns="http://www.w3.org/2000/svg"><use href="#frame-d"/></svg></div>
+  <div class="card-header">
+    <div class="type-band"><span class="type-label">Persona</span></div>
+    <div class="card-title">The Stalwart</div>
+    <div class="title-rule"></div>
+  </div>
+
+  <div class="mech-frame">
+    <div class="mech-rule mech-rule-top"></div>
+    <div class="mech-sections">
+
+      <!-- Passive — blue: all three die icons inline -->
+      <div class="sec sec-passive">
+        <div class="effect-row">
+          <span class="effect-text">
+            Gain +1 armor for each
+            <span class="sym-group"><svg width="20" height="20"><use href="#icon-die-constitution"/></svg></span>,
+            +1 speed per
+            <span class="sym-group"><svg width="20" height="20"><use href="#icon-die-zeal"/></svg></span>,
+            +1 insight per
+            <span class="sym-group"><svg width="20" height="20"><use href="#icon-die-path"/></svg></span>
+            rolled
+          </span>
+        </div>
+      </div>
+
+      <!-- Trigger — yellow -->
+      <div class="sec sec-trigger">
+        <div class="effect-row">
+          <span class="effect-text">
+            On Reveal — if you rolled 2+
+            <span class="sym-group"><svg width="20" height="20"><use href="#icon-die-constitution"/></svg></span>,
+            draw a card
+          </span>
+        </div>
+      </div>
+
+      <!-- Actions — red -->
+      <div class="sec sec-actions">
+        <div class="effect-row">
+          <span class="effect-text">
+            When you roll 3+
+            <span class="sym-group"><svg width="20" height="20"><use href="#icon-die-path"/></svg></span>:
+            deal <span class="sym-group"><svg width="20" height="20"><use href="#icon-damage"/></svg><span class="sym-mod">4</span></span>
+            to target
+          </span>
+        </div>
+      </div>
+
+    </div>
+    <div class="mech-rule mech-rule-bot"></div>
+  </div>
+</div>
+
+</body>
+</html>
