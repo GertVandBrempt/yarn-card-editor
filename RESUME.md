@@ -1,6 +1,6 @@
 # Yarn — Session Resume Context
 
-_Updated: 2026-05-26T13:03:32Z_
+_Updated: 2026-05-26T13:19:45Z_
 
 ---
 
@@ -27,7 +27,7 @@ Card types: **Location, Character, Item, Event, Quest, Persona, Script**
 7. Inline sym+modifier rendering (§6.1) — `[icon][modifier]` inline layout/sizing rules not yet finalised in VISUAL.md
 
 ### 🎨 Stream B — Card Design
-**Status:** Active — subtitle-v01-a/b/c ✅ complete this run  
+**Status:** Active — flavour-text-v01-a/b/c ✅ complete this run  
 **Completed tracks:**
 - `activation-track-basic-v01-a/b/c` ✅
 - `activation-track-multiturn-v02-a/b/c` ✅ (corrected shapes)
@@ -35,10 +35,10 @@ Card types: **Location, Character, Item, Event, Quest, Persona, Script**
 - `activation-track-use-v01-a/b/c` ✅ (one-time square marker)
 - `die-symbols-v01-a/b/c` ✅ (A: pip-count, B: shape-based, C: thematic-symbol)
 - `trigger-symbols-v03-a/b/c` ✅ (A: geometric/angular; B: rounded/organic; C: pictographic/silhouette)
-- `subtitle-v01-a/b/c` ✅ **NEW** — A: below title Cinzel italic amber; B: between band+title Crimson Text italic cream+diamonds; C: embedded in type band second row (band 35→52px)
+- `subtitle-v01-a/b/c` ✅ (A: below title Cinzel italic amber; B: between band+title Crimson Text italic cream+diamonds; C: embedded in type band second row)
+- `flavour-text-v01-a/b/c` ✅ **NEW** — A: amber hairline rule + dark tinted panel, centred 12.5px italic; B: ornamental SVG divider (amber diamond+lines), left-aligned 13.5px italic; C: fully integrated borderless sec-flavour row inside mechanics frame, 14px italic
 
 **Next queued tracks (all independent):**
-- `flavour-text-v01-a/b/c`
 - `set-symbol-v01-a/b/c`
 - AND/OR compound tracks on hold until all 4 activation-track primitives accepted
 
@@ -69,7 +69,8 @@ Card types: **Location, Character, Item, Event, Quest, Persona, Script**
 
 ## How to continue work
 
-- **Review new subtitle variants:** gallery at https://gertvandbrempt.github.io/yarn-card-editor/review/ — subtitle-v01 now has 3 options. Say "accept subtitle-v01-a" (or b/c) to promote.
+- **Review new flavour text variants:** gallery at https://gertvandbrempt.github.io/yarn-card-editor/review/ — flavour-text-v01 now has 3 options. Say "accept flavour-text-v01-a" (or b/c) to promote.
+- **Review subtitle variants:** subtitle-v01 has 3 options waiting. Say "accept subtitle-v01-a" (or b/c).
 - **Review trigger symbols:** trigger-symbols-v03 has 3 options waiting. Say "accept trigger-symbols-v03-a" (or b/c).
 - **Review die symbols:** die-symbols-v01 has 3 options waiting. Say "accept die-symbols-v01-a" (or b/c).
 - **Accept activation tracks:** all 4 primitive types (basic/multiturn/multiuse/use) have 3 options ready — accepting any triggers the App Design auto-sync and rebuild.

@@ -7,7 +7,7 @@ This file is read and written by scheduled agents. Do not edit manually during a
 ```
 blocked_for_weekly_review: false
 weekly_review_due: 2026-05-30T08:00:00Z
-last_orchestrator_run: 2026-05-26T13:03:32Z
+last_orchestrator_run: 2026-05-26T13:19:45Z
 last_status_notification: 2026-05-26T13:03:32Z
 ```
 
@@ -37,7 +37,7 @@ Streams are **independent** — a blocked stream does not pause other streams.
 ### Card Design
 - **Mode**: autonomous
 - **Source**: design/VISUAL.md, design/card-index.md
-- **Status**: active — activation-track-basic-v01 ✅; activation-track-multiturn-v02 ✅; activation-track-multiuse-v01 ✅; activation-track-use-v01 ✅; die-symbols-v01 ✅; trigger-symbols-v03 ✅; subtitle-v01 ✅ complete (a/b/c, 2026-05-26T13:03:32Z)
+- **Status**: active — activation-track-basic-v01 ✅; activation-track-multiturn-v02 ✅; activation-track-multiuse-v01 ✅; activation-track-use-v01 ✅; die-symbols-v01 ✅; trigger-symbols-v03 ✅; subtitle-v01 ✅; flavour-text-v01 ✅ complete (a/b/c, 2026-05-26T13:19:45Z)
 
 #### Global rules (apply to all Card Design work)
 
@@ -68,7 +68,7 @@ Streams are **independent** — a blocked stream does not pause other streams.
 - ~~**subtitle-v01-a/b/c**~~ — ✅ Complete (2026-05-26T13:03:32Z) — A: below title, Cinzel italic amber; B: between band+title, Crimson Text italic cream+diamonds; C: embedded in type band as second row, band expands 35→52px
 
 **Track 4 — Flavour Text** *(3 options)*
-- **flavour-text-v01-a/b/c** — Flavour text zone design per VISUAL.md §9.2; italic lore text, visual separator from mechanics, absent on cards without it
+- ~~**flavour-text-v01-a/b/c**~~ — ✅ Complete (2026-05-26T13:19:45Z) — A: amber hairline rule + dark tinted panel, centred 12.5px italic; B: ornamental SVG divider (amber diamond+lines), left-aligned 13.5px italic; C: fully integrated borderless sec-flavour row inside mechanics frame, 14px italic
 
 **Track 5 — Set Symbol** *(3 options)*
 - **set-symbol-v01-a/b/c** — Set symbol position/size/treatment per VISUAL.md §9.3; small glyph in corner; consistent across all card types
@@ -79,7 +79,7 @@ Streams are **independent** — a blocked stream does not pause other streams.
 **Hold:** effects-v04 — create only after trigger symbols + activation tracks both accepted
 
 - **Blocked on**: —
-- **Last notified**: 2026-05-26T13:03:32Z
+- **Last notified**: 2026-05-26T13:19:45Z
 
 ---
 
@@ -170,6 +170,9 @@ _(none)_
 | 2026-05-26T13:03:32Z | Orchestrator | A: Game Design | No new items; 7 tracked unchanged; last notified ~22h ago (< 48h) — no notification |
 | 2026-05-26T13:03:32Z | Orchestrator | B: Card Design | subtitle-v01-a/b/c complete (A=below title Cinzel italic amber; B=between band+title Crimson Text italic cream+diamonds; C=embedded in type band second row 35→52px); CHANGES.md updated; review/index.html updated; user notified |
 | 2026-05-26T13:03:32Z | Orchestrator | C: App Design | On hold — no new baselines in card-index.md; awaiting baseline acceptance to trigger auto-sync |
+| 2026-05-26T13:19:45Z | Orchestrator | A: Game Design | No new items; 7 tracked unchanged; last notified ~22h ago (< 48h) — no notification |
+| 2026-05-26T13:19:45Z | Orchestrator | B: Card Design | flavour-text-v01-a/b/c complete (A=amber hairline rule centred; B=ornamental SVG divider left-aligned; C=integrated borderless sec-flavour row); CHANGES.md updated; review/index.html updated; user notified |
+| 2026-05-26T13:19:45Z | Orchestrator | C: App Design | On hold — no new accepted baselines in card-index.md; awaiting baseline acceptance to trigger auto-sync |
 
 ---
 
