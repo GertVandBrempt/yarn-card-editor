@@ -352,6 +352,47 @@ Changed:
 - mech-frame height: 150px → 130px (shorter — only 1 cooldown slot)
 - viewBox: 0 0 52 108
 
+## activation-track-multiuse-v01-a — Multi-use track option A: 3 filled diamond slots, vertical layout, compact spacing (2026-05-25)
+Base: design/variants/activation-track-multiturn-v02-a.html (CSS/frame structure reused; track SVG and row layout replaced)
+Changed:
+- Track type: Multi-turn (activation + cooldown slots + arrows) → Multi-use (multiple independent activation slots)
+- Slot count: 3 (compact)
+- Layout: VERTICAL — each slot is the leading symbol for its own effect row
+- Marker shape: diamond with inner diamond (locked §8 shape); outer half-diag=18, inner=9, pip=3.5
+- Marker size rendered: 40×40 (40px slot, compact)
+- mech-frame height: 150px → 200px (3 effect rows)
+- Effect rows: 3 rows (one per slot); row dividers between rows
+- Lead slot width: 52px (standard, fits 40px marker)
+- No connecting arrows between slots — slots are independent, not sequential
+- Lead column shows only the single slot symbol (not the full track strip)
+
+## activation-track-multiuse-v01-b — Multi-use track option B: 4 filled diamond slots, horizontal track strip in lead column, active slot highlighted (2026-05-25)
+Base: design/variants/activation-track-multiuse-v01-a.html (structure; track display approach completely replaced)
+Changed:
+- Slot count: 3 → 4 (one more than option A)
+- Layout: HORIZONTAL TRACK STRIP — each row's lead column (100px wide) shows the full 4-slot track as a compact horizontal strip
+- Active slot: full opacity (#1a0e04 body, #d4b87a inner) — indicates which slot this row belongs to
+- Inactive slots: opacity 0.25 (dimmed) — shows the track context while keeping focus on the active slot
+- Small diamond half-diag: 9px per slot; slot spacing: 24px (center-to-center); gap = 6px between outer edges
+- Lead slot width: 52px → 100px (wider to fit 4-slot horizontal strip)
+- Track SVG viewBox: 0 0 100 28 (horizontal strip, 28px tall for 18px diamonds with margin)
+- mech-frame height: 200px → 240px (4 effect rows)
+- 4 separate SVG symbols (b-row1 through b-row4) — each highlights a different slot
+- Effect text: shorter labels (3 varied effects: 2× damage, heal, shield) to fit narrower text column
+
+## activation-track-multiuse-v01-c — Multi-use track option C: 5 filled diamond slots, vertical layout, large 48px markers, generous spacing (2026-05-25)
+Base: design/variants/activation-track-multiuse-v01-a.html (structure reused; marker size and row count changed)
+Changed:
+- Slot count: 3 → 5 (maximum count — most generous option)
+- Layout: VERTICAL — same approach as option A (each slot leads its own row)
+- Marker size: outer half-diag 18 → 22 (total 44px outer diamond); inner half-diag 9 → 11; pip 3.5 → 4.5
+- Marker SVG rendered at: 40×40 → 48×48 (larger, more prominent)
+- Lead slot width: 52px → 56px (wider to comfortably fit 48px diamond)
+- mech-frame height: 200px → 310px (5 effect rows with generous row height)
+- Row height: ~58px per row (vs ~60px/3 ≈ 20px in A — much taller per row)
+- viewBox per slot symbol: 0 0 40 40 → 0 0 48 48
+- 5 effect rows (3 varied effects: 2× damage×2, heal, shield, damage×3)
+
 ## activation-tracks-v02 — redesigned 6 activation track types per §8: dark body + lighter detail, vertical layout in card context (2026-05-24)
 Base: design/variants/activation-tracks-v01.html (concept only — display format completely replaced)
 Changed:
@@ -366,3 +407,107 @@ Changed:
 - track-or (compound): horizontal Y-merge into OR gate (curved shape) + lock X → two side-by-side vertical sub-track columns; left (active) full opacity, right (locked) dimmed with light X cross; diagonal arms converge to light diamond OR gate point; downward output arrow; compound rows use wider 44px lead slot
 - Card mockup: actions section expanded to 6 rows (one per track type); AND + OR rows use effect-row-compound (48px height); mech-frame height 260px → 310px
 - Action section sub-dividers: hairline gradient lines between action rows for readability
+
+## activation-track-use-v01-a — Use (one-time) track option A: square with inner square, balanced proportions (2026-05-26)
+Base: design/variants/activation-track-multiuse-v01-a.html (CSS/frame structure reused; track SVG completely replaced)
+Changed:
+- Track type: Multi-use (multiple activation diamonds) → Use (single consumed marker, permanently spent)
+- Marker shape: diamond with inner diamond → square with inner square (activation marker rotated 45° per §8 locked spec)
+- Outer square: 36×36 px, centered in 52×52 viewBox
+- Inner square: 18×18 px (50% of outer) — balanced, medium-proportion amber fill
+- Center pip: 6×6 px dark square — small accent at center
+- Outer border: amber stroke 2px, opacity 0.6 — medium weight
+- Rendered marker size: 40×40 px (standard, matches multiuse A)
+- Lead slot width: 52px (standard)
+- Row count: 3 (multiuse) → 1 (single use, permanently consumed)
+- mech-frame height: 200px → 100px (one row only)
+- No connecting arrows — token permanently consumed, no return path
+- Card title: "The Arbiter"; effect: deal 5 damage to all enemies in range
+
+## activation-track-use-v01-b — Use (one-time) track option B: large square, wide inner square, no pip (2026-05-26)
+Base: design/variants/activation-track-use-v01-a.html
+Changed:
+- Outer square: 36×36 → 44×44 px (larger — 4px margin in 52×52 viewBox)
+- Inner square: 18×18 → 31×31 px — 70% of outer (much wider amber fill proportion)
+- Center pip: removed — inner fill is the focal element (no pip)
+- Outer body: dark 6.5px ring on each side vs option A's 9px ring (proportionally thinner frame)
+- Marker appearance: "wide-window" — mostly amber with a thin dark surround vs A's balanced ring
+- Rendered marker size: 40×40 → 48×48 px (larger)
+- Lead slot width: 52px → 58px (wider to accommodate 48px marker)
+- mech-frame height: 100px → 110px (slightly taller for larger marker)
+- Effect text references permanent single use: "Restore 6 HP — this action may never be used again"
+- Card title: "The Last Stand"
+
+## activation-track-use-v01-c — Use (one-time) track option C: small square, three-tier layering, corner bracket accents (2026-05-26)
+Base: design/variants/activation-track-use-v01-a.html
+Changed:
+- Outer square: 36×36 → 32×32 px (smaller — 6px margin in 44×44 viewBox)
+- Inner square: 18×18 → 20×20 px at 62% scale — creates visible amber ring between outer dark and center pip
+- Center pip: 6×6 → 8×8 px (proportionally much larger relative to inner square — 40% of inner)
+- Three visible tiers: dark outer → amber ring → dark center pip (layered "seal" composition)
+- Corner bracket accents added: 4 amber L-shaped polyline brackets (1.5px stroke, 5px legs) at each corner of outer square
+- Rendered marker size: 40×40 → 36×36 px (smallest of the three options)
+- Lead slot width: 52px (standard — unchanged)
+- mech-frame height: 100px → 95px (tighter for smaller marker)
+- Card title: "The Warden's Vow"; effect: mark target, deal 3 damage, exhaust one action slot permanently
+
+## activation-track-use-v01 (2026-05-26T00:05:22Z)
+- activation-track-use-v01-a.html — Use (one-time) track: square with inner square, option A — outer 36×36, inner 50% (18×18), center pip 6×6; amber stroke 2px; balanced compact proportions; single action row
+- activation-track-use-v01-b.html — Use (one-time) track: square with inner square, option B — outer 44×44, inner 70% (31×31), no pip; wide amber fill, thin dark border ring; heavy 3px stroke; large prominent marker; single action row
+- activation-track-use-v01-c.html — Use (one-time) track: square with inner square, option C — outer 32×32 (small), inner 62% (20×20), large pip 8×8; three-tier dark→amber→dark layering; corner-bracket accents; small precise seal-impression; single action row
+
+## die-symbols-v01-a — Die icons option A: flat square face + pip-count arrangement (2026-05-26)
+Base: design/BASELINE.html (Persona palette, card "The Stalwart")
+Changed:
+- (new) icon-die-constitution: rounded-square die body (rx=4, dark fill #1a0e04, amber stroke #d4b87a 2.5px); 1 large center pip r=2.8 — singularity/endurance
+- (new) icon-die-zeal: same die body; 3 pips in upward-pointing triangle (top-center, bottom-left, bottom-right) r=2.3 — drive/momentum
+- (new) icon-die-path: same die body; 4 pips in compass/cardinal arrangement (N/S/E/W) r=2.1 — wayfinding/skill
+- Display: all 3 die icons shown inline in passive row ("Gain +1 armor/speed/insight per die rolled"), trigger row (die condition for draw), action row (die gate for damage)
+- mech-frame height: 231px → 180px (3 sections, no sec-leave)
+
+## die-symbols-v01-b — Die icons option B: die body SHAPE distinguishes type (2026-05-26)
+Base: design/BASELINE.html (Persona palette, card "The Stalwart")
+Changed:
+- (new) icon-die-constitution: rounded square (rx=4) — classic die; single center pip r=2.5
+- (new) icon-die-zeal: diamond (square rotated 45°, points at top/right/bottom/left) — angular/driven; single center pip r=2.5
+- (new) icon-die-path: flat-top hexagon (6 vertices at 30°/90°/150°/210°/270°/330°) — structured/many-routes; single center pip r=2.5
+- All three: dark fill #1a0e04, amber stroke #d4b87a 2.5px, viewBox 0 0 24 24, rendered 20×20
+- Display: all 3 die icons in same 3-section card layout as option A
+
+## die-symbols-v01-c — Die icons option C: thematic amber symbol inside dark die face (2026-05-26)
+Base: design/BASELINE.html (Persona palette, card "The Stalwart")
+Changed:
+- (new) icon-die-constitution: dark rounded-square body (rx=3.5, no amber stroke); amber ring/circle inside (r=4.5, stroke-width 2.5) — endurance loop
+- (new) icon-die-zeal: dark rounded-square body; amber upward chevron (V-shape, apex at top, 2.8px stroke) — drive/energy upward
+- (new) icon-die-path: dark rounded-square body; amber Y-fork (horizontal stem + two branches at right) — route choice/wayfinding
+- Palette: dark body #1a0e04 (same as trigger symbols); amber detail #d4b87a (matches trigger symbol detail color)
+- Display: all 3 die icons in same 3-section card layout as options A and B
+
+## trigger-symbols-v03 — First 3-option round for all 6 trigger symbols per §7 (2026-05-26)
+Base: design/variants/trigger-symbols-v02.html (card structure reused; all 6 symbols redesigned per option)
+- trigger-symbols-v03-a.html — Option A: GEOMETRIC / ANGULAR — all shapes are sharp-edged polygons with no curves on main bodies
+  - trig-reveal: 8-point star polygon (two overlapping squares) + amber inner diamond pip
+  - trig-enter: solid dark upward-pointing triangle + amber inward-pointing chevron (T-arrow) inside
+  - trig-leave: dark rightward arrow polygon + amber horizontal slot rect in tail
+  - trig-char-phase: dark octagon body + amber octagon ring stroke + amber square-ended clock hands + square pip
+  - trig-complete: dark diamond (square rotated 45°) body + amber square-cap checkmark
+  - trig-flow-marker: dark double angular chevron blocks (two overlapping arrow polygons) + amber inner right-pointing diamond pip
+  - Distinguishing trait: no curves anywhere; all polygon/polyline constructions; starkest geometric option
+
+- trigger-symbols-v03-b.html — Option B: ROUNDED / ORGANIC — shapes use curved paths, circles, and pill forms
+  - trig-reveal: 8 amber ray lines (round caps) radiating through dark filled circle + amber center pip — rays visible outside circle
+  - trig-enter: dark rounded-top arch (Q-bezier stadium) + amber downward teardrop/droplet inside (bezier curve)
+  - trig-leave: dark rounded arrow (pill-bodied arrowhead) + amber crescent-moon accent in tail + amber dot on tip
+  - trig-char-phase: dark filled circle + amber stroke ring + amber round-cap clock hands + amber center dot — fully circular
+  - trig-complete: dark rounded square (rx=5) + amber round-cap bezier checkmark
+  - trig-flow-marker: dark horizontal pill/capsule (rx=5) + amber rounded arrowhead inside + amber separator dot at left
+  - Distinguishing trait: all bodies are circles, pills, or softly rounded; no hard polygon corners
+
+- trigger-symbols-v03-c.html — Option C: PICTOGRAPHIC / SILHOUETTE — each is the bold silhouette of a recognizable concept-object; amber is a single interior detail or cutout
+  - trig-reveal: dark eye-almond silhouette (pointed oval) + amber iris circle + dark pupil — the act of seeing
+  - trig-enter: dark door-frame rectangle + amber doorway opening rect + dark threshold details (knob, floor) + amber threshold line
+  - trig-leave: dark foot/boot silhouette (simplified angled form) + three amber speed-lines behind foot
+  - trig-char-phase: dark person-figure silhouette (circle head + shoulder-to-hip triangle body) + amber diamond at chest center
+  - trig-complete: dark scroll silhouette (rect + ellipse rolled ends) + amber bold checkmark on scroll body
+  - trig-flow-marker: dark three-bar track/rail silhouette (three horizontal rounded rects = ladder) + amber advancing token dot on top rail + dimmed trail dot on middle rail
+  - Distinguishing trait: pictographic/literal concept objects; shapes differ completely from A and B in construction principle

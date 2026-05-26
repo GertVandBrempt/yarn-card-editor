@@ -7,8 +7,8 @@ This file is read and written by scheduled agents. Do not edit manually during a
 ```
 blocked_for_weekly_review: false
 weekly_review_due: 2026-05-30T08:00:00Z
-last_orchestrator_run: 2026-05-25T15:07:31Z
-last_status_notification: 2026-05-25T15:07:31Z
+last_orchestrator_run: 2026-05-26T12:14:09Z
+last_status_notification: 2026-05-26T12:14:09Z
 ```
 
 ## Work Streams
@@ -20,14 +20,15 @@ Streams are **independent** — a blocked stream does not pause other streams.
 ### Game Design
 - **Mode**: interactive (orchestrator surfaces topics; user drives sessions in Claude Code)
 - **Source**: DESIGN.md open issues and unresolved questions
-- **Status**: active — 6 discussion items tracked; 1 new item found in scan of 2026-05-25T15:07:31Z; user notified
-- **Pending discussion items** *(top 6 by card-design impact)*:
+- **Status**: active — 7 discussion items tracked; no new items found in scan of 2026-05-26T12:14:09Z; < 48h since last notify — no notification sent
+- **Pending discussion items** *(top 7 by card-design impact)*:
   1. Script Card colour — purple placeholder in script-v01; must confirm before card-index.md entry
   2. Trigger priority (§7) — explicitly TBD; affects card layout ordering rules
   3. Life point slots visual (§3.1) — slots overlapping damageable elements; not yet in VISUAL.md
   4. Action track visual design (§4.4) — 6 track types defined; activation-tracks-v02 in-card mockup created — **ready for user review**
-  5. **Location connections visual design (§3.3) — NEW** — solid vs hollow arrows for face-down/face-up state; intent stated in DESIGN.md but not yet in VISUAL.md
+  5. Location connections visual design (§3.3) — solid vs hollow arrows for face-down/face-up state; intent stated in DESIGN.md but not yet in VISUAL.md
   6. Character dual-mode layout (§3.4) — Character/Ally on one card; no visual design for split yet
+  7. **Inline sym+modifier rendering (§6.1) — NEW** — effect text with `[icon][modifier]` groups; final inline layout/sizing rules not yet in VISUAL.md; effects-v03 demonstrates it
 - **Last notified**: 2026-05-25T15:07:31Z
 - **Blocked on**: —
 
@@ -36,7 +37,7 @@ Streams are **independent** — a blocked stream does not pause other streams.
 ### Card Design
 - **Mode**: autonomous
 - **Source**: design/VISUAL.md, design/card-index.md
-- **Status**: active — activation-track-basic-v01 complete (a/b/c); activation-track-multiturn-v02 complete (a/b/c, 2026-05-25T15:15:00Z)
+- **Status**: active — activation-track-basic-v01 ✅; activation-track-multiturn-v02 ✅; activation-track-multiuse-v01 ✅; activation-track-use-v01 ✅; die-symbols-v01 ✅; trigger-symbols-v03 ✅ complete (a/b/c, 2026-05-26T12:14:09Z)
 
 #### Global rules (apply to all Card Design work)
 
@@ -56,12 +57,12 @@ Streams are **independent** — a blocked stream does not pause other streams.
    - **No return arrow** — do not draw an arrow looping back from the last slot to the activation marker; that is the only arrow that must be omitted
    - All other sequential connecting arrows between markers are present and correct
    - Vary: presence/absence of cooldown trigger, slot count, and spacing across a/b/c
-4. **activation-track-multiuse-v01-a/b/c** — Multi-use track: **multiple filled diamonds in a row** (one per activation slot, user-confirmed shape); vary layout/spacing/count across a/b/c; shapes locked — do not experiment with other shapes; **action row container must expand to fit all markers at full size — no overflow, no clipping, no scaling markers down**
-5. **activation-track-use-v01-a/b/c** — Use (one-time) track: **one square with inner square** — activation marker design rotated 45° (diamond → square); same inner/outer relationship as the activation marker; consumed permanently; vary sizing, proportions, and inner square scale across a/b/c; do not use a plain rectangle
+4. ~~**activation-track-multiuse-v01-a/b/c**~~ — ✅ Complete (2026-05-25T18:10:29Z)
+5. ~~**activation-track-use-v01-a/b/c**~~ — ✅ Complete (2026-05-26T00:05:22Z) — outer square with inner square; options vary in size (36/44/32px outer), inner scale (50%/70%/62%), pip treatment, and corner-bracket accents
 6. **Hold:** AND/OR compound tracks — only after all 4 primitives accepted
 
 **Track 2 — Die Symbols** *(3 options for the full set of 3 die icons)*
-- **die-symbols-v01-a/b/c** — Design 3 die icons (Constitution, Zeal, Path) per VISUAL.md §7; each option shows all 3 die icons on a single card in an effect row context; options must be visually distinct from each other
+- ~~**die-symbols-v01-a/b/c**~~ — ✅ Complete (2026-05-26T06:22:00Z) — option A: flat square + pip-count; option B: die body shape distinguishes type (rounded-sq/diamond/hex); option C: thematic amber symbol inside dark body (ring/bolt/branching arrow)
 
 **Track 3 — Subtitle** *(3 options)*
 - **subtitle-v01-a/b/c** — Header subtitle design per VISUAL.md §9.1; each option shows a card with subtitle present and one without
@@ -73,65 +74,20 @@ Streams are **independent** — a blocked stream does not pause other streams.
 - **set-symbol-v01-a/b/c** — Set symbol position/size/treatment per VISUAL.md §9.3; small glyph in corner; consistent across all card types
 
 **Track 6 — Trigger Symbols** *(3 options)*
-- **trigger-symbols-v03-a/b/c** — 6 trigger symbols (On Reveal, On Enter, On Leave, Character Phase, On Complete, On Flow Marker) per VISUAL.md §7 style rules; prior versions (v01, v02) were single-variant — this is the first 3-option round; all 6 symbols shown in use on a single card per option; dark body + lighter detail; options must be visually distinct from each other
+- ~~**trigger-symbols-v03-a/b/c**~~ — ✅ Complete (2026-05-26T12:14:09Z) — option A: geometric/angular (star starburst, triangle+chevron, arrow polygon, octagon clock, diamond checkmark, double-chevron+pip); option B: rounded/organic (ray burst, arch+teardrop, pill arrow, circle clock, rounded square, horizontal pill); option C: pictographic/silhouette (eye, doorway, boot, person figure, scroll, track rails); all follow §7 dark body #1a0e04 + amber detail #d4b87a
 
 **Hold:** effects-v04 — create only after trigger symbols + activation tracks both accepted
 
 - **Blocked on**: —
-- **Last notified**: 2026-05-24T18:02:35Z
+- **Last notified**: 2026-05-26T12:14:09Z
 
 ---
 
 ### App Design
 - **Mode**: autonomous
 - **Source**: APP.md
-- **Status**: active — ✅ Deployment fix complete (2026-05-25T15:07:31Z); editor now live at /editor/
-- **Next tasks** (in order):
-  1. **Fix `APP.md` filename casing** — run `git mv app.md APP.md` (git rename to restore uppercase); commit; this must be done before any other file edits this run
-  2. **Update `.github/workflows/deploy.yml`** for proper GitHub Actions Pages deployment — user has changed GitHub Pages source to "GitHub Actions" in repo settings; workflow must now use `actions/upload-pages-artifact` + `actions/deploy-pages` instead of committing to `docs/`; full updated workflow:
-     ```yaml
-     name: Deploy to GitHub Pages
-     on:
-       push:
-         branches: [master]
-         paths: ['yarn-card-editor/**', 'design/card-index.md', 'review/**', 'design/variants/**']
-     permissions:
-       contents: read
-       pages: write
-       id-token: write
-     concurrency:
-       group: pages
-       cancel-in-progress: true
-     jobs:
-       build:
-         runs-on: ubuntu-latest
-         steps:
-           - uses: actions/checkout@v4
-           - uses: actions/setup-node@v4
-             with:
-               node-version: '20'
-               cache: 'npm'
-               cache-dependency-path: yarn-card-editor/package-lock.json
-           - name: Install
-             run: cd yarn-card-editor && npm install
-           - name: Build
-             run: cd yarn-card-editor && npx ng build --base-href /yarn-card-editor/editor/
-           - name: Upload Pages artifact
-             uses: actions/upload-pages-artifact@v3
-             with:
-               path: docs/
-       deploy:
-         environment:
-           name: github-pages
-           url: ${{ steps.deployment.outputs.page_url }}
-         runs-on: ubuntu-latest
-         needs: build
-         steps:
-           - name: Deploy to GitHub Pages
-             id: deployment
-             uses: actions/deploy-pages@v4
-     ```
-  3. **Auto-sync** — when Card Design creates new activation track or trigger symbol variants, extract SVG defs and re-run build+deploy pipeline
+- **Status**: active — ✅ trigger-symbols-v03-a SVG defs synced into preview.service.ts + app rebuilt (2026-05-26T12:14:09Z); all 6 trigger symbols updated to v03 geometric/angular style
+- **Next task**: Auto-sync when Card Design accepts a baseline (card-index.md updated → re-sync SVGs + baselines → rebuild → deploy)
 - **Completed tasks**:
   1. ✅ `SymbolReferenceModalComponent` — wired to `EffectEditorComponent` with `?` button, Escape close, mobile full-screen
   2. ✅ Responsive layout — 3 breakpoints, mobile drawer nav, hamburger button, `transform:scale()` card preview
@@ -199,6 +155,18 @@ _(none)_
 | 2026-05-25T15:07:31Z | Orchestrator | A: Scan DESIGN.md | 1 new item found: Location connections visual design (§3.3) — solid/hollow arrows not yet in VISUAL.md; user notified (6 items total) |
 | 2026-05-25T15:07:31Z | Orchestrator | B: Card Design | Created activation-track-multiturn-v02-a/b/c (corrected shapes: diamond+inner-diamond, hollow cooldown diamonds, cooldown trigger in option b, no return arrow); CHANGES.md updated |
 | 2026-05-25T15:07:31Z | Orchestrator | C: App Design | Deployment fix complete — flattened docs/editor/browser/ to docs/editor/; fixed angular.json outputPath; updated deploy.yml to not pass --output-path; rebuilt; user notified |
+| 2026-05-25T18:10:29Z | Orchestrator | A: Game Design | No new items; last notified 3h ago (< 48h) — no notification |
+| 2026-05-25T18:10:29Z | Orchestrator | B: Card Design | activation-track-multiuse-v01-a/b/c complete; review/index.html updated |
+| 2026-05-25T18:10:29Z | Orchestrator | C: App Design | Synced multiturn-v02 SVG defs → rebuilt app bundle; removed spurious docs/editor/design/ |
+| 2026-05-26T00:05:22Z | Orchestrator | A: Game Design | 1 new item found: inline sym+modifier rendering §6.1; last notified 9h ago (< 48h) — no notification; 7 items total |
+| 2026-05-26T00:05:22Z | Orchestrator | B: Card Design | activation-track-use-v01-a/b/c complete; square+inner-square marker variants; review/index.html updated; CHANGES.md updated; user notified |
+| 2026-05-26T00:05:22Z | Orchestrator | C: App Design | Synced use-v01 square-marker SVG defs into preview.service.ts; rebuilt app bundle; removed spurious docs/editor/design/ |
+| 2026-05-26T06:22:00Z | Orchestrator | A: Game Design | No new items beyond 7 tracked; last notified ~15h ago (< 48h) — no notification |
+| 2026-05-26T06:22:00Z | Orchestrator | B: Card Design | die-symbols-v01-a/b/c complete (3 options: pip-count / shape-based / thematic-symbol); CHANGES.md updated; review/index.html updated |
+| 2026-05-26T06:22:00Z | Orchestrator | C: App Design | Verified multiuse-v01 SVG defs already synced in preview.service.ts — no action needed; on hold awaiting baseline acceptance |
+| 2026-05-26T12:14:09Z | Orchestrator | A: Game Design | No new items; 7 tracked unchanged; last notified ~21h ago (< 48h) — no notification |
+| 2026-05-26T12:14:09Z | Orchestrator | B: Card Design | trigger-symbols-v03-a/b/c complete (A=geometric/angular, B=rounded/organic, C=pictographic/silhouette); CHANGES.md updated; review/index.html updated; user notified |
+| 2026-05-26T12:14:09Z | Orchestrator | C: App Design | Auto-sync: trigger-symbols-v03-a SVG defs synced into preview.service.ts; app rebuilt; docs/editor/ redeployed |
 
 ---
 

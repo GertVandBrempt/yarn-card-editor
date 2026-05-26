@@ -1,4 +1,4 @@
-<!-- card-variant: effects-container-v04 | gradient-fade borders (v02 style) per section accent color, opacity 0.7 -->
+<!-- card-variant: activation-track-multiuse-v01-a | Multi-use track option A — 3 filled diamond activation markers in a vertical column; compact spacing; each marker independently available per round -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -95,12 +95,20 @@ body { margin: 0; display: flex; justify-content: center; align-items: flex-star
   opacity: 0.6;
 }
 
-/* Mechanics frame */
+/*
+  Option A — Multi-use Track v01
+  3 filled diamond activation markers, VERTICAL layout (stacked top-to-bottom).
+  Each diamond = one activation slot, independently available per round.
+  Compact spacing: markers are close together with small separator dots between them.
+  No connecting arrows (unlike multi-turn — no flow order between slots).
+  Separator dots: tiny diamond pips between slots signal independence, not flow.
+  mech-frame height: 200px — 3-row track with generous action height.
+*/
 .mech-frame {
   position: absolute;
   left: 22.5px; right: 22.5px;
   bottom: 22.5px;
-  height: 231px;
+  height: 200px;
   z-index: 12;
   pointer-events: none;
   background: linear-gradient(to bottom, transparent 0%, rgba(122,72,24,.25) 10%, rgba(122,72,24,.25) 90%, transparent 100%);
@@ -115,7 +123,6 @@ body { margin: 0; display: flex; justify-content: center; align-items: flex-star
 .mech-rule-top { top: 0; }
 .mech-rule-bot { bottom: 0; }
 
-/* Section container */
 .mech-sections {
   position: absolute;
   top: 1px; bottom: 1px; left: 0; right: 0;
@@ -123,12 +130,12 @@ body { margin: 0; display: flex; justify-content: center; align-items: flex-star
   flex-direction: column;
   overflow: hidden;
 }
-
-/* Color sections — 0.15 opacity fills, gradient-fade top+bottom borders per section accent color */
 .sec {
   width: 100%;
   flex-shrink: 0;
   position: relative;
+  display: flex;
+  flex-direction: column;
 }
 .sec::before, .sec::after {
   content: '';
@@ -140,40 +147,62 @@ body { margin: 0; display: flex; justify-content: center; align-items: flex-star
 .sec::before { top: 0; }
 .sec::after  { bottom: 0; }
 
-.sec-passive {
-  height: 46px;
-  background: rgba(48,120,240,0.15);
-}
-.sec-passive::before,
-.sec-passive::after {
-  background: linear-gradient(to right, transparent, #3078f0 18%, #3078f0 82%, transparent);
-}
-
-.sec-reveal-enter {
-  height: 46px;
-  background: rgba(240,200,48,0.15);
-}
-.sec-reveal-enter::before,
-.sec-reveal-enter::after {
-  background: linear-gradient(to right, transparent, #f0c830 18%, #f0c830 82%, transparent);
-}
-
-.sec-actions {
-  height: 81px;
-  background: rgba(232,80,48,0.15);
-}
-.sec-actions::before,
-.sec-actions::after {
+/* actions — red */
+.sec-actions { flex: 1; background: rgba(232,80,48,0.15); }
+.sec-actions::before, .sec-actions::after {
   background: linear-gradient(to right, transparent, #e85030 18%, #e85030 82%, transparent);
 }
 
-.sec-leave-discard {
-  height: 56px;
-  background: rgba(240,200,48,0.15);
+/* Effect rows — one per activation slot on the multi-use track */
+.effect-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 10px;
+  flex: 1;
 }
-.sec-leave-discard::before,
-.sec-leave-discard::after {
-  background: linear-gradient(to right, transparent, #f0c830 18%, #f0c830 82%, transparent);
+
+/* Row dividers between action rows */
+.row-divider {
+  height: 1px;
+  margin: 0 10px;
+  background: linear-gradient(to right, transparent, rgba(122,72,24,0.5) 18%, rgba(122,72,24,0.5) 82%, transparent);
+}
+
+/* Leading track slot */
+.effect-lead {
+  flex-shrink: 0;
+  width: 52px;
+  align-self: stretch;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Effect text */
+.effect-text {
+  flex: 1;
+  font-family: 'Crimson Text', Georgia, serif;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  color: rgba(220,200,160,0.82);
+  line-height: 1.3;
+  align-self: center;
+}
+
+.sym-group {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  vertical-align: middle;
+}
+.sym-mod {
+  font-family: 'Crimson Text', Georgia, serif;
+  font-size: 14px;
+  font-weight: 600;
+  color: rgba(220,200,160,0.92);
+  line-height: 1;
 }
 </style>
 </head>
@@ -243,10 +272,53 @@ body { margin: 0; display: flex; justify-content: center; align-items: flex-star
     <rect width="300" height="420" fill="url(#a-glow)"/>
     <ellipse cx="150" cy="280" rx="220" ry="40" fill="#0a0a08" opacity="0.85"/>
     <path d="M 0 230 L 30 200 L 50 220 L 80 180 L 110 215 L 140 195 L 170 220 L 200 185 L 230 215 L 260 200 L 300 230 L 300 420 L 0 420 Z" fill="#0c0808" opacity="0.92"/>
-    <ellipse cx="150" cy="170" rx="14" ry="20" fill="#1a0e08" opacity="0.85"/>
-    <circle cx="150" cy="155" r="9" fill="#1a0e08" opacity="0.85"/>
     <rect width="300" height="420" fill="url(#a-vig)"/>
   </symbol>
+
+  <symbol id="icon-damage" viewBox="0 0 24 24">
+    <polygon points="12,2 13.4,8.2 17.8,4.5 15.6,10.3 22,10.8 16.9,14.2 19.6,20.1 13.2,17 12,23 10.5,17.1 4.2,20.5 6.7,14.4 1,11.2 7.5,10.2 5,4.8 10.7,8.1"
+             fill="#f0c030" stroke="#a08000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  </symbol>
+
+  <symbol id="icon-heal" viewBox="0 0 24 24">
+    <path d="M12 21 C12 21 3 14.5 3 8.5 A4.5 4.5 0 0 1 12 6.8 A4.5 4.5 0 0 1 21 8.5 C21 14.5 12 21 12 21Z"
+          fill="#e84020" stroke="#901808" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  </symbol>
+
+  <!--
+    Option A — Multi-use Track v01
+    ══════════════════════════════════════════════════
+    Locked shapes (§8): FILLED DIAMONDS only — no other shapes.
+    Multi-use = multiple activation markers; each is a filled diamond with inner diamond.
+    These are NOT connected by flow arrows (unlike multi-turn) — each slot is
+    independent, available per round.
+
+    Variant A specifics:
+      • 3 activation slots (compact count)
+      • VERTICAL layout — stacked column, tight spacing
+      • Each marker: outer diamond half-diag=18, inner diamond half-diag=9, pip half-diag=3.5
+      • Compact spacing: 8px gap between bottom tip and next diamond top
+      • Small circular separator dots (r=2, amber, opacity 0.5) between slots
+        — dots signal slot independence vs. flow arrows which would imply sequence
+      • viewBox 0 0 52 120 — 3 slots × ~38px each + 2 gaps × ~3px
+
+    Each slot is the "leading symbol" for one effect row — 3 rows total.
+    Color: dark body #1a0e04, amber detail #d4b87a
+  -->
+
+  <!-- Slot 1 of the multi-use track (used as leading symbol for row 1) -->
+  <symbol id="track-multiuse-a-slot" viewBox="0 0 40 40">
+    <!-- Outer diamond body: half-diagonal 18 -->
+    <polygon points="20,2 38,20 20,38 2,20"
+             fill="#1a0e04" stroke="none"/>
+    <!-- Inner diamond: half-diagonal 9, amber fill -->
+    <polygon points="20,11 29,20 20,29 11,20"
+             fill="#d4b87a" stroke="none"/>
+    <!-- Center pip: dark diamond half-diagonal 3.5 -->
+    <polygon points="20,16.5 23.5,20 20,23.5 16.5,20"
+             fill="#1a0e04" stroke="none"/>
+  </symbol>
+
 </defs>
 </svg>
 
@@ -258,16 +330,68 @@ body { margin: 0; display: flex; justify-content: center; align-items: flex-star
   <div class="card-frame"><svg xmlns="http://www.w3.org/2000/svg"><use href="#frame-d"/></svg></div>
   <div class="card-header">
     <div class="type-band"><span class="type-label">Persona</span></div>
-    <div class="card-title">Card Title</div>
+    <div class="card-title">The Wayfarer</div>
     <div class="title-rule"></div>
   </div>
+
+  <!--
+    Actions section — 3 effect rows, one per multi-use slot.
+    Each row uses the same filled diamond marker as its leading symbol.
+    The three rows share the actions section; dividers separate them.
+    Vertical layout: the "track" is the column of 3 identical diamonds.
+  -->
   <div class="mech-frame">
     <div class="mech-rule mech-rule-top"></div>
     <div class="mech-sections">
-      <div class="sec sec-passive"></div>
-      <div class="sec sec-reveal-enter"></div>
-      <div class="sec sec-actions"></div>
-      <div class="sec sec-leave-discard"></div>
+
+      <div class="sec sec-actions">
+
+        <!-- Row 1 — slot 1 of 3 -->
+        <div class="effect-row">
+          <div class="effect-lead">
+            <svg width="40" height="40" viewBox="0 0 40 40" preserveAspectRatio="xMidYMid meet">
+              <use href="#track-multiuse-a-slot"/>
+            </svg>
+          </div>
+          <span class="effect-text">
+            Strike an adjacent enemy for
+            <span class="sym-group"><svg width="16" height="16"><use href="#icon-damage"/></svg><span class="sym-mod">2</span></span>
+          </span>
+        </div>
+
+        <div class="row-divider"></div>
+
+        <!-- Row 2 — slot 2 of 3 -->
+        <div class="effect-row">
+          <div class="effect-lead">
+            <svg width="40" height="40" viewBox="0 0 40 40" preserveAspectRatio="xMidYMid meet">
+              <use href="#track-multiuse-a-slot"/>
+            </svg>
+          </div>
+          <span class="effect-text">
+            Strike an adjacent enemy for
+            <span class="sym-group"><svg width="16" height="16"><use href="#icon-damage"/></svg><span class="sym-mod">2</span></span>
+          </span>
+        </div>
+
+        <div class="row-divider"></div>
+
+        <!-- Row 3 — slot 3 of 3 -->
+        <div class="effect-row">
+          <div class="effect-lead">
+            <svg width="40" height="40" viewBox="0 0 40 40" preserveAspectRatio="xMidYMid meet">
+              <use href="#track-multiuse-a-slot"/>
+            </svg>
+          </div>
+          <span class="effect-text">
+            Restore
+            <span class="sym-group"><svg width="16" height="16"><use href="#icon-heal"/></svg><span class="sym-mod">1</span></span>
+            to a friendly character
+          </span>
+        </div>
+
+      </div>
+
     </div>
     <div class="mech-rule mech-rule-bot"></div>
   </div>
