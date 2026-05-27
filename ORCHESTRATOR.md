@@ -43,7 +43,7 @@ Streams are **independent** — a blocked stream does not pause other streams.
 
 - **Three options per design item**: every new visual element produces exactly 3 variants — option a, b, c — each a single card; named `<element>-v<N>-a.html`, `<element>-v<N>-b.html`, `<element>-v<N>-c.html`; design ID label visible on review page below each card
 - **Independence**: each design item is independent — holding or blocking one item does not affect any other
-- **Review page structure**: after any card design action, regenerate `review/index.html` with two sections: **Under Review** (grouped by design element, 3 options side by side per group) and **Accepted** (one entry per accepted item); see VISUAL.md §10 for full spec
+- **Review page structure**: after any card design action, regenerate `docs/review/index.html` with two sections: **Under Review** (grouped by design element, 3 options side by side per group) and **Accepted** (one entry per accepted item); see VISUAL.md §10 for full spec. The file lives at `docs/review/index.html` — never at `review/index.html` (root-level path is not served by GitHub Pages)
 
 #### Independent design tracks (each runs independently)
 
@@ -87,8 +87,12 @@ Streams are **independent** — a blocked stream does not pause other streams.
 - **Mode**: autonomous
 - **Source**: APP.md
 - **Status**: active — ✅ trigger-symbols-v03-a SVG defs synced into preview.service.ts + app rebuilt (2026-05-26T12:14:09Z); all 6 trigger symbols updated to v03 geometric/angular style
-- **Next task**: ⚠️ **PRIORITY** Fix deploy.yml — GitHub Pages deploy failing with 403; repo Workflow permissions already set to read/write by user; fix: add `git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}` before `git push origin master` in the "Commit and push built files" step; also add `env: GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}` to that step; after fix, re-run any pending deploy (review/ and docs/editor/ are stale since 2026-05-25T14:00:00Z)
-- **After deploy fix**: Auto-sync when Card Design accepts a baseline (card-index.md updated → re-sync SVGs + baselines → rebuild → deploy)
+- **Next task**: ⚠️ **PRIORITY** Migrate review gallery to `docs/review/` — GitHub Pages serves from the `docs/` folder only; the review page at `review/index.html` (repo root) is never served. Steps:
+  1. Write `docs/.nojekyll` (empty file — prevents Jekyll from processing Pages output)
+  2. Write the full review page to `docs/review/index.html` — same content as current `review/index.html` but with all relative paths updated: `../design/variants/` → `../../design/variants/` and `../design/variants/CHANGES.md` → `../../design/variants/CHANGES.md`
+  3. Delete `review/index.html` from the repo root (or leave it stale — do not update it further)
+  4. Update `.github/workflows/deploy.yml` — add `docs/review/` and `docs/.nojekyll` to the `git add` step alongside `docs/editor/`
+  5. After migration: all future review page writes go to `docs/review/index.html` only
 - **Completed tasks**:
   1. ✅ `SymbolReferenceModalComponent` — wired to `EffectEditorComponent` with `?` button, Escape close, mobile full-screen
   2. ✅ Responsive layout — 3 breakpoints, mobile drawer nav, hamburger button, `transform:scale()` card preview
@@ -101,6 +105,10 @@ Streams are **independent** — a blocked stream does not pause other streams.
   9. ✅ Build output verified
   10. ✅ **Deployment fix** — Root cause: `--output-path` CLI flag overrides only `base`, silently dropping `"browser": ""` config; fix: let `angular.json` control output path, workflow passes only `--base-href`; rebuilt flat to `docs/editor/index.html`; `.github/workflows/deploy.yml` updated
 - **Auto-sync rule**: After any Card Design stream action that updates `card-index.md` **or** creates a new trigger symbol / activation track variant, the App Design stream must re-run steps 5–9 automatically (sync SVGs + baselines → build → deploy). No user trigger needed.
+- **Pages layout rule**: GitHub Pages serves from `docs/` folder on master branch. All output files must live under `docs/`:
+  - Editor: `docs/editor/` ✅
+  - Review gallery: `docs/review/` ← migrate on next run (see Next task above)
+  - `.nojekyll`: `docs/.nojekyll` ← create on next run
 - **Blocked on**: —
 - **Last notified**: 2026-05-25T15:07:31Z
 
@@ -189,6 +197,7 @@ _(none)_
 | 2026-05-27T18:11:31Z | Orchestrator | A: Game Design | No new items; 7 tracked unchanged; last notified ~12h ago (< 48h) — no notification |
 | 2026-05-27T18:11:31Z | Orchestrator | B: Card Design | On hold — all 9 tracks complete; no new acceptances in card-index.md; AND/OR + effects-v04 awaiting primitive acceptance |
 | 2026-05-27T18:11:31Z | Orchestrator | C: App Design | On hold — no new accepted baselines in card-index.md; awaiting baseline acceptance to trigger auto-sync |
+| 2026-05-27T (user) | Diagnosis | C: Pages layout | Root cause identified: review/index.html was written to repo root, not docs/; GitHub Pages serves from docs/ only — review gallery has never been served by Pages; fix queued as priority App Design task |
 
 ---
 

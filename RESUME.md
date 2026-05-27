@@ -60,7 +60,7 @@ Card types: **Location, Character, Item, Event, Quest, Persona, Script**
 | design/variants/*.html | Card variant files | Orchestrator (autonomous) |
 | design/variants/CHANGES.md | Variant change log | Orchestrator |
 | APP.md | App design decisions | Orchestrator (with user feedback) |
-| review/index.html | Mobile card review gallery | Orchestrator (regenerated) |
+| docs/review/index.html | Mobile card review gallery | Orchestrator (regenerated) — ⚠️ migration pending; currently at review/index.html (root) which Pages cannot serve |
 | docs/editor/ | Built Angular app (GitHub Pages, flat layout) | Orchestrator (built) |
 | .github/workflows/deploy.yml | CI/CD deploy workflow | Orchestrator |
 | ORCHESTRATOR.md | System state / stream tracking | Orchestrator |
@@ -80,5 +80,5 @@ Card types: **Location, Character, Item, Event, Quest, Persona, Script**
 
 ## Gallery & Editor
 
-Card review gallery (GitHub Pages): https://gertvandbrempt.github.io/yarn-card-editor/review/  
+Card review gallery (GitHub Pages): https://gertvandbrempt.github.io/yarn-card-editor/review/ ⚠️ not currently served — fix queued  
 Live editor (GitHub Pages): https://gertvandbrempt.github.io/yarn-card-editor/editor/
