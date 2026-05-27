@@ -1,6 +1,6 @@
 # Yarn — Session Resume Context
 
-_Updated: 2026-05-26T12:14:09Z_
+_Updated: 2026-05-27T18:11:31Z_
 
 ---
 
@@ -15,8 +15,8 @@ Card types: **Location, Character, Item, Event, Quest, Persona, Script**
 ## Current stream status
 
 ### 🎮 Stream A — Game Design
-**Status:** Active — 7 discussion items tracked, no new items found this run  
-**Last notified:** 2026-05-25T15:07:31Z (~21h ago — < 48h threshold, no notification sent)  
+**Status:** Active — 7 discussion items tracked, no new items found  
+**Last notified:** 2026-05-27T06:13:53Z (~12h ago; < 48h — no notification this run)  
 **Pending items:**
 1. Script Card colour — purple placeholder in script-v01; must confirm before card-index.md entry
 2. Trigger priority (§7) — explicitly TBD; affects card layout ordering rules
@@ -27,25 +27,26 @@ Card types: **Location, Character, Item, Event, Quest, Persona, Script**
 7. Inline sym+modifier rendering (§6.1) — `[icon][modifier]` inline layout/sizing rules not yet finalised in VISUAL.md
 
 ### 🎨 Stream B — Card Design
-**Status:** Active — trigger-symbols-v03-a/b/c ✅ complete this run  
-**Completed tracks:**
+**Status:** On hold — all 9 design tracks complete, awaiting user acceptance  
+**Completed tracks (all awaiting acceptance):**
 - `activation-track-basic-v01-a/b/c` ✅
 - `activation-track-multiturn-v02-a/b/c` ✅ (corrected shapes)
 - `activation-track-multiuse-v01-a/b/c` ✅
 - `activation-track-use-v01-a/b/c` ✅ (one-time square marker)
 - `die-symbols-v01-a/b/c` ✅ (A: pip-count, B: shape-based, C: thematic-symbol)
-- `trigger-symbols-v03-a/b/c` ✅ **NEW** — A: geometric/angular; B: rounded/organic; C: pictographic/silhouette
+- `trigger-symbols-v03-a/b/c` ✅ (A: geometric/angular; B: rounded/organic; C: pictographic/silhouette)
+- `subtitle-v01-a/b/c` ✅ (A: below title Cinzel italic amber; B: between band+title Crimson Text italic cream+diamonds; C: embedded in type band second row)
+- `flavour-text-v01-a/b/c` ✅ (A: amber hairline rule centred; B: ornamental SVG divider left-aligned; C: integrated borderless sec-flavour)
+- `set-symbol-v01-a/b/c` ✅ (A: bottom-right circular container 18px; B: bottom-left rounded-square monogram 20px; C: frameless embossed trefoil 16px)
 
-**Next queued tracks (all independent):**
-- `subtitle-v01-a/b/c`
-- `flavour-text-v01-a/b/c`
-- `set-symbol-v01-a/b/c`
-- AND/OR compound tracks on hold until all 4 activation-track primitives accepted
+**Next queued tracks (blocked on acceptance):**
+- AND/OR compound tracks — on hold until all 4 activation-track primitives accepted
+- effects-v04 — on hold until trigger symbols + activation tracks both accepted
 
 ### 🖥️ Stream C — App Design
-**Status:** Active — auto-synced trigger-symbols-v03-a SVG defs → rebuilt + deployed  
-**This run:** 6 trigger symbol `<symbol>` defs updated in preview.service.ts (v02→v03-a geometric/angular); app bundle rebuilt; docs/editor/ redeployed  
-**Next:** Auto-sync when card-index.md is updated (new baseline accepted → re-sync baselines → rebuild → deploy)
+**Status:** On hold — no new baselines accepted  
+**Waiting for:** card-index.md to be updated with an accepted baseline → auto-sync SVGs + baselines → rebuild → deploy  
+**Next:** Auto-sync when card-index.md is updated
 
 ---
 
@@ -69,10 +70,9 @@ Card types: **Location, Character, Item, Event, Quest, Persona, Script**
 
 ## How to continue work
 
-- **Review new trigger symbol variants:** gallery at https://gertvandbrempt.github.io/yarn-card-editor/review/ — trigger-symbols-v03 now has 3 options. Say "accept trigger-symbols-v03-a" (or b/c) to promote.
-- **Review die symbols:** die-symbols-v01 has 3 options waiting. Say "accept die-symbols-v01-a" (or b/c).
-- **Accept activation tracks:** all 4 primitive types (basic/multiturn/multiuse/use) have 3 options ready — accepting any triggers the App Design auto-sync and rebuild.
-- **Try the editor:** https://gertvandbrempt.github.io/yarn-card-editor/editor/ — trigger symbols have been updated to v03-a geometric/angular style.
+- **Accept design variants:** All 9 design element tracks have 3 options (a/b/c) ready for review at the gallery. Accept any by saying "accept <element>-v<N>-<option>" (e.g. "accept trigger-symbols-v03-a"). Accepting unlocks the next design tracks and triggers App Design auto-sync.
+- **Tracks awaiting acceptance:** activation-track-basic-v01, activation-track-multiturn-v02, activation-track-multiuse-v01, activation-track-use-v01, die-symbols-v01, trigger-symbols-v03, subtitle-v01, flavour-text-v01, set-symbol-v01
+- **Try the editor:** https://gertvandbrempt.github.io/yarn-card-editor/editor/
 - **Game design session:** open Claude Code and say "game design" to discuss the 7 pending items.
 - **Weekly review gate:** due 2026-05-30T08:00:00Z — orchestrator will pause and notify you then.
 

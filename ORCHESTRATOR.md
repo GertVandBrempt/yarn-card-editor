@@ -7,8 +7,8 @@ This file is read and written by scheduled agents. Do not edit manually during a
 ```
 blocked_for_weekly_review: false
 weekly_review_due: 2026-05-30T08:00:00Z
-last_orchestrator_run: 2026-05-26T12:14:09Z
-last_status_notification: 2026-05-26T12:14:09Z
+last_orchestrator_run: 2026-05-27T18:11:31Z
+last_status_notification: 2026-05-27T06:13:53Z
 ```
 
 ## Work Streams
@@ -20,7 +20,7 @@ Streams are **independent** — a blocked stream does not pause other streams.
 ### Game Design
 - **Mode**: interactive (orchestrator surfaces topics; user drives sessions in Claude Code)
 - **Source**: DESIGN.md open issues and unresolved questions
-- **Status**: active — 7 discussion items tracked; no new items found in scan of 2026-05-26T12:14:09Z; < 48h since last notify — no notification sent
+- **Status**: active — 7 discussion items tracked; no new items found in scan of 2026-05-27T18:11:31Z; last notified ~12h ago (< 48h) — no notification
 - **Pending discussion items** *(top 7 by card-design impact)*:
   1. Script Card colour — purple placeholder in script-v01; must confirm before card-index.md entry
   2. Trigger priority (§7) — explicitly TBD; affects card layout ordering rules
@@ -29,7 +29,7 @@ Streams are **independent** — a blocked stream does not pause other streams.
   5. Location connections visual design (§3.3) — solid vs hollow arrows for face-down/face-up state; intent stated in DESIGN.md but not yet in VISUAL.md
   6. Character dual-mode layout (§3.4) — Character/Ally on one card; no visual design for split yet
   7. **Inline sym+modifier rendering (§6.1) — NEW** — effect text with `[icon][modifier]` groups; final inline layout/sizing rules not yet in VISUAL.md; effects-v03 demonstrates it
-- **Last notified**: 2026-05-25T15:07:31Z
+- **Last notified**: 2026-05-27T06:13:53Z
 - **Blocked on**: —
 
 ---
@@ -37,7 +37,7 @@ Streams are **independent** — a blocked stream does not pause other streams.
 ### Card Design
 - **Mode**: autonomous
 - **Source**: design/VISUAL.md, design/card-index.md
-- **Status**: active — activation-track-basic-v01 ✅; activation-track-multiturn-v02 ✅; activation-track-multiuse-v01 ✅; activation-track-use-v01 ✅; die-symbols-v01 ✅; trigger-symbols-v03 ✅ complete (a/b/c, 2026-05-26T12:14:09Z)
+- **Status**: on hold — all 9 tracks complete; remaining tasks (AND/OR compound tracks, effects-v04) on hold pending user acceptance of primitives; no card work this run; no new acceptances detected as of 2026-05-27T18:11:31Z
 
 #### Global rules (apply to all Card Design work)
 
@@ -65,13 +65,13 @@ Streams are **independent** — a blocked stream does not pause other streams.
 - ~~**die-symbols-v01-a/b/c**~~ — ✅ Complete (2026-05-26T06:22:00Z) — option A: flat square + pip-count; option B: die body shape distinguishes type (rounded-sq/diamond/hex); option C: thematic amber symbol inside dark body (ring/bolt/branching arrow)
 
 **Track 3 — Subtitle** *(3 options)*
-- **subtitle-v01-a/b/c** — Header subtitle design per VISUAL.md §9.1; each option shows a card with subtitle present and one without
+- ~~**subtitle-v01-a/b/c**~~ — ✅ Complete (2026-05-26T13:03:32Z) — A: below title, Cinzel italic amber; B: between band+title, Crimson Text italic cream+diamonds; C: embedded in type band as second row, band expands 35→52px
 
 **Track 4 — Flavour Text** *(3 options)*
-- **flavour-text-v01-a/b/c** — Flavour text zone design per VISUAL.md §9.2; italic lore text, visual separator from mechanics, absent on cards without it
+- ~~**flavour-text-v01-a/b/c**~~ — ✅ Complete (2026-05-26T13:19:45Z) — A: amber hairline rule + dark tinted panel, centred 12.5px italic; B: ornamental SVG divider (amber diamond+lines), left-aligned 13.5px italic; C: fully integrated borderless sec-flavour row inside mechanics frame, 14px italic
 
 **Track 5 — Set Symbol** *(3 options)*
-- **set-symbol-v01-a/b/c** — Set symbol position/size/treatment per VISUAL.md §9.3; small glyph in corner; consistent across all card types
+- ~~**set-symbol-v01-a/b/c**~~ — ✅ Complete (2026-05-26T18:16:00Z) — option A: bottom-right circular container (r=8.5) with diamond glyph + amber ring, 18px; option B: bottom-left rounded-square with monogram "Y" placeholder (Cinzel 700), 20px; option C: frameless embossed trefoil knot in frame border zone, 16px
 
 **Track 6 — Trigger Symbols** *(3 options)*
 - ~~**trigger-symbols-v03-a/b/c**~~ — ✅ Complete (2026-05-26T12:14:09Z) — option A: geometric/angular (star starburst, triangle+chevron, arrow polygon, octagon clock, diamond checkmark, double-chevron+pip); option B: rounded/organic (ray burst, arch+teardrop, pill arrow, circle clock, rounded square, horizontal pill); option C: pictographic/silhouette (eye, doorway, boot, person figure, scroll, track rails); all follow §7 dark body #1a0e04 + amber detail #d4b87a
@@ -79,7 +79,7 @@ Streams are **independent** — a blocked stream does not pause other streams.
 **Hold:** effects-v04 — create only after trigger symbols + activation tracks both accepted
 
 - **Blocked on**: —
-- **Last notified**: 2026-05-26T12:14:09Z
+- **Last notified**: 2026-05-26T18:16:00Z
 
 ---
 
@@ -168,6 +168,27 @@ _(none)_
 | 2026-05-26T12:14:09Z | Orchestrator | A: Game Design | No new items; 7 tracked unchanged; last notified ~21h ago (< 48h) — no notification |
 | 2026-05-26T12:14:09Z | Orchestrator | B: Card Design | trigger-symbols-v03-a/b/c complete (A=geometric/angular, B=rounded/organic, C=pictographic/silhouette); CHANGES.md updated; review/index.html updated; user notified |
 | 2026-05-26T12:14:09Z | Orchestrator | C: App Design | Auto-sync: trigger-symbols-v03-a SVG defs synced into preview.service.ts; app rebuilt; docs/editor/ redeployed |
+| 2026-05-26T13:03:32Z | Orchestrator | A: Game Design | No new items; 7 tracked unchanged; last notified ~22h ago (< 48h) — no notification |
+| 2026-05-26T13:03:32Z | Orchestrator | B: Card Design | subtitle-v01-a/b/c complete (A=below title Cinzel italic amber; B=between band+title Crimson Text italic cream+diamonds; C=embedded in type band second row 35→52px); CHANGES.md updated; review/index.html updated; user notified |
+| 2026-05-26T13:03:32Z | Orchestrator | C: App Design | On hold — no new baselines in card-index.md; awaiting baseline acceptance to trigger auto-sync |
+| 2026-05-26T13:19:45Z | Orchestrator | A: Game Design | No new items; 7 tracked unchanged; last notified ~22h ago (< 48h) — no notification |
+| 2026-05-26T13:19:45Z | Orchestrator | B: Card Design | flavour-text-v01-a/b/c complete (A=amber hairline rule centred; B=ornamental SVG divider left-aligned; C=integrated borderless sec-flavour row); CHANGES.md updated; review/index.html updated; user notified |
+| 2026-05-26T13:19:45Z | Orchestrator | C: App Design | On hold — no new accepted baselines in card-index.md; awaiting baseline acceptance to trigger auto-sync |
+| 2026-05-26T18:16:00Z | Orchestrator | A: Game Design | No new items; 7 tracked unchanged; last notified ~27h ago (< 48h) — no notification |
+| 2026-05-26T18:16:00Z | Orchestrator | B: Card Design | set-symbol-v01-a/b/c complete (A=bottom-right circular container diamond glyph 18px; B=bottom-left rounded-square monogram "Y" 20px; C=frameless embossed trefoil in frame border 16px); CHANGES.md updated; review/index.html updated; user notified |
+| 2026-05-26T18:16:00Z | Orchestrator | C: App Design | On hold — no new accepted baselines in card-index.md; awaiting baseline acceptance to trigger auto-sync |
+| 2026-05-27T00:14:44Z | Orchestrator | A: Game Design | No new items; 7 tracked unchanged; last notified ~33h ago (< 48h) — no notification |
+| 2026-05-27T00:14:44Z | Orchestrator | B: Card Design | On hold — all 9 tracks complete; AND/OR + effects-v04 awaiting primitive acceptance |
+| 2026-05-27T00:14:44Z | Orchestrator | C: App Design | On hold — no new accepted baselines in card-index.md; awaiting baseline acceptance to trigger auto-sync |
+| 2026-05-27T06:13:53Z | Orchestrator | A: Game Design | No new items; 7 tracked unchanged; last notified ~55h ago (> 48h threshold) — notification sent |
+| 2026-05-27T06:13:53Z | Orchestrator | B: Card Design | On hold — all 9 tracks complete; no new acceptances in card-index.md; AND/OR + effects-v04 awaiting primitive acceptance |
+| 2026-05-27T06:13:53Z | Orchestrator | C: App Design | On hold — no new accepted baselines in card-index.md; awaiting baseline acceptance to trigger auto-sync |
+| 2026-05-27T12:20:20Z | Orchestrator | A: Game Design | No new items; 7 tracked unchanged; last notified ~6h ago (< 48h) — no notification |
+| 2026-05-27T12:20:20Z | Orchestrator | B: Card Design | On hold — all 9 tracks complete; no new acceptances in card-index.md; AND/OR + effects-v04 awaiting primitive acceptance |
+| 2026-05-27T12:20:20Z | Orchestrator | C: App Design | On hold — no new accepted baselines in card-index.md; awaiting baseline acceptance to trigger auto-sync |
+| 2026-05-27T18:11:31Z | Orchestrator | A: Game Design | No new items; 7 tracked unchanged; last notified ~12h ago (< 48h) — no notification |
+| 2026-05-27T18:11:31Z | Orchestrator | B: Card Design | On hold — all 9 tracks complete; no new acceptances in card-index.md; AND/OR + effects-v04 awaiting primitive acceptance |
+| 2026-05-27T18:11:31Z | Orchestrator | C: App Design | On hold — no new accepted baselines in card-index.md; awaiting baseline acceptance to trigger auto-sync |
 
 ---
 
