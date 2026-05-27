@@ -7,7 +7,7 @@ This file is read and written by scheduled agents. Do not edit manually during a
 ```
 blocked_for_weekly_review: false
 weekly_review_due: 2026-05-30T08:00:00Z
-last_orchestrator_run: 2026-05-26T18:16:00Z
+last_orchestrator_run: 2026-05-27T00:14:44Z
 last_status_notification: 2026-05-26T13:03:32Z
 ```
 
@@ -20,7 +20,7 @@ Streams are **independent** — a blocked stream does not pause other streams.
 ### Game Design
 - **Mode**: interactive (orchestrator surfaces topics; user drives sessions in Claude Code)
 - **Source**: DESIGN.md open issues and unresolved questions
-- **Status**: active — 7 discussion items tracked; no new items found in scan of 2026-05-26T18:16:00Z; < 48h since last notify — no notification sent
+- **Status**: active — 7 discussion items tracked; no new items found in scan of 2026-05-27T00:14:44Z; < 48h since last notify — no notification sent
 - **Pending discussion items** *(top 7 by card-design impact)*:
   1. Script Card colour — purple placeholder in script-v01; must confirm before card-index.md entry
   2. Trigger priority (§7) — explicitly TBD; affects card layout ordering rules
@@ -37,7 +37,7 @@ Streams are **independent** — a blocked stream does not pause other streams.
 ### Card Design
 - **Mode**: autonomous
 - **Source**: design/VISUAL.md, design/card-index.md
-- **Status**: active — activation-track-basic-v01 ✅; activation-track-multiturn-v02 ✅; activation-track-multiuse-v01 ✅; activation-track-use-v01 ✅; die-symbols-v01 ✅; trigger-symbols-v03 ✅; subtitle-v01 ✅; flavour-text-v01 ✅; set-symbol-v01 ✅ complete (a/b/c, 2026-05-26T18:16:00Z)
+- **Status**: active — all 9 tracks complete; remaining tasks (AND/OR compound tracks, effects-v04) on hold pending user acceptance of primitives; no card work this run
 
 #### Global rules (apply to all Card Design work)
 
@@ -86,7 +86,7 @@ Streams are **independent** — a blocked stream does not pause other streams.
 ### App Design
 - **Mode**: autonomous
 - **Source**: APP.md
-- **Status**: active — on hold; no new accepted baselines in card-index.md since last sync (trigger-symbols-v03-a at 2026-05-26T12:14:09Z); subtitle-v01, flavour-text-v01, set-symbol-v01 complete but not yet accepted
+- **Status**: on hold — no new accepted baselines in card-index.md since last sync; all design elements (trigger-symbols, activation-tracks, die-symbols, subtitle, flavour-text, set-symbol) awaiting user acceptance
 - **Next task**: Auto-sync when Card Design accepts a baseline (card-index.md updated → re-sync SVGs + baselines → rebuild → deploy)
 - **Completed tasks**:
   1. ✅ `SymbolReferenceModalComponent` — wired to `EffectEditorComponent` with `?` button, Escape close, mobile full-screen
@@ -176,6 +176,9 @@ _(none)_
 | 2026-05-26T18:16:00Z | Orchestrator | A: Game Design | No new items; 7 tracked unchanged; last notified ~27h ago (< 48h) — no notification |
 | 2026-05-26T18:16:00Z | Orchestrator | B: Card Design | set-symbol-v01-a/b/c complete (A=bottom-right circular container diamond glyph 18px; B=bottom-left rounded-square monogram "Y" 20px; C=frameless embossed trefoil in frame border 16px); CHANGES.md updated; review/index.html updated; user notified |
 | 2026-05-26T18:16:00Z | Orchestrator | C: App Design | On hold — no new accepted baselines in card-index.md; awaiting baseline acceptance to trigger auto-sync |
+| 2026-05-27T00:14:44Z | Orchestrator | A: Game Design | No new items; 7 tracked unchanged; last notified ~33h ago (< 48h) — no notification |
+| 2026-05-27T00:14:44Z | Orchestrator | B: Card Design | On hold — all 9 tracks complete; AND/OR + effects-v04 awaiting primitive acceptance |
+| 2026-05-27T00:14:44Z | Orchestrator | C: App Design | On hold — no new accepted baselines in card-index.md; awaiting baseline acceptance to trigger auto-sync |
 
 ---
 
