@@ -101,13 +101,13 @@ body { margin: 0; display: flex; justify-content: center; align-items: flex-star
     Row 1: activation marker → effect (fires on activation)
     Row 2: [flow marker — hollow diamond only] — no effect, pure delay slot
     Row 3: cooldown trigger marker (hollow diamond + right-vertex notch) → effect (fires on flow)
-  mech-frame height: 220px to accommodate the three rows.
+  mech-frame height: auto — content-driven per VISUAL.md §6.0.
 */
 .mech-frame {
   position: absolute;
   left: 22.5px; right: 22.5px;
   bottom: 22.5px;
-  height: 220px;
+  height: auto;
   z-index: 12;
   pointer-events: none;
   background: linear-gradient(to bottom, transparent 0%, rgba(122,72,24,.25) 10%, rgba(122,72,24,.25) 90%, transparent 100%);
@@ -123,11 +123,9 @@ body { margin: 0; display: flex; justify-content: center; align-items: flex-star
 .mech-rule-bot { bottom: 0; }
 
 .mech-sections {
-  position: absolute;
-  top: 1px; bottom: 1px; left: 0; right: 0;
+  position: relative;
   display: flex;
   flex-direction: column;
-  overflow: hidden;
 }
 .sec {
   width: 100%;
