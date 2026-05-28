@@ -332,6 +332,28 @@ Condition-initiated effects that fire automatically when the named condition is 
 
 > No trigger is restricted to a specific card type by default. The "Typical Use" column reflects common design patterns, not hard rules — card designers are trusted to apply triggers where they make sense.
 
+#### Effect Container Model
+
+Effects are organised into at most four containers, displayed on the card in a fixed order. Container order also defines **trigger resolution priority** — effects in earlier containers resolve before those in later containers. Within a container, effects resolve top to bottom as printed on the card.
+
+| Order | Container | Triggers |
+|---|---|---|
+| 1 | **Permanent** | Passive effects (no trigger) |
+| 2 | **Entry** | On Reveal, On Enter, Character Phase |
+| 3 | **Action** | Action (activation marker), On Flow Marker |
+| 4 | **Exit** | On Leave, On Complete |
+
+A container is only rendered if it has at least one effect row. Empty containers are hidden.
+
+**Row formats:**
+- **Permanent:** `<effect>` — no leading symbol; inline text handles any condition on the effect
+- **Entry / Exit:** `<trigger symbol> → <effect>`
+- **Action:** one of:
+  - `<activation marker> → <effect>` — player places token here to fire
+  - `<flow marker>` — token slot only; no effect; pure delay or visual placeholder
+  - `<cooldown trigger marker> → <effect>` — fires automatically when token advances onto this marker (On Flow Marker)
+  - `<N use markers> → <effect>` — N pre-filled token slots; each removed token represents one use spent
+
 ---
 
 ## 5. Dice System
@@ -395,4 +417,5 @@ A session is divided into one or more **acts**, each governed by one Main Quest 
 
 ## 7. Open Questions
 
-- [ ] Trigger priority: exact resolution rules TBD, but priority order must be represented in the card's visual layout — the order triggers appear on the card defines the order they resolve.
+- [x] Trigger priority — **resolved at container level**: Permanent → Entry → Action → Exit; within a container, top-to-bottom row order on the card defines resolution order
+- [ ] Trigger priority — **cross-card**: when multiple cards fire the same trigger simultaneously, resolution order between cards is still TBD

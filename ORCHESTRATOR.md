@@ -2,6 +2,12 @@
 
 This file is read and written by scheduled agents. Do not edit manually during an active agent run.
 
+## Behavioral Rules *(enforced every run)*
+
+- **No mid-run notifications** — send only one PushNotification per run, at the very end, after the review streams complete
+- **Review streams** — after all three work streams (A, B, C) finish and changes are committed, dispatch a review sub-agent for Card Design (B) and App Design (C) in parallel; see §Review Stream Rules below
+- **Conditional final notification** — only send the final notification after review is complete; content depends on review outcome (see §Review Stream Rules)
+
 ## System Control
 
 ```
@@ -37,13 +43,46 @@ Streams are **independent** — a blocked stream does not pause other streams.
 ### Card Design
 - **Mode**: autonomous
 - **Source**: design/VISUAL.md, design/card-index.md
-- **Status**: on hold — all 9 tracks complete; remaining tasks (AND/OR compound tracks, effects-v04) on hold pending user acceptance of primitives; no card work this run; no new acceptances detected as of 2026-05-28T06:15:43Z
+- **Status**: active — 4 design elements accepted; marker shapes accepted; activation track rework queued
+
+#### Accepted design elements (2026-05-28)
+- ✅ **effects-container-v04** — gradient-fade section borders (opacity 0.7), 0.15 translucent fill; see VISUAL.md §6
+- ✅ **set-symbol-v01-a** — bottom-right circular container, diamond glyph, amber ring, 18px; see VISUAL.md §9.3
+- ✅ **flavour-text-v01-c** — borderless inset at bottom of mechanics frame, gradient-fade top only, Crimson Text 14px italic; see VISUAL.md §9.2
+- ✅ **subtitle-v01-a** — below title, Cinzel 400 italic amber, centre rule separator; see VISUAL.md §9.1
+
+#### Accepted marker shapes (2026-05-28)
+- ✅ **Activation marker** — inlayed diamond (reference: `activation-track-basic-v01-b`)
+- ✅ **Flow marker (cooldown slot)** — hollow diamond, no inner element (reference: `activation-track-multiturn-v02-a`)
+- ✅ **Use marker** — square with inner square (reference: `activation-track-use-v01-a`)
+- ⚠️ **Cooldown trigger marker** — NOT YET DESIGNED; spec in VISUAL.md §8: hollow diamond + small rightward arrow/wedge on right vertex; must be created before track rework can be completed
+
+#### Next tasks (in order)
+
+**Task 1 — Design cooldown trigger marker (PRIORITY — blocks Task 2)**
+Create `design/variants/cooldown-trigger-marker-v01-a/b/c` — three options for the cooldown trigger marker visual. Each option must show the marker at card scale in context (inside an action row on a card). Follow the spec in VISUAL.md §8: hollow diamond outer silhouette with a small rightward-pointing indicator on the right vertex. Options vary the indicator style (wedge / arrowhead / notch). Do NOT vary the outer diamond shape — that is locked.
+
+**Task 2 — Baseline propagation (blocked until Task 1 and cooldown trigger marker accepted)**
+Update all card type baseline files in `design/variants/` (per card-index.md) to incorporate the four accepted design elements (effects-container-v04, set-symbol-v01-a, flavour-text-v01-c, subtitle-v01-a).
+
+**Task 3 — Activation track rework (blocked until cooldown trigger marker accepted)**
+Create new activation track variants for all four primitive track types using the accepted marker shapes. Previous track variants (`activation-track-basic-v01`, `activation-track-multiturn-v01/v02`, `activation-track-multiuse-v01`, `activation-track-use-v01`) are superseded — do NOT show them on the review page. New variants must:
+- Show cards with the correct 4-container layout (VISUAL.md §6): Permanent (blue) / Entry (yellow) / Action (red) / Exit (yellow)
+- Use accepted marker shapes per VISUAL.md §8
+- Show each track type in the Action container with realistic effect rows
+- Three options (a/b/c) per track type — vary spacing, proportions, and layout density, NOT the marker shapes
+- Track types to cover: Basic, Multi-turn (with flow markers and cooldown trigger), Multi-use, Use
+
+#### Still awaiting acceptance
+- die-symbols-v01 (a/b/c)
+- trigger-symbols-v03 (a/b/c)
 
 #### Global rules (apply to all Card Design work)
 
 - **Three options per design item**: every new visual element produces exactly 3 variants — option a, b, c — each a single card; named `<element>-v<N>-a.html`, `<element>-v<N>-b.html`, `<element>-v<N>-c.html`; design ID label visible on review page below each card
 - **Independence**: each design item is independent — holding or blocking one item does not affect any other
 - **Review page structure**: after any card design action, regenerate `docs/review/index.html` with two sections: **Under Review** (grouped by design element, 3 options side by side per group) and **Accepted** (one entry per accepted item); see VISUAL.md §10 for full spec. The file lives at `docs/review/index.html` — never at `review/index.html` (root-level path is not served by GitHub Pages)
+- **Superseded versions rule**: when a design round receives feedback and a new round (v<N+1>) is created, **only show the current round on the review page** — remove all previous round options from Under Review; superseded versions are never accepted and must not appear; HTML files stay on disk but are not linked from the review page; applies immediately: `activation-track-multiturn-v01-a/b/c` must be removed from the review page (superseded by v02)
 
 #### Independent design tracks (each runs independently)
 
@@ -86,8 +125,32 @@ Streams are **independent** — a blocked stream does not pause other streams.
 ### App Design
 - **Mode**: autonomous
 - **Source**: APP.md
-- **Status**: on hold — awaiting baseline acceptance in card-index.md to trigger auto-sync; review gallery at `docs/review/index.html`; no new acceptances detected as of 2026-05-28T06:15:43Z
-- **Next task**: On hold — awaiting baseline acceptance in card-index.md to trigger auto-sync; all future review page writes go to `docs/review/index.html` only
+- **Status**: active — three confirmed issues; fix in priority order below
+
+#### Known issues (user-reported 2026-05-28)
+1. **Site not on GitHub Pages** — editor URL returns no content; no GitHub Actions notification received; previous stale pages still served; likely a workflow auth or trigger failure
+2. **Live preview not updating** — card preview does not reflect form field changes in real time
+3. **Viewport too small** — site appears to render in mobile layout on desktop; viewport meta or breakpoints may be misconfigured
+
+#### Next tasks (in order)
+
+**Task 0 — Delete GitHub Actions workflow (do first)**
+Delete `.github/workflows/deploy.yml` — it is redundant with the orchestrator's own build pipeline and has been silently failing. The orchestrator owns the full build + deploy cycle. Deleting this file removes a source of confusion and eliminates the risk of two processes pushing to `docs/editor/` simultaneously.
+
+**Task 1 — Verify and harden GitHub Pages deployment**
+GitHub Pages is now configured by the user to deploy from branch `master` / folder `/docs`. Content in `docs/editor/` and `docs/review/` is already committed. Steps:
+- Verify `.github/workflows/deploy.yml` — `git push` must be authenticated; `git add` must include `docs/editor/`, `docs/review/`, and `docs/.nojekyll`; build command must NOT pass `--output-path` flag
+- Ensure `docs/.nojekyll` exists (prevents Jekyll interference)
+- Reviewer will verify editor and review URLs return 200 and serve current content
+
+**Task 2 — Fix live preview**
+Read `yarn-card-editor/src/app/services/preview.service.ts`. Verify that form field changes in `CardFormComponent` trigger `PreviewService.injectFields()` and that the iframe/preview element re-renders. Fix any missing subscriptions or change detection issues.
+
+**Task 3 — Fix card preview scale**
+The card live preview is too small — the preview area renders at mobile/small scale even on desktop. The overall site layout is fine. Read `yarn-card-editor/src/app/components/card-preview/` and the relevant CSS. The card preview should render at a size appropriate for desktop — check the `transform:scale()` value applied to the preview card and the container dimensions; ensure the preview scales to fill its container at desktop viewport widths rather than being fixed at a small mobile scale.
+
+#### Auto-sync rule (unchanged)
+After Card Design propagates accepted baselines → re-sync updated baseline HTMLs into `yarn-card-editor/src/assets/templates/`; rebuild; redeploy.
 - **Completed tasks**:
   1. ✅ `SymbolReferenceModalComponent` — wired to `EffectEditorComponent` with `?` button, Escape close, mobile full-screen
   2. ✅ Responsive layout — 3 breakpoints, mobile drawer nav, hamburger button, `transform:scale()` card preview
@@ -107,6 +170,67 @@ Streams are **independent** — a blocked stream does not pause other streams.
   - `.nojekyll`: `docs/.nojekyll` ✅ (created 2026-05-28T00:17:35Z)
 - **Blocked on**: —
 - **Last notified**: 2026-05-25T15:07:31Z
+
+---
+
+## Review Stream Rules
+
+These rules govern the review sub-agents dispatched after each orchestrator run where B or C did work.
+
+### When to dispatch
+After STEP 7 (commit and push): dispatch review sub-agents for any stream that returned `status: done` this run. B-Review and C-Review run in parallel.
+
+### Card Design reviewer (B-Review) — prompt
+```
+You are a critical card design reviewer for the Yarn project. Be sceptical and precise.
+
+Read: design/VISUAL.md, design/card-index.md, design/variants/CHANGES.md, and every variant HTML file created or modified this run (listed in CHANGES.md).
+
+Check ALL of the following and flag any failure:
+1. Do variant files contain only a single card — no page chrome, no body background, no extra text?
+2. Do created variants use the accepted marker shapes from VISUAL.md §8 (correct activation, flow, use, cooldown trigger markers)?
+3. Do effect containers follow the 4-container model from VISUAL.md §6 (Permanent/Entry/Action/Exit, correct colors, no section labels, correct row formats per container)?
+4. Do card dimensions match VISUAL.md §1 (375×525px, 12.5px radius)?
+5. Does the review page (docs/review/index.html) show only the CURRENT round for each design element — no superseded versions?
+6. Do accepted items appear in the Accepted section, not Under Review?
+7. Are all container heights content-driven — no overflow, no clipping, no fixed heights with overflowing content?
+
+Return exactly:
+REVIEW_RESULT
+verdict: ACCEPT or REJECT
+findings:
+- [numbered list of specific failures, or "none" if ACCEPT]
+END_RESULT
+```
+
+### App Design reviewer (C-Review) — prompt
+```
+You are a critical app design reviewer for the Yarn project. Be sceptical and precise.
+
+Check ALL of the following:
+1. HTTP status of https://gertvandbrempt.github.io/yarn-card-editor/editor/ — run: curl -s -o /dev/null -w "%{http_code}" <url>; must be 200
+2. HTTP status of https://gertvandbrempt.github.io/yarn-card-editor/review/ — must be 200
+3. Read docs/editor/index.html — base href must be "/yarn-card-editor/editor/"; JS and CSS must be referenced without a "browser/" subfolder
+4. Read docs/.nojekyll — must exist (even if empty)
+5. Read yarn-card-editor/src/index.html — viewport meta must be "width=device-width, initial-scale=1"
+6. Read yarn-card-editor/src/app/services/preview.service.ts — verify injectFields() is called on form value changes; flag if there are missing subscriptions or change-detection gaps
+7. Read .github/workflows/deploy.yml — verify git push is authenticated; verify git add includes docs/editor/, docs/review/, and docs/.nojekyll; verify build command does NOT pass --output-path flag
+8. Read yarn-card-editor/angular.json — verify outputPath is {"base": "../docs/editor", "browser": ""}
+
+Return exactly:
+REVIEW_RESULT
+verdict: ACCEPT or REJECT
+findings:
+- [numbered list of specific failures, or "none" if ACCEPT]
+END_RESULT
+```
+
+### One-shot retry
+If a reviewer returns REJECT: the orchestrator sends one response addressing the findings (additional context, corrections, or acknowledgement that findings are valid and tasks have been added). The reviewer makes a final ACCEPT or REJECT based on that response.
+
+### Final notification
+- **All accepted**: send ONE PushNotification — summary of what changed this run only; no stream status, no file lists
+- **Any rejected**: add each rejected finding as a numbered task in the relevant stream's Next tasks in ORCHESTRATOR.md; commit; send ONE PushNotification — "🔴 Review failed" + reviewer findings + tasks added; no other content
 
 ---
 

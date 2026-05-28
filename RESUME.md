@@ -27,26 +27,23 @@ Card types: **Location, Character, Item, Event, Quest, Persona, Script**
 7. Inline sym+modifier rendering (§6.1) — `[icon][modifier]` inline layout/sizing rules not yet finalised in VISUAL.md
 
 ### 🎨 Stream B — Card Design
-**Status:** On hold — all 9 design tracks complete, awaiting user acceptance  
-**Completed tracks (all awaiting acceptance):**
-- `activation-track-basic-v01-a/b/c` ✅
-- `activation-track-multiturn-v02-a/b/c` ✅ (corrected shapes)
-- `activation-track-multiuse-v01-a/b/c` ✅
-- `activation-track-use-v01-a/b/c` ✅ (one-time square marker)
-- `die-symbols-v01-a/b/c` ✅ (A: pip-count, B: shape-based, C: thematic-symbol)
-- `trigger-symbols-v03-a/b/c` ✅ (A: geometric/angular; B: rounded/organic; C: pictographic/silhouette)
-- `subtitle-v01-a/b/c` ✅ (A: below title Cinzel italic amber; B: between band+title Crimson Text italic cream+diamonds; C: embedded in type band second row)
-- `flavour-text-v01-a/b/c` ✅ (A: amber hairline rule centred; B: ornamental SVG divider left-aligned; C: integrated borderless sec-flavour)
-- `set-symbol-v01-a/b/c` ✅ (A: bottom-right circular container 18px; B: bottom-left rounded-square monogram 20px; C: frameless embossed trefoil 16px)
-
-**Next queued tracks (blocked on acceptance):**
-- AND/OR compound tracks — on hold until all 4 activation-track primitives accepted
-- effects-v04 — on hold until trigger symbols + activation tracks both accepted
+**Status:** Active — marker shapes accepted; 3 tasks queued  
+**Accepted:**
+- Marker shapes locked: activation = inlayed diamond (basic-v01-b ref), flow = hollow diamond (multiturn-v02-a ref), use = square+square (use-v01-a ref)
+- 4 design elements: effects-container-v04, set-symbol-v01-a, flavour-text-v01-c, subtitle-v01-a
+**Next tasks (in order):**
+1. Design cooldown trigger marker (hollow diamond + right-edge arrow) — 3 options; BLOCKS task 2 and 3
+2. Baseline propagation — apply 4 accepted elements to all type baselines
+3. Activation track rework — all 4 track types, using accepted markers, 4-container layout
+**Still awaiting acceptance:** die-symbols-v01, trigger-symbols-v03
 
 ### 🖥️ Stream C — App Design
-**Status:** On hold — awaiting baseline acceptance  
-**Last action:** Review gallery migrated to `docs/review/index.html` (2026-05-28T00:17:35Z)  
-**Next:** On hold — awaiting baseline acceptance in card-index.md to trigger auto-sync
+**Status:** Active — 3 confirmed issues; fix in priority order  
+**Issues:**
+1. Site not on GitHub Pages — no build notification received; stale pages still up
+2. Live preview not updating on form change
+3. Viewport too small on desktop (mobile layout rendering)
+**Next:** Fix deployment first (Task 1), then live preview (Task 2), then viewport (Task 3)
 
 ---
 

@@ -74,38 +74,40 @@ Each uses the card type's color mixed into a near-black (e.g. `rgba(10,50,25,.9)
 
 ---
 
-## 6. Effect Sections
+## 6. Effect Containers
 
-The mechanics frame (bottom panel) is divided into four sections top-to-bottom:
+The mechanics frame (bottom panel) is divided into up to four containers, displayed top-to-bottom in fixed order. Only containers with at least one row are rendered.
 
-| Section | Color | Purpose |
-|---|---|---|
-| Passive | Blue | Always-on effects |
-| Trigger — entry | Yellow | On Reveal / On Enter |
-| Actions | Red | Player-initiated effects |
-| Trigger — exit | Yellow | On Leave / On Discard |
+| Order | Container | Color | Triggers |
+|---|---|---|---|
+| 1 | **Permanent** | Blue | Passive effects (no trigger) |
+| 2 | **Entry** | Yellow | On Reveal, On Enter, Character Phase |
+| 3 | **Action** | Red | Action (activation marker), On Flow Marker |
+| 4 | **Exit** | Yellow | On Leave, On Complete |
 
-Treatment: 0.15 translucent fill + gradient-fade 1 px top and bottom border per section (opacity 0.7, fading transparent → color 18%–82% → transparent).
+**Visual treatment — locked design `effects-container-v04` (accepted 2026-05-28):** 0.15 translucent fill per container + gradient-fade 1 px top and bottom border per container (opacity 0.7, fading transparent → color at 18%–82% → transparent).
 
 ### 6.0 Dynamic Container Rule
 
-Mechanics frame containers are **dynamic** in the final rendered card:
+- A container is only rendered if it has at least one row
+- Container height auto-adjusts to its row count — no fixed heights, no empty space
+- No separators between rows within a container
 
-- A container is only rendered if it contains at least one effect or action row
-- Container height auto-adjusts to its contents — no fixed heights, no empty space
-- A card with only triggers shows only the trigger container(s); a card with only actions shows only the actions container; a card with both shows both
+### 6.1 Row Formats
 
-This is a rendering rule for the live editor and exported cards. Design variants may include empty containers when useful for reference context.
+**No container labels** — container identity is communicated by background color only; do not render "PERMANENT", "ON REVEAL", "ACTION", etc. as text.
 
-### 6.1 Effect Display Model
+| Container | Row format |
+|---|---|
+| **Permanent** | `<effect>` — no leading symbol; any condition on the effect is inline text |
+| **Entry** | `<trigger symbol> → <effect>` |
+| **Exit** | `<trigger symbol> → <effect>` |
+| **Action** | `<activation marker> → <effect>` |
+| | `<flow marker>` — token slot only, no effect text |
+| | `<cooldown trigger marker> → <effect>` — fires on On Flow Marker |
+| | `<N use markers> → <effect>` — N physical token slots leading to one effect |
 
-- **No section labels** — section identity is communicated by background color only; do not render "PASSIVE", "ON REVEAL", "ACTION", etc. as text
-- **Sym+modifier group** — `[icon][modifier]` is an atomic inline unit; a modifier is either a number (amount) or a short label (set-aside card name); the group floats inline in flowing effect text
-- **Row format** — every effect row uses the pattern: `[leading symbol] [effect text]`
-  - Trigger rows: leading symbol = trigger symbol (On Reveal, On Enter, On Leave, etc.)
-  - Action rows: leading symbol = activation marker for that action's track
-  - Passive rows: no leading symbol — effect text only
-- **Text and trigger/action rows share the same formatting rules** — no visual distinction between a trigger row and an action row beyond the leading symbol
+**Sym+modifier group** — `[icon][modifier]` is an atomic inline unit within effect text; a modifier is either a number (amount) or a short label (set-aside card name).
 
 ---
 
@@ -211,20 +213,20 @@ AND and OR are **compound containers** — each holds two or more sub-tracks. Ea
 - **Display context:** shown in use on a card — leading marker in an action row; include whatever containers are useful for the reference mockup
 - **Container scaling — no overflow:** the action row container must grow to fit all markers at their target size; markers are never scaled down to fit a fixed container and never allowed to overflow or clip; if a track has many markers (e.g. multi-use with 4+ slots), the container height increases to accommodate them at full size
 
-### Conceptual framework — marker shapes *(locked — 2026-05-25)*
+### Marker shape vocabulary *(shapes locked; visual reference files accepted 2026-05-28)*
 
-Every marker shape communicates **who or what fires the trigger**. All shapes share the same visual weight and size.
+Every marker communicates **who or what fires the trigger**. All markers share the same visual weight and size. The diamond is the unifying design element — all track markers are variants of the same diamond silhouette except the use marker, which rotates it 45°.
 
-#### Shape vocabulary
+| Marker | Shape | Accepted reference | Meaning |
+|---|---|---|---|
+| **Activation marker** | Outer diamond + inlayed inner diamond | `activation-track-basic-v01-b` | Player places token here to fire the action |
+| **Flow marker (cooldown slot)** | Hollow / empty diamond — no inner element | `activation-track-multiturn-v02-a` | Token rests here during cooldown; no effect fires; pure delay slot |
+| **Cooldown trigger marker** | Hollow diamond + right-edge arrow indicator | *(no accepted file yet — spec below)* | Auto-fires an effect when token advances onto this slot (On Flow Marker); same hollow diamond silhouette as flow marker; a small arrow or wedge on the right edge of the outer diamond signals the auto-fire |
+| **Use marker** | Square with inner square (diamond rotated 45°) | `activation-track-use-v01-a` | Pre-filled token slot; token removed on use; N markers = N charges |
 
-The diamond is the **unifying design element** across all marker types. All activation/cooldown markers are variants of the same diamond silhouette — close visual relatives that share a family look while remaining distinct:
+#### Cooldown trigger marker — design spec
 
-| Marker | Shape | Meaning |
-|---|---|---|
-| **Activation marker** | Diamond with inner diamond | Player-fired trigger — diamond orientation (point up/down); inner diamond signals ready to receive a token |
-| **Cooldown slot** | Empty / hollow diamond | Passive wait slot — same outer diamond silhouette as activation marker; no inner element |
-| **Cooldown trigger** | Diamond with inner right-pointing arrow (→) | Auto-fires an effect when token reaches this slot; same outer diamond silhouette; inner arrow points **right** — toward the effect it triggers, not down |
-| **Consumed marker** | Square with inner square | Activation marker design rotated 45° — square orientation (flat sides); same inner/outer relationship as activation marker; signals permanent consumption through the rotation alone |
+Shape: identical outer silhouette to the flow marker (hollow diamond). Distinguishing element: a small rightward-pointing indicator on the right vertex of the outer diamond — either a filled wedge/arrowhead, a short extending line with arrowhead, or a notch that reads as directional. The indicator must be small enough not to compromise the outer diamond silhouette when seen at card scale (20 px rendered). Must remain clearly distinct from the plain hollow flow marker at a glance. This marker has no accepted variant file yet — one must be created before activation track rework variants can be completed.
 
 All four marker types share the **same design element** (a shape with an optional inner element) and differ only in orientation and inner detail. The diamond family is unified — a reader familiar with one marker immediately understands the others.
 
@@ -255,38 +257,31 @@ Each marker that fires an effect corresponds to exactly one effect row in the ca
 
 ### 9.1 Subtitle
 
-The subtitle is a secondary classification label in the header area, rendered **between the type band and the card title** (or below the title — three options required). It is a short designer-defined string (e.g. "Skill", "Instinct", "Coastal Village").
+**Locked design: `subtitle-v01-a` (accepted 2026-05-28)**
 
-**Known constraints:**
-- Must not compete visually with the card title (title is the primary label)
-- Must remain legible against the background gradient tint at top of card
-- Present only if a subtitle value exists — absent cards must show no empty gap where the subtitle would be
-
-Three design options required (see §Review Page Rules). Each option must show a card with a subtitle present *and* demonstrate what the header looks like without one.
+- **Position:** below the card title
+- **Font:** Cinzel 400 italic, amber, reduced opacity
+- **Separator:** short centre rule between title and subtitle
+- **Absent cards:** no gap — title shifts down to fill the space; subtitle element is fully hidden when no subtitle value exists
 
 ### 9.2 Flavour Text
 
-Flavour text is lore-only prose, rendered in italics, with no mechanical effect. It occupies a designated zone on the card, visually separated from the mechanics frame.
+**Locked design: `flavour-text-v01-c` (accepted 2026-05-28)**
 
-**Known constraints:**
-- Must be clearly distinct from effect text — italic treatment is required; a visual separator (rule line, spacing, or fade) between flavour text and mechanics frame is expected
-- Flavour text zone should only appear if the card has flavour text — no empty zone on cards without it
-- Position: likely below the image zone and above (or within) the mechanics frame — three options required
-- Font: Crimson Text italic (same family as body, distinct weight/style)
-
-Three design options required (see §Review Page Rules).
+- **Position:** integrated into the bottom of the mechanics frame as a borderless inset row
+- **Separator:** none — no rule line, no ornament; a top-internal gradient fade and slightly darker translucent fill distinguish the flavour row from effect rows
+- **Font:** Crimson Text 14px italic; the larger italic treatment alone signals a different register from effect text
+- **Absent cards:** flavour row is hidden entirely when no flavour text value exists — no gap, no placeholder
 
 ### 9.3 Set Symbol
 
-A small glyph indicating which card set a card belongs to. Provides a quick visual identifier when cards from multiple sets are mixed.
+**Locked design: `set-symbol-v01-a` (accepted 2026-05-28)**
 
-**Known constraints:**
-- Must be unobtrusive — small, positioned in a corner or along the card edge (bottom corner preferred)
-- Rendered as a simple geometric shape or monogram placeholder for now (actual per-set symbols are future work); the design task is to lock in the **position, size, and visual treatment** — not the specific symbol per set
-- Must be legible against the card background at small size (~16–20 px)
-- Must work for any card type (appears on every card type that has a set assigned)
-
-Three design options required (see §Review Page Rules).
+- **Position:** bottom-right corner of the card
+- **Container:** dark circular container with amber border ring
+- **Glyph:** small diamond shape inside the container (placeholder — actual per-set symbol is future work)
+- **Size:** 18px rendered; unobtrusive against the card frame
+- **Applies to:** all card types that have a set assigned
 
 ---
 
@@ -302,6 +297,10 @@ Whenever a new visual element is designed, the orchestrator produces **exactly t
 - Each variant carries a **design ID** as a label: shown both in the HTML comment on line 1 and as a small visible label on the review page (below or overlaid on the card)
 - The three options for a design item are presented **side by side** on the review page under that item's group heading
 - Options within a round are lettered (a/b/c); if all three are rejected and a new round is needed, bump to v<N+1>
+
+### Superseded versions rule
+
+When feedback is given on a design round and a new round (v<N+1>) is created, **remove all previous round options from the Under Review section**. Only the current round (highest vN) for each design element is shown. Superseded versions (those that received feedback and were revised) will never be accepted — showing them clogs the review page. The HTML files remain on disk but are not linked from the review page.
 
 ### Review page structure
 

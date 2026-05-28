@@ -11,6 +11,15 @@ Changed:
 
 ---
 
+## ACCEPTED — 2026-05-28
+- **effects-container-v04** ✅ — gradient-fade section borders at 0.7 opacity; 0.15 translucent fill per section; locked into VISUAL.md §6
+- **set-symbol-v01-a** ✅ — bottom-right circular container, diamond glyph, amber ring, 18px; locked into VISUAL.md §9.3
+- **flavour-text-v01-c** ✅ — borderless inset at bottom of mechanics frame; gradient-fade top only; Crimson Text 14px italic; locked into VISUAL.md §9.2
+- **subtitle-v01-a** ✅ — below title, Cinzel 400 italic amber, centre rule separator, absent = title shifts down; locked into VISUAL.md §9.1
+Orchestrator: update all card type baselines to incorporate these four accepted designs; regenerate review page (move items to Accepted section)
+
+---
+
 ## char-enemy-v01 — red type palette (enemy character)
 Base: design/BASELINE.html
 Changed:
