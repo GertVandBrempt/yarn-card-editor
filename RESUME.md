@@ -1,6 +1,6 @@
 # Yarn — Session Resume Context
 
-_Updated: 2026-05-27T18:11:31Z_
+_Updated: 2026-05-28T00:17:35Z_
 
 ---
 
@@ -16,7 +16,7 @@ Card types: **Location, Character, Item, Event, Quest, Persona, Script**
 
 ### 🎮 Stream A — Game Design
 **Status:** Active — 7 discussion items tracked, no new items found  
-**Last notified:** 2026-05-27T06:13:53Z (~12h ago; < 48h — no notification this run)  
+**Last notified:** 2026-05-27T06:13:53Z (~18h ago; < 48h — no notification this run)  
 **Pending items:**
 1. Script Card colour — purple placeholder in script-v01; must confirm before card-index.md entry
 2. Trigger priority (§7) — explicitly TBD; affects card layout ordering rules
@@ -44,9 +44,9 @@ Card types: **Location, Character, Item, Event, Quest, Persona, Script**
 - effects-v04 — on hold until trigger symbols + activation tracks both accepted
 
 ### 🖥️ Stream C — App Design
-**Status:** On hold — no new baselines accepted  
-**Waiting for:** card-index.md to be updated with an accepted baseline → auto-sync SVGs + baselines → rebuild → deploy  
-**Next:** Auto-sync when card-index.md is updated
+**Status:** Active — review gallery migration completed  
+**Done this run:** Migrated review gallery from `review/index.html` (repo root) to `docs/review/index.html` (GitHub Pages-served path); created `docs/.nojekyll`; updated deploy.yml; 82 variant paths corrected  
+**Next:** On hold — awaiting baseline acceptance in card-index.md to trigger auto-sync
 
 ---
 
@@ -60,7 +60,7 @@ Card types: **Location, Character, Item, Event, Quest, Persona, Script**
 | design/variants/*.html | Card variant files | Orchestrator (autonomous) |
 | design/variants/CHANGES.md | Variant change log | Orchestrator |
 | APP.md | App design decisions | Orchestrator (with user feedback) |
-| docs/review/index.html | Mobile card review gallery | Orchestrator (regenerated) — ⚠️ migration pending; currently at review/index.html (root) which Pages cannot serve |
+| docs/review/index.html | Mobile card review gallery | Orchestrator (regenerated) — ✅ migrated from repo root to docs/ |
 | docs/editor/ | Built Angular app (GitHub Pages, flat layout) | Orchestrator (built) |
 | .github/workflows/deploy.yml | CI/CD deploy workflow | Orchestrator |
 | ORCHESTRATOR.md | System state / stream tracking | Orchestrator |
@@ -80,5 +80,5 @@ Card types: **Location, Character, Item, Event, Quest, Persona, Script**
 
 ## Gallery & Editor
 
-Card review gallery (GitHub Pages): https://gertvandbrempt.github.io/yarn-card-editor/review/ ⚠️ not currently served — fix queued  
+Card review gallery (GitHub Pages): https://gertvandbrempt.github.io/yarn-card-editor/review/ ✅ now served from docs/review/  
 Live editor (GitHub Pages): https://gertvandbrempt.github.io/yarn-card-editor/editor/

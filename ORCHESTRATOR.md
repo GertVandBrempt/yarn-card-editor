@@ -7,7 +7,7 @@ This file is read and written by scheduled agents. Do not edit manually during a
 ```
 blocked_for_weekly_review: false
 weekly_review_due: 2026-05-30T08:00:00Z
-last_orchestrator_run: 2026-05-27T18:11:31Z
+last_orchestrator_run: 2026-05-28T00:17:35Z
 last_status_notification: 2026-05-27T06:13:53Z
 ```
 
@@ -20,7 +20,7 @@ Streams are **independent** — a blocked stream does not pause other streams.
 ### Game Design
 - **Mode**: interactive (orchestrator surfaces topics; user drives sessions in Claude Code)
 - **Source**: DESIGN.md open issues and unresolved questions
-- **Status**: active — 7 discussion items tracked; no new items found in scan of 2026-05-27T18:11:31Z; last notified ~12h ago (< 48h) — no notification
+- **Status**: active — 7 discussion items tracked; no new items found in scan of 2026-05-28T00:17:35Z; last notified ~18h ago (< 48h) — no notification
 - **Pending discussion items** *(top 7 by card-design impact)*:
   1. Script Card colour — purple placeholder in script-v01; must confirm before card-index.md entry
   2. Trigger priority (§7) — explicitly TBD; affects card layout ordering rules
@@ -37,7 +37,7 @@ Streams are **independent** — a blocked stream does not pause other streams.
 ### Card Design
 - **Mode**: autonomous
 - **Source**: design/VISUAL.md, design/card-index.md
-- **Status**: on hold — all 9 tracks complete; remaining tasks (AND/OR compound tracks, effects-v04) on hold pending user acceptance of primitives; no card work this run; no new acceptances detected as of 2026-05-27T18:11:31Z
+- **Status**: on hold — all 9 tracks complete; remaining tasks (AND/OR compound tracks, effects-v04) on hold pending user acceptance of primitives; no card work this run; no new acceptances detected as of 2026-05-28T00:17:35Z
 
 #### Global rules (apply to all Card Design work)
 
@@ -86,13 +86,8 @@ Streams are **independent** — a blocked stream does not pause other streams.
 ### App Design
 - **Mode**: autonomous
 - **Source**: APP.md
-- **Status**: active — ✅ trigger-symbols-v03-a SVG defs synced into preview.service.ts + app rebuilt (2026-05-26T12:14:09Z); all 6 trigger symbols updated to v03 geometric/angular style
-- **Next task**: ⚠️ **PRIORITY** Migrate review gallery to `docs/review/` — GitHub Pages serves from the `docs/` folder only; the review page at `review/index.html` (repo root) is never served. Steps:
-  1. Write `docs/.nojekyll` (empty file — prevents Jekyll from processing Pages output)
-  2. Write the full review page to `docs/review/index.html` — same content as current `review/index.html` but with all relative paths updated: `../design/variants/` → `../../design/variants/` and `../design/variants/CHANGES.md` → `../../design/variants/CHANGES.md`
-  3. Delete `review/index.html` from the repo root (or leave it stale — do not update it further)
-  4. Update `.github/workflows/deploy.yml` — add `docs/review/` and `docs/.nojekyll` to the `git add` step alongside `docs/editor/`
-  5. After migration: all future review page writes go to `docs/review/index.html` only
+- **Status**: active — ✅ review gallery migrated to `docs/review/index.html` (2026-05-28T00:17:35Z); `docs/.nojekyll` created; deploy.yml updated; all 82 variant paths corrected to `../../design/variants/`
+- **Next task**: On hold — awaiting baseline acceptance in card-index.md to trigger auto-sync; all future review page writes go to `docs/review/index.html` only
 - **Completed tasks**:
   1. ✅ `SymbolReferenceModalComponent` — wired to `EffectEditorComponent` with `?` button, Escape close, mobile full-screen
   2. ✅ Responsive layout — 3 breakpoints, mobile drawer nav, hamburger button, `transform:scale()` card preview
@@ -104,11 +99,12 @@ Streams are **independent** — a blocked stream does not pause other streams.
   8. ✅ TypeScript errors resolved
   9. ✅ Build output verified
   10. ✅ **Deployment fix** — Root cause: `--output-path` CLI flag overrides only `base`, silently dropping `"browser": ""` config; fix: let `angular.json` control output path, workflow passes only `--base-href`; rebuilt flat to `docs/editor/index.html`; `.github/workflows/deploy.yml` updated
+  11. ✅ **Review gallery migration** — Migrated `review/index.html` from repo root to `docs/review/index.html`; created `docs/.nojekyll`; updated deploy.yml; all 82 variant paths corrected to `../../design/variants/`
 - **Auto-sync rule**: After any Card Design stream action that updates `card-index.md` **or** creates a new trigger symbol / activation track variant, the App Design stream must re-run steps 5–9 automatically (sync SVGs + baselines → build → deploy). No user trigger needed.
 - **Pages layout rule**: GitHub Pages serves from `docs/` folder on master branch. All output files must live under `docs/`:
   - Editor: `docs/editor/` ✅
-  - Review gallery: `docs/review/` ← migrate on next run (see Next task above)
-  - `.nojekyll`: `docs/.nojekyll` ← create on next run
+  - Review gallery: `docs/review/` ✅ (migrated 2026-05-28T00:17:35Z)
+  - `.nojekyll`: `docs/.nojekyll` ✅ (created 2026-05-28T00:17:35Z)
 - **Blocked on**: —
 - **Last notified**: 2026-05-25T15:07:31Z
 
@@ -198,6 +194,9 @@ _(none)_
 | 2026-05-27T18:11:31Z | Orchestrator | B: Card Design | On hold — all 9 tracks complete; no new acceptances in card-index.md; AND/OR + effects-v04 awaiting primitive acceptance |
 | 2026-05-27T18:11:31Z | Orchestrator | C: App Design | On hold — no new accepted baselines in card-index.md; awaiting baseline acceptance to trigger auto-sync |
 | 2026-05-27T (user) | Diagnosis | C: Pages layout | Root cause identified: review/index.html was written to repo root, not docs/; GitHub Pages serves from docs/ only — review gallery has never been served by Pages; fix queued as priority App Design task |
+| 2026-05-28T00:17:35Z | Orchestrator | A: Game Design | No new items; 7 tracked unchanged; last notified ~18h ago (< 48h) — no notification |
+| 2026-05-28T00:17:35Z | Orchestrator | B: Card Design | On hold — all 9 tracks complete; no new acceptances in card-index.md; AND/OR + effects-v04 awaiting primitive acceptance |
+| 2026-05-28T00:17:35Z | Orchestrator | C: App Design | Review gallery migrated to docs/review/index.html; docs/.nojekyll created; deploy.yml updated; 82 paths corrected |
 
 ---
 

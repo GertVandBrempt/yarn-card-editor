@@ -1,0 +1,852 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Yarn — Card Review</title>
+  <style>
+    :root {
+      --gold: #c8a45a;
+      --bg: #12111a;
+      --surface: #1c1b28;
+      --surface2: #221f33;
+      --border: #2e2c42;
+      --text: #ddd;
+      --muted: #888;
+      --green: #4caf7a;
+      --pending: #555;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    header {
+      padding: 28px 20px 20px;
+      text-align: center;
+      border-bottom: 1px solid var(--border);
+      background: var(--surface);
+    }
+    header h1 { color: var(--gold); font-size: 1.4rem; letter-spacing: 0.06em; font-weight: 600; }
+    .updated { color: var(--muted); font-size: 0.75rem; margin-top: 6px; }
+    .updated strong { color: #aaa; }
+
+    /* Section headings */
+    .section-header {
+      padding: 22px 16px 10px;
+      border-bottom: 1px solid var(--border);
+      max-width: 800px; margin: 0 auto;
+    }
+    .section-header h2 {
+      font-size: 0.95rem; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.12em;
+      color: var(--gold);
+    }
+    .section-header .section-sub {
+      font-size: 0.73rem; color: var(--muted); margin-top: 4px;
+    }
+
+    /* Element group */
+    .element-group {
+      max-width: 800px; margin: 0 auto 6px;
+      border-left: 2px solid var(--border);
+      margin-left: 16px; margin-right: 16px;
+      padding: 14px 0 4px 14px;
+    }
+    .element-group-header {
+      font-size: 0.75rem; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.1em;
+      color: #aaa; margin-bottom: 10px;
+    }
+
+    /* Pending placeholder */
+    .pending-label {
+      font-size: 0.73rem; color: var(--pending);
+      padding: 10px 0 14px;
+      font-style: italic;
+    }
+
+    /* Option trio (a/b/c side by side) */
+    .option-trio {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 12px;
+    }
+    .option-trio .card-entry {
+      flex: 1;
+      min-width: 160px;
+    }
+
+    /* Card entry */
+    .card-list {
+      padding: 4px 16px 16px;
+      display: flex; flex-direction: column; gap: 8px;
+      max-width: 800px; margin: 0 auto;
+    }
+    .card-entry {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 10px; overflow: hidden;
+    }
+    .card-entry-top {
+      display: flex; align-items: center; gap: 10px;
+      padding: 10px 12px 6px;
+      flex-wrap: wrap;
+    }
+    .type-badge {
+      font-size: 0.60rem; font-weight: 700;
+      padding: 3px 8px; border-radius: 10px;
+      background: #1e1c30; color: var(--gold);
+      border: 1px solid var(--border);
+      text-transform: uppercase; letter-spacing: 0.1em;
+      flex-shrink: 0;
+    }
+    .accepted-badge {
+      font-size: 0.60rem; font-weight: 700;
+      padding: 3px 8px; border-radius: 10px;
+      background: rgba(76,175,122,0.12); color: var(--green);
+      border: 1px solid rgba(76,175,122,0.3);
+      text-transform: uppercase; letter-spacing: 0.1em;
+      flex-shrink: 0;
+    }
+    .option-badge {
+      font-size: 0.70rem; font-weight: 700;
+      padding: 2px 9px; border-radius: 10px;
+      background: rgba(200,164,90,0.12); color: var(--gold);
+      border: 1px solid rgba(200,164,90,0.3);
+      letter-spacing: 0.06em;
+    }
+    .variant-id { font-size: 0.83rem; color: #ccc; font-weight: 600; }
+    .card-desc {
+      font-size: 0.74rem; color: var(--muted);
+      padding: 0 12px 10px; line-height: 1.4;
+    }
+    .card-actions {
+      display: flex; border-top: 1px solid var(--border);
+    }
+    .card-actions a {
+      flex: 1; text-align: center;
+      padding: 9px 6px; font-size: 0.76rem;
+      color: var(--gold); text-decoration: none;
+      border-right: 1px solid var(--border);
+      transition: background 0.1s;
+    }
+    .card-actions a:last-child { border-right: none; }
+    .card-actions a:hover { background: var(--surface2); }
+
+    /* Legacy section */
+    .legacy-grid {
+      display: flex; flex-wrap: wrap; gap: 8px;
+      padding: 4px 16px 16px;
+      max-width: 800px; margin: 0 auto;
+    }
+    .legacy-grid .card-entry {
+      flex: 1; min-width: 160px; max-width: 240px;
+    }
+
+    hr.section-divider {
+      border: none; border-top: 2px solid var(--border);
+      margin: 16px 16px 0;
+      max-width: 800px;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>🧵 Yarn &mdash; Card Review</h1>
+  <p class="updated">Updated: <strong>2026-05-26T18:16:00Z</strong></p>
+</header>
+
+<!-- ═══════════════════════════════════════════════════
+     SECTION 1 — UNDER REVIEW
+═══════════════════════════════════════════════════ -->
+
+<div class="section-header">
+  <h2>🔍 Under Review</h2>
+  <p class="section-sub">Design items awaiting acceptance. Each group shows 3 visually distinct options — say "accept &lt;id&gt;-&lt;option&gt;" in an interactive session to promote one to baseline.</p>
+</div>
+
+<!-- ── Activation Tracks ── -->
+<div class="element-group" style="margin-top:12px;">
+  <div class="element-group-header">Activation Tracks</div>
+
+  <!-- Basic Track -->
+  <div style="margin-bottom:4px;font-size:0.70rem;color:#888;font-style:italic;padding-left:2px;">Basic</div>
+  <div class="option-trio">
+    <div class="card-entry" data-type="activation-tracks">
+      <div class="card-entry-top">
+        <span class="type-badge">Activation</span>
+        <span class="option-badge">A</span>
+        <span class="variant-id">basic-v01-a</span>
+      </div>
+      <p class="card-desc">Circle marker, light ring detail, downward exit arrow</p>
+      <div class="card-actions">
+        <a href="../../design/variants/activation-track-basic-v01-a.html" target="_blank">View</a>
+        <a href="../../design/variants/CHANGES.md" target="_blank">Changes</a>
+      </div>
+    </div>
+    <div class="card-entry" data-type="activation-tracks">
+      <div class="card-entry-top">
+        <span class="type-badge">Activation</span>
+        <span class="option-badge">B</span>
+        <span class="variant-id">basic-v01-b</span>
+      </div>
+      <p class="card-desc">Diamond marker, sharp geometric edges, amber fill</p>
+      <div class="card-actions">
+        <a href="../../design/variants/activation-track-basic-v01-b.html" target="_blank">View</a>
+        <a href="../../design/variants/CHANGES.md" target="_blank">Changes</a>
+      </div>
+    </div>
+    <div class="card-entry" data-type="activation-tracks">
+      <div class="card-entry-top">
+        <span class="type-badge">Activation</span>
+        <span class="option-badge">C</span>
+        <span class="variant-id">basic-v01-c</span>
+      </div>
+      <p class="card-desc">Hexagon marker with glow filter, flat-top orientation</p>
+      <div class="card-actions">
+        <a href="../../design/variants/activation-track-basic-v01-c.html" target="_blank">View</a>
+        <a href="../../design/variants/CHANGES.md" target="_blank">Changes</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Multi-turn Track (v02 — corrected per locked shapes) -->
+  <div style="margin-bottom:4px;font-size:0.70rem;color:#888;font-style:italic;padding-left:2px;">Multi-turn (v02)</div>
+  <div class="option-trio">
+    <div class="card-entry" data-type="activation-tracks">
+      <div class="card-entry-top">
+        <span class="type-badge">Activation</span>
+        <span class="option-badge">A</span>
+        <span class="variant-id">multiturn-v02-a</span>
+      </div>
+      <p class="card-desc">Diamond+inner-diamond activation; 2 hollow cooldown diamonds; directional arrows; no return arrow; no cooldown trigger</p>
+      <div class="card-actions">
+        <a href="../../design/variants/activation-track-multiturn-v02-a.html" target="_blank">View Card</a>
+        <a href="../../design/variants/CHANGES.md" target="_blank">Changes</a>
+      </div>
+    </div>
+    <div class="card-entry" data-type="activation-tracks">
+      <div class="card-entry-top">
+        <span class="type-badge">Activation</span>
+        <span class="option-badge">B</span>
+        <span class="variant-id">multiturn-v02-b</span>
+      </div>
+      <p class="card-desc">Diamond+inner-diamond activation; 3 cooldown slots; slot 2 is a cooldown trigger (diamond+inner arrow) with its own effect row; directional arrows; no return arrow</p>
+      <div class="card-actions">
+        <a href="../../design/variants/activation-track-multiturn-v02-b.html" target="_blank">View Card</a>
+        <a href="../../design/variants/CHANGES.md" target="_blank">Changes</a>
+      </div>
+    </div>
+    <div class="card-entry" data-type="activation-tracks">
+      <div class="card-entry-top">
+        <span class="type-badge">Activation</span>
+        <span class="option-badge">C</span>
+        <span class="variant-id">multiturn-v02-c</span>
+      </div>
+      <p class="card-desc">Diamond+inner-diamond activation; 1 hollow cooldown diamond; generous spacing; larger marker sizes; no cooldown trigger; no return arrow</p>
+      <div class="card-actions">
+        <a href="../../design/variants/activation-track-multiturn-v02-c.html" target="_blank">View Card</a>
+        <a href="../../design/variants/CHANGES.md" target="_blank">Changes</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Multi-use Track (v01) -->
+  <div style="margin-bottom:4px;font-size:0.70rem;color:#888;font-style:italic;padding-left:2px;">Multi-use (v01)</div>
+  <div class="option-trio">
+    <div class="card-entry" data-type="activation-tracks">
+      <div class="card-entry-top">
+        <span class="type-badge">Activation</span>
+        <span class="option-badge">A</span>
+        <span class="variant-id">multiuse-v01-a</span>
+      </div>
+      <p class="card-desc">3 slots; vertical layout; compact 40px diamond markers; each slot leads its own effect row; separator dividers between rows</p>
+      <div class="card-actions">
+        <a href="../../design/variants/activation-track-multiuse-v01-a.html" target="_blank">View Card</a>
+        <a href="../../design/variants/CHANGES.md" target="_blank">Changes</a>
+      </div>
+    </div>
+    <div class="card-entry" data-type="activation-tracks">
+      <div class="card-entry-top">
+        <span class="type-badge">Activation</span>
+        <span class="option-badge">B</span>
+        <span class="variant-id">multiuse-v01-b</span>
+      </div>
+      <p class="card-desc">4 slots; horizontal track strip in each row's lead column; active slot at full opacity, others dimmed (0.25); 100px wide lead area</p>
+      <div class="card-actions">
+        <a href="../../design/variants/activation-track-multiuse-v01-b.html" target="_blank">View Card</a>
+        <a href="../../design/variants/CHANGES.md" target="_blank">Changes</a>
+      </div>
+    </div>
+    <div class="card-entry" data-type="activation-tracks">
+      <div class="card-entry-top">
+        <span class="type-badge">Activation</span>
+        <span class="option-badge">C</span>
+        <span class="variant-id">multiuse-v01-c</span>
+      </div>
+      <p class="card-desc">5 slots; vertical layout; large 48px diamond markers; generous row height (310px frame); most spacious option</p>
+      <div class="card-actions">
+        <a href="../../design/variants/activation-track-multiuse-v01-c.html" target="_blank">View Card</a>
+        <a href="../../design/variants/CHANGES.md" target="_blank">Changes</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Use (one-time) Track (v01) -->
+  <div style="margin-bottom:4px;font-size:0.70rem;color:#888;font-style:italic;padding-left:2px;">Use (one-time) (v01)</div>
+  <div class="option-trio">
+    <div class="card-entry" data-type="activation-tracks">
+      <div class="card-entry-top">
+        <span class="type-badge">Activation</span>
+        <span class="option-badge">A</span>
+        <span class="variant-id">use-v01-a</span>
+      </div>
+      <p class="card-desc">Outer square 36×36, inner square 50% scale (18×18), small center pip 6×6; compact balanced proportions; amber stroke border</p>
+      <div class="card-actions">
+        <a href="../../design/variants/activation-track-use-v01-a.html" target="_blank">View Card</a>
+        <a href="../../design/variants/CHANGES.md" target="_blank">Changes</a>
+      </div>
+    </div>
+    <div class="card-entry" data-type="activation-tracks">
+      <div class="card-entry-top">
+        <span class="type-badge">Activation</span>
+        <span class="option-badge">B</span>
+        <span class="variant-id">use-v01-b</span>
+      </div>
+      <p class="card-desc">Outer square 44×44, inner square 70% scale (31×31), no center pip; large heavy marker; predominantly amber fill with thin dark border ring</p>
+      <div class="card-actions">
+        <a href="../../design/variants/activation-track-use-v01-b.html" target="_blank">View Card</a>
+        <a href="../../design/variants/CHANGES.md" target="_blank">Changes</a>
+      </div>
+    </div>
+    <div class="card-entry" data-type="activation-tracks">
+      <div class="card-entry-top">
+        <span class="type-badge">Activation</span>
+        <span class="option-badge">C</span>
+        <span class="variant-id">use-v01-c</span>
+      </div>
+      <p class="card-desc">Outer square 32×32 (small), inner square 62% scale (20×20), large center pip 8×8; corner-bracket accents; small and precise three-tier composition</p>
+      <div class="card-actions">
+        <a href="../../design/variants/activation-track-use-v01-c.html" target="_blank">View Card</a>
+        <a href="../../design/variants/CHANGES.md" target="_blank">Changes</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- AND/OR — on hold -->
+  <div style="margin-bottom:4px;font-size:0.70rem;color:#888;font-style:italic;padding-left:2px;">AND / OR (compound)</div>
+  <div class="pending-label">On hold — requires all 4 primitive types accepted first</div>
+</div>
+
+<!-- ── Trigger Symbols ── -->
+<div class="element-group">
+  <div class="element-group-header">Trigger Symbols</div>
+
+  <!-- v03 — first proper 3-option round -->
+  <div style="margin-bottom:4px;font-size:0.70rem;color:#888;font-style:italic;padding-left:2px;">v03 — 3-option round (current)</div>
+  <div class="option-trio">
+    <div class="card-entry" data-type="triggers">
+      <div class="card-entry-top">
+        <span class="type-badge">Triggers</span>
+        <span class="option-badge">A</span>
+        <span class="variant-id">trigger-symbols-v03-a</span>
+      </div>
+      <p class="card-desc">Geometric/angular — all 6 symbols built from sharp-edged polygon silhouettes; no curves; 8-point star (Reveal), triangle+chevron (Enter), arrow polygon (Leave), octagon clock (Char Phase), rotated-square/diamond (Complete), double-chevron (Flow Marker)</p>
+      <div class="card-actions">
+        <a href="../../design/variants/trigger-symbols-v03-a.html" target="_blank">View Card</a>
+        <a href="../../design/variants/CHANGES.md" target="_blank">Changes</a>
+      </div>
+    </div>
+    <div class="card-entry" data-type="triggers">
+      <div class="card-entry-top">
+        <span class="type-badge">Triggers</span>
+        <span class="option-badge">B</span>
+        <span class="variant-id">trigger-symbols-v03-b</span>
+      </div>
+      <p class="card-desc">Rounded/organic — all 6 built from circles, pills, and curved paths; ray burst (Reveal), arch+teardrop (Enter), pill-arrow (Leave), circle clock (Char Phase), rounded-square+checkmark (Complete), horizontal pill+arrowhead (Flow Marker)</p>
+      <div class="card-actions">
+        <a href="../../design/variants/trigger-symbols-v03-b.html" target="_blank">View Card</a>
+        <a href="../../design/variants/CHANGES.md" target="_blank">Changes</a>
+      </div>
+    </div>
+    <div class="card-entry" data-type="triggers">
+      <div class="card-entry-top">
+        <span class="type-badge">Triggers</span>
+        <span class="option-badge">C</span>
+        <span class="variant-id">trigger-symbols-v03-c</span>
+      </div>
+      <p class="card-desc">Pictographic/silhouette — each symbol is a bold dark concept-object silhouette with a single amber interior mark: eye+iris (Reveal), door frame+opening (Enter), boot+speed lines (Leave), person figure+diamond (Char Phase), scroll+checkmark (Complete), track rails+advancing token (Flow Marker)</p>
+      <div class="card-actions">
+        <a href="../../design/variants/trigger-symbols-v03-c.html" target="_blank">View Card</a>
+        <a href="../../design/variants/CHANGES.md" target="_blank">Changes</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Legacy single-file predecessors -->
+  <div style="margin-top:8px;margin-bottom:4px;font-size:0.70rem;color:#666;font-style:italic;padding-left:2px;">Prior single-variant iterations (superseded)</div>
+  <div class="legacy-grid" style="padding:0 0 8px 0;">
+    <div class="card-entry" data-type="triggers">
+      <div class="card-entry-top">
+        <span class="type-badge">Triggers</span>
+        <span class="variant-id">trigger-symbols-v02</span>
+      </div>
+      <p class="card-desc">6 symbols with dark body + lighter detail; card context display; superseded by v03 options</p>
+      <div class="card-actions">
+        <a href="../../design/variants/trigger-symbols-v02.html" target="_blank">View</a>
+      </div>
+    </div>
+    <div class="card-entry" data-type="triggers">
+      <div class="card-entry-top">
+        <span class="type-badge">Triggers</span>
+        <span class="variant-id">trigger-symbols-v01</span>
+      </div>
+      <p class="card-desc">Initial trigger symbol set (v01, per-color fills, superseded by v02)</p>
+      <div class="card-actions">
+        <a href="../../design/variants/trigger-symbols-v01.html" target="_blank">View</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── Die Symbols ── -->
+<div class="element-group">
+  <div class="element-group-header">Die Symbols</div>
+  <div class="option-trio">
+    <div class="card-entry" data-type="die-symbols">
+      <div class="card-entry-top">
+        <span class="type-badge">Die Symbols</span>
+        <span class="option-badge">A</span>
+        <span class="variant-id">die-symbols-v01-a</span>
+      </div>
+      <p class="card-desc">Flat rounded-square die face; pip-count per role: Constitution 1 pip, Zeal 3 pips, Path 4 pips (compass); filled bold pips; single-color; all 3 used inline in effect row</p>
+      <div class="card-actions">
+        <a href="../../design/variants/die-symbols-v01-a.html" target="_blank">View Card</a>
+        <a href="../../design/variants/CHANGES.md" target="_blank">Changes</a>
+      </div>
+    </div>
+    <div class="card-entry" data-type="die-symbols">
+      <div class="card-entry-top">
+        <span class="type-badge">Die Symbols</span>
+        <span class="option-badge">B</span>
+        <span class="variant-id">die-symbols-v01-b</span>
+      </div>
+      <p class="card-desc">Die body SHAPE distinguishes type: Constitution=rounded square, Zeal=diamond/rotated square, Path=hexagon; single center pip each; all 3 used in effect rows</p>
+      <div class="card-actions">
+        <a href="../../design/variants/die-symbols-v01-b.html" target="_blank">View Card</a>
+        <a href="../../design/variants/CHANGES.md" target="_blank">Changes</a>
+      </div>
+    </div>
+    <div class="card-entry" data-type="die-symbols">
+      <div class="card-entry-top">
+        <span class="type-badge">Die Symbols</span>
+        <span class="option-badge">C</span>
+        <span class="variant-id">die-symbols-v01-c</span>
+      </div>
+      <p class="card-desc">Thematic amber cutout symbol inside dark die face: Constitution=ring (endurance), Zeal=bolt (drive), Path=branching arrow (navigation); all 3 shown in effect rows</p>
+      <div class="card-actions">
+        <a href="../../design/variants/die-symbols-v01-c.html" target="_blank">View Card</a>
+        <a href="../../design/variants/CHANGES.md" target="_blank">Changes</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── Subtitle ── -->
+<div class="element-group">
+  <div class="element-group-header">Subtitle</div>
+  <div class="option-trio">
+    <div class="card-entry" data-type="subtitle">
+      <div class="card-entry-top">
+        <span class="type-badge">Subtitle</span>
+        <span class="option-badge">A</span>
+        <span class="variant-id">subtitle-v01-a</span>
+      </div>
+      <p class="card-desc">Below title — Cinzel 400 italic, amber, 72% opacity; short centre rule beneath; no layout shift when absent</p>
+      <div class="card-actions">
+        <a href="../../design/variants/subtitle-v01-a.html" target="_blank">View Card</a>
+        <a href="../../design/variants/CHANGES.md" target="_blank">Changes</a>
+      </div>
+    </div>
+    <div class="card-entry" data-type="subtitle">
+      <div class="card-entry-top">
+        <span class="type-badge">Subtitle</span>
+        <span class="option-badge">B</span>
+        <span class="variant-id">subtitle-v01-b</span>
+      </div>
+      <p class="card-desc">Between type band and title — Crimson Text italic, muted cream, flanked by small diamond ornaments; title shifts when absent</p>
+      <div class="card-actions">
+        <a href="../../design/variants/subtitle-v01-b.html" target="_blank">View Card</a>
+        <a href="../../design/variants/CHANGES.md" target="_blank">Changes</a>
+      </div>
+    </div>
+    <div class="card-entry" data-type="subtitle">
+      <div class="card-entry-top">
+        <span class="type-badge">Subtitle</span>
+        <span class="option-badge">C</span>
+        <span class="variant-id">subtitle-v01-c</span>
+      </div>
+      <p class="card-desc">Embedded in type band as second row — band expands 35→52px; Cinzel 400 smaller; when absent band stays 35px, no gap</p>
+      <div class="card-actions">
+        <a href="../../design/variants/subtitle-v01-c.html" target="_blank">View Card</a>
+        <a href="../../design/variants/CHANGES.md" target="_blank">Changes</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── Flavour Text ── -->
+<div class="element-group">
+  <div class="element-group-header">Flavour Text</div>
+  <div class="option-trio">
+    <div class="card-entry" data-type="flavour-text">
+      <div class="card-entry-top">
+        <span class="type-badge">Flavour Text</span>
+        <span class="option-badge">A</span>
+        <span class="variant-id">flavour-text-v01-a</span>
+      </div>
+      <p class="card-desc">Full-width amber hairline gradient rule separator; dark tinted flavour panel; Crimson Text italic 12.5px warm cream centred; mechanics frame raised to leave 48px zone at bottom (Location: The Ashwood Bridge)</p>
+      <div class="card-actions">
+        <a href="../../design/variants/flavour-text-v01-a.html" target="_blank">View Card</a>
+        <a href="../../design/variants/CHANGES.md" target="_blank">Changes</a>
+      </div>
+    </div>
+    <div class="card-entry" data-type="flavour-text">
+      <div class="card-entry-top">
+        <span class="type-badge">Flavour Text</span>
+        <span class="option-badge">B</span>
+        <span class="variant-id">flavour-text-v01-b</span>
+      </div>
+      <p class="card-desc">Ornamental SVG divider — amber gradient lines flanking filled amber diamond with dark hollow pip; Crimson Text italic 13.5px left-aligned with 14px indent (Event: The Ashen Pact)</p>
+      <div class="card-actions">
+        <a href="../../design/variants/flavour-text-v01-b.html" target="_blank">View Card</a>
+        <a href="../../design/variants/CHANGES.md" target="_blank">Changes</a>
+      </div>
+    </div>
+    <div class="card-entry" data-type="flavour-text">
+      <div class="card-entry-top">
+        <span class="type-badge">Flavour Text</span>
+        <span class="option-badge">C</span>
+        <span class="variant-id">flavour-text-v01-c</span>
+      </div>
+      <p class="card-desc">Fully integrated/borderless — sec-flavour inside mechanics frame, darker translucent fill, soft top-edge fade; Crimson Text italic 14px; no hard rule or ornament (Character: Sister Halvaine)</p>
+      <div class="card-actions">
+        <a href="../../design/variants/flavour-text-v01-c.html" target="_blank">View Card</a>
+        <a href="../../design/variants/CHANGES.md" target="_blank">Changes</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── Set Symbol ── -->
+<div class="element-group">
+  <div class="element-group-header">Set Symbol</div>
+  <div class="option-trio">
+    <div class="card-entry" data-type="set-symbol">
+      <div class="card-entry-top">
+        <span class="type-badge">Set Symbol</span>
+        <span class="option-badge">A</span>
+        <span class="variant-id">set-symbol-v01-a</span>
+      </div>
+      <p class="card-desc">Bottom-right corner; dark circular container (r=8.5) with amber ring + inner diamond glyph placeholder + center pip; 18px rendered; shown on Persona + Location cards</p>
+      <div class="card-actions">
+        <a href="../../design/variants/set-symbol-v01-a.html" target="_blank">View Card</a>
+        <a href="../../design/variants/CHANGES.md" target="_blank">Changes</a>
+      </div>
+    </div>
+    <div class="card-entry" data-type="set-symbol">
+      <div class="card-entry-top">
+        <span class="type-badge">Set Symbol</span>
+        <span class="option-badge">B</span>
+        <span class="variant-id">set-symbol-v01-b</span>
+      </div>
+      <p class="card-desc">Bottom-left corner; dark rounded-square container with recessed panel + monogram "Y" placeholder (Cinzel 700); 20px rendered; shown on Persona + Event cards</p>
+      <div class="card-actions">
+        <a href="../../design/variants/set-symbol-v01-b.html" target="_blank">View Card</a>
+        <a href="../../design/variants/CHANGES.md" target="_blank">Changes</a>
+      </div>
+    </div>
+    <div class="card-entry" data-type="set-symbol">
+      <div class="card-entry-top">
+        <span class="type-badge">Set Symbol</span>
+        <span class="option-badge">C</span>
+        <span class="variant-id">set-symbol-v01-c</span>
+      </div>
+      <p class="card-desc">Bottom-right in frame border zone; frameless embossed trefoil knot (three interlocking amber circle loops + center pip); 16px rendered; no container; shown on Persona + Item cards</p>
+      <div class="card-actions">
+        <a href="../../design/variants/set-symbol-v01-c.html" target="_blank">View Card</a>
+        <a href="../../design/variants/CHANGES.md" target="_blank">Changes</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── Effects — legacy ── -->
+<div class="element-group">
+  <div class="element-group-header">Effects / Mechanics Frame</div>
+  <div style="font-size:0.72rem;color:#666;margin-bottom:8px;font-style:italic;">Legacy iterations (pre-dating 3-option system)</div>
+  <div class="legacy-grid">
+    <div class="card-entry" data-type="effects">
+      <div class="card-entry-top"><span class="type-badge">Effects</span><span class="variant-id">effects-v03</span></div>
+      <p class="card-desc">§6.1 display model: no labels, non-italic, 4 sections, placeholder leading symbols</p>
+      <div class="card-actions"><a href="../../design/variants/effects-v03.html" target="_blank">View</a></div>
+    </div>
+    <div class="card-entry" data-type="effects">
+      <div class="card-entry-top"><span class="type-badge">Effects</span><span class="variant-id">effects-v02</span></div>
+      <p class="card-desc">Section labels + text labels + 2 action rows; mech-frame 200px</p>
+      <div class="card-actions"><a href="../../design/variants/effects-v02.html" target="_blank">View</a></div>
+    </div>
+    <div class="card-entry" data-type="effects">
+      <div class="card-entry-top"><span class="type-badge">Effects</span><span class="variant-id">effects-v01</span></div>
+      <p class="card-desc">Initial effects layout exploration</p>
+      <div class="card-actions"><a href="../../design/variants/effects-v01.html" target="_blank">View</a></div>
+    </div>
+    <div class="card-entry" data-type="effects">
+      <div class="card-entry-top"><span class="type-badge">Effects</span><span class="variant-id">effects-container-v04</span></div>
+      <p class="card-desc">Mechanics frame container iteration v04</p>
+      <div class="card-actions"><a href="../../design/variants/effects-container-v04.html" target="_blank">View</a></div>
+    </div>
+    <div class="card-entry" data-type="effects">
+      <div class="card-entry-top"><span class="type-badge">Effects</span><span class="variant-id">effects-container-v03</span></div>
+      <p class="card-desc">Mechanics frame container iteration v03</p>
+      <div class="card-actions"><a href="../../design/variants/effects-container-v03.html" target="_blank">View</a></div>
+    </div>
+    <div class="card-entry" data-type="effects">
+      <div class="card-entry-top"><span class="type-badge">Effects</span><span class="variant-id">effects-container-v02</span></div>
+      <p class="card-desc">Mechanics frame container iteration v02</p>
+      <div class="card-actions"><a href="../../design/variants/effects-container-v02.html" target="_blank">View</a></div>
+    </div>
+    <div class="card-entry" data-type="effects">
+      <div class="card-entry-top"><span class="type-badge">Effects</span><span class="variant-id">effects-container-v01</span></div>
+      <p class="card-desc">Mechanics frame container iteration v01</p>
+      <div class="card-actions"><a href="../../design/variants/effects-container-v01.html" target="_blank">View</a></div>
+    </div>
+    <div class="card-entry" data-type="effects">
+      <div class="card-entry-top"><span class="type-badge">Effects</span><span class="variant-id">activation-tracks-v02</span></div>
+      <p class="card-desc">6 track types redesigned per §8: vertical layout, shown in card context</p>
+      <div class="card-actions"><a href="../../design/variants/activation-tracks-v02.html" target="_blank">View</a></div>
+    </div>
+  </div>
+</div>
+
+<!-- ── Legacy icons ── -->
+<div class="element-group">
+  <div class="element-group-header">Icons &amp; Legacy Card Explorations</div>
+  <div class="legacy-grid">
+    <div class="card-entry" data-type="icons">
+      <div class="card-entry-top"><span class="type-badge">Icons</span><span class="variant-id">icons-action-v03</span></div>
+      <p class="card-desc">Action icon set v03</p>
+      <div class="card-actions"><a href="../../design/variants/icons-action-v03.html" target="_blank">View</a></div>
+    </div>
+    <div class="card-entry" data-type="icons">
+      <div class="card-entry-top"><span class="type-badge">Icons</span><span class="variant-id">icons-combat-v04</span></div>
+      <p class="card-desc">Combat icon set v04</p>
+      <div class="card-actions"><a href="../../design/variants/icons-combat-v04.html" target="_blank">View</a></div>
+    </div>
+    <div class="card-entry" data-type="icons">
+      <div class="card-entry-top"><span class="type-badge">Icons</span><span class="variant-id">icons-dice-v03</span></div>
+      <p class="card-desc">Dice icon set v03</p>
+      <div class="card-actions"><a href="../../design/variants/icons-dice-v03.html" target="_blank">View</a></div>
+    </div>
+    <div class="card-entry" data-type="icons">
+      <div class="card-entry-top"><span class="type-badge">Icons</span><span class="variant-id">icons-reveal-v02</span></div>
+      <p class="card-desc">Reveal icon set v02</p>
+      <div class="card-actions"><a href="../../design/variants/icons-reveal-v02.html" target="_blank">View</a></div>
+    </div>
+    <div class="card-entry" data-type="icons">
+      <div class="card-entry-top"><span class="type-badge">Icons</span><span class="variant-id">icons-tuck-v03</span></div>
+      <p class="card-desc">Tuck icon set v03</p>
+      <div class="card-actions"><a href="../../design/variants/icons-tuck-v03.html" target="_blank">View</a></div>
+    </div>
+    <div class="card-entry" data-type="icons">
+      <div class="card-entry-top"><span class="type-badge">Icons</span><span class="variant-id">icons-misc-v01</span></div>
+      <p class="card-desc">Miscellaneous icon set v01</p>
+      <div class="card-actions"><a href="../../design/variants/icons-misc-v01.html" target="_blank">View</a></div>
+    </div>
+    <div class="card-entry" data-type="script">
+      <div class="card-entry-top"><span class="type-badge">Script</span><span class="variant-id">script-v01</span></div>
+      <p class="card-desc">Script card v01 — turn schedule layout, purple placeholder colour (awaiting colour decision)</p>
+      <div class="card-actions"><a href="../../design/variants/script-v01.html" target="_blank">View</a></div>
+    </div>
+  </div>
+</div>
+
+
+<hr class="section-divider">
+
+<!-- ═══════════════════════════════════════════════════
+     SECTION 2 — ACCEPTED BASELINES
+═══════════════════════════════════════════════════ -->
+
+<div class="section-header" style="margin-top:16px;">
+  <h2>✅ Accepted Baselines</h2>
+  <p class="section-sub">These are the winning options per card type, locked as the live baseline. Only the user can update these.</p>
+</div>
+
+<div class="card-list">
+
+  <div class="card-entry" data-type="persona">
+    <div class="card-entry-top">
+      <span class="accepted-badge">Accepted</span>
+      <span class="type-badge">Persona</span>
+      <span class="variant-id">BASELINE.html</span>
+    </div>
+    <p class="card-desc">Persona card baseline — dark frame, amber type band, Cinzel/Crimson fonts</p>
+    <div class="card-actions">
+      <a href="../../design/BASELINE.html" target="_blank">View Card</a>
+      <a href="../../design/card-index.md" target="_blank">Index</a>
+    </div>
+  </div>
+
+  <div class="card-entry" data-type="location">
+    <div class="card-entry-top">
+      <span class="accepted-badge">Accepted</span>
+      <span class="type-badge">Location</span>
+      <span class="variant-id">location-v01</span>
+    </div>
+    <p class="card-desc">Location card baseline</p>
+    <div class="card-actions">
+      <a href="../../design/variants/location-v01.html" target="_blank">View Card</a>
+      <a href="../../design/card-index.md" target="_blank">Index</a>
+    </div>
+  </div>
+
+  <div class="card-entry" data-type="location">
+    <div class="card-entry-top">
+      <span class="accepted-badge">Accepted</span>
+      <span class="type-badge">Location — Setpiece</span>
+      <span class="variant-id">location-setpiece-v01</span>
+    </div>
+    <p class="card-desc">Location Setpiece card baseline</p>
+    <div class="card-actions">
+      <a href="../../design/variants/location-setpiece-v01.html" target="_blank">View Card</a>
+      <a href="../../design/card-index.md" target="_blank">Index</a>
+    </div>
+  </div>
+
+  <div class="card-entry" data-type="event">
+    <div class="card-entry-top">
+      <span class="accepted-badge">Accepted</span>
+      <span class="type-badge">Event</span>
+      <span class="variant-id">event-v01</span>
+    </div>
+    <p class="card-desc">Event card baseline</p>
+    <div class="card-actions">
+      <a href="../../design/variants/event-v01.html" target="_blank">View Card</a>
+      <a href="../../design/card-index.md" target="_blank">Index</a>
+    </div>
+  </div>
+
+  <div class="card-entry" data-type="event">
+    <div class="card-entry-top">
+      <span class="accepted-badge">Accepted</span>
+      <span class="type-badge">Event — Fated</span>
+      <span class="variant-id">event-fated-v01</span>
+    </div>
+    <p class="card-desc">Event Fated card baseline</p>
+    <div class="card-actions">
+      <a href="../../design/variants/event-fated-v01.html" target="_blank">View Card</a>
+      <a href="../../design/card-index.md" target="_blank">Index</a>
+    </div>
+  </div>
+
+  <div class="card-entry" data-type="character">
+    <div class="card-entry-top">
+      <span class="accepted-badge">Accepted</span>
+      <span class="type-badge">Character — Friendly</span>
+      <span class="variant-id">char-friendly-v02</span>
+    </div>
+    <p class="card-desc">Character Friendly card baseline (v02)</p>
+    <div class="card-actions">
+      <a href="../../design/variants/char-friendly-v02.html" target="_blank">View Card</a>
+      <a href="../../design/card-index.md" target="_blank">Index</a>
+    </div>
+  </div>
+
+  <div class="card-entry" data-type="character">
+    <div class="card-entry-top">
+      <span class="accepted-badge">Accepted</span>
+      <span class="type-badge">Character — Enemy</span>
+      <span class="variant-id">char-enemy-v01</span>
+    </div>
+    <p class="card-desc">Character Enemy card baseline</p>
+    <div class="card-actions">
+      <a href="../../design/variants/char-enemy-v01.html" target="_blank">View Card</a>
+      <a href="../../design/card-index.md" target="_blank">Index</a>
+    </div>
+  </div>
+
+  <div class="card-entry" data-type="character">
+    <div class="card-entry-top">
+      <span class="accepted-badge">Accepted</span>
+      <span class="type-badge">Character — Main</span>
+      <span class="variant-id">char-main-v01</span>
+    </div>
+    <p class="card-desc">Character Main card baseline</p>
+    <div class="card-actions">
+      <a href="../../design/variants/char-main-v01.html" target="_blank">View Card</a>
+      <a href="../../design/card-index.md" target="_blank">Index</a>
+    </div>
+  </div>
+
+  <div class="card-entry" data-type="item">
+    <div class="card-entry-top">
+      <span class="accepted-badge">Accepted</span>
+      <span class="type-badge">Item</span>
+      <span class="variant-id">item-v01</span>
+    </div>
+    <p class="card-desc">Item card baseline</p>
+    <div class="card-actions">
+      <a href="../../design/variants/item-v01.html" target="_blank">View Card</a>
+      <a href="../../design/card-index.md" target="_blank">Index</a>
+    </div>
+  </div>
+
+  <div class="card-entry" data-type="item">
+    <div class="card-entry-top">
+      <span class="accepted-badge">Accepted</span>
+      <span class="type-badge">Item — Key</span>
+      <span class="variant-id">item-key-v01</span>
+    </div>
+    <p class="card-desc">Key Item card baseline</p>
+    <div class="card-actions">
+      <a href="../../design/variants/item-key-v01.html" target="_blank">View Card</a>
+      <a href="../../design/card-index.md" target="_blank">Index</a>
+    </div>
+  </div>
+
+  <div class="card-entry" data-type="quest">
+    <div class="card-entry-top">
+      <span class="accepted-badge">Accepted</span>
+      <span class="type-badge">Quest — Main</span>
+      <span class="variant-id">quest-main-v02</span>
+    </div>
+    <p class="card-desc">Main Quest card baseline (v02)</p>
+    <div class="card-actions">
+      <a href="../../design/variants/quest-main-v02.html" target="_blank">View Card</a>
+      <a href="../../design/card-index.md" target="_blank">Index</a>
+    </div>
+  </div>
+
+  <div class="card-entry" data-type="quest">
+    <div class="card-entry-top">
+      <span class="accepted-badge">Accepted</span>
+      <span class="type-badge">Quest — Side</span>
+      <span class="variant-id">quest-side-v01</span>
+    </div>
+    <p class="card-desc">Side Quest card baseline</p>
+    <div class="card-actions">
+      <a href="../../design/variants/quest-side-v01.html" target="_blank">View Card</a>
+      <a href="../../design/card-index.md" target="_blank">Index</a>
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>
