@@ -76,7 +76,7 @@
   flex: 1;
   overflow: hidden;
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   justify-content: center;
   position: relative;
 }
@@ -84,9 +84,11 @@
 .preview-frame {
   border: none;
   background: #fff;
-  /* Default: fill available space */
-  width: 100%;
-  height: 100%;
+  /* Fixed at card design size; scaled via transform to fill wrapper */
+  width: 375px;
+  height: 525px;
+  flex-shrink: 0;
+  transform-origin: center center;
 }
 
 /* ── Mobile (< 768px): use transform:scale() to fit ── */
@@ -110,7 +112,7 @@
   .preview-frame {
     width: 375px;
     height: 525px;
-    transform-origin: top center;
+    transform-origin: center center;
     /* Scale is set via inline style from the component */
     flex-shrink: 0;
   }

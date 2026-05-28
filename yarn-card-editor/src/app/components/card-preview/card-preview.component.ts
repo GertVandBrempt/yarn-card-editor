@@ -1,4 +1,5 @@
 import {
+  AfterViewInit,
   Component,
   ElementRef,
   Input,
@@ -23,7 +24,7 @@ import { AnyCard } from '../../models';
   templateUrl: './card-preview.component.html',
   styleUrl: './card-preview.component.css',
 })
-export class CardPreviewComponent implements OnChanges, OnDestroy {
+export class CardPreviewComponent implements OnChanges, AfterViewInit, OnDestroy {
   @Input() card: AnyCard | null = null;
   @ViewChild('previewFrame') previewFrame?: ElementRef<HTMLIFrameElement>;
   @ViewChild('previewWrapper') previewWrapper?: ElementRef<HTMLDivElement>;
@@ -49,6 +50,13 @@ export class CardPreviewComponent implements OnChanges, OnDestroy {
     return this.isMobileFlag;
   }
 
+  ngAfterViewInit(): void {
+    // Initial scale calculation once the view is rendered
+    if (isPlatformBrowser(this.platformId)) {
+      setTimeout(() => this.updateScale(), 0);
+    }
+  }
+
   ngOnDestroy(): void {}
 
   @HostListener('window:resize')
@@ -72,16 +80,23 @@ export class CardPreviewComponent implements OnChanges, OnDestroy {
 
   private updateScale(): void {
     if (!isPlatformBrowser(this.platformId)) return;
-    if (!this.isMobileFlag) {
-      this.previewScale.set(1);
-      return;
-    }
     const wrapper = this.previewWrapper?.nativeElement;
     if (!wrapper) return;
     const availableWidth = wrapper.clientWidth;
-    // Card design width is 375px
-    const scale = Math.min(1, (availableWidth - 16) / 375);
-    this.previewScale.set(scale);
+    const availableHeight = wrapper.clientHeight;
+    // Card design dimensions: 375 × 525
+    const cardW = 375;
+    const cardH = 525;
+    const padding = 16;
+    const scaleByWidth = (availableWidth - padding) / cardW;
+    const scaleByHeight = availableHeight > padding
+      ? (availableHeight - padding) / cardH
+      : scaleByWidth;
+    // On mobile: scale down only (max 1); on desktop: scale to fill, constrained by both axes
+    const scale = this.isMobileFlag
+      ? Math.min(1, scaleByWidth)
+      : Math.min(scaleByWidth, scaleByHeight);
+    this.previewScale.set(Math.max(0.2, scale));
   }
 
   private async renderPreview(card: AnyCard): Promise<void> {

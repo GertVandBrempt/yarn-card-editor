@@ -13,7 +13,7 @@ This file is read and written by scheduled agents. Do not edit manually during a
 ```
 blocked_for_weekly_review: false
 weekly_review_due: 2026-05-30T08:00:00Z
-last_orchestrator_run: 2026-05-28T12:16:46Z
+last_orchestrator_run: 2026-05-28T13:50:00Z
 last_status_notification: 2026-05-27T06:13:53Z
 ```
 
@@ -26,7 +26,7 @@ Streams are **independent** — a blocked stream does not pause other streams.
 ### Game Design
 - **Mode**: interactive (orchestrator surfaces topics; user drives sessions in Claude Code)
 - **Source**: DESIGN.md open issues and unresolved questions
-- **Status**: active — 7 discussion items tracked; no new items found in scan of 2026-05-28T12:16:46Z; last notified ~30h ago (< 48h) — no notification
+- **Status**: active — 7 discussion items tracked; no new items found in scan of 2026-05-28T13:50:00Z; last notified ~32h ago (< 48h) — no notification
 - **Pending discussion items** *(top 7 by card-design impact)*:
   1. Script Card colour — purple placeholder in script-v01; must confirm before card-index.md entry
   2. Trigger priority (§7) — explicitly TBD; affects card layout ordering rules
@@ -43,7 +43,7 @@ Streams are **independent** — a blocked stream does not pause other streams.
 ### Card Design
 - **Mode**: autonomous
 - **Source**: design/VISUAL.md, design/card-index.md
-- **Status**: active — 4 design elements accepted; marker shapes accepted; activation track rework queued
+- **Status**: active — 4 design elements accepted; marker shapes accepted; cooldown trigger marker v01-a/b/c created — awaiting acceptance; activation track rework queued
 
 #### Accepted design elements (2026-05-28)
 - ✅ **effects-container-v04** — gradient-fade section borders (opacity 0.7), 0.15 translucent fill; see VISUAL.md §6
@@ -74,6 +74,7 @@ Create new activation track variants for all four primitive track types using th
 - Track types to cover: Basic, Multi-turn (with flow markers and cooldown trigger), Multi-use, Use
 
 #### Still awaiting acceptance
+- cooldown-trigger-marker-v01 (a/b/c)
 - die-symbols-v01 (a/b/c)
 - trigger-symbols-v03 (a/b/c)
 
@@ -125,29 +126,16 @@ Create new activation track variants for all four primitive track types using th
 ### App Design
 - **Mode**: autonomous
 - **Source**: APP.md
-- **Status**: active — three confirmed issues; fix in priority order below
+- **Status**: active — all 4 known issues resolved this run
 
-#### Known issues (user-reported 2026-05-28)
-1. **Site not on GitHub Pages** — editor URL returns no content; no GitHub Actions notification received; previous stale pages still served; likely a workflow auth or trigger failure
-2. **Live preview not updating** — card preview does not reflect form field changes in real time
-3. **Viewport too small** — site appears to render in mobile layout on desktop; viewport meta or breakpoints may be misconfigured
+#### Known issues (all resolved 2026-05-28)
+1. ~~**Site not on GitHub Pages**~~ — ✅ deploy.yml deleted (redundant); orchestrator owns build+deploy cycle
+2. ~~**Live preview not updating**~~ — ✅ Fixed: all 7 baseline templates had hardcoded "Card Title" with no `{{title}}` placeholder; PreviewService.injectFields() replacements were silently no-ops; replaced with `{{title}}` in all templates
+3. ~~**Viewport too small**~~ — ✅ Fixed: iframe sized 100%/100% but card HTML is fixed 375x525; changed iframe to fixed 375x525 with transform:scale() on both mobile and desktop, desktop scale fills available wrapper dimensions
 
 #### Next tasks (in order)
 
-**Task 0 — Delete GitHub Actions workflow (do first)**
-Delete `.github/workflows/deploy.yml` — it is redundant with the orchestrator's own build pipeline and has been silently failing. The orchestrator owns the full build + deploy cycle. Deleting this file removes a source of confusion and eliminates the risk of two processes pushing to `docs/editor/` simultaneously.
-
-**Task 1 — Verify and harden GitHub Pages deployment**
-GitHub Pages is now configured by the user to deploy from branch `master` / folder `/docs`. Content in `docs/editor/` and `docs/review/` is already committed. Steps:
-- Verify `.github/workflows/deploy.yml` — `git push` must be authenticated; `git add` must include `docs/editor/`, `docs/review/`, and `docs/.nojekyll`; build command must NOT pass `--output-path` flag
-- Ensure `docs/.nojekyll` exists (prevents Jekyll interference)
-- Reviewer will verify editor and review URLs return 200 and serve current content
-
-**Task 2 — Fix live preview**
-Read `yarn-card-editor/src/app/services/preview.service.ts`. Verify that form field changes in `CardFormComponent` trigger `PreviewService.injectFields()` and that the iframe/preview element re-renders. Fix any missing subscriptions or change detection issues.
-
-**Task 3 — Fix card preview scale**
-The card live preview is too small — the preview area renders at mobile/small scale even on desktop. The overall site layout is fine. Read `yarn-card-editor/src/app/components/card-preview/` and the relevant CSS. The card preview should render at a size appropriate for desktop — check the `transform:scale()` value applied to the preview card and the container dimensions; ensure the preview scales to fill its container at desktop viewport widths rather than being fixed at a small mobile scale.
+No pending tasks. Awaiting baseline acceptance to trigger auto-sync.
 
 #### Auto-sync rule (unchanged)
 After Card Design propagates accepted baselines → re-sync updated baseline HTMLs into `yarn-card-editor/src/assets/templates/`; rebuild; redeploy.
@@ -163,6 +151,9 @@ After Card Design propagates accepted baselines → re-sync updated baseline HTM
   9. ✅ Build output verified
   10. ✅ **Deployment fix** — Root cause: `--output-path` CLI flag overrides only `base`, silently dropping `"browser": ""` config; fix: let `angular.json` control output path, workflow passes only `--base-href`; rebuilt flat to `docs/editor/index.html`; `.github/workflows/deploy.yml` updated
   11. ✅ **Review gallery migration** — Migrated `review/index.html` from repo root to `docs/review/index.html`; created `docs/.nojekyll`; updated deploy.yml; all 82 variant paths corrected to `../../design/variants/`
+  12. ✅ **Delete deploy.yml** — Removed `.github/workflows/deploy.yml` (redundant with orchestrator build pipeline)
+  13. ✅ **Fix live preview** — All 7 baseline templates had hardcoded title text; replaced with `{{title}}` placeholder so `PreviewService.injectFields()` can substitute form values
+  14. ✅ **Fix card preview scale** — Changed iframe to fixed 375x525 with `transform:scale()` computed to fill desktop wrapper dimensions; mobile uses constrained scale
 - **Auto-sync rule**: After any Card Design stream action that updates `card-index.md` **or** creates a new trigger symbol / activation track variant, the App Design stream must re-run steps 5–9 automatically (sync SVGs + baselines → build → deploy). No user trigger needed.
 - **Pages layout rule**: GitHub Pages serves from `docs/` folder on master branch. All output files must live under `docs/`:
   - Editor: `docs/editor/` ✅
@@ -327,6 +318,10 @@ _(none)_
 | 2026-05-28T12:16:46Z | Orchestrator | A: Game Design | No new items; 7 tracked unchanged; last notified ~30h ago (< 48h) — no notification |
 | 2026-05-28T12:16:46Z | Orchestrator | B: Card Design | On hold — all 9 tracks complete; no new acceptances in card-index.md; AND/OR + effects-v04 awaiting primitive acceptance |
 | 2026-05-28T12:16:46Z | Orchestrator | C: App Design | On hold — no new accepted baselines in card-index.md; awaiting baseline acceptance to trigger auto-sync |
+| 2026-05-28T13:50:00Z | Orchestrator | A: Game Design | No new items; 7 tracked unchanged; last notified ~32h ago (< 48h) — no notification |
+| 2026-05-28T13:50:00Z | Orchestrator | B: Card Design | cooldown-trigger-marker-v01-a/b/c created (wedge/arrowhead/notch indicator styles); CHANGES.md updated; review page regenerated |
+| 2026-05-28T13:50:00Z | Orchestrator | C: App Design | Tasks 0–3 complete: deploy.yml deleted; live preview fixed ({{title}} placeholders in 7 templates); card preview scale fixed (375x525 iframe + transform:scale); app rebuilt + redeployed |
+| 2026-05-28T13:50:00Z | Orchestrator | Gallery: regenerate | docs/review/index.html updated — cooldown-trigger-marker added to Under Review; accepted elements moved to Accepted section; legacy/superseded items removed |
 
 ---
 
