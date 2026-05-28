@@ -13,7 +13,7 @@ This file is read and written by scheduled agents. Do not edit manually during a
 ```
 blocked_for_weekly_review: false
 weekly_review_due: 2026-05-30T08:00:00Z
-last_orchestrator_run: 2026-05-28T13:50:00Z
+last_orchestrator_run: 2026-05-28T18:13:31Z
 last_status_notification: 2026-05-27T06:13:53Z
 ```
 
@@ -26,7 +26,7 @@ Streams are **independent** — a blocked stream does not pause other streams.
 ### Game Design
 - **Mode**: interactive (orchestrator surfaces topics; user drives sessions in Claude Code)
 - **Source**: DESIGN.md open issues and unresolved questions
-- **Status**: active — 7 discussion items tracked; no new items found in scan of 2026-05-28T13:50:00Z; last notified ~32h ago (< 48h) — no notification
+- **Status**: active — 7 discussion items tracked; no new items found in scan of 2026-05-28T18:13:31Z; last notified ~36h ago (< 48h) — no notification
 - **Pending discussion items** *(top 7 by card-design impact)*:
   1. Script Card colour — purple placeholder in script-v01; must confirm before card-index.md entry
   2. Trigger priority (§7) — explicitly TBD; affects card layout ordering rules
@@ -43,7 +43,7 @@ Streams are **independent** — a blocked stream does not pause other streams.
 ### Card Design
 - **Mode**: autonomous
 - **Source**: design/VISUAL.md, design/card-index.md
-- **Status**: active — 4 design elements accepted; marker shapes accepted; cooldown trigger marker v01-a/b/c created — awaiting acceptance; activation track rework queued
+- **Status**: on hold — 4 design elements accepted; marker shapes accepted; cooldown trigger marker v01-a/b/c awaiting acceptance; all remaining tasks blocked on acceptance
 
 #### Accepted design elements (2026-05-28)
 - ✅ **effects-container-v04** — gradient-fade section borders (opacity 0.7), 0.15 translucent fill; see VISUAL.md §6
@@ -126,7 +126,7 @@ Create new activation track variants for all four primitive track types using th
 ### App Design
 - **Mode**: autonomous
 - **Source**: APP.md
-- **Status**: active — all 4 known issues resolved this run
+- **Status**: on hold — all 4 known issues resolved; awaiting baseline acceptance to trigger auto-sync
 
 #### Known issues (all resolved 2026-05-28)
 1. ~~**Site not on GitHub Pages**~~ — ✅ deploy.yml deleted (redundant); orchestrator owns build+deploy cycle
@@ -322,6 +322,9 @@ _(none)_
 | 2026-05-28T13:50:00Z | Orchestrator | B: Card Design | cooldown-trigger-marker-v01-a/b/c created (wedge/arrowhead/notch indicator styles); CHANGES.md updated; review page regenerated |
 | 2026-05-28T13:50:00Z | Orchestrator | C: App Design | Tasks 0–3 complete: deploy.yml deleted; live preview fixed ({{title}} placeholders in 7 templates); card preview scale fixed (375x525 iframe + transform:scale); app rebuilt + redeployed |
 | 2026-05-28T13:50:00Z | Orchestrator | Gallery: regenerate | docs/review/index.html updated — cooldown-trigger-marker added to Under Review; accepted elements moved to Accepted section; legacy/superseded items removed |
+| 2026-05-28T18:13:31Z | Orchestrator | A: Game Design | No new items; 7 tracked unchanged; last notified ~36h ago (< 48h) — no notification |
+| 2026-05-28T18:13:31Z | Orchestrator | B: Card Design | On hold — all design tracks complete or awaiting acceptance; Task 2 (baseline propagation) and Task 3 (track rework) blocked on cooldown-trigger-marker-v01 acceptance |
+| 2026-05-28T18:13:31Z | Orchestrator | C: App Design | On hold — no new accepted baselines in card-index.md; awaiting Card Design baseline propagation to trigger auto-sync |
 
 ---
 

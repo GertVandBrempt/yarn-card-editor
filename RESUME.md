@@ -1,6 +1,6 @@
 # Yarn — Session Resume Context
 
-_Updated: 2026-05-28T13:50:00Z_
+_Updated: 2026-05-28T18:13:31Z_
 
 ---
 
@@ -16,7 +16,7 @@ Card types: **Location, Character, Item, Event, Quest, Persona, Script**
 
 ### Stream A — Game Design
 **Status:** Active — 7 discussion items tracked, no new items found  
-**Last notified:** 2026-05-27T06:13:53Z (~32h ago; < 48h — no notification this run)  
+**Last notified:** 2026-05-27T06:13:53Z (~36h ago; < 48h — no notification this run)  
 **Pending items:**
 1. Script Card colour — purple placeholder in script-v01; must confirm before card-index.md entry
 2. Trigger priority (§7) — explicitly TBD; affects card layout ordering rules
@@ -27,7 +27,7 @@ Card types: **Location, Character, Item, Event, Quest, Persona, Script**
 7. Inline sym+modifier rendering (§6.1) — `[icon][modifier]` inline layout/sizing rules not yet finalised in VISUAL.md
 
 ### Stream B — Card Design
-**Status:** Active — cooldown trigger marker v01-a/b/c created this run; awaiting acceptance  
+**Status:** On hold — all design tracks complete; awaiting user acceptance of pending variants  
 **Accepted:**
 - Marker shapes locked: activation = inlayed diamond, flow = hollow diamond, use = square+square
 - 4 design elements: effects-container-v04, set-symbol-v01-a, flavour-text-v01-c, subtitle-v01-a
@@ -38,12 +38,8 @@ Card types: **Location, Character, Item, Event, Quest, Persona, Script**
 **Still awaiting acceptance:** cooldown-trigger-marker-v01, die-symbols-v01, trigger-symbols-v03
 
 ### Stream C — App Design
-**Status:** Active — all 4 tasks completed this run  
-**Resolved this run:**
-1. ~~Site not on GitHub Pages~~ — deploy.yml deleted (redundant with orchestrator pipeline)
-2. ~~Live preview not updating~~ — baseline templates had hardcoded title; replaced with {{title}} placeholders
-3. ~~Viewport too small~~ — iframe changed to 375x525 with computed transform:scale for desktop
-**Next:** No pending tasks. Awaiting baseline acceptance to trigger auto-sync.
+**Status:** On hold — all known issues resolved; awaiting baseline propagation from Card Design  
+**Next:** Awaiting Card Design Task 2 (baseline propagation) to complete, then auto-sync updated templates, rebuild, and redeploy.
 
 ---
 
