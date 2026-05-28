@@ -1,6 +1,6 @@
 # Yarn — Session Resume Context
 
-_Updated: 2026-05-28T00:17:35Z_
+_Updated: 2026-05-28T06:15:43Z_
 
 ---
 
@@ -16,7 +16,7 @@ Card types: **Location, Character, Item, Event, Quest, Persona, Script**
 
 ### 🎮 Stream A — Game Design
 **Status:** Active — 7 discussion items tracked, no new items found  
-**Last notified:** 2026-05-27T06:13:53Z (~18h ago; < 48h — no notification this run)  
+**Last notified:** 2026-05-27T06:13:53Z (~24h ago; < 48h — no notification this run)  
 **Pending items:**
 1. Script Card colour — purple placeholder in script-v01; must confirm before card-index.md entry
 2. Trigger priority (§7) — explicitly TBD; affects card layout ordering rules
@@ -44,8 +44,8 @@ Card types: **Location, Character, Item, Event, Quest, Persona, Script**
 - effects-v04 — on hold until trigger symbols + activation tracks both accepted
 
 ### 🖥️ Stream C — App Design
-**Status:** Active — review gallery migration completed  
-**Done this run:** Migrated review gallery from `review/index.html` (repo root) to `docs/review/index.html` (GitHub Pages-served path); created `docs/.nojekyll`; updated deploy.yml; 82 variant paths corrected  
+**Status:** On hold — awaiting baseline acceptance  
+**Last action:** Review gallery migrated to `docs/review/index.html` (2026-05-28T00:17:35Z)  
 **Next:** On hold — awaiting baseline acceptance in card-index.md to trigger auto-sync
 
 ---
