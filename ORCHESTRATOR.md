@@ -13,7 +13,7 @@ This file is read and written by scheduled agents. Do not edit manually during a
 ```
 blocked_for_weekly_review: false
 weekly_review_due: 2026-05-30T08:00:00Z
-last_orchestrator_run: 2026-05-29T00:11:07Z
+last_orchestrator_run: 2026-05-29T06:12:18Z
 last_status_notification: 2026-05-29T00:11:07Z
 ```
 
@@ -328,6 +328,9 @@ _(none)_
 | 2026-05-29T00:11:07Z | Orchestrator | A: Game Design | No new items; 7 tracked unchanged; last notified ~66h ago (> 48h threshold) — notification sent |
 | 2026-05-29T00:11:07Z | Orchestrator | B: Card Design | On hold — cooldown-trigger-marker-v01 awaiting acceptance; Task 2 and Task 3 blocked on acceptance |
 | 2026-05-29T00:11:07Z | Orchestrator | C: App Design | On hold — no new accepted baselines in card-index.md; awaiting Card Design baseline propagation to trigger auto-sync |
+| 2026-05-29T06:12:18Z | Orchestrator | A: Game Design | No new items; 7 tracked unchanged; last notified ~6h ago (< 48h) — no notification |
+| 2026-05-29T06:12:18Z | Orchestrator | B: Card Design | On hold — cooldown-trigger-marker-v01 awaiting acceptance; Task 2 and Task 3 blocked on acceptance |
+| 2026-05-29T06:12:18Z | Orchestrator | C: App Design | On hold — no new accepted baselines in card-index.md; awaiting Card Design baseline propagation to trigger auto-sync |
 
 ---
 
