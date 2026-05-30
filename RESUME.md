@@ -1,6 +1,6 @@
 # Yarn — Session Resume Context
 
-_Updated: 2026-05-30T12:00:00Z_
+_Updated: 2026-05-30T12:12:45Z_
 
 ---
 
@@ -14,21 +14,23 @@ Card types: **Location, Character, Item, Event, Quest, Persona, Script**
 
 ## Current stream status
 
-### 🎮 Stream A — Game Design
-**Status:** Active — 5 open questions found  
-**Situation:** DESIGN.md exists and was scanned. Five discussion items with card-design impact were identified: cross-card trigger priority, die face distributions per level, exhaust face spend rules, Location Set composition, and Side Quest retrieval pool scope.  
+### Stream A — Game Design
+**Status:** Active — 7 discussion items tracked, no new items this run  
+**Last notified:** 2026-05-29T00:11:07Z  
+**Top items:** trigger priority (§7), character dual-mode layout (§3.4), inline sym+modifier rendering (§6.1), life point slots (§3.1), action track visual design (§4.4)  
 **To discuss:** open Claude Code and say "game design" to work through these items.
 
-### 🎨 Stream B — Card Design
-**Status:** Blocked  
-**Blocked on:** `design/VISUAL.md` and `design/card-index.md` do not exist.  
-These must be created before card variants can be built. They define the visual language and per-type card HTML baselines.  
-**To unblock:** create VISUAL.md and card-index.md with initial visual decisions, then tell the orchestrator.
+### Stream B — Card Design
+**Status:** On hold  
+**Situation:** 4 design elements accepted (effects-container-v04, set-symbol-v01-a, flavour-text-v01-c, subtitle-v01-a). 4 marker shapes accepted. All 9 independent design tracks complete.  
+**Awaiting acceptance:** cooldown-trigger-marker-v01 (a/b/c), die-symbols-v01 (a/b/c), trigger-symbols-v03 (a/b/c)  
+**Blocked tasks:** Task 2 (baseline propagation) and Task 3 (activation track rework) both require cooldown-trigger-marker acceptance.  
+**To unblock:** review and accept pending variants at the review gallery.
 
-### 🖥️ Stream C — App Design
-**Status:** Blocked — awaiting user review  
-**Situation:** Initial `app.md` was drafted on first run. It covers: Core Loop, Card Data Model (with TBDs pending DESIGN.md), Card Set Management, Import/Export, Visual Editor, Open Questions.  
-**To unblock:** read `app.md` and reply "app looks good" or give feedback.
+### Stream C — App Design
+**Status:** On hold  
+**Situation:** All 14 completed tasks done. Editor deployed to `docs/editor/`. Review gallery at `docs/review/`. All known issues resolved.  
+**Awaiting:** Card Design baseline acceptance to trigger auto-sync of updated templates into the Angular app.
 
 ---
 
@@ -40,8 +42,9 @@ These must be created before card variants can be built. They define the visual 
 | design/VISUAL.md | Locked visual decisions | User + orchestrator reads |
 | design/card-index.md | Per-type card HTML baselines | User + orchestrator reads |
 | design/variants/*.html | Card variant files | Orchestrator (autonomous) |
-| app.md | App design decisions | Orchestrator (with user feedback) |
-| review/index.html | Mobile card review gallery | Orchestrator (regenerated) |
+| APP.md | App design decisions | Orchestrator (with user feedback) |
+| docs/review/index.html | Card review gallery | Orchestrator (regenerated) |
+| docs/editor/ | Angular app build output | Orchestrator (rebuilt) |
 | ORCHESTRATOR.md | System state / stream tracking | Orchestrator |
 | RESUME.md | This file — session context | Orchestrator |
 
@@ -49,14 +52,14 @@ These must be created before card variants can be built. They define the visual 
 
 ## How to continue work
 
-- **Interactive session:** open Claude Code, say what you want to work on. Say "game design" to discuss DESIGN.md, "card design" to review variants, "app design" to discuss app.md.
-- **Accept app.md draft:** say "app looks good" (or give specific feedback).
-- **Unblock card design:** share your VISUAL.md and card-index.md, or ask the orchestrator to draft them from DESIGN.md once that exists.
-- **Weekly review:** the orchestrator will pause and notify you when a review gate is reached.
+- **Review card variants:** visit https://gertvandbrempt.github.io/yarn-card-editor/review/ and accept or give feedback on pending designs
+- **Interactive session:** open Claude Code, say what you want to work on
+- **Accept variants:** say "accept cooldown-trigger-marker-v01-a" (or b/c) to unblock baseline propagation and track rework
+- **Weekly review:** the orchestrator will pause and notify you when a review gate is reached
 
 ---
 
 ## Gallery
 
-Card review gallery (GitHub Pages): https://gertvandtbrempt.github.io/yarn-card-editor/review/  
-_(Currently empty — no card variants have been created yet.)_
+Card review gallery (GitHub Pages): https://gertvandbrempt.github.io/yarn-card-editor/review/
+Editor app: https://gertvandbrempt.github.io/yarn-card-editor/editor/
