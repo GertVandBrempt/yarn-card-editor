@@ -1,0 +1,299 @@
+<!-- card-variant: trigger-symbols-v01 | SVG reference for all 6 trigger symbols per §7 style rules: On Reveal, On Enter, On Leave, Character Phase, On Complete, On Flow Marker -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Crimson+Text:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --card-w: 375px;
+  --card-h: 525px;
+  --card-r: 12.5px;
+  --bg: #0d0a06;
+  --border: #2a1c0c;
+  --text-head: #dcc06a;
+  --text-dim: #7a5830;
+  --text-label: #c8b08a;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  background: #181008;
+}
+
+.ref-card {
+  width: var(--card-w);
+  height: var(--card-h);
+  background: var(--bg);
+  border-radius: var(--card-r);
+  overflow: hidden;
+  box-shadow: 0 24px 70px rgba(0,0,0,0.97), 0 6px 16px rgba(0,0,0,0.8);
+  padding: 20px 18px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  border: 1px solid #1e1408;
+}
+
+.ref-header {
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 10px;
+  margin-bottom: 14px;
+}
+
+.ref-title {
+  font-family: 'Cinzel', Georgia, serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--text-head);
+}
+
+.ref-subtitle {
+  font-family: 'Cinzel', Georgia, serif;
+  font-size: 7px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  margin-top: 3px;
+}
+
+/* 3×2 symbol grid */
+.sym-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px 8px;
+  flex: 1;
+}
+
+.sym-cell {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 8px 10px;
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(122,72,24,0.25);
+  border-radius: 6px;
+}
+
+.sym-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sym-name {
+  font-family: 'Cinzel', Georgia, serif;
+  font-size: 7.5px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--text-head);
+  text-align: center;
+  line-height: 1.4;
+}
+
+.sym-id {
+  font-family: 'Crimson Text', Georgia, serif;
+  font-size: 10px;
+  color: var(--text-dim);
+  text-align: center;
+  line-height: 1;
+}
+
+.style-ref {
+  margin-top: 10px;
+  padding: 8px 10px;
+  background: rgba(10,6,2,0.8);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+}
+
+.style-ref-title {
+  font-family: 'Cinzel', Georgia, serif;
+  font-size: 7px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  margin-bottom: 4px;
+}
+
+.style-ref-body {
+  font-family: 'Crimson Text', Georgia, serif;
+  font-size: 11px;
+  color: #6a4820;
+  line-height: 1.55;
+}
+
+.style-ref-body code {
+  color: #a07840;
+  font-size: 10px;
+}
+</style>
+</head>
+<body>
+
+<svg style="display:none" xmlns="http://www.w3.org/2000/svg">
+<defs>
+
+  <!--
+    §7 Trigger Symbol Definitions
+    ──────────────────────────────
+    Style rules (VISUAL.md §7):
+      viewBox="0 0 24 24"
+      stroke="#1a0e04"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"
+      Single bold filled shape per icon.
+      Usage: <svg width="20" height="20"><use href="#trig-reveal"/></svg>
+  -->
+
+  <!-- On Reveal — 5-pointed star (sudden flash of appearance) -->
+  <symbol id="trig-reveal" viewBox="0 0 24 24">
+    <polygon
+      points="12,2 14.47,9.12 22,9.12 16.26,13.84 18.54,21 12,16.38 5.46,21 7.74,13.84 2,9.12 9.53,9.12"
+      fill="#f0d040"
+      stroke="#1a0e04"
+      stroke-width="1.8"
+      stroke-linejoin="round"
+      stroke-linecap="round"
+    />
+  </symbol>
+
+  <!-- On Enter — solid forward arrow (movement inward) -->
+  <symbol id="trig-enter" viewBox="0 0 24 24">
+    <path
+      d="M3,10 L13,10 L13,6 L21,12 L13,18 L13,14 L3,14 Z"
+      fill="#50d060"
+      stroke="#1a0e04"
+      stroke-width="1.8"
+      stroke-linejoin="round"
+      stroke-linecap="round"
+    />
+  </symbol>
+
+  <!-- On Leave — solid backward arrow (movement outward) -->
+  <symbol id="trig-leave" viewBox="0 0 24 24">
+    <path
+      d="M21,10 L11,10 L11,6 L3,12 L11,18 L11,14 L21,14 Z"
+      fill="#f07030"
+      stroke="#1a0e04"
+      stroke-width="1.8"
+      stroke-linejoin="round"
+      stroke-linecap="round"
+    />
+  </symbol>
+
+  <!-- Character Phase — solid hexagon (cyclic phase marker) -->
+  <symbol id="trig-char-phase" viewBox="0 0 24 24">
+    <polygon
+      points="12,2 20.39,6.5 20.39,17.5 12,22 3.61,17.5 3.61,6.5"
+      fill="#a060d0"
+      stroke="#1a0e04"
+      stroke-width="1.8"
+      stroke-linejoin="round"
+      stroke-linecap="round"
+    />
+  </symbol>
+
+  <!-- On Complete — bold checkmark (objective met) -->
+  <symbol id="trig-complete" viewBox="0 0 24 24">
+    <path
+      d="M2,13 L8,19 L22,5 L19.5,2.5 L8,14 L4.5,10.5 Z"
+      fill="#40c060"
+      stroke="#1a0e04"
+      stroke-width="1.8"
+      stroke-linejoin="round"
+      stroke-linecap="round"
+    />
+  </symbol>
+
+  <!-- On Flow Marker — solid right-pointing chevron (token advancing on track) -->
+  <symbol id="trig-flow-marker" viewBox="0 0 24 24">
+    <path
+      d="M5,3.5 L15,12 L5,20.5 L8.5,20.5 L18.5,12 L8.5,3.5 Z"
+      fill="#5090e0"
+      stroke="#1a0e04"
+      stroke-width="1.8"
+      stroke-linejoin="round"
+      stroke-linecap="round"
+    />
+  </symbol>
+
+</defs>
+</svg>
+
+
+<div class="ref-card">
+  <div class="ref-header">
+    <div class="ref-title">Trigger Symbols</div>
+    <div class="ref-subtitle">§7 Reference — v01 — design/variants/trigger-symbols-v01.html</div>
+  </div>
+
+  <div class="sym-grid">
+
+    <div class="sym-cell">
+      <div class="sym-icon">
+        <svg width="52" height="52"><use href="#trig-reveal"/></svg>
+      </div>
+      <div class="sym-name">On<br>Reveal</div>
+      <div class="sym-id">#trig-reveal</div>
+    </div>
+
+    <div class="sym-cell">
+      <div class="sym-icon">
+        <svg width="52" height="52"><use href="#trig-enter"/></svg>
+      </div>
+      <div class="sym-name">On<br>Enter</div>
+      <div class="sym-id">#trig-enter</div>
+    </div>
+
+    <div class="sym-cell">
+      <div class="sym-icon">
+        <svg width="52" height="52"><use href="#trig-leave"/></svg>
+      </div>
+      <div class="sym-name">On<br>Leave</div>
+      <div class="sym-id">#trig-leave</div>
+    </div>
+
+    <div class="sym-cell">
+      <div class="sym-icon">
+        <svg width="52" height="52"><use href="#trig-char-phase"/></svg>
+      </div>
+      <div class="sym-name">Character<br>Phase</div>
+      <div class="sym-id">#trig-char-phase</div>
+    </div>
+
+    <div class="sym-cell">
+      <div class="sym-icon">
+        <svg width="52" height="52"><use href="#trig-complete"/></svg>
+      </div>
+      <div class="sym-name">On<br>Complete</div>
+      <div class="sym-id">#trig-complete</div>
+    </div>
+
+    <div class="sym-cell">
+      <div class="sym-icon">
+        <svg width="52" height="52"><use href="#trig-flow-marker"/></svg>
+      </div>
+      <div class="sym-name">On Flow<br>Marker</div>
+      <div class="sym-id">#trig-flow-marker</div>
+    </div>
+
+  </div>
+
+  <div class="style-ref">
+    <div class="style-ref-title">§7 Style Rules</div>
+    <div class="style-ref-body">
+      viewBox <code>0 0 24 24</code> · stroke <code>#1a0e04</code> · stroke-width <code>1.8–2.5</code><br>
+      Single bold filled surface · no internal line detail<br>
+      Usage: <code>&lt;svg width="20" height="20"&gt;&lt;use href="#trig-reveal"/&gt;&lt;/svg&gt;</code>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

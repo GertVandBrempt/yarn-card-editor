@@ -1,6 +1,6 @@
 # Yarn — Session Resume Context
 
-_Updated: 2026-05-30T12:12:45Z_
+_Updated: 2026-05-30T19:59:56Z_
 
 ---
 
@@ -29,7 +29,7 @@ Card types: **Location, Character, Item, Event, Quest, Persona, Script**
 
 ### Stream C — App Design
 **Status:** On hold  
-**Situation:** All 14 completed tasks done. Editor deployed to `docs/editor/`. Review gallery at `docs/review/`. All known issues resolved.  
+**Situation:** All 14 completed tasks done. Editor deployed to `docs/editor/`. Review gallery at `docs/review/`. All known issues resolved. Gallery href paths fixed this run (../../ → ../ to prevent 404 on GitHub Pages).  
 **Awaiting:** Card Design baseline acceptance to trigger auto-sync of updated templates into the Angular app.
 
 ---
