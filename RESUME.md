@@ -1,6 +1,6 @@
 # Yarn — Session Resume Context
 
-_Updated: 2026-05-24T08:30:38Z_
+_Updated: 2026-05-30T12:00:00Z_
 
 ---
 
@@ -15,9 +15,9 @@ Card types: **Location, Character, Item, Event, Quest, Persona, Script**
 ## Current stream status
 
 ### 🎮 Stream A — Game Design
-**Status:** Waiting for content  
-**Situation:** DESIGN.md does not exist yet. Once the user creates it, the orchestrator will scan it for open questions and surface them in interactive sessions.  
-**To start a game design session:** open Claude Code and say "game design".
+**Status:** Active — 5 open questions found  
+**Situation:** DESIGN.md exists and was scanned. Five discussion items with card-design impact were identified: cross-card trigger priority, die face distributions per level, exhaust face spend rules, Location Set composition, and Side Quest retrieval pool scope.  
+**To discuss:** open Claude Code and say "game design" to work through these items.
 
 ### 🎨 Stream B — Card Design
 **Status:** Blocked  
