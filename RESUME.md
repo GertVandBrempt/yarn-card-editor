@@ -1,6 +1,6 @@
 # Yarn — Session Resume Context
 
-_Updated: 2026-05-29T18:12:54Z_
+_Updated: 2026-05-30T00:11:11Z_
 
 ---
 
@@ -16,7 +16,7 @@ Card types: **Location, Character, Item, Event, Quest, Persona, Script**
 
 ### Stream A — Game Design
 **Status:** Active — 7 discussion items tracked, no new items found  
-**Last notified:** 2026-05-29T00:11:07Z (~18h ago; < 48h threshold — no notification this run)  
+**Last notified:** 2026-05-29T00:11:07Z (~24h ago; < 48h threshold — no notification this run)  
 **Pending items:**
 1. Script Card colour — purple placeholder in script-v01; must confirm before card-index.md entry
 2. Trigger priority (§7) — explicitly TBD; affects card layout ordering rules
