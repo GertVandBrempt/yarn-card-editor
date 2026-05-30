@@ -1,7 +1,8 @@
 # Yarn Orchestrator State
 
-blocked_for_weekly_review: false
-last_orchestrator_run: 2026-05-24T08:30:38Z
+blocked_for_weekly_review: true
+weekly_review_due: 2026-06-06T08:00:00Z
+last_orchestrator_run: 2026-05-30T08:00:00Z
 
 ---
 
@@ -42,3 +43,4 @@ Last notified: 2026-05-24T08:30:38Z
 | 2026-05-24T08:30:38Z | A | Scan | DESIGN.md not found — no items to surface |
 | 2026-05-24T08:30:38Z | B | Check | VISUAL.md and card-index.md missing — blocked, notified |
 | 2026-05-24T08:30:38Z | C | Draft | Drafted initial app.md — blocked pending user review |
+| 2026-05-30T08:00:00Z | System | Weekly Review Gate | All streams still blocked; work paused pending user acceptance |
