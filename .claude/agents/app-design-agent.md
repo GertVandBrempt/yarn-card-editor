@@ -20,7 +20,7 @@ DO NOT run git commands. DO NOT modify ORCHESTRATOR.md. DO NOT read or modify `d
 
 ## Task Execution
 
-1. Read ORCHESTRATOR.md — find the App Design stream state passed in this prompt. If **Blocked on** is non-empty or Next tasks say Hold, return the blocked/hold result immediately.
+1. Use the stream context passed in this prompt (status, blocked-on, next tasks). Do NOT read ORCHESTRATOR.md — it has already been read by the orchestrator and the relevant section is in this prompt. If **Blocked on** is non-empty or Next tasks say Hold, return the blocked/hold result immediately.
 2. Read `APP.md` and `design/card-index.md`.
 3. Always maintain the review gallery (do this on every run, regardless of queue status):
    - Copy every file from `design/variants/` to `docs/design/variants/` (create the directory if needed)

@@ -5,10 +5,9 @@ This file is read and written by scheduled agents. Do not edit manually during a
 ## Behavioral Rules *(enforced every run)*
 
 - **Work stream agents** — dispatch both work stream agents in parallel at the start of each run:
-  - Card Design stream → invoke agent `card-design-agent`
-  - App Design stream → invoke agent `app-design-agent`
-  - Pass each agent the relevant stream section from this file (status, tasks, blocked-on) as context
-- **Design decision tracking** — after every run, scan `design/VISUAL.md` for accepted design elements (any section that says "locked design" or "accepted"). For each accepted element not yet marked as implemented in the App Design stream, add an implementation task to App Design's Next tasks. This ensures accepted card design decisions are never silently dropped — the app always catches up.
+  - Card Design stream → invoke agent `card-design-agent`; pass the full Card Design stream section from this file (status, blocked-on, next tasks, accepted elements, global rules) directly in the prompt — the agent must not re-read ORCHESTRATOR.md
+  - App Design stream → invoke agent `app-design-agent`; pass the full App Design stream section from this file (status, blocked-on, next tasks, auto-sync rule, pages layout rule) directly in the prompt — the agent must not re-read ORCHESTRATOR.md
+- **Design decision tracking** — after every run, compare the Card Design stream's "Accepted design elements" list in this file against the App Design stream's completed and queued tasks. For each accepted element with no corresponding implementation task in App Design, add one. No additional file reads required — all information is in this file.
 - **No mid-run notifications** — send only one PushNotification per run, at the very end, after the review streams complete
 - **Review streams** — after both work stream agents finish and changes are committed, dispatch review agents in parallel; see §Review Stream Rules below:
   - Card Design reviewer → invoke agent `card-design-reviewer`
@@ -219,7 +218,7 @@ These rules govern the review sub-agents dispatched after each orchestrator run 
 After STEP 7 (commit and push): dispatch review sub-agents for any stream that returned `status: done` this run. Card Design reviewer and App Design reviewer run in parallel.
 
 ### Card Design reviewer
-Invoke agent: `card-design-reviewer`
+Invoke agent: `card-design-reviewer`; pass the `files_changed` list from the card-design-agent's CARD_RESULT directly in the prompt — the reviewer reads those specific variant files plus `design/VISUAL.md` and `design/card-index.md`; it must not re-read `design/variants/CHANGES.md` to discover which files changed.
 
 ### App Design reviewer
 Invoke agent: `app-design-reviewer`

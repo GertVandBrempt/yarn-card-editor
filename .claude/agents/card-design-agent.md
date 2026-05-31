@@ -16,9 +16,9 @@ DO NOT touch anything under docs/ — that is the app stream's domain.
 
 ## Task Execution
 
-1. Read ORCHESTRATOR.md — find the Card Design stream state passed in this prompt. If **Blocked on** is non-empty, return the blocked result immediately.
+1. Use the stream context passed in this prompt (status, blocked-on, next tasks, accepted elements). Do NOT read ORCHESTRATOR.md — it has already been read by the orchestrator and the relevant section is in this prompt. If **Blocked on** is non-empty, return the blocked result immediately.
 2. Read `design/VISUAL.md` and `design/card-index.md`.
-3. Execute the first queued task from the Card Design Next tasks list. If all tasks are on Hold or blocked, return the hold result.
+3. Execute the first queued task from the Next tasks list. If all tasks are on Hold or blocked, return the hold result.
 
 ## Design-Stage Conventions
 
