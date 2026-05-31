@@ -107,6 +107,7 @@ The mechanics frame (bottom panel) is divided into up to four containers, displa
 | | `<cooldown trigger marker> → <effect>` — fires on On Flow Marker |
 | | `<N use markers> → <effect>` — N physical token slots leading to one effect |
 
+
 **Sym+modifier group** — `[icon][modifier]` is an atomic inline unit within effect text; a modifier is either a number (amount) or a short label (set-aside card name).
 
 ---
@@ -124,13 +125,26 @@ Icons are used inline in effect text to represent game concepts. The accepted ic
 
 ### Trigger symbol style rules
 
-Trigger symbols follow the same sizing and stroke rules as effect icons but use a **unified color scheme** (not per-trigger color):
+Trigger symbols are **larger than effect icons** — they share the same minimum row height as activation track markers, and must use that space to be immediately legible.
 
-- **Size:** 20×20, matching effect icons — consistent inline sizing throughout effect rows
+- **Size:** same rendered dimensions as activation track markers (~48 px at card scale) — not 20×20; the row height is driven by this size
+- **ViewBox:** `0 0 48 48` (or equivalent larger canvas) — take full advantage of the space; do not scale a 24×24 design up
 - **Body fill:** dark (`#1a0e04` or close variant) — same dark tone used for card frame and strokes
-- **Detail / highlight fill:** a single lighter tone (e.g. warm off-white or light amber) for interior shape details — consistent across all trigger symbols
+- **Detail / highlight fill:** a single lighter tone (warm off-white or light amber) for interior shape details — consistent across all trigger symbols
 - **No per-trigger color variation** — all trigger symbols share the same dark+light palette; shape alone distinguishes trigger type
-- **Display context:** always shown as the leading symbol of a trigger row on a card — never displayed as an isolated reference sheet; variant files must show them in use inside the trigger sections of a real card mockup
+- **Clarity requirement:** each symbol must be intuitively legible at a glance — the shape should directly evoke the trigger concept without requiring prior knowledge; abstract geometric shapes are not acceptable; research real-world iconography for each trigger concept before designing
+- **Display context:** always shown as the leading symbol of a trigger row on a card, followed by the trigger name label (see §6.1); variant files must show them in use inside the trigger sections of a real card mockup
+
+**Trigger types requiring symbols:**
+
+| Trigger | When it fires | Design direction (starting point — research and improve) |
+|---|---|---|
+| On Reveal | When the card is first turned face-up | Eye opening / spotlight / curtain pull |
+| On Enter | When the card enters its play area | Arrow entering a frame / door opening inward |
+| Character Phase | Each character phase of the round | Person silhouette / figure in motion |
+| On Leave | When the card leaves its play area | Arrow exiting a frame / door opening outward |
+| On Complete | When an objective is completed | Checkmark / seal / ribbon |
+| On Flow Marker | When a token advances onto this slot | Flowing arrow / token-on-slot / wave |
 
 ### Accepted icons
 
@@ -154,14 +168,20 @@ Each persona die type has a distinct icon used inline in conditional effect text
 | `icon-die-zeal` | Zeal | Spirit / drive |
 | `icon-die-path` | Path | Mind / skill |
 
-**Style rules (same as all icons):**
+**Style rules:**
 - ViewBox `0 0 24 24`; rendered at 20×20 inline
+- Base shape: flat square die face (from `die-symbols-v01-a`) — no perspective, no rounded corners beyond stroke
 - Stroke: `#1a0e04`, `stroke-width="2.5"`, round linecap/join
-- Single bold shape per icon; no internal line detail
-- Base shape: a **die face** (cube perspective or flat face) — shape variant distinguishes die type (number of pips, or a unique face symbol per role)
-- Do **not** use three identical die shapes; the three types must be visually distinct at a glance at 20 px
+- Inner marking: a **single star** — one star per die, centered on the face; not pips or pip-counts
+- **Color coding**: each die type has a locked colour; colour lives in the star and a thin border accent on the die face — **not** a brightly filled body; the die body remains dark, consistent with the card palette:
 
-Three design options required (see §Review Page Rules).
+| Aspect | Colour |
+|---|---|
+| Constitution | Red |
+| Zeal | Blue |
+| Path | Green |
+
+- All three dice share the same base shape and star; colour alone distinguishes type at a glance; agent picks specific hex values that read clearly at 20 px on a dark background; values confirmed on acceptance
 
 ### Shelved (pending design)
 
@@ -226,7 +246,11 @@ Every marker communicates **who or what fires the trigger**. All markers share t
 
 #### Cooldown trigger marker — design spec
 
-Shape: identical outer silhouette to the flow marker (hollow diamond). Distinguishing element: a small rightward-pointing indicator on the right vertex of the outer diamond — either a filled wedge/arrowhead, a short extending line with arrowhead, or a notch that reads as directional. The indicator must be small enough not to compromise the outer diamond silhouette when seen at card scale (20 px rendered). Must remain clearly distinct from the plain hollow flow marker at a glance. This marker has no accepted variant file yet — one must be created before activation track rework variants can be completed.
+Shape: identical outer silhouette and bounding box to the flow marker (hollow diamond). **All markers share the same size constraints — no part of the cooldown trigger marker may extend beyond the bounding area of the other markers.**
+
+Distinguishing element: the right vertex of the outer diamond is cut open (the diamond stroke is interrupted/removed at the right point), and a smaller inset diamond — styled like the inner diamond of the activation marker — is placed inside that cutout. The inset diamond sits fully within the original marker boundary; it does not protrude outward. The effect reads as: hollow diamond with its right corner replaced by a recessed activation-marker-style diamond, signalling "auto-fires like an activation" without breaking the unified marker silhouette.
+
+Design reference: inspired by `cooldown-trigger-marker-v01-c` (notch concept) but with an inset diamond fill replacing the bare notch. Options v01-a and v01-b are rejected — their external indicators violate the shared bounding-box constraint.
 
 All four marker types share the **same design element** (a shape with an optional inner element) and differ only in orientation and inner detail. The diamond family is unified — a reader familiar with one marker immediately understands the others.
 

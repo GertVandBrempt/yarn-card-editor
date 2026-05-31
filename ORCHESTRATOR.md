@@ -4,8 +4,15 @@ This file is read and written by scheduled agents. Do not edit manually during a
 
 ## Behavioral Rules *(enforced every run)*
 
+- **Work stream agents** — dispatch both work stream agents in parallel at the start of each run:
+  - Card Design stream → invoke agent `card-design-agent`
+  - App Design stream → invoke agent `app-design-agent`
+  - Pass each agent the relevant stream section from this file (status, tasks, blocked-on) as context
+- **Design decision tracking** — after every run, scan `design/VISUAL.md` for accepted design elements (any section that says "locked design" or "accepted"). For each accepted element not yet marked as implemented in the App Design stream, add an implementation task to App Design's Next tasks. This ensures accepted card design decisions are never silently dropped — the app always catches up.
 - **No mid-run notifications** — send only one PushNotification per run, at the very end, after the review streams complete
-- **Review streams** — after all three work streams (A, B, C) finish and changes are committed, dispatch a review sub-agent for Card Design (B) and App Design (C) in parallel; see §Review Stream Rules below
+- **Review streams** — after both work stream agents finish and changes are committed, dispatch review agents in parallel; see §Review Stream Rules below:
+  - Card Design reviewer → invoke agent `card-design-reviewer`
+  - App Design reviewer → invoke agent `app-design-reviewer`
 - **Conditional final notification** — only send the final notification after review is complete; content depends on review outcome (see §Review Stream Rules)
 
 ## System Control
@@ -20,23 +27,6 @@ last_status_notification: 2026-05-31T12:00:00Z
 ## Work Streams
 
 Streams are **independent** — a blocked stream does not pause other streams.
-
----
-
-### Game Design
-- **Mode**: interactive (orchestrator surfaces topics; user drives sessions in Claude Code)
-- **Source**: DESIGN.md open issues and unresolved questions
-- **Status**: active — 7 discussion items tracked; no new items found in scan of 2026-05-31T06:14:44Z; last notified < 48h ago — no notification
-- **Pending discussion items** *(top 7 by card-design impact)*:
-  1. Script Card colour — purple placeholder in script-v01; must confirm before card-index.md entry
-  2. Trigger priority (§7) — explicitly TBD; affects card layout ordering rules
-  3. Life point slots visual (§3.1) — slots overlapping damageable elements; not yet in VISUAL.md
-  4. Action track visual design (§4.4) — 6 track types defined; activation-tracks-v02 in-card mockup created — **ready for user review**
-  5. Location connections visual design (§3.3) — solid vs hollow arrows for face-down/face-up state; intent stated in DESIGN.md but not yet in VISUAL.md
-  6. Character dual-mode layout (§3.4) — Character/Ally on one card; no visual design for split yet
-  7. **Inline sym+modifier rendering (§6.1) — NEW** — effect text with `[icon][modifier]` groups; final inline layout/sizing rules not yet in VISUAL.md; effects-v03 demonstrates it
-- **Last notified**: 2026-05-31T12:00:00Z
-- **Blocked on**: —
 
 ---
 
@@ -55,12 +45,19 @@ Streams are **independent** — a blocked stream does not pause other streams.
 - ✅ **Activation marker** — inlayed diamond (reference: `activation-track-basic-v01-b`)
 - ✅ **Flow marker (cooldown slot)** — hollow diamond, no inner element (reference: `activation-track-multiturn-v02-a`)
 - ✅ **Use marker** — square with inner square (reference: `activation-track-use-v01-a`)
-- ⚠️ **Cooldown trigger marker** — NOT YET DESIGNED; spec in VISUAL.md §8: hollow diamond + small rightward arrow/wedge on right vertex; must be created before track rework can be completed
+- ⚠️ **Cooldown trigger marker** — v01 rejected (a/b: external indicators violate shared bounding-box; c: notch concept is closest but needs inset diamond fill); v02 queued; see VISUAL.md §8 for updated spec
 
 #### Next tasks (in order)
 
-**Task 1 — Design cooldown trigger marker (PRIORITY — blocks Task 2)**
-Create `design/variants/cooldown-trigger-marker-v01-a/b/c` — three options for the cooldown trigger marker visual. Each option must show the marker at card scale in context (inside an action row on a card). Follow the spec in VISUAL.md §8: hollow diamond outer silhouette with a small rightward-pointing indicator on the right vertex. Options vary the indicator style (wedge / arrowhead / notch). Do NOT vary the outer diamond shape — that is locked.
+**Task 1 — Redesign cooldown trigger marker v02 (PRIORITY — blocks Task 2)**
+v01-a/b/c are rejected. Create `design/variants/cooldown-trigger-marker-v02-a/b/c`. Follow the updated spec in VISUAL.md §8:
+- Same outer diamond silhouette and bounding box as all other markers — no part may extend beyond that boundary
+- The right vertex of the outer diamond stroke is cut open (interrupted) at that point
+- A smaller inset diamond — styled like the inner diamond of the activation marker — is placed in the cutout, fully within the original boundary
+- The inset diamond is the only distinguishing element; the rest of the outer diamond remains the hollow-diamond silhouette of the flow marker
+- All three options (a/b/c) must stay within the shared bounding box; vary only the proportions and weight of the inset diamond (size, stroke weight, fill treatment)
+- Show each option at card scale inside an action row on a real card mockup
+- Mark cooldown-trigger-marker-v01-a/b/c as superseded in CHANGES.md; remove from Under Review on the review page
 
 **Task 2 — Baseline propagation (blocked until Task 1 and cooldown trigger marker accepted)**
 Update all card type baseline files in `design/variants/` (per card-index.md) to incorporate the four accepted design elements (effects-container-v04, set-symbol-v01-a, flavour-text-v01-c, subtitle-v01-a).
@@ -74,9 +71,9 @@ Create new activation track variants for all four primitive track types using th
 - Track types to cover: Basic, Multi-turn (with flow markers and cooldown trigger), Multi-use, Use
 
 #### Still awaiting acceptance
-- cooldown-trigger-marker-v01 (a/b/c)
-- die-symbols-v01 (a/b/c)
-- trigger-symbols-v03 (a/b/c)
+- cooldown-trigger-marker-v02 (a/b/c) — in design; v01 rejected
+- die-symbols-v02 (a/b/c) — in design; v01 rejected
+- trigger-symbols-v04 (a/b/c) — in design; v03 rejected
 
 #### Global rules (apply to all Card Design work)
 
@@ -102,7 +99,12 @@ Create new activation track variants for all four primitive track types using th
 6. **Hold:** AND/OR compound tracks — only after all 4 primitives accepted
 
 **Track 2 — Die Symbols** *(3 options for the full set of 3 die icons)*
-- ~~**die-symbols-v01-a/b/c**~~ — ✅ Complete (2026-05-26T06:22:00Z) — option A: flat square + pip-count; option B: die body shape distinguishes type (rounded-sq/diamond/hex); option C: thematic amber symbol inside dark body (ring/bolt/branching arrow)
+- ~~**die-symbols-v01-a/b/c**~~ — ❌ Rejected (2026-05-31) — v01-a closest; pips replaced with single star; per-type color coding required; see v02
+- **die-symbols-v02-a/b/c** — New round per updated spec in VISUAL.md §7:
+  - Base: flat square die face (v01-a foundation)
+  - Inner marking: single centered star per die face — not pips
+  - Color: locked — Constitution=Red, Zeal=Blue, Path=Green; colour lives in star + thin border accent; dark die body; agent picks specific hex values that read at 20 px, confirmed on acceptance
+  - a/b/c vary star weight, size, and exact color treatment — not the base shape
 
 **Track 3 — Subtitle** *(3 options)*
 - ~~**subtitle-v01-a/b/c**~~ — ✅ Complete (2026-05-26T13:03:32Z) — A: below title, Cinzel italic amber; B: between band+title, Crimson Text italic cream+diamonds; C: embedded in type band as second row, band expands 35→52px
@@ -114,7 +116,14 @@ Create new activation track variants for all four primitive track types using th
 - ~~**set-symbol-v01-a/b/c**~~ — ✅ Complete (2026-05-26T18:16:00Z) — option A: bottom-right circular container (r=8.5) with diamond glyph + amber ring, 18px; option B: bottom-left rounded-square with monogram "Y" placeholder (Cinzel 700), 20px; option C: frameless embossed trefoil knot in frame border zone, 16px
 
 **Track 6 — Trigger Symbols** *(3 options)*
-- ~~**trigger-symbols-v03-a/b/c**~~ — ✅ Complete (2026-05-26T12:14:09Z) — option A: geometric/angular (star starburst, triangle+chevron, arrow polygon, octagon clock, diamond checkmark, double-chevron+pip); option B: rounded/organic (ray burst, arch+teardrop, pill arrow, circle clock, rounded square, horizontal pill); option C: pictographic/silhouette (eye, doorway, boot, person figure, scroll, track rails); all follow §7 dark body #1a0e04 + amber detail #d4b87a
+- ~~**trigger-symbols-v03-a/b/c**~~ — ❌ Rejected (2026-05-31) — colouring approach kept; symbols too abstract, not intuitively linked to trigger concepts; size too small (20px); see v04
+- **trigger-symbols-v04-a/b/c** — New round per updated spec in VISUAL.md §7:
+  - **Before designing:** use WebSearch to research iconography for each trigger concept (On Reveal, On Enter, Character Phase, On Leave, On Complete, On Flow Marker) — find real references, not abstract placeholders
+  - **Size:** ~48px rendered (matching activation track markers); viewbox 0 0 48 48; use the full canvas
+  - **Colour:** dark body + amber/off-white detail — same palette as v03; this is kept
+  - **Clarity:** each symbol must directly and intuitively evoke its trigger without prior knowledge — no abstract geometry
+  - **Row format:** show each symbol in context with the trigger name label per the design-stage convention in card-design-agent.md (label is for review only, not final design)
+  - a/b/c vary the specific iconographic interpretation per trigger — not the size or colour
 
 **Hold:** effects-v04 — create only after trigger symbols + activation tracks both accepted
 
@@ -126,7 +135,7 @@ Create new activation track variants for all four primitive track types using th
 ### App Design
 - **Mode**: autonomous
 - **Source**: APP.md
-- **Status**: on hold — all known issues resolved; review gallery href paths fixed (../../ → ../); awaiting baseline acceptance to trigger auto-sync
+- **Status**: active — 5 tasks queued; live preview partially broken (title only); accepted design elements not yet implemented in app templates
 
 #### Known issues (all resolved 2026-05-28)
 1. ~~**Site not on GitHub Pages**~~ — ✅ deploy.yml deleted (redundant); orchestrator owns build+deploy cycle
@@ -135,7 +144,45 @@ Create new activation track variants for all four primitive track types using th
 
 #### Next tasks (in order)
 
-No pending tasks. Awaiting baseline acceptance to trigger auto-sync.
+**Task 1 — Hook up all form fields to live preview (PRIORITY)**
+Only the card title currently drives the live preview. Every other form field must be wired to the preview template and update in real time. Fields to connect:
+- Subtitle (text input → rendered below title per VISUAL.md §9.1)
+- Flavour text (textarea → rendered as bottom inset row per VISUAL.md §9.2)
+- Card type (dropdown → drives CSS variables `--type-border`, `--type-text`, `--type-glow`, `--bg-top`, `--bg-bot` and type band label)
+- Named/set-aside toggle → upgrades SVG frame ornament polygons to bright gold
+- Image upload → applied as full-bleed art layer behind content
+- Set symbol (present/absent + set name) → circular bottom-right container per VISUAL.md §9.3
+- Effects (all containers: Permanent, Entry, Action, Exit) → rendered as effect rows per VISUAL.md §6.1
+- Triggers and actions → rendered in their respective containers with correct leading symbols
+- Activation tracks → rendered per track type in the Action container
+
+**Task 2 — Implement dynamic container rendering (VISUAL.md §6.0)**
+The four effect containers (Permanent / Entry / Action / Exit) must:
+- Render only when they contain at least one row — hide entirely when empty; no empty shell, no gap
+- Auto-scale height to their row count — no fixed heights, no overflow, no clipping
+- Apply the accepted `effects-container-v04` styling: 0.15 translucent fill + gradient-fade 1 px top and bottom border per container (opacity 0.7, transparent → color at 18–82% → transparent)
+
+**Task 3 — Implement accepted subtitle design (VISUAL.md §9.1)**
+`subtitle-v01-a` is accepted. Implement in all card preview templates:
+- Position: below the card title
+- Font: Cinzel 400 italic, amber, reduced opacity
+- Separator: short centre rule between title and subtitle
+- Hidden entirely when no subtitle value exists — title shifts down, no gap
+
+**Task 4 — Implement accepted flavour text design (VISUAL.md §9.2)**
+`flavour-text-v01-c` is accepted. Implement in all card preview templates:
+- Position: borderless inset at the bottom of the mechanics frame
+- Top separator: internal gradient fade only — no rule line, no ornament
+- Fill: slightly darker translucent fill vs effect rows
+- Font: Crimson Text 14px italic
+- Hidden entirely when no flavour text value exists — no gap, no placeholder
+
+**Task 5 — Implement accepted set symbol design (VISUAL.md §9.3)**
+`set-symbol-v01-a` is accepted. Implement in all card preview templates:
+- Position: bottom-right corner of the card
+- Container: dark circle with amber border ring
+- Glyph: small diamond placeholder inside the container
+- Size: 18px; shown only when a set is assigned to the card
 
 #### Auto-sync rule (unchanged)
 After Card Design propagates accepted baselines → re-sync updated baseline HTMLs into `yarn-card-editor/src/assets/templates/`; rebuild; redeploy.
@@ -166,55 +213,16 @@ After Card Design propagates accepted baselines → re-sync updated baseline HTM
 
 ## Review Stream Rules
 
-These rules govern the review sub-agents dispatched after each orchestrator run where B or C did work.
+These rules govern the review sub-agents dispatched after each orchestrator run where Card Design or App Design did work.
 
 ### When to dispatch
-After STEP 7 (commit and push): dispatch review sub-agents for any stream that returned `status: done` this run. B-Review and C-Review run in parallel.
+After STEP 7 (commit and push): dispatch review sub-agents for any stream that returned `status: done` this run. Card Design reviewer and App Design reviewer run in parallel.
 
-### Card Design reviewer (B-Review) — prompt
-```
-You are a critical card design reviewer for the Yarn project. Be sceptical and precise.
+### Card Design reviewer
+Invoke agent: `card-design-reviewer`
 
-Read: design/VISUAL.md, design/card-index.md, design/variants/CHANGES.md, and every variant HTML file created or modified this run (listed in CHANGES.md).
-
-Check ALL of the following and flag any failure:
-1. Do variant files contain only a single card — no page chrome, no body background, no extra text?
-2. Do created variants use the accepted marker shapes from VISUAL.md §8 (correct activation, flow, use, cooldown trigger markers)?
-3. Do effect containers follow the 4-container model from VISUAL.md §6 (Permanent/Entry/Action/Exit, correct colors, no section labels, correct row formats per container)?
-4. Do card dimensions match VISUAL.md §1 (375×525px, 12.5px radius)?
-5. Does the review page (docs/review/index.html) show only the CURRENT round for each design element — no superseded versions?
-6. Do accepted items appear in the Accepted section, not Under Review?
-7. Are all container heights content-driven — no overflow, no clipping, no fixed heights with overflowing content?
-
-Return exactly:
-REVIEW_RESULT
-verdict: ACCEPT or REJECT
-findings:
-- [numbered list of specific failures, or "none" if ACCEPT]
-END_RESULT
-```
-
-### App Design reviewer (C-Review) — prompt
-```
-You are a critical app design reviewer for the Yarn project. Be sceptical and precise.
-
-Check ALL of the following:
-1. HTTP status of https://gertvandbrempt.github.io/yarn-card-editor/editor/ — run: curl -s -o /dev/null -w "%{http_code}" <url>; must be 200
-2. HTTP status of https://gertvandbrempt.github.io/yarn-card-editor/review/ — must be 200
-3. Read docs/editor/index.html — base href must be "/yarn-card-editor/editor/"; JS and CSS must be referenced without a "browser/" subfolder
-4. Read docs/.nojekyll — must exist (even if empty)
-5. Read yarn-card-editor/src/index.html — viewport meta must be "width=device-width, initial-scale=1"
-6. Read yarn-card-editor/src/app/services/preview.service.ts — verify injectFields() is called on form value changes; flag if there are missing subscriptions or change-detection gaps
-7. Read .github/workflows/deploy.yml — verify git push is authenticated; verify git add includes docs/editor/, docs/review/, and docs/.nojekyll; verify build command does NOT pass --output-path flag
-8. Read yarn-card-editor/angular.json — verify outputPath is {"base": "../docs/editor", "browser": ""}
-
-Return exactly:
-REVIEW_RESULT
-verdict: ACCEPT or REJECT
-findings:
-- [numbered list of specific failures, or "none" if ACCEPT]
-END_RESULT
-```
+### App Design reviewer
+Invoke agent: `app-design-reviewer`
 
 ### One-shot retry
 If a reviewer returns REJECT: the orchestrator sends one response addressing the findings (additional context, corrections, or acknowledgement that findings are valid and tasks have been added). The reviewer makes a final ACCEPT or REJECT based on that response.
