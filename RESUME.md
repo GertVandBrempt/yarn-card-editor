@@ -1,6 +1,6 @@
 # Yarn — Session Resume Context
 
-_Updated: 2026-05-31T12:00:00Z_
+_Updated: 2026-05-31T06:14:44Z_
 
 ---
 
@@ -16,8 +16,8 @@ Card types: **Location, Character, Item, Event, Quest, Persona, Script**
 
 ### Stream A — Game Design
 **Status:** Active — 7 discussion items tracked, no new items this run  
-**Last notified:** 2026-05-31T12:00:00Z  
-**Top items:** Script Card colour, action track visual design (§4.4 — ready for review), inline sym+modifier rendering (§6.1), trigger priority (§7), life point slots (§3.1)  
+**Last notified:** 2026-05-31T12:00:00Z (< 48h ago)  
+**Top items:** Script Card colour, action track visual design (§4.4 — cooldown trigger marker ready for review), trigger priority cross-card (§7), character dual-mode layout (§3.4), inline sym+modifier rendering (§6.1)  
 **To discuss:** open Claude Code and say "game design" to work through these items.
 
 ### Stream B — Card Design
@@ -29,7 +29,7 @@ Card types: **Location, Character, Item, Event, Quest, Persona, Script**
 
 ### Stream C — App Design
 **Status:** On hold  
-**Situation:** All 14 completed tasks done. Editor deployed to `docs/editor/`. Review gallery at `docs/review/`. All known issues resolved. Gallery verified correct this run — all variant files mirrored, href paths correct.  
+**Situation:** All 14 completed tasks done. Editor deployed to `docs/editor/`. Review gallery at `docs/review/`. All known issues resolved. Gallery verified correct — 73 variant files mirrored, all href paths correct.  
 **Awaiting:** Card Design baseline acceptance to trigger auto-sync of updated templates into the Angular app.
 
 ---

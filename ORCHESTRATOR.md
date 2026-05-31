@@ -13,7 +13,7 @@ This file is read and written by scheduled agents. Do not edit manually during a
 ```
 blocked_for_weekly_review: false
 weekly_review_due: 2026-05-30T08:00:00Z
-last_orchestrator_run: 2026-05-31T12:00:00Z
+last_orchestrator_run: 2026-05-31T06:14:44Z
 last_status_notification: 2026-05-31T12:00:00Z
 ```
 
@@ -26,7 +26,7 @@ Streams are **independent** — a blocked stream does not pause other streams.
 ### Game Design
 - **Mode**: interactive (orchestrator surfaces topics; user drives sessions in Claude Code)
 - **Source**: DESIGN.md open issues and unresolved questions
-- **Status**: active — 7 discussion items tracked; no new items found in scan of 2026-05-31T12:00:00Z; last notified ~55h ago (> 48h) — notification sent
+- **Status**: active — 7 discussion items tracked; no new items found in scan of 2026-05-31T06:14:44Z; last notified < 48h ago — no notification
 - **Pending discussion items** *(top 7 by card-design impact)*:
   1. Script Card colour — purple placeholder in script-v01; must confirm before card-index.md entry
   2. Trigger priority (§7) — explicitly TBD; affects card layout ordering rules
@@ -346,6 +346,9 @@ _(none)_
 | 2026-05-31T12:00:00Z | Orchestrator | A: Game Design | No new items; 7 tracked unchanged; last notified ~55h ago (> 48h threshold) — notification sent |
 | 2026-05-31T12:00:00Z | Orchestrator | B: Card Design | On hold — cooldown-trigger-marker-v01 awaiting acceptance; Task 2 and Task 3 blocked on acceptance |
 | 2026-05-31T12:00:00Z | Orchestrator | C: App Design | On hold — review gallery verified correct; no new accepted baselines; awaiting baseline acceptance to trigger auto-sync |
+| 2026-05-31T06:14:44Z | Orchestrator | A: Game Design | No new items; 7 tracked unchanged; last notified < 48h ago — no notification |
+| 2026-05-31T06:14:44Z | Orchestrator | B: Card Design | On hold — cooldown-trigger-marker-v01 awaiting acceptance; Task 2 and Task 3 blocked on acceptance |
+| 2026-05-31T06:14:44Z | Orchestrator | C: App Design | On hold — gallery and variants verified in sync (73 files); no new accepted baselines; awaiting baseline acceptance to trigger auto-sync |
 
 ---
 
