@@ -1,4 +1,4 @@
-<!-- baseline: accepted card design | update via /accept-variant when a new variant is approved -->
+<!-- card-variant: cooldown-trigger-marker-v02-a | Cooldown trigger marker v02 option A — hollow diamond with right vertex cut open; small inset diamond (half-diag 5) fills the cutout; compact, precise inset; lightest weight -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -89,65 +89,31 @@ body { margin: 0; display: flex; justify-content: center; align-items: flex-star
   font-size: 26px; font-weight: 700; letter-spacing: 0.5px; line-height: 1.2;
   text-shadow: 0 1px 10px rgba(0,0,0,0.95);
 }
-
-/* Subtitle (subtitle-v01-a accepted) */
-.card-subtitle {
-  position: absolute; left: 22.5px; right: 22.5px; top: 99px;
-  text-align: center; color: #c8a050;
-  font-family: 'Cinzel', Georgia, serif;
-  font-size: 10px; font-weight: 400; font-style: italic;
-  letter-spacing: 3px; text-transform: uppercase; opacity: 0.72;
-  text-shadow: 0 1px 8px rgba(0,0,0,0.9);
-}
 .title-rule {
-  position: absolute; left: 67.5px; right: 67.5px; top: 118px; height: 1px;
-  background: linear-gradient(to right, transparent, var(--type-border) 25%, var(--type-border) 75%, transparent);
-  opacity: 0.6;
-}
-/* No-subtitle layout: rule moves up */
-.title-rule-nosub {
   position: absolute; left: 67.5px; right: 67.5px; top: 103px; height: 1px;
   background: linear-gradient(to right, transparent, var(--type-border) 25%, var(--type-border) 75%, transparent);
   opacity: 0.6;
 }
 
-/* User-uploaded card art */
-.card-image-custom {
-  position: absolute; inset: 0; z-index: 1;
-  background-size: cover; background-position: center;
-}
-
-/* Mechanics frame */
 .mech-frame {
   position: absolute;
   left: 22.5px; right: 22.5px;
   bottom: 22.5px;
+  height: auto;
   z-index: 12;
   pointer-events: none;
-  background: linear-gradient(to bottom, transparent 0%, rgba(122,72,24,.25) 10%, rgba(122,72,24,.25) 90%, transparent 100%);
 }
-.mech-rule {
-  position: absolute;
-  left: 17.5px; right: 17.5px;
-  height: 1px;
-  background: linear-gradient(to right, transparent, var(--type-border) 18%, var(--type-border) 82%, transparent);
-  opacity: 0.55;
-}
-.mech-rule-top { top: 0; }
-.mech-rule-bot { bottom: 0; }
-
-/* Effect sections — effects-container-v04 accepted (gradient-fade borders) */
 .mech-sections {
-  position: absolute;
-  top: 1px; bottom: 1px; left: 0; right: 0;
+  position: relative;
   display: flex;
   flex-direction: column;
-  overflow: hidden;
 }
 .sec {
   width: 100%;
   flex-shrink: 0;
   position: relative;
+  display: flex;
+  flex-direction: column;
 }
 .sec::before, .sec::after {
   content: '';
@@ -159,81 +125,60 @@ body { margin: 0; display: flex; justify-content: center; align-items: flex-star
 .sec::before { top: 0; }
 .sec::after  { bottom: 0; }
 
-/* Permanent / passive — blue */
-.sec-passive { background: rgba(48,120,240,0.15); }
-.sec-passive::before, .sec-passive::after {
-  background: linear-gradient(to right, transparent, #3078f0 18%, #3078f0 82%, transparent);
-}
-/* Entry triggers (on reveal/enter) — yellow */
-.sec-trigger { background: rgba(240,200,48,0.15); }
-.sec-trigger::before, .sec-trigger::after {
-  background: linear-gradient(to right, transparent, #f0c830 18%, #f0c830 82%, transparent);
-}
-/* User actions — red */
-.sec-actions { background: rgba(232,80,48,0.15); }
+.sec-actions { flex: 1; background: rgba(232,80,48,0.15); }
 .sec-actions::before, .sec-actions::after {
   background: linear-gradient(to right, transparent, #e85030 18%, #e85030 82%, transparent);
 }
-/* Exit triggers (on leave/discard) — yellow */
-.sec-leave { background: rgba(240,200,48,0.15); }
-.sec-leave::before, .sec-leave::after {
-  background: linear-gradient(to right, transparent, #f0c830 18%, #f0c830 82%, transparent);
-}
 
-/* Effect rows inside containers */
 .effect-row {
-  display: flex; align-items: center;
-  padding: 4px 12px; gap: 8px;
-  min-height: 28px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 10px;
+  height: 72px;
 }
-.effect-icon { flex-shrink: 0; display: flex; align-items: center; }
+
+.flow-row {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 0 10px;
+  height: 52px;
+}
+
+.effect-lead {
+  flex-shrink: 0;
+  width: 52px;
+  align-self: stretch;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .effect-text {
+  flex: 1;
   font-family: 'Crimson Text', Georgia, serif;
-  font-size: 13px; font-weight: 400;
-  color: rgba(220,200,160,0.9);
-  line-height: 1.35;
-}
-.effect-label {
-  font-family: 'Cinzel', Georgia, serif;
-  font-size: 8px; font-weight: 700; letter-spacing: 2px;
-  text-transform: uppercase; color: rgba(220,200,160,0.5);
-  padding: 4px 12px 0;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  color: rgba(220,200,160,0.82);
+  line-height: 1.3;
+  align-self: center;
 }
 
-/* Flavour text (flavour-text-v01-c accepted) */
-.sec-flavour {
-  background: rgba(8,5,2,0.35);
-  position: relative; flex-shrink: 0;
+.sym-group {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  vertical-align: middle;
 }
-.sec-flavour::before {
-  content: '';
-  position: absolute; left: 20px; right: 20px; top: 0; height: 1px;
-  background: linear-gradient(to right, transparent, rgba(122,72,24,0.38) 18%, rgba(122,72,24,0.38) 82%, transparent);
-}
-.sec-flavour::after { display: none; }
-.flavour-inner {
-  display: flex; align-items: center; justify-content: center;
-  padding: 8px 18px;
-}
-.flavour-text {
+.sym-mod {
   font-family: 'Crimson Text', Georgia, serif;
-  font-size: 14px; font-style: italic; font-weight: 400;
-  color: rgba(230, 208, 162, 0.68);
-  text-align: center; line-height: 1.48; letter-spacing: 0.1px;
-  text-shadow: 0 1px 5px rgba(0,0,0,0.85);
+  font-size: 14px;
+  font-weight: 600;
+  color: rgba(220,200,160,0.92);
+  line-height: 1;
 }
-
-/* Set symbol (set-symbol-v01-a accepted) */
-.set-symbol {
-  position: absolute; z-index: 13;
-  bottom: 16px; right: 18px;
-  width: 18px; height: 18px;
-  pointer-events: none;
-}
-
-/* Inline symbol groups */
-.sym-group { display: inline-flex; align-items: center; gap: 1px; vertical-align: middle; }
-.sym-mod { font-size: 11px; font-weight: 600; color: #d4b87a; }
 </style>
 </head>
 <body>
@@ -302,34 +247,172 @@ body { margin: 0; display: flex; justify-content: center; align-items: flex-star
     <rect width="300" height="420" fill="url(#a-glow)"/>
     <ellipse cx="150" cy="280" rx="220" ry="40" fill="#0a0a08" opacity="0.85"/>
     <path d="M 0 230 L 30 200 L 50 220 L 80 180 L 110 215 L 140 195 L 170 220 L 200 185 L 230 215 L 260 200 L 300 230 L 300 420 L 0 420 Z" fill="#0c0808" opacity="0.92"/>
-    <ellipse cx="150" cy="170" rx="14" ry="20" fill="#1a0e08" opacity="0.85"/>
-    <circle cx="150" cy="155" r="9" fill="#1a0e08" opacity="0.85"/>
     <rect width="300" height="420" fill="url(#a-vig)"/>
   </symbol>
+
+  <symbol id="icon-damage" viewBox="0 0 24 24">
+    <polygon points="12,2 13.4,8.2 17.8,4.5 15.6,10.3 22,10.8 16.9,14.2 19.6,20.1 13.2,17 12,23 10.5,17.1 4.2,20.5 6.7,14.4 1,11.2 7.5,10.2 5,4.8 10.7,8.1"
+             fill="#f0c030" stroke="#a08000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  </symbol>
+
+  <symbol id="icon-shield" viewBox="0 0 24 24">
+    <path d="M12 2 L20 5 L20 11 C20 16 16 20 12 22 C8 20 4 16 4 11 L4 5 Z"
+          fill="#4090e0" stroke="#1a0e04" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+  </symbol>
+
+  <!--
+    ACTIVATION MARKER (reference — accepted activation-track-basic-v01-b)
+    Diamond with inner diamond. viewBox 0 0 52 52.
+    Centered at (26,26), outer half-diagonal 20, inner half-diagonal 13.
+  -->
+  <symbol id="marker-activation" viewBox="0 0 52 52">
+    <polygon points="26,4 48,26 26,48 4,26" fill="#1a0e04" stroke="none"/>
+    <polygon points="26,4 48,26 26,48 4,26" fill="none" stroke="#d4b87a" stroke-width="2" opacity="0.55"/>
+    <polygon points="26,13 39,26 26,39 13,26" fill="#d4b87a" stroke="none"/>
+    <polygon points="26,22 31,26 26,30 21,26" fill="#1a0e04" stroke="none"/>
+  </symbol>
+
+  <!--
+    FLOW MARKER (cooldown slot — accepted activation-track-multiturn-v02-a)
+    Hollow / empty diamond. viewBox 0 0 52 52.
+  -->
+  <symbol id="marker-flow" viewBox="0 0 52 52">
+    <polygon points="26,6 46,26 26,46 6,26" fill="#1a0e04" stroke="none"/>
+    <polygon points="26,9 43,26 26,43 9,26" fill="none" stroke="#d4b87a" stroke-width="1.5" opacity="0.55"/>
+  </symbol>
+
+  <!--
+    COOLDOWN TRIGGER MARKER — v02 Option A: COMPACT INSET
+    ══════════════════════════════════════════════════════════════════════════
+    Same outer diamond silhouette and bounding box as the flow marker.
+    The right vertex of the outer diamond is cut open — the stroke is
+    interrupted at the right point. A smaller inset diamond (styled like
+    the activation marker's inner diamond) sits in that cutout, fully
+    within the original marker boundary.
+
+    Option A approach: SMALL, precise inset diamond.
+    - Outer diamond: same as flow marker (half-diag 20, centered at 26,26)
+    - Right vertex gap: stroke removed from ~(40,20) to (40,32) area
+    - Inset diamond: half-diagonal 5 (10px tip-to-tip) — compact
+    - Inset diamond fill: solid amber #d4b87a — same as activation marker inner
+    - Inset has a small dark center pip (half-diag 2)
+    - Stroke weight on inset: none (solid fill only) — lightest treatment
+
+    viewBox: 0 0 52 52 — same footprint as flow marker
+  -->
+  <symbol id="marker-cooldown-trigger-a" viewBox="0 0 52 52">
+    <!-- Outer diamond body — full dark fill, same as flow marker -->
+    <polygon points="26,6 46,26 26,46 6,26" fill="#1a0e04" stroke="none"/>
+
+    <!-- Outer diamond stroke — drawn in segments, omitting the right vertex area.
+         We draw the stroke as four line segments, skipping the right corner.
+         Top-left edge: (26,9) to (9,26)
+         Bottom-left edge: (9,26) to (26,43)
+         Bottom-right edge: (26,43) to (39,30)  — stops before right vertex
+         Top-right edge: (39,22) to (26,9)  — starts after right vertex
+         The gap at the right vertex spans from (39,22) to (39,30), where the
+         inset diamond will sit. -->
+    <line x1="26" y1="9" x2="9" y2="26" stroke="#d4b87a" stroke-width="1.5" opacity="0.55" stroke-linecap="round"/>
+    <line x1="9" y1="26" x2="26" y2="43" stroke="#d4b87a" stroke-width="1.5" opacity="0.55" stroke-linecap="round"/>
+    <line x1="26" y1="43" x2="39" y2="30" stroke="#d4b87a" stroke-width="1.5" opacity="0.55" stroke-linecap="round"/>
+    <line x1="39" y1="22" x2="26" y2="9" stroke="#d4b87a" stroke-width="1.5" opacity="0.55" stroke-linecap="round"/>
+
+    <!-- Inset diamond — small, compact (half-diag 5), centered at (41,26)
+         Sits in the gap where the right vertex was. Fully within the bounding box.
+         Styled like the activation marker's inner diamond: solid amber fill + dark pip. -->
+    <polygon points="41,21 46,26 41,31 36,26" fill="#d4b87a" stroke="none"/>
+    <polygon points="41,24 43,26 41,28 39,26" fill="#1a0e04" stroke="none"/>
+  </symbol>
+
+  <!-- Connecting arrow between markers (downward) -->
+  <symbol id="connector-down" viewBox="0 0 52 14">
+    <line x1="26" y1="0" x2="26" y2="8" stroke="#1a0e04" stroke-width="1.5" stroke-linecap="round"/>
+    <polygon points="26,14 22,7 30,7" fill="#1a0e04"/>
+  </symbol>
+
 </defs>
 </svg>
 
 <div class="card">
   <div class="card-fill"></div>
   <div class="card-image"><svg viewBox="0 0 300 420" xmlns="http://www.w3.org/2000/svg"><use href="#art-d"/></svg></div>
-  {{cardImage}}
   <div class="grad-top"></div>
   <div class="grad-body"></div>
   <div class="card-frame"><svg xmlns="http://www.w3.org/2000/svg"><use href="#frame-d"/></svg></div>
   <div class="card-header">
-    <div class="type-band"><span class="type-label">{{typeLabel}}</span></div>
-    <div class="card-title">{{title}}</div>
-    {{subtitleHtml}}
-    {{titleRuleHtml}}
+    <div class="type-band"><span class="type-label">Persona</span></div>
+    <div class="card-title">The Wayfarer</div>
+    <div class="title-rule"></div>
   </div>
-  <div class="mech-frame" style="height:{{mechHeight}}px">
-    <div class="mech-rule mech-rule-top"></div>
+
+  <!--
+    Actions section — multi-turn track with cooldown trigger.
+    Row 1: activation marker -> "Strike for [damage]2"
+    Row 2: flow marker (hollow diamond) — pure delay slot
+    Row 3: cooldown trigger marker v02-a (compact inset diamond) -> "Gain [shield]1"
+  -->
+  <div class="mech-frame">
     <div class="mech-sections">
-      {{mechSections}}
+
+      <div class="sec sec-actions">
+
+        <!-- Row 1: activation marker -> effect -->
+        <div class="effect-row">
+          <div class="effect-lead">
+            <svg width="52" height="52" viewBox="0 0 52 52" preserveAspectRatio="xMidYMid meet">
+              <use href="#marker-activation"/>
+            </svg>
+          </div>
+          <span class="effect-text">
+            Strike an adjacent enemy for
+            <span class="sym-group"><svg width="16" height="16"><use href="#icon-damage"/></svg><span class="sym-mod">2</span></span>
+          </span>
+        </div>
+
+        <!-- Connector arrow: activation -> flow -->
+        <div class="flow-row" style="height:18px; padding:0 10px;">
+          <div class="effect-lead">
+            <svg width="52" height="14" viewBox="0 0 52 14" preserveAspectRatio="xMidYMid meet">
+              <use href="#connector-down"/>
+            </svg>
+          </div>
+        </div>
+
+        <!-- Row 2: flow marker — pure delay slot -->
+        <div class="flow-row">
+          <div class="effect-lead">
+            <svg width="44" height="44" viewBox="0 0 52 52" preserveAspectRatio="xMidYMid meet">
+              <use href="#marker-flow"/>
+            </svg>
+          </div>
+        </div>
+
+        <!-- Connector arrow: flow -> cooldown trigger -->
+        <div class="flow-row" style="height:18px; padding:0 10px;">
+          <div class="effect-lead">
+            <svg width="52" height="14" viewBox="0 0 52 14" preserveAspectRatio="xMidYMid meet">
+              <use href="#connector-down"/>
+            </svg>
+          </div>
+        </div>
+
+        <!-- Row 3: cooldown trigger marker v02-a -> effect -->
+        <div class="effect-row">
+          <div class="effect-lead">
+            <svg width="52" height="52" viewBox="0 0 52 52" preserveAspectRatio="xMidYMid meet">
+              <use href="#marker-cooldown-trigger-a"/>
+            </svg>
+          </div>
+          <span class="effect-text">
+            Gain
+            <span class="sym-group"><svg width="16" height="16"><use href="#icon-shield"/></svg><span class="sym-mod">1</span></span>
+          </span>
+        </div>
+
+      </div>
+
     </div>
-    <div class="mech-rule mech-rule-bot"></div>
   </div>
-  {{setSymbol}}
 </div>
 
 </body>

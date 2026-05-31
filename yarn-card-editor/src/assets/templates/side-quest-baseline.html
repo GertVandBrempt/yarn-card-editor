@@ -89,65 +89,39 @@ body { margin: 0; display: flex; justify-content: center; align-items: flex-star
   font-size: 26px; font-weight: 700; letter-spacing: 0.5px; line-height: 1.2;
   text-shadow: 0 1px 10px rgba(0,0,0,0.95);
 }
-.title-rule {
-  position: absolute; left: 67.5px; right: 67.5px; top: 103px; height: 1px;
-  background: linear-gradient(to right, transparent, var(--type-border) 25%, var(--type-border) 75%, transparent);
-  opacity: 0.6;
-}
-
-/* Mechanics frame */
-.mech-frame {
-  position: absolute;
-  left: 22.5px; right: 22.5px;
-  bottom: 22.5px;
-  height: 231px;
-  z-index: 12;
-  pointer-events: none;
-  background: linear-gradient(to bottom, transparent 0%, rgba(122,72,24,.25) 10%, rgba(122,72,24,.25) 90%, transparent 100%);
-}
-.mech-rule {
-  position: absolute;
-  left: 17.5px; right: 17.5px;
-  height: 1px;
-  background: linear-gradient(to right, transparent, var(--type-border) 18%, var(--type-border) 82%, transparent);
-  opacity: 0.55;
-}
+.card-subtitle { position: absolute; left: 22.5px; right: 22.5px; top: 99px; text-align: center; color: #c8a050; font-family: 'Cinzel', Georgia, serif; font-size: 10px; font-weight: 400; font-style: italic; letter-spacing: 3px; text-transform: uppercase; opacity: 0.72; text-shadow: 0 1px 8px rgba(0,0,0,0.9); }
+.title-rule { position: absolute; left: 67.5px; right: 67.5px; top: 118px; height: 1px; background: linear-gradient(to right, transparent, var(--type-border) 25%, var(--type-border) 75%, transparent); opacity: 0.6; }
+.title-rule-nosub { position: absolute; left: 67.5px; right: 67.5px; top: 103px; height: 1px; background: linear-gradient(to right, transparent, var(--type-border) 25%, var(--type-border) 75%, transparent); opacity: 0.6; }
+.card-image-custom { position: absolute; inset: 0; z-index: 1; background-size: cover; background-position: center; }
+.mech-frame { position: absolute; left: 22.5px; right: 22.5px; bottom: 22.5px; z-index: 12; pointer-events: none; background: linear-gradient(to bottom, transparent 0%, rgba(122,72,24,.25) 10%, rgba(122,72,24,.25) 90%, transparent 100%); }
+.mech-rule { position: absolute; left: 17.5px; right: 17.5px; height: 1px; background: linear-gradient(to right, transparent, var(--type-border) 18%, var(--type-border) 82%, transparent); opacity: 0.55; }
 .mech-rule-top { top: 0; }
 .mech-rule-bot { bottom: 0; }
-
-/* Effect sections */
-.mech-sections {
-  position: absolute;
-  top: 1px; bottom: 1px; left: 0; right: 0;
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-}
-.sec {
-  width: 100%;
-  flex-shrink: 0;
-  position: relative;
-}
-.sec::before, .sec::after {
-  content: '';
-  position: absolute;
-  left: 0; right: 0;
-  height: 1px;
-  opacity: 0.7;
-}
+.mech-sections { position: absolute; top: 1px; bottom: 1px; left: 0; right: 0; display: flex; flex-direction: column; overflow: hidden; }
+.sec { width: 100%; flex-shrink: 0; position: relative; }
+.sec::before, .sec::after { content: ''; position: absolute; left: 0; right: 0; height: 1px; opacity: 0.7; }
 .sec::before { top: 0; }
 .sec::after  { bottom: 0; }
-
-/* passive — blue */
-.sec-passive { height: 46px; background: rgba(48,120,240,0.15); }
-.sec-passive::before, .sec-passive::after {
-  background: linear-gradient(to right, transparent, #3078f0 18%, #3078f0 82%, transparent);
-}
-/* triggers (on reveal/enter + on leave/discard) — yellow */
-.sec-trigger { height: 46px; background: rgba(240,200,48,0.15); }
-.sec-trigger::before, .sec-trigger::after {
-  background: linear-gradient(to right, transparent, #f0c830 18%, #f0c830 82%, transparent);
-}
+.sec-passive { background: rgba(48,120,240,0.15); }
+.sec-passive::before, .sec-passive::after { background: linear-gradient(to right, transparent, #3078f0 18%, #3078f0 82%, transparent); }
+.sec-trigger { background: rgba(240,200,48,0.15); }
+.sec-trigger::before, .sec-trigger::after { background: linear-gradient(to right, transparent, #f0c830 18%, #f0c830 82%, transparent); }
+.sec-actions { background: rgba(232,80,48,0.15); }
+.sec-actions::before, .sec-actions::after { background: linear-gradient(to right, transparent, #e85030 18%, #e85030 82%, transparent); }
+.sec-leave { background: rgba(240,200,48,0.15); }
+.sec-leave::before, .sec-leave::after { background: linear-gradient(to right, transparent, #f0c830 18%, #f0c830 82%, transparent); }
+.effect-row { display: flex; align-items: center; padding: 4px 12px; gap: 8px; min-height: 28px; }
+.effect-icon { flex-shrink: 0; display: flex; align-items: center; }
+.effect-text { font-family: 'Crimson Text', Georgia, serif; font-size: 13px; font-weight: 400; color: rgba(220,200,160,0.9); line-height: 1.35; }
+.effect-label { font-family: 'Cinzel', Georgia, serif; font-size: 8px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: rgba(220,200,160,0.5); padding: 4px 12px 0; }
+.sec-flavour { background: rgba(8,5,2,0.35); position: relative; flex-shrink: 0; }
+.sec-flavour::before { content: ''; position: absolute; left: 20px; right: 20px; top: 0; height: 1px; background: linear-gradient(to right, transparent, rgba(122,72,24,0.38) 18%, rgba(122,72,24,0.38) 82%, transparent); }
+.sec-flavour::after { display: none; }
+.flavour-inner { display: flex; align-items: center; justify-content: center; padding: 8px 18px; }
+.flavour-text { font-family: 'Crimson Text', Georgia, serif; font-size: 14px; font-style: italic; font-weight: 400; color: rgba(230, 208, 162, 0.68); text-align: center; line-height: 1.48; letter-spacing: 0.1px; text-shadow: 0 1px 5px rgba(0,0,0,0.85); }
+.set-symbol { position: absolute; z-index: 13; bottom: 16px; right: 18px; width: 18px; height: 18px; pointer-events: none; }
+.sym-group { display: inline-flex; align-items: center; gap: 1px; vertical-align: middle; }
+.sym-mod { font-size: 11px; font-weight: 600; color: #d4b87a; }
 /* user actions — red */
 .sec-actions { height: 81px; background: rgba(232,80,48,0.15); }
 .sec-actions::before, .sec-actions::after {
@@ -236,24 +210,24 @@ body { margin: 0; display: flex; justify-content: center; align-items: flex-star
 <div class="card">
   <div class="card-fill"></div>
   <div class="card-image"><svg viewBox="0 0 300 420" xmlns="http://www.w3.org/2000/svg"><use href="#art-d"/></svg></div>
+  {{cardImage}}
   <div class="grad-top"></div>
   <div class="grad-body"></div>
   <div class="card-frame"><svg xmlns="http://www.w3.org/2000/svg"><use href="#frame-d"/></svg></div>
   <div class="card-header">
-    <div class="type-band"><span class="type-label">Side Quest</span></div>
+    <div class="type-band"><span class="type-label">{{typeLabel}}</span></div>
     <div class="card-title">{{title}}</div>
-    <div class="title-rule"></div>
+    {{subtitleHtml}}
+    {{titleRuleHtml}}
   </div>
-  <div class="mech-frame">
+  <div class="mech-frame" style="height:{{mechHeight}}px">
     <div class="mech-rule mech-rule-top"></div>
     <div class="mech-sections">
-      <div class="sec sec-passive"></div>
-      <div class="sec sec-trigger"></div>
-      <div class="sec sec-actions"></div>
-      <div class="sec sec-leave"></div>
+      {{mechSections}}
     </div>
     <div class="mech-rule mech-rule-bot"></div>
   </div>
+  {{setSymbol}}
 </div>
 
 </body>

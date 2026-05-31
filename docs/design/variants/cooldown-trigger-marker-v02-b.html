@@ -1,4 +1,4 @@
-<!-- card-variant: char-friendly-v02 | brighter lemon-yellow palette, clearly distinct from gold -->
+<!-- card-variant: cooldown-trigger-marker-v02-b | Cooldown trigger marker v02 option B — hollow diamond with right vertex cut open; medium inset diamond (half-diag 7) fills the cutout; amber fill + amber stroke border; moderate weight -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,11 +9,11 @@
   --card-w: 375px;
   --card-h: 525px;
   --card-r: 12.5px;
-  --bg-top:      #101000;
-  --bg-bot:      #0a0a00;
-  --type-border: #787830;
-  --type-text:   #d0cc30;
-  --type-glow:   rgba(185,185,30,0.28);
+  --bg-top:      #221004;
+  --bg-bot:      #180c02;
+  --type-border: #7a4818;
+  --type-text:   #c8860c;
+  --type-glow:   rgba(160,90,10,0.28);
 }
 * { box-sizing: border-box; margin: 0; padding: 0; }
 body { margin: 0; display: flex; justify-content: center; align-items: flex-start; }
@@ -27,7 +27,7 @@ body { margin: 0; display: flex; justify-content: center; align-items: flex-star
   flex-shrink: 0;
   box-shadow: 0 24px 70px rgba(0,0,0,0.97), 0 6px 16px rgba(0,0,0,0.8);
 }
-.card-fill { position: absolute; inset: 0; z-index: 0; border-radius: var(--card-r); background: #0a0a02; }
+.card-fill { position: absolute; inset: 0; z-index: 0; border-radius: var(--card-r); background: #0d0a06; }
 .card-image { position: absolute; inset: 0; z-index: 1; }
 .card-image > svg { position: absolute; inset: 0; width: 100%; height: 100%; }
 
@@ -37,7 +37,7 @@ body { margin: 0; display: flex; justify-content: center; align-items: flex-star
   height: 194px;
   z-index: 2;
   pointer-events: none;
-  background: radial-gradient(ellipse 90% 100% at 50% 0%, rgba(55,55,0,.9) 0%, rgba(38,38,0,.6) 70%, transparent 100%);
+  background: radial-gradient(ellipse 90% 100% at 50% 0%, rgba(0,0,0,.9) 0%, rgba(0,0,0,.6) 70%, transparent 100%);
 }
 .grad-body {
   position: absolute;
@@ -45,7 +45,7 @@ body { margin: 0; display: flex; justify-content: center; align-items: flex-star
   height: 313px;
   z-index: 2;
   pointer-events: none;
-  background: radial-gradient(ellipse 90% 100% at 50% 100%, rgba(55,55,0,.9) 0%, rgba(38,38,0,.6) 70%, transparent 100%);
+  background: radial-gradient(ellipse 90% 100% at 50% 100%, rgba(0,0,0,.9) 0%, rgba(0,0,0,.6) 70%, transparent 100%);
 }
 
 .card-frame {
@@ -84,61 +84,36 @@ body { margin: 0; display: flex; justify-content: center; align-items: flex-star
 
 .card-title {
   position: absolute; left: 22.5px; right: 22.5px; top: 65px;
-  text-align: center; color: #e0dc40;
+  text-align: center; color: #dcc06a;
   font-family: 'Cinzel', Georgia, serif;
   font-size: 26px; font-weight: 700; letter-spacing: 0.5px; line-height: 1.2;
   text-shadow: 0 1px 10px rgba(0,0,0,0.95);
 }
-.card-subtitle {
-  position: absolute; left: 22.5px; right: 22.5px; top: 99px;
-  text-align: center; color: #c8a050;
-  font-family: 'Cinzel', Georgia, serif;
-  font-size: 10px; font-weight: 400; font-style: italic;
-  letter-spacing: 3px; text-transform: uppercase; opacity: 0.72;
-  text-shadow: 0 1px 8px rgba(0,0,0,0.9);
-}
 .title-rule {
-  position: absolute; left: 67.5px; right: 67.5px; top: 118px; height: 1px;
-  background: linear-gradient(to right, transparent, var(--type-border) 25%, var(--type-border) 75%, transparent);
-  opacity: 0.6;
-}
-.title-rule-nosub {
   position: absolute; left: 67.5px; right: 67.5px; top: 103px; height: 1px;
   background: linear-gradient(to right, transparent, var(--type-border) 25%, var(--type-border) 75%, transparent);
   opacity: 0.6;
 }
-.card-image-custom {
-  position: absolute; inset: 0; z-index: 1;
-  background-size: cover; background-position: center;
-}
+
 .mech-frame {
   position: absolute;
   left: 22.5px; right: 22.5px;
   bottom: 22.5px;
+  height: auto;
   z-index: 12;
   pointer-events: none;
-  background: linear-gradient(to bottom, transparent 0%, rgba(122,72,24,.25) 10%, rgba(122,72,24,.25) 90%, transparent 100%);
 }
-.mech-rule {
-  position: absolute;
-  left: 17.5px; right: 17.5px;
-  height: 1px;
-  background: linear-gradient(to right, transparent, var(--type-border) 18%, var(--type-border) 82%, transparent);
-  opacity: 0.55;
-}
-.mech-rule-top { top: 0; }
-.mech-rule-bot { bottom: 0; }
 .mech-sections {
-  position: absolute;
-  top: 1px; bottom: 1px; left: 0; right: 0;
+  position: relative;
   display: flex;
   flex-direction: column;
-  overflow: hidden;
 }
 .sec {
   width: 100%;
   flex-shrink: 0;
   position: relative;
+  display: flex;
+  flex-direction: column;
 }
 .sec::before, .sec::after {
   content: '';
@@ -149,69 +124,61 @@ body { margin: 0; display: flex; justify-content: center; align-items: flex-star
 }
 .sec::before { top: 0; }
 .sec::after  { bottom: 0; }
-.sec-passive { background: rgba(48,120,240,0.15); }
-.sec-passive::before, .sec-passive::after {
-  background: linear-gradient(to right, transparent, #3078f0 18%, #3078f0 82%, transparent);
-}
-.sec-trigger { background: rgba(240,200,48,0.15); }
-.sec-trigger::before, .sec-trigger::after {
-  background: linear-gradient(to right, transparent, #f0c830 18%, #f0c830 82%, transparent);
-}
-.sec-actions { background: rgba(232,80,48,0.15); }
+
+.sec-actions { flex: 1; background: rgba(232,80,48,0.15); }
 .sec-actions::before, .sec-actions::after {
   background: linear-gradient(to right, transparent, #e85030 18%, #e85030 82%, transparent);
 }
-.sec-leave { background: rgba(240,200,48,0.15); }
-.sec-leave::before, .sec-leave::after {
-  background: linear-gradient(to right, transparent, #f0c830 18%, #f0c830 82%, transparent);
-}
+
 .effect-row {
-  display: flex; align-items: center;
-  padding: 4px 12px; gap: 8px;
-  min-height: 28px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 10px;
+  height: 72px;
 }
-.effect-icon { flex-shrink: 0; display: flex; align-items: center; }
+
+.flow-row {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 0 10px;
+  height: 52px;
+}
+
+.effect-lead {
+  flex-shrink: 0;
+  width: 52px;
+  align-self: stretch;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .effect-text {
+  flex: 1;
   font-family: 'Crimson Text', Georgia, serif;
-  font-size: 13px; font-weight: 400;
-  color: rgba(220,200,160,0.9);
-  line-height: 1.35;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  color: rgba(220,200,160,0.82);
+  line-height: 1.3;
+  align-self: center;
 }
-.effect-label {
-  font-family: 'Cinzel', Georgia, serif;
-  font-size: 8px; font-weight: 700; letter-spacing: 2px;
-  text-transform: uppercase; color: rgba(220,200,160,0.5);
-  padding: 4px 12px 0;
+
+.sym-group {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  vertical-align: middle;
 }
-.sec-flavour {
-  background: rgba(8,5,2,0.35);
-  position: relative; flex-shrink: 0;
-}
-.sec-flavour::before {
-  content: '';
-  position: absolute; left: 20px; right: 20px; top: 0; height: 1px;
-  background: linear-gradient(to right, transparent, rgba(122,72,24,0.38) 18%, rgba(122,72,24,0.38) 82%, transparent);
-}
-.sec-flavour::after { display: none; }
-.flavour-inner {
-  display: flex; align-items: center; justify-content: center;
-  padding: 8px 18px;
-}
-.flavour-text {
+.sym-mod {
   font-family: 'Crimson Text', Georgia, serif;
-  font-size: 14px; font-style: italic; font-weight: 400;
-  color: rgba(230, 208, 162, 0.68);
-  text-align: center; line-height: 1.48; letter-spacing: 0.1px;
-  text-shadow: 0 1px 5px rgba(0,0,0,0.85);
+  font-size: 14px;
+  font-weight: 600;
+  color: rgba(220,200,160,0.92);
+  line-height: 1;
 }
-.set-symbol {
-  position: absolute; z-index: 13;
-  bottom: 16px; right: 18px;
-  width: 18px; height: 18px;
-  pointer-events: none;
-}
-.sym-group { display: inline-flex; align-items: center; gap: 1px; vertical-align: middle; }
-.sym-mod { font-size: 11px; font-weight: 600; color: #d4b87a; }
 </style>
 </head>
 <body>
@@ -280,34 +247,162 @@ body { margin: 0; display: flex; justify-content: center; align-items: flex-star
     <rect width="300" height="420" fill="url(#a-glow)"/>
     <ellipse cx="150" cy="280" rx="220" ry="40" fill="#0a0a08" opacity="0.85"/>
     <path d="M 0 230 L 30 200 L 50 220 L 80 180 L 110 215 L 140 195 L 170 220 L 200 185 L 230 215 L 260 200 L 300 230 L 300 420 L 0 420 Z" fill="#0c0808" opacity="0.92"/>
-    <ellipse cx="150" cy="170" rx="14" ry="20" fill="#1a0e08" opacity="0.85"/>
-    <circle cx="150" cy="155" r="9" fill="#1a0e08" opacity="0.85"/>
     <rect width="300" height="420" fill="url(#a-vig)"/>
   </symbol>
+
+  <symbol id="icon-damage" viewBox="0 0 24 24">
+    <polygon points="12,2 13.4,8.2 17.8,4.5 15.6,10.3 22,10.8 16.9,14.2 19.6,20.1 13.2,17 12,23 10.5,17.1 4.2,20.5 6.7,14.4 1,11.2 7.5,10.2 5,4.8 10.7,8.1"
+             fill="#f0c030" stroke="#a08000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  </symbol>
+
+  <symbol id="icon-shield" viewBox="0 0 24 24">
+    <path d="M12 2 L20 5 L20 11 C20 16 16 20 12 22 C8 20 4 16 4 11 L4 5 Z"
+          fill="#4090e0" stroke="#1a0e04" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+  </symbol>
+
+  <!-- ACTIVATION MARKER -->
+  <symbol id="marker-activation" viewBox="0 0 52 52">
+    <polygon points="26,4 48,26 26,48 4,26" fill="#1a0e04" stroke="none"/>
+    <polygon points="26,4 48,26 26,48 4,26" fill="none" stroke="#d4b87a" stroke-width="2" opacity="0.55"/>
+    <polygon points="26,13 39,26 26,39 13,26" fill="#d4b87a" stroke="none"/>
+    <polygon points="26,22 31,26 26,30 21,26" fill="#1a0e04" stroke="none"/>
+  </symbol>
+
+  <!-- FLOW MARKER -->
+  <symbol id="marker-flow" viewBox="0 0 52 52">
+    <polygon points="26,6 46,26 26,46 6,26" fill="#1a0e04" stroke="none"/>
+    <polygon points="26,9 43,26 26,43 9,26" fill="none" stroke="#d4b87a" stroke-width="1.5" opacity="0.55"/>
+  </symbol>
+
+  <!--
+    COOLDOWN TRIGGER MARKER — v02 Option B: MEDIUM INSET WITH BORDER
+    ══════════════════════════════════════════════════════════════════════════
+    Same outer diamond silhouette and bounding box as the flow marker.
+    Right vertex cut open. A MEDIUM inset diamond fills the cutout.
+
+    Option B approach: MEDIUM inset diamond with visible amber stroke border.
+    - Outer diamond: same as flow marker (half-diag 20, centered at 26,26)
+    - Inset diamond: half-diagonal 7 (14px tip-to-tip) — medium, more prominent than A
+    - Inset diamond fill: solid amber #d4b87a
+    - Inset border stroke: amber #d4b87a, 1.5px, opacity 0.7 — adds a visible ring
+      that echoes the outer diamond's stroke treatment
+    - Inset has a dark center pip (half-diag 3) — slightly larger pip than A
+    - The stroke border around the inset makes it read more like a "mini activation
+      marker" — visually linking it to the activation marker's layered diamond style
+
+    viewBox: 0 0 52 52 — same footprint as flow marker
+  -->
+  <symbol id="marker-cooldown-trigger-b" viewBox="0 0 52 52">
+    <!-- Outer diamond body — full dark fill -->
+    <polygon points="26,6 46,26 26,46 6,26" fill="#1a0e04" stroke="none"/>
+
+    <!-- Outer diamond stroke — segments with right vertex gap.
+         Gap spans from the edges meeting the inset diamond.
+         The gap is wider than A to accommodate the larger inset. -->
+    <line x1="26" y1="9" x2="9" y2="26" stroke="#d4b87a" stroke-width="1.5" opacity="0.55" stroke-linecap="round"/>
+    <line x1="9" y1="26" x2="26" y2="43" stroke="#d4b87a" stroke-width="1.5" opacity="0.55" stroke-linecap="round"/>
+    <line x1="26" y1="43" x2="38" y2="31" stroke="#d4b87a" stroke-width="1.5" opacity="0.55" stroke-linecap="round"/>
+    <line x1="38" y1="21" x2="26" y2="9" stroke="#d4b87a" stroke-width="1.5" opacity="0.55" stroke-linecap="round"/>
+
+    <!-- Inset diamond — medium size (half-diag 7), centered at (40,26)
+         Sits in the gap where the right vertex was. Fully within bounding box.
+         Has both a solid amber fill AND a visible amber stroke border — the
+         border echoes the outer diamond edge treatment, creating a layered look. -->
+    <polygon points="40,19 47,26 40,33 33,26" fill="#d4b87a" stroke="none"/>
+    <polygon points="40,19 47,26 40,33 33,26" fill="none" stroke="#d4b87a" stroke-width="1.5" opacity="0.7"/>
+    <!-- Dark center pip — half-diag 3 -->
+    <polygon points="40,23 43,26 40,29 37,26" fill="#1a0e04" stroke="none"/>
+  </symbol>
+
+  <!-- Connecting arrow -->
+  <symbol id="connector-down" viewBox="0 0 52 14">
+    <line x1="26" y1="0" x2="26" y2="8" stroke="#1a0e04" stroke-width="1.5" stroke-linecap="round"/>
+    <polygon points="26,14 22,7 30,7" fill="#1a0e04"/>
+  </symbol>
+
 </defs>
 </svg>
 
 <div class="card">
   <div class="card-fill"></div>
   <div class="card-image"><svg viewBox="0 0 300 420" xmlns="http://www.w3.org/2000/svg"><use href="#art-d"/></svg></div>
-  {{cardImage}}
   <div class="grad-top"></div>
   <div class="grad-body"></div>
   <div class="card-frame"><svg xmlns="http://www.w3.org/2000/svg"><use href="#frame-d"/></svg></div>
   <div class="card-header">
-    <div class="type-band"><span class="type-label">{{typeLabel}}</span></div>
-    <div class="card-title">{{title}}</div>
-    {{subtitleHtml}}
-    {{titleRuleHtml}}
+    <div class="type-band"><span class="type-label">Persona</span></div>
+    <div class="card-title">The Wayfarer</div>
+    <div class="title-rule"></div>
   </div>
-  <div class="mech-frame" style="height:{{mechHeight}}px">
-    <div class="mech-rule mech-rule-top"></div>
+
+  <!--
+    Actions section — multi-turn track with cooldown trigger.
+    Row 1: activation marker -> "Strike for [damage]2"
+    Row 2: flow marker (hollow diamond) — pure delay slot
+    Row 3: cooldown trigger marker v02-b (medium inset diamond with border) -> "Gain [shield]1"
+  -->
+  <div class="mech-frame">
     <div class="mech-sections">
-      {{mechSections}}
+
+      <div class="sec sec-actions">
+
+        <!-- Row 1: activation marker -> effect -->
+        <div class="effect-row">
+          <div class="effect-lead">
+            <svg width="52" height="52" viewBox="0 0 52 52" preserveAspectRatio="xMidYMid meet">
+              <use href="#marker-activation"/>
+            </svg>
+          </div>
+          <span class="effect-text">
+            Strike an adjacent enemy for
+            <span class="sym-group"><svg width="16" height="16"><use href="#icon-damage"/></svg><span class="sym-mod">2</span></span>
+          </span>
+        </div>
+
+        <!-- Connector arrow -->
+        <div class="flow-row" style="height:18px; padding:0 10px;">
+          <div class="effect-lead">
+            <svg width="52" height="14" viewBox="0 0 52 14" preserveAspectRatio="xMidYMid meet">
+              <use href="#connector-down"/>
+            </svg>
+          </div>
+        </div>
+
+        <!-- Row 2: flow marker — pure delay slot -->
+        <div class="flow-row">
+          <div class="effect-lead">
+            <svg width="44" height="44" viewBox="0 0 52 52" preserveAspectRatio="xMidYMid meet">
+              <use href="#marker-flow"/>
+            </svg>
+          </div>
+        </div>
+
+        <!-- Connector arrow -->
+        <div class="flow-row" style="height:18px; padding:0 10px;">
+          <div class="effect-lead">
+            <svg width="52" height="14" viewBox="0 0 52 14" preserveAspectRatio="xMidYMid meet">
+              <use href="#connector-down"/>
+            </svg>
+          </div>
+        </div>
+
+        <!-- Row 3: cooldown trigger marker v02-b -> effect -->
+        <div class="effect-row">
+          <div class="effect-lead">
+            <svg width="52" height="52" viewBox="0 0 52 52" preserveAspectRatio="xMidYMid meet">
+              <use href="#marker-cooldown-trigger-b"/>
+            </svg>
+          </div>
+          <span class="effect-text">
+            Gain
+            <span class="sym-group"><svg width="16" height="16"><use href="#icon-shield"/></svg><span class="sym-mod">1</span></span>
+          </span>
+        </div>
+
+      </div>
+
     </div>
-    <div class="mech-rule mech-rule-bot"></div>
   </div>
-  {{setSymbol}}
 </div>
 
 </body>

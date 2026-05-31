@@ -1,6 +1,6 @@
 # Yarn — Session Resume Context
 
-_Updated: 2026-05-31_
+_Updated: 2026-05-31T12:25:05Z_
 
 ---
 
@@ -15,15 +15,15 @@ Card types: **Location, Character, Item, Event, Quest, Persona, Script**
 ## Current stream status
 
 ### Card Design
-**Status:** Active — awaiting orchestrator run to produce v02 variants  
-**Situation:** cooldown-trigger-marker-v01 rejected; die-symbols-v01 rejected; trigger-symbols-v03 rejected. All three have new specs written and v02/v04 tasks queued. Tasks 2 and 3 (baseline propagation, activation track rework) still blocked on cooldown trigger marker acceptance.  
+**Status:** Active — cooldown-trigger-marker-v02 created (3 options: compact/medium/large inset diamond)  
+**Situation:** v02-a/b/c ready for review (v01 superseded). Die-symbols-v02 and trigger-symbols-v04 still in design. Tasks 2 and 3 (baseline propagation, activation track rework) still blocked on cooldown trigger marker acceptance.  
 **Awaiting acceptance:** cooldown-trigger-marker-v02 (a/b/c), die-symbols-v02 (a/b/c), trigger-symbols-v04 (a/b/c)  
 **To unblock:** accept one of the cooldown-trigger-marker-v02 options at the review gallery.
 
 ### App Design
-**Status:** Active — 5 tasks queued  
-**Situation:** Live preview only updates on title changes — all other fields are disconnected. Accepted design elements (subtitle-v01-a, flavour-text-v01-c, set-symbol-v01-a, effects-container-v04) not yet implemented in app templates. Containers are fixed-height and do not hide when empty.  
-**Next:** Task 1 — hook up all form fields to live preview; Task 2 — dynamic container rendering.
+**Status:** Active — Task 1 in progress  
+**Situation:** All 7 baseline templates updated with full placeholder support (subtitle, flavour text, type label, card image, set symbol, mechanics sections). PreviewService still needs wiring to connect form fields to template rendering. Containers not yet dynamic-height.  
+**Next:** Complete Task 1 (wire PreviewService); Task 2 — dynamic container rendering.
 
 ---
 

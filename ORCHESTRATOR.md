@@ -19,7 +19,7 @@ This file is read and written by scheduled agents. Do not edit manually during a
 ```
 blocked_for_weekly_review: false
 weekly_review_due: 2026-05-30T08:00:00Z
-last_orchestrator_run: 2026-05-31T06:14:44Z
+last_orchestrator_run: 2026-05-31T12:25:05Z
 last_status_notification: 2026-05-31T12:00:00Z
 ```
 
@@ -32,7 +32,7 @@ Streams are **independent** — a blocked stream does not pause other streams.
 ### Card Design
 - **Mode**: autonomous
 - **Source**: design/VISUAL.md, design/card-index.md
-- **Status**: on hold — 4 design elements accepted; marker shapes accepted; cooldown-trigger-marker-v01-a/b/c awaiting acceptance; Tasks 2–3 blocked on acceptance
+- **Status**: active — cooldown-trigger-marker-v02-a/b/c created (v01 superseded); 4 design elements accepted; marker shapes accepted; Tasks 2–3 blocked on cooldown trigger acceptance; die-symbols-v02 and trigger-symbols-v04 in design
 
 #### Accepted design elements (2026-05-28)
 - ✅ **effects-container-v04** — gradient-fade section borders (opacity 0.7), 0.15 translucent fill; see VISUAL.md §6
@@ -127,14 +127,14 @@ Create new activation track variants for all four primitive track types using th
 **Hold:** effects-v04 — create only after trigger symbols + activation tracks both accepted
 
 - **Blocked on**: —
-- **Last notified**: 2026-05-26T18:16:00Z
+- **Last notified**: 2026-05-31T12:25:05Z
 
 ---
 
 ### App Design
 - **Mode**: autonomous
 - **Source**: APP.md
-- **Status**: active — 5 tasks queued; live preview partially broken (title only); accepted design elements not yet implemented in app templates
+- **Status**: active — Task 1 in progress; all 7 baseline templates updated with 8 placeholders (subtitle, flavour text, type label, card image, set symbol, mechanics sections); PreviewService wiring pending; 5 tasks queued
 
 #### Known issues (all resolved 2026-05-28)
 1. ~~**Site not on GitHub Pages**~~ — ✅ deploy.yml deleted (redundant); orchestrator owns build+deploy cycle
@@ -206,7 +206,7 @@ After Card Design propagates accepted baselines → re-sync updated baseline HTM
   - Review gallery: `docs/review/` ✅ (migrated 2026-05-28T00:17:35Z)
   - `.nojekyll`: `docs/.nojekyll` ✅ (created 2026-05-28T00:17:35Z)
 - **Blocked on**: —
-- **Last notified**: 2026-05-25T15:07:31Z
+- **Last notified**: 2026-05-31T12:25:05Z
 
 ---
 
@@ -356,6 +356,8 @@ _(none)_
 | 2026-05-31T06:14:44Z | Orchestrator | A: Game Design | No new items; 7 tracked unchanged; last notified < 48h ago — no notification |
 | 2026-05-31T06:14:44Z | Orchestrator | B: Card Design | On hold — cooldown-trigger-marker-v01 awaiting acceptance; Task 2 and Task 3 blocked on acceptance |
 | 2026-05-31T06:14:44Z | Orchestrator | C: App Design | On hold — gallery and variants verified in sync (73 files); no new accepted baselines; awaiting baseline acceptance to trigger auto-sync |
+| 2026-05-31T12:25:05Z | Orchestrator | B: Card Design | cooldown-trigger-marker-v02-a/b/c created (compact/medium/large inset diamond options); v01 marked superseded in CHANGES.md; review page updated; 3 new variant files mirrored to docs/design/variants/ |
+| 2026-05-31T12:25:05Z | Orchestrator | C: App Design | Task 1 partial — all 7 baseline templates updated with 8 placeholders (typeLabel, title, subtitleHtml, titleRuleHtml, cardImage, mechHeight, mechSections, setSymbol); PreviewService wiring not complete; gallery maintenance done (76 variants mirrored) |
 
 ---
 
