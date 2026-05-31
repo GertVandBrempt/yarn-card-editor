@@ -13,8 +13,8 @@ This file is read and written by scheduled agents. Do not edit manually during a
 ```
 blocked_for_weekly_review: false
 weekly_review_due: 2026-05-30T08:00:00Z
-last_orchestrator_run: 2026-05-30T19:59:56Z
-last_status_notification: 2026-05-29T00:11:07Z
+last_orchestrator_run: 2026-05-31T12:00:00Z
+last_status_notification: 2026-05-31T12:00:00Z
 ```
 
 ## Work Streams
@@ -26,7 +26,7 @@ Streams are **independent** — a blocked stream does not pause other streams.
 ### Game Design
 - **Mode**: interactive (orchestrator surfaces topics; user drives sessions in Claude Code)
 - **Source**: DESIGN.md open issues and unresolved questions
-- **Status**: active — 7 discussion items tracked; no new items found in scan of 2026-05-30T19:59:56Z; last notified ~44h ago (< 48h) — no notification
+- **Status**: active — 7 discussion items tracked; no new items found in scan of 2026-05-31T12:00:00Z; last notified ~55h ago (> 48h) — notification sent
 - **Pending discussion items** *(top 7 by card-design impact)*:
   1. Script Card colour — purple placeholder in script-v01; must confirm before card-index.md entry
   2. Trigger priority (§7) — explicitly TBD; affects card layout ordering rules
@@ -35,7 +35,7 @@ Streams are **independent** — a blocked stream does not pause other streams.
   5. Location connections visual design (§3.3) — solid vs hollow arrows for face-down/face-up state; intent stated in DESIGN.md but not yet in VISUAL.md
   6. Character dual-mode layout (§3.4) — Character/Ally on one card; no visual design for split yet
   7. **Inline sym+modifier rendering (§6.1) — NEW** — effect text with `[icon][modifier]` groups; final inline layout/sizing rules not yet in VISUAL.md; effects-v03 demonstrates it
-- **Last notified**: 2026-05-29T00:11:07Z
+- **Last notified**: 2026-05-31T12:00:00Z
 - **Blocked on**: —
 
 ---
@@ -43,7 +43,7 @@ Streams are **independent** — a blocked stream does not pause other streams.
 ### Card Design
 - **Mode**: autonomous
 - **Source**: design/VISUAL.md, design/card-index.md
-- **Status**: on hold — 4 design elements accepted; marker shapes accepted; cooldown trigger marker v01-a/b/c awaiting acceptance; all remaining tasks blocked on acceptance
+- **Status**: on hold — 4 design elements accepted; marker shapes accepted; cooldown-trigger-marker-v01-a/b/c awaiting acceptance; Tasks 2–3 blocked on acceptance
 
 #### Accepted design elements (2026-05-28)
 - ✅ **effects-container-v04** — gradient-fade section borders (opacity 0.7), 0.15 translucent fill; see VISUAL.md §6
@@ -343,6 +343,9 @@ _(none)_
 | 2026-05-30T19:59:56Z | Orchestrator | A: Game Design | No new items; 7 tracked unchanged; last notified ~44h ago (< 48h) — no notification |
 | 2026-05-30T19:59:56Z | Orchestrator | B: Card Design | On hold — cooldown-trigger-marker-v01 awaiting acceptance; Task 2 and Task 3 blocked on acceptance |
 | 2026-05-30T19:59:56Z | Orchestrator | C: App Design | Gallery maintenance — fixed all review page href paths from ../../design/ to ../design/ (old paths 404 on GitHub Pages); mirrored 73 variant files to docs/design/variants/ |
+| 2026-05-31T12:00:00Z | Orchestrator | A: Game Design | No new items; 7 tracked unchanged; last notified ~55h ago (> 48h threshold) — notification sent |
+| 2026-05-31T12:00:00Z | Orchestrator | B: Card Design | On hold — cooldown-trigger-marker-v01 awaiting acceptance; Task 2 and Task 3 blocked on acceptance |
+| 2026-05-31T12:00:00Z | Orchestrator | C: App Design | On hold — review gallery verified correct; no new accepted baselines; awaiting baseline acceptance to trigger auto-sync |
 
 ---
 
