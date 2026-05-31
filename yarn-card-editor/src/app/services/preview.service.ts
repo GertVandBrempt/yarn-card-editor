@@ -1,5 +1,12 @@
 import { Injectable } from '@angular/core';
-import { AnyCard, CardType } from '../models';
+import { AnyCard, CardType, TriggerType } from '../models';
+import { Trigger, Action, PassiveEffect, Effect } from '../models/effect.model';
+import { PersonaCard } from '../models/persona-card.model';
+import { LocationCard } from '../models/location-card.model';
+import { CharacterCard } from '../models/character-card.model';
+import { ItemCard } from '../models/item-card.model';
+import { EventCard } from '../models/event-card.model';
+import { MainQuestCard, SideQuestCard, Objective } from '../models/quest-card.model';
 
 /**
  * SVG symbol definitions extracted from the latest design variants.
@@ -323,19 +330,19 @@ const SVG_DEFS = `
   <!--
     Use track marker — activation-track-use-v01-a.html
     Consumed marker (one-time use): square with inner square.
-    Outer square: 36×36 px centered at (26,26); inner square: 18×18 amber fill;
-    center pip: 6×6 dark square. No return path — permanently consumed.
+    Outer square: 36x36 px centered at (26,26); inner square: 18x18 amber fill;
+    center pip: 6x6 dark square. No return path — permanently consumed.
     viewBox 0 0 52 52 — square proportions.
     Color: dark body #1a0e04, amber detail/stroke #d4b87a.
   -->
   <symbol id="track-use-a-marker" viewBox="0 0 52 52">
-    <!-- Outer square: 36×36 centered at (26,26) -->
+    <!-- Outer square: 36x36 centered at (26,26) -->
     <rect x="8" y="8" width="36" height="36"
           fill="#1a0e04" stroke="#d4b87a" stroke-width="2" opacity="1"/>
-    <!-- Inner square: 18×18 centered at (26,26) — amber fill -->
+    <!-- Inner square: 18x18 centered at (26,26) — amber fill -->
     <rect x="17" y="17" width="18" height="18"
           fill="#d4b87a" stroke="none"/>
-    <!-- Center pip: 6×6 dark square centered at (26,26) -->
+    <!-- Center pip: 6x6 dark square centered at (26,26) -->
     <rect x="23" y="23" width="6" height="6"
           fill="#1a0e04" stroke="none"/>
   </symbol>
@@ -344,6 +351,14 @@ const SVG_DEFS = `
   <symbol id="track-fallback" viewBox="0 0 24 24">
     <circle cx="12" cy="12" r="10" fill="#1a0e04"/>
     <circle cx="12" cy="12" r="6" fill="#d4b87a"/>
+  </symbol>
+
+  <!-- Set symbol — set-symbol-v01-a accepted -->
+  <symbol id="set-symbol-icon" viewBox="0 0 18 18">
+    <circle cx="9" cy="9" r="8.5" fill="#1a0e04" opacity="0.85"/>
+    <circle cx="9" cy="9" r="8.5" fill="none" stroke="#d4b87a" stroke-width="1" opacity="0.55"/>
+    <polygon points="9,4 13,9 9,14 5,9" fill="none" stroke="#d4b87a" stroke-width="1.2" opacity="0.72"/>
+    <circle cx="9" cy="9" r="1.5" fill="#d4b87a" opacity="0.65"/>
   </symbol>
 </defs>
 </svg>`;
@@ -374,6 +389,25 @@ const TRIGGER_SYMBOL_MAP: Record<string, string> = {
   'on-flow-marker': 'trig-flow-marker',
 };
 
+/**
+ * Human-readable trigger type labels for section headers.
+ */
+const TRIGGER_LABELS: Record<string, string> = {
+  'on-reveal': 'On Reveal',
+  'on-enter': 'On Enter',
+  'on-leave': 'On Leave',
+  'character-phase': 'Character Phase',
+  'on-complete': 'On Complete',
+  'on-flow-marker': 'On Flow Marker',
+};
+
+/** Height per rendered effect row (px). */
+const ROW_HEIGHT = 28;
+/** Height of a section label header (px). */
+const LABEL_HEIGHT = 18;
+/** Height of the flavour text zone (px). */
+const FLAVOUR_HEIGHT = 42;
+
 @Injectable({ providedIn: 'root' })
 export class PreviewService {
   private templateCache = new Map<string, string>();
@@ -403,48 +437,357 @@ export class PreviewService {
 
   /**
    * Inject card field values into a baseline HTML template.
-   * Returns the rendered HTML string with placeholders replaced.
+   * Returns the rendered HTML string with all placeholders replaced.
    */
   injectFields(template: string, card: AnyCard): string {
     let html = template;
 
-    // Inject SVG defs so trigger symbols and activation markers render
+    // Inject SVG defs so trigger symbols, activation markers, and set symbol render
     html = html.replace('<body>', `<body>${SVG_DEFS}`);
 
-    // Base fields
+    // ── Title ───────────────────────────────────────────
     html = this.replace(html, '{{title}}', this.escapeHtml(card.title || ''));
-    html = this.replace(html, '{{subtitle}}', this.escapeHtml(card.subtitle || ''));
-    html = this.replace(html, '{{flavourText}}', this.escapeHtml(card.flavourText || ''));
 
-    if (card.imageUrl) {
-      html = this.replace(html, '{{imageUrl}}', card.imageUrl);
+    // ── Type label ──────────────────────────────────────
+    html = this.replace(html, '{{typeLabel}}', this.resolveTypeLabel(card));
+
+    // ── Subtitle (subtitle-v01-a accepted) ──────────────
+    const hasSubtitle = !!(card.subtitle && card.subtitle.trim());
+    if (hasSubtitle) {
+      html = this.replace(
+        html,
+        '{{subtitleHtml}}',
+        `<div class="card-subtitle">${this.escapeHtml(card.subtitle!)}</div>`
+      );
+      html = this.replace(html, '{{titleRuleHtml}}', '<div class="title-rule"></div>');
+    } else {
+      html = this.replace(html, '{{subtitleHtml}}', '');
+      html = this.replace(html, '{{titleRuleHtml}}', '<div class="title-rule-nosub"></div>');
     }
 
-    // Hide empty containers per §Dynamic containers rule
-    html = this.hideEmptyContainers(html, card);
+    // ── Card image (full-bleed art layer behind content) ─
+    if (card.imageUrl) {
+      html = this.replace(
+        html,
+        '{{cardImage}}',
+        `<div class="card-image-custom" style="background-image:url('${card.imageUrl}')"></div>`
+      );
+    } else {
+      html = this.replace(html, '{{cardImage}}', '');
+    }
 
-    // Inline icon syntax: <iconname>[modifier] → SVG use markup
+    // ── Mechanics sections ──────────────────────────────
+    const { sectionsHtml, totalHeight } = this.buildMechSections(card);
+    html = this.replace(html, '{{mechSections}}', sectionsHtml);
+    html = this.replace(html, '{{mechHeight}}', String(totalHeight));
+
+    // ── Set symbol (set-symbol-v01-a accepted) ──────────
+    // Show the set symbol whenever the card belongs to a set (setId is always present)
+    // The symbol is a circular dark container with amber ring and diamond glyph placeholder
+    if (card.setId) {
+      html = this.replace(
+        html,
+        '{{setSymbol}}',
+        `<div class="set-symbol"><svg width="18" height="18" viewBox="0 0 18 18"><use href="#set-symbol-icon"/></svg></div>`
+      );
+    } else {
+      html = this.replace(html, '{{setSymbol}}', '');
+    }
+
+    // Hide empty title container
+    if (!card.title) {
+      html = html.replace(/class="card-title"/g, 'class="card-title" style="display:none"');
+    }
+
+    // Inline icon syntax: <iconname>[modifier] -> SVG use markup
     html = this.parseInlineEffects(html);
 
     return html;
   }
 
+  // ── Type label resolution ─────────────────────────────
+
   /**
-   * Hide sections that have no content — implements the empty-container rule.
-   * Uses placeholder comment markers that baseline templates should include.
+   * Resolves the human-readable type label for the card type band.
+   * Considers tier/alignment sub-types for correct labeling.
    */
-  private hideEmptyContainers(html: string, card: AnyCard): string {
-    // If title is empty, hide the title element via class
-    if (!card.title) {
-      html = html.replace(/class="card-title"/g, 'class="card-title" style="display:none"');
+  private resolveTypeLabel(card: AnyCard): string {
+    switch (card.type) {
+      case 'persona':
+        return 'Persona';
+      case 'location': {
+        const loc = card as LocationCard;
+        return loc.tier === 'setpiece' ? 'Setpiece' : 'Location';
+      }
+      case 'character': {
+        const ch = card as CharacterCard;
+        if (ch.tier === 'main') return 'Main Character';
+        if (ch.alignment === 'enemy') return 'Enemy';
+        if (ch.alignment === 'ally') return 'Friendly';
+        return 'Character';
+      }
+      case 'item': {
+        const it = card as ItemCard;
+        return it.tier === 'key' ? 'Key Item' : 'Item';
+      }
+      case 'event': {
+        const ev = card as EventCard;
+        return ev.tier === 'fated' ? 'Fated Event' : 'Event';
+      }
+      case 'main-quest':
+        return 'Main Quest';
+      case 'side-quest':
+        return 'Side Quest';
+      case 'script':
+        return 'Script';
+      default:
+        return 'Card';
     }
-    if (!card.subtitle) {
-      html = html.replace(/class="card-subtitle"/g, 'class="card-subtitle" style="display:none"');
+  }
+
+  // ── Mechanics sections builder ────────────────────────
+
+  /**
+   * Builds all mechanics sections HTML for the card.
+   * Returns the inner HTML for .mech-sections and total height for .mech-frame.
+   *
+   * Containers rendered only when they have content (dynamic container rendering).
+   * Each container auto-scales height to its row count.
+   */
+  private buildMechSections(card: AnyCard): { sectionsHtml: string; totalHeight: number } {
+    const sections: string[] = [];
+    let height = 0;
+
+    // ── 1) Passive / Permanent effects ──────────────────
+    const passives = this.getPassiveEffects(card);
+    if (passives.length > 0) {
+      const labelH = LABEL_HEIGHT;
+      const rowsH = passives.length * ROW_HEIGHT;
+      const secH = labelH + rowsH;
+      height += secH;
+      const rowsHtml = passives.map(p =>
+        `<div class="effect-row"><span class="effect-text">${this.renderEffectText(p.text)}</span></div>`
+      ).join('');
+      sections.push(
+        `<div class="sec sec-passive" style="height:${secH}px">` +
+        `<div class="effect-label">Permanent</div>${rowsHtml}</div>`
+      );
     }
-    if (!card.flavourText) {
-      html = html.replace(/class="flavour-text"/g, 'class="flavour-text" style="display:none"');
+
+    // ── 2) Entry triggers (on-reveal, on-enter) ─────────
+    const entryTriggers = this.getEntryTriggers(card);
+    if (entryTriggers.length > 0) {
+      const labelH = LABEL_HEIGHT;
+      const rowsH = entryTriggers.length * ROW_HEIGHT;
+      const secH = labelH + rowsH;
+      height += secH;
+      const rowsHtml = entryTriggers.map(t => this.renderTriggerRow(t)).join('');
+      sections.push(
+        `<div class="sec sec-trigger" style="height:${secH}px">` +
+        `<div class="effect-label">Entry</div>${rowsHtml}</div>`
+      );
     }
-    return html;
+
+    // ── 3) Actions ──────────────────────────────────────
+    const actions = this.getActions(card);
+    if (actions.length > 0) {
+      const labelH = LABEL_HEIGHT;
+      let actionsRowCount = 0;
+      const rowsHtml = actions.map(a => {
+        const rows = this.renderActionRows(a);
+        actionsRowCount += rows.count;
+        return rows.html;
+      }).join('');
+      const secH = labelH + actionsRowCount * ROW_HEIGHT;
+      height += secH;
+      sections.push(
+        `<div class="sec sec-actions" style="height:${secH}px">` +
+        `<div class="effect-label">Action</div>${rowsHtml}</div>`
+      );
+    }
+
+    // ── 4) Exit triggers (on-leave, on-complete) ────────
+    const exitTriggers = this.getExitTriggers(card);
+    if (exitTriggers.length > 0) {
+      const labelH = LABEL_HEIGHT;
+      const rowsH = exitTriggers.length * ROW_HEIGHT;
+      const secH = labelH + rowsH;
+      height += secH;
+      const rowsHtml = exitTriggers.map(t => this.renderTriggerRow(t)).join('');
+      sections.push(
+        `<div class="sec sec-leave" style="height:${secH}px">` +
+        `<div class="effect-label">Exit</div>${rowsHtml}</div>`
+      );
+    }
+
+    // ── 5) Flavour text (flavour-text-v01-c accepted) ───
+    if (card.flavourText && card.flavourText.trim()) {
+      height += FLAVOUR_HEIGHT;
+      sections.push(
+        `<div class="sec sec-flavour" style="height:${FLAVOUR_HEIGHT}px">` +
+        `<div class="flavour-inner"><span class="flavour-text">${this.escapeHtml(card.flavourText)}</span></div></div>`
+      );
+    }
+
+    // Minimum height when sections exist: ensure frame is visible
+    if (height === 0) {
+      height = 2; // Only top+bottom mech rules visible (no content)
+    }
+
+    return { sectionsHtml: sections.join(''), totalHeight: height };
+  }
+
+  // ── Data extraction helpers (type-aware) ──────────────
+
+  /** Get passive/permanent effects from a card. */
+  private getPassiveEffects(card: AnyCard): PassiveEffect[] {
+    switch (card.type) {
+      case 'persona':
+        return (card as PersonaCard).passiveEffects || [];
+      case 'item':
+        return (card as ItemCard).passiveEffects || [];
+      case 'character': {
+        // Ally mode passives if in ally mode
+        const ch = card as CharacterCard;
+        return ch.allyMode?.passiveEffects || [];
+      }
+      default:
+        return [];
+    }
+  }
+
+  /** Get entry triggers (on-reveal, on-enter) from a card. */
+  private getEntryTriggers(card: AnyCard): Trigger[] {
+    const triggers: Trigger[] = [];
+    switch (card.type) {
+      case 'location': {
+        const loc = card as LocationCard;
+        if (loc.onReveal) triggers.push(loc.onReveal);
+        if (loc.onEnter) triggers.push(loc.onEnter);
+        break;
+      }
+      case 'character': {
+        const ch = card as CharacterCard;
+        if (ch.onReveal) triggers.push(ch.onReveal);
+        break;
+      }
+      case 'event': {
+        const ev = card as EventCard;
+        if (ev.onReveal) triggers.push(ev.onReveal);
+        break;
+      }
+      default:
+        break;
+    }
+    return triggers;
+  }
+
+  /** Get exit triggers (on-leave, character-phase, on-complete) from a card. */
+  private getExitTriggers(card: AnyCard): Trigger[] {
+    const triggers: Trigger[] = [];
+    switch (card.type) {
+      case 'location': {
+        const loc = card as LocationCard;
+        if (loc.onLeave) triggers.push(loc.onLeave);
+        break;
+      }
+      case 'character': {
+        const ch = card as CharacterCard;
+        if (ch.characterPhase) triggers.push(ch.characterPhase);
+        break;
+      }
+      default:
+        break;
+    }
+    return triggers;
+  }
+
+  /** Get actions array from a card (most types have actions). */
+  private getActions(card: AnyCard): Action[] {
+    switch (card.type) {
+      case 'persona':
+        return (card as PersonaCard).actions || [];
+      case 'location':
+        return (card as LocationCard).actions || [];
+      case 'character':
+        return (card as CharacterCard).actions || [];
+      case 'item':
+        return (card as ItemCard).actions || [];
+      default:
+        return [];
+    }
+  }
+
+  // ── Rendering helpers ─────────────────────────────────
+
+  /** Render a trigger row: trigger icon + effect text. */
+  private renderTriggerRow(trigger: Trigger): string {
+    const symbolHtml = this.getTriggerSymbolHtml(trigger.type, 18);
+    const label = TRIGGER_LABELS[trigger.type] || trigger.type;
+    const text = trigger.effect?.text
+      ? this.renderEffectText(trigger.effect.text)
+      : `<span style="opacity:0.4">${label}</span>`;
+    return `<div class="effect-row">` +
+      `<span class="effect-icon">${symbolHtml}</span>` +
+      `<span class="effect-text">${text}</span></div>`;
+  }
+
+  /**
+   * Render action effect rows for a single action.
+   * Returns the HTML and the number of rows generated.
+   */
+  private renderActionRows(action: Action): { html: string; count: number } {
+    const markerHtml = this.getActivationMarkerForTrack(action.trackType);
+    const effects = action.effects || [];
+    if (effects.length === 0) {
+      // Show the action label placeholder even with no effects
+      const label = action.label
+        ? this.escapeHtml(action.label)
+        : `<span style="opacity:0.4">Action</span>`;
+      return {
+        html: `<div class="effect-row">` +
+          `<span class="effect-icon">${markerHtml}</span>` +
+          `<span class="effect-text">${label}</span></div>`,
+        count: 1,
+      };
+    }
+
+    const rows = effects.map((eff, i) => {
+      const icon = i === 0 ? `<span class="effect-icon">${markerHtml}</span>` : `<span class="effect-icon" style="width:20px"></span>`;
+      const text = eff.text
+        ? this.renderEffectText(eff.text)
+        : `<span style="opacity:0.4">Effect</span>`;
+      return `<div class="effect-row">${icon}<span class="effect-text">${text}</span></div>`;
+    });
+
+    return { html: rows.join(''), count: effects.length };
+  }
+
+  /**
+   * Get a compact activation marker SVG for the action section's lead icon.
+   * Uses a small 20x20 rendering for inline use.
+   */
+  private getActivationMarkerForTrack(trackType: string): string {
+    switch (trackType) {
+      case 'basic':
+        return `<svg width="20" height="20" viewBox="0 0 52 80" preserveAspectRatio="xMidYMid meet"><use href="#track-basic-a"/></svg>`;
+      case 'multi-turn':
+        return `<svg width="20" height="20" viewBox="0 0 52 52" preserveAspectRatio="xMidYMid meet"><use href="#track-multiturn-v02a"/></svg>`;
+      case 'multi-use':
+        return `<svg width="20" height="20" viewBox="0 0 40 40" preserveAspectRatio="xMidYMid meet"><use href="#track-multiuse-a-slot"/></svg>`;
+      case 'use':
+        return `<svg width="20" height="20" viewBox="0 0 52 52" preserveAspectRatio="xMidYMid meet"><use href="#track-use-a-marker"/></svg>`;
+      case 'and':
+      case 'or':
+        return `<svg width="20" height="20" viewBox="0 0 24 24"><use href="#track-fallback"/></svg>`;
+      default:
+        return `<svg width="20" height="20" viewBox="0 0 24 24"><use href="#track-fallback"/></svg>`;
+    }
+  }
+
+  /** Render effect text: escapes HTML then applies inline icon syntax. */
+  private renderEffectText(text: string): string {
+    return this.escapeHtml(text);
   }
 
   /**
@@ -512,7 +855,7 @@ export class PreviewService {
     }
     // Use track (one-time consumed) — activation-track-use-v01-a.html
     if (trackType === 'use-v01a') {
-      // Square marker 52×52 viewBox; render at same width/height (square)
+      // Square marker 52x52 viewBox; render at same width/height (square)
       return `<svg width="${width}" height="${width}" viewBox="0 0 52 52" preserveAspectRatio="xMidYMid meet"><use href="#track-use-a-marker"/></svg>`;
     }
     // All other track types — fallback filled circle
@@ -521,8 +864,8 @@ export class PreviewService {
 
   /**
    * Parse inline effect syntax in rendered HTML text content.
-   * <iconname> → SVG <use> element referencing the embedded defs
-   * [N] after icon → <span class="sym-mod">N</span>
+   * <iconname> -> SVG <use> element referencing the embedded defs
+   * [N] after icon -> <span class="sym-mod">N</span>
    */
   parseInlineEffects(text: string): string {
     const ICON_NAMES = [
@@ -555,7 +898,7 @@ export class PreviewService {
       return `<!DOCTYPE html><html><head><meta charset="UTF-8"><style>
         body { font-family: sans-serif; display:flex; align-items:center; justify-content:center; height:100vh; margin:0; background:#f8fafc; }
         .msg { text-align:center; color:#9ca3af; font-size:1rem; padding:2rem; }
-      </style></head><body><div class="msg">⏳ Design pending — no baseline template for card type: ${card.type}</div></body></html>`;
+      </style></head><body><div class="msg">Design pending — no baseline template for card type: ${card.type}</div></body></html>`;
     }
 
     return this.injectFields(template, card);

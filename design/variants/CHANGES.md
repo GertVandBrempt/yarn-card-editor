@@ -533,6 +533,21 @@ Base: design/BASELINE.html (Persona palette; each file shows a single card with 
 - flavour-text-v01-b.html — Option B: mechanics frame raised to bottom:84px; ornamental SVG divider (two amber gradient rules flanking a centre diamond ornament — outer diamond fill #d4b87a opacity 0.60, hollow inner pip) spanning full card width; Crimson Text italic 13.5px, slightly lighter cream rgba(225,202,158,0.78), LEFT-ALIGNED with 14px indent (typographically distinct from A's centred layout); demonstrates an Event card "The Ashen Pact"
 - flavour-text-v01-c.html — Option C: INTEGRATED / BORDERLESS — mechanics frame expanded to bottom:22.5px height:230px to contain both mechanics sections and the flavour row within one container; flavour row is a sec-flavour section (height:65px, rgba(8,5,2,0.35) darker fill) appended after the action section; top edge is a softer amber gradient fade (opacity 0.38 vs 0.55 for mechanics borders); NO visible hard rule or ornament; Crimson Text italic 14px, rgba(230,208,162,0.68), centred; demonstrates a Character card "Sister Halvaine"
 
+## die-symbols-v02 — Redesigned die icons: flat square face + single centered star, per-type color coding (2026-05-31)
+Base: design/variants/die-symbols-v01-a.html (flat square die face foundation reused; pips replaced with single star; per-type color coding added per VISUAL.md §7 updated spec)
+Supersedes: die-symbols-v01-a/b/c (v01 rejected — v01-a closest; pips replaced with single star; per-type color coding required)
+- die-symbols-v02-a.html — Option A: MEDIUM STAR, THIN BORDER ACCENT — flat square die body (rx=2, dark fill #1a0e04); 5-point star (outer r=5.5, inner r=2.2) centered on face; thin colored border accent (0.8px, 0.45 opacity); Constitution=#d84040 red, Zeal=#4888d8 blue, Path=#48b868 green; lightest star treatment; viewBox 0 0 24 24
+- die-symbols-v02-b.html — Option B: HEAVY STAR, THICK BORDER ACCENT — same die body; larger 5-point star (outer r=6.2, inner r=3.2) with fatter wider arms; thicker colored border accent (1.2px, 0.55 opacity); brighter colors: Constitution=#e03838, Zeal=#4080e0, Path=#40c060; star fills more of the die face for stronger color presence; viewBox 0 0 24 24
+- die-symbols-v02-c.html — Option C: SMALL PRECISE STAR, DOUBLE-RING BORDER — same die body; smaller 5-point star (outer r=4.8, inner r=1.8) with sharp thin points; dark outline stroke (1px #1a0e04) on star for crisp separation; double-ring colored border band (outer 1.8px ring at 0.40 opacity, inner dark rect cutout creates a visible colored stripe); Constitution=#c84040 deep red, Zeal=#4878c8 steel blue, Path=#40a858 forest green; most refined/engraved treatment; viewBox 0 0 24 24
+All three: dark die body #1a0e04; viewBox 0 0 24 24; rendered at 20×20 inline; shown in 3-section Persona card "The Stalwart" — passive row shows all 3 dice together, trigger row shows constitution conditional, action row shows path gating
+
+## die-symbols-v01 — SUPERSEDED by v02 — Three die icon style options (2026-05-26)
+Base: design/BASELINE.html (Persona palette, card "The Stalwart")
+- die-symbols-v01-a.html — Option A: flat die face, pip-count: Constitution 1 pip, Zeal 3 pips (triangle), Path 4 pips (compass)
+- die-symbols-v01-b.html — Option B: die body shape distinguishes type: Constitution=rounded-square, Zeal=diamond, Path=hexagon; single center pip each
+- die-symbols-v01-c.html — Option C: thematic amber cutout inside dark die face: Constitution=ring, Zeal=chevron, Path=Y-fork
+All three: dark fill #1a0e04, amber stroke #d4b87a, viewBox 0 0 24 24, rendered 20×20
+
 ## cooldown-trigger-marker-v02 — Redesigned cooldown trigger marker: inset diamond in right-vertex cutout (2026-05-31)
 Base: design/variants/cooldown-trigger-marker-v01-c.html (card structure reused; marker symbol completely redesigned per VISUAL.md §8 updated spec)
 Supersedes: cooldown-trigger-marker-v01-a/b/c (v01 rejected — a/b external indicators violate shared bounding-box; c notch concept closest but needs inset diamond fill)

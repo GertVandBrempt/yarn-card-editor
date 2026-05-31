@@ -1,4 +1,4 @@
-<!-- card-variant: location-v01 | green type palette for Location card type -->
+<!-- card-variant: die-symbols-v02-b | Die Symbols v02 option B — flat square die face + single centered star; per-type color coding (Constitution=Red, Zeal=Blue, Path=Green); star is HEAVY-WEIGHT 5-point with wider arms; thicker color border accent; boldest star treatment -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,11 +9,11 @@
   --card-w: 375px;
   --card-h: 525px;
   --card-r: 12.5px;
-  --bg-top:      #050e08;
-  --bg-bot:      #020c04;
-  --type-border: #1a6030;
-  --type-text:   #40b060;
-  --type-glow:   rgba(30,120,60,0.28);
+  --bg-top:      #221004;
+  --bg-bot:      #180c02;
+  --type-border: #7a4818;
+  --type-text:   #c8860c;
+  --type-glow:   rgba(160,90,10,0.28);
 }
 * { box-sizing: border-box; margin: 0; padding: 0; }
 body { margin: 0; display: flex; justify-content: center; align-items: flex-start; }
@@ -27,7 +27,7 @@ body { margin: 0; display: flex; justify-content: center; align-items: flex-star
   flex-shrink: 0;
   box-shadow: 0 24px 70px rgba(0,0,0,0.97), 0 6px 16px rgba(0,0,0,0.8);
 }
-.card-fill { position: absolute; inset: 0; z-index: 0; border-radius: var(--card-r); background: #060a06; }
+.card-fill { position: absolute; inset: 0; z-index: 0; border-radius: var(--card-r); background: #0d0a06; }
 .card-image { position: absolute; inset: 0; z-index: 1; }
 .card-image > svg { position: absolute; inset: 0; width: 100%; height: 100%; }
 
@@ -37,7 +37,7 @@ body { margin: 0; display: flex; justify-content: center; align-items: flex-star
   height: 194px;
   z-index: 2;
   pointer-events: none;
-  background: radial-gradient(ellipse 90% 100% at 50% 0%, rgba(10,50,25,.9) 0%, rgba(7,35,18,.6) 70%, transparent 100%);
+  background: radial-gradient(ellipse 90% 100% at 50% 0%, rgba(0,0,0,.9) 0%, rgba(0,0,0,.6) 70%, transparent 100%);
 }
 .grad-body {
   position: absolute;
@@ -45,7 +45,7 @@ body { margin: 0; display: flex; justify-content: center; align-items: flex-star
   height: 313px;
   z-index: 2;
   pointer-events: none;
-  background: radial-gradient(ellipse 90% 100% at 50% 100%, rgba(10,50,25,.9) 0%, rgba(7,35,18,.6) 70%, transparent 100%);
+  background: radial-gradient(ellipse 90% 100% at 50% 100%, rgba(0,0,0,.9) 0%, rgba(0,0,0,.6) 70%, transparent 100%);
 }
 
 .card-frame {
@@ -84,91 +84,100 @@ body { margin: 0; display: flex; justify-content: center; align-items: flex-star
 
 .card-title {
   position: absolute; left: 22.5px; right: 22.5px; top: 65px;
-  text-align: center; color: #70c898;
+  text-align: center; color: #dcc06a;
   font-family: 'Cinzel', Georgia, serif;
   font-size: 26px; font-weight: 700; letter-spacing: 0.5px; line-height: 1.2;
   text-shadow: 0 1px 10px rgba(0,0,0,0.95);
 }
-.card-subtitle {
-  position: absolute; left: 22.5px; right: 22.5px; top: 99px;
-  text-align: center; color: #c8a050;
-  font-family: 'Cinzel', Georgia, serif;
-  font-size: 10px; font-weight: 400; font-style: italic;
-  letter-spacing: 3px; text-transform: uppercase; opacity: 0.72;
-  text-shadow: 0 1px 8px rgba(0,0,0,0.9);
-}
 .title-rule {
-  position: absolute; left: 67.5px; right: 67.5px; top: 118px; height: 1px;
-  background: linear-gradient(to right, transparent, var(--type-border) 25%, var(--type-border) 75%, transparent);
-  opacity: 0.6;
-}
-.title-rule-nosub {
   position: absolute; left: 67.5px; right: 67.5px; top: 103px; height: 1px;
   background: linear-gradient(to right, transparent, var(--type-border) 25%, var(--type-border) 75%, transparent);
   opacity: 0.6;
 }
-.card-image-custom {
-  position: absolute; inset: 0; z-index: 1;
-  background-size: cover; background-position: center;
-}
+
+/*
+  Option B — Die Symbols v02-b
+  HEAVY STAR — larger outer radius (6.2), wider inner radius (3.2) = fatter arms.
+  Thicker border accent: 1.2px stroke at 0.55 opacity.
+  Star fills the die face more aggressively, reads very clearly at 20px.
+  Slightly brighter/more saturated color variants to match heavier presence.
+*/
 .mech-frame {
   position: absolute;
   left: 22.5px; right: 22.5px;
   bottom: 22.5px;
+  height: 180px;
   z-index: 12;
   pointer-events: none;
-  background: linear-gradient(to bottom, transparent 0%, rgba(122,72,24,.25) 10%, rgba(122,72,24,.25) 90%, transparent 100%);
 }
-.mech-rule {
-  position: absolute;
-  left: 17.5px; right: 17.5px;
-  height: 1px;
-  background: linear-gradient(to right, transparent, var(--type-border) 18%, var(--type-border) 82%, transparent);
-  opacity: 0.55;
-}
-.mech-rule-top { top: 0; }
-.mech-rule-bot { bottom: 0; }
 .mech-sections {
-  position: absolute;
-  top: 1px; bottom: 1px; left: 0; right: 0;
+  position: relative;
   display: flex;
   flex-direction: column;
-  overflow: hidden;
+  height: 100%;
 }
-.sec { width: 100%; flex-shrink: 0; position: relative; }
+.sec {
+  width: 100%;
+  flex-shrink: 0;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
 .sec::before, .sec::after {
-  content: ''; position: absolute; left: 0; right: 0; height: 1px; opacity: 0.7;
+  content: '';
+  position: absolute;
+  left: 0; right: 0;
+  height: 1px;
+  opacity: 0.7;
 }
 .sec::before { top: 0; }
 .sec::after  { bottom: 0; }
-.sec-passive { background: rgba(48,120,240,0.15); }
+
+.sec-passive { height: 56px; background: rgba(48,120,240,0.15); }
 .sec-passive::before, .sec-passive::after {
   background: linear-gradient(to right, transparent, #3078f0 18%, #3078f0 82%, transparent);
 }
-.sec-trigger { background: rgba(240,200,48,0.15); }
+.sec-trigger { height: 56px; background: rgba(240,200,48,0.15); }
 .sec-trigger::before, .sec-trigger::after {
   background: linear-gradient(to right, transparent, #f0c830 18%, #f0c830 82%, transparent);
 }
-.sec-actions { background: rgba(232,80,48,0.15); }
+.sec-actions { height: 66px; background: rgba(232,80,48,0.15); }
 .sec-actions::before, .sec-actions::after {
   background: linear-gradient(to right, transparent, #e85030 18%, #e85030 82%, transparent);
 }
-.sec-leave { background: rgba(240,200,48,0.15); }
-.sec-leave::before, .sec-leave::after {
-  background: linear-gradient(to right, transparent, #f0c830 18%, #f0c830 82%, transparent);
+
+.effect-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 10px;
+  flex: 1;
 }
-.effect-row { display: flex; align-items: center; padding: 4px 12px; gap: 8px; min-height: 28px; }
-.effect-icon { flex-shrink: 0; display: flex; align-items: center; }
-.effect-text { font-family: 'Crimson Text', Georgia, serif; font-size: 13px; font-weight: 400; color: rgba(220,200,160,0.9); line-height: 1.35; }
-.effect-label { font-family: 'Cinzel', Georgia, serif; font-size: 8px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: rgba(220,200,160,0.5); padding: 4px 12px 0; }
-.sec-flavour { background: rgba(8,5,2,0.35); position: relative; flex-shrink: 0; }
-.sec-flavour::before { content: ''; position: absolute; left: 20px; right: 20px; top: 0; height: 1px; background: linear-gradient(to right, transparent, rgba(122,72,24,0.38) 18%, rgba(122,72,24,0.38) 82%, transparent); }
-.sec-flavour::after { display: none; }
-.flavour-inner { display: flex; align-items: center; justify-content: center; padding: 8px 18px; }
-.flavour-text { font-family: 'Crimson Text', Georgia, serif; font-size: 14px; font-style: italic; font-weight: 400; color: rgba(230, 208, 162, 0.68); text-align: center; line-height: 1.48; letter-spacing: 0.1px; text-shadow: 0 1px 5px rgba(0,0,0,0.85); }
-.set-symbol { position: absolute; z-index: 13; bottom: 16px; right: 18px; width: 18px; height: 18px; pointer-events: none; }
-.sym-group { display: inline-flex; align-items: center; gap: 1px; vertical-align: middle; }
-.sym-mod { font-size: 11px; font-weight: 600; color: #d4b87a; }
+
+.effect-text {
+  flex: 1;
+  font-family: 'Crimson Text', Georgia, serif;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  color: rgba(220,200,160,0.82);
+  line-height: 1.4;
+  align-self: center;
+}
+
+.sym-group {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  vertical-align: middle;
+}
+.sym-mod {
+  font-family: 'Crimson Text', Georgia, serif;
+  font-size: 14px;
+  font-weight: 600;
+  color: rgba(220,200,160,0.92);
+  line-height: 1;
+}
 </style>
 </head>
 <body>
@@ -237,34 +246,129 @@ body { margin: 0; display: flex; justify-content: center; align-items: flex-star
     <rect width="300" height="420" fill="url(#a-glow)"/>
     <ellipse cx="150" cy="280" rx="220" ry="40" fill="#0a0a08" opacity="0.85"/>
     <path d="M 0 230 L 30 200 L 50 220 L 80 180 L 110 215 L 140 195 L 170 220 L 200 185 L 230 215 L 260 200 L 300 230 L 300 420 L 0 420 Z" fill="#0c0808" opacity="0.92"/>
-    <ellipse cx="150" cy="170" rx="14" ry="20" fill="#1a0e08" opacity="0.85"/>
-    <circle cx="150" cy="155" r="9" fill="#1a0e08" opacity="0.85"/>
     <rect width="300" height="420" fill="url(#a-vig)"/>
   </symbol>
+
+  <!--
+    Option B — Die Symbols v02-b: HEAVY STAR, THICK BORDER ACCENT
+    ══════════════════════════════════════════════════════════════════
+    Larger star: outer radius 6.2, inner radius 3.2 → fatter, wider arms.
+    The star occupies more of the die face, giving stronger color presence.
+    Thicker border accent: 1.2px at 0.55 opacity.
+    Slightly more saturated colors to match the heavier visual weight.
+
+    Constitution: #e03838 (brighter red)
+    Zeal:         #4080e0 (brighter blue)
+    Path:         #40c060 (brighter green)
+
+    Star points (outer r=6.2, inner r=3.2, center at 12,12):
+      P0 (top):        12, 5.8
+      i0:              13.43, 9.53
+      P1 (upper-right): 17.89, 10.08
+      i1:              14.46, 12.48
+      P2 (lower-right): 15.64, 16.40
+      i2:              12, 13.96
+      P3 (lower-left):  8.36, 16.40
+      i3:              9.54, 12.48
+      P4 (upper-left):  6.11, 10.08
+      i4:              10.57, 9.53
+  -->
+
+  <!-- Constitution: Bold red star -->
+  <symbol id="icon-die-constitution" viewBox="0 0 24 24">
+    <rect x="2" y="2" width="20" height="20" rx="2"
+          fill="#1a0e04" stroke="#1a0e04" stroke-width="2.5"
+          stroke-linecap="round" stroke-linejoin="round"/>
+    <!-- Thick red border accent -->
+    <rect x="3" y="3" width="18" height="18" rx="1.5"
+          fill="none" stroke="#e03838" stroke-width="1.2" opacity="0.55"/>
+    <!-- Red 5-point star — heavy, fat arms -->
+    <polygon points="12,5.8 13.43,9.53 17.89,10.08 14.46,12.48 15.64,16.40 12,13.96 8.36,16.40 9.54,12.48 6.11,10.08 10.57,9.53"
+             fill="#e03838" stroke="none"/>
+  </symbol>
+
+  <!-- Zeal: Bold blue star -->
+  <symbol id="icon-die-zeal" viewBox="0 0 24 24">
+    <rect x="2" y="2" width="20" height="20" rx="2"
+          fill="#1a0e04" stroke="#1a0e04" stroke-width="2.5"
+          stroke-linecap="round" stroke-linejoin="round"/>
+    <rect x="3" y="3" width="18" height="18" rx="1.5"
+          fill="none" stroke="#4080e0" stroke-width="1.2" opacity="0.55"/>
+    <polygon points="12,5.8 13.43,9.53 17.89,10.08 14.46,12.48 15.64,16.40 12,13.96 8.36,16.40 9.54,12.48 6.11,10.08 10.57,9.53"
+             fill="#4080e0" stroke="none"/>
+  </symbol>
+
+  <!-- Path: Bold green star -->
+  <symbol id="icon-die-path" viewBox="0 0 24 24">
+    <rect x="2" y="2" width="20" height="20" rx="2"
+          fill="#1a0e04" stroke="#1a0e04" stroke-width="2.5"
+          stroke-linecap="round" stroke-linejoin="round"/>
+    <rect x="3" y="3" width="18" height="18" rx="1.5"
+          fill="none" stroke="#40c060" stroke-width="1.2" opacity="0.55"/>
+    <polygon points="12,5.8 13.43,9.53 17.89,10.08 14.46,12.48 15.64,16.40 12,13.96 8.36,16.40 9.54,12.48 6.11,10.08 10.57,9.53"
+             fill="#40c060" stroke="none"/>
+  </symbol>
+
+  <symbol id="icon-damage" viewBox="0 0 24 24">
+    <polygon points="12,2 13.4,8.2 17.8,4.5 15.6,10.3 22,10.8 16.9,14.2 19.6,20.1 13.2,17 12,23 10.5,17.1 4.2,20.5 6.7,14.4 1,11.2 7.5,10.2 5,4.8 10.7,8.1"
+             fill="#f0c030" stroke="#a08000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  </symbol>
+
 </defs>
 </svg>
 
 <div class="card">
   <div class="card-fill"></div>
   <div class="card-image"><svg viewBox="0 0 300 420" xmlns="http://www.w3.org/2000/svg"><use href="#art-d"/></svg></div>
-  {{cardImage}}
   <div class="grad-top"></div>
   <div class="grad-body"></div>
   <div class="card-frame"><svg xmlns="http://www.w3.org/2000/svg"><use href="#frame-d"/></svg></div>
   <div class="card-header">
-    <div class="type-band"><span class="type-label">{{typeLabel}}</span></div>
-    <div class="card-title">{{title}}</div>
-    {{subtitleHtml}}
-    {{titleRuleHtml}}
+    <div class="type-band"><span class="type-label">Persona</span></div>
+    <div class="card-title">The Stalwart</div>
+    <div class="title-rule"></div>
   </div>
-  <div class="mech-frame" style="height:{{mechHeight}}px">
-    <div class="mech-rule mech-rule-top"></div>
+
+  <div class="mech-frame">
     <div class="mech-sections">
-      {{mechSections}}
+
+      <div class="sec sec-passive">
+        <div class="effect-row">
+          <span class="effect-text">
+            Gain +1 armor for each
+            <span class="sym-group"><svg width="20" height="20"><use href="#icon-die-constitution"/></svg></span>,
+            +1 speed per
+            <span class="sym-group"><svg width="20" height="20"><use href="#icon-die-zeal"/></svg></span>,
+            +1 insight per
+            <span class="sym-group"><svg width="20" height="20"><use href="#icon-die-path"/></svg></span>
+            rolled
+          </span>
+        </div>
+      </div>
+
+      <div class="sec sec-trigger">
+        <div class="effect-row">
+          <span class="effect-text">
+            On Reveal — if you rolled 2+
+            <span class="sym-group"><svg width="20" height="20"><use href="#icon-die-constitution"/></svg></span>,
+            draw a card
+          </span>
+        </div>
+      </div>
+
+      <div class="sec sec-actions">
+        <div class="effect-row">
+          <span class="effect-text">
+            When you roll 3+
+            <span class="sym-group"><svg width="20" height="20"><use href="#icon-die-path"/></svg></span>:
+            deal <span class="sym-group"><svg width="20" height="20"><use href="#icon-damage"/></svg><span class="sym-mod">4</span></span>
+            to target
+          </span>
+        </div>
+      </div>
+
     </div>
-    <div class="mech-rule mech-rule-bot"></div>
   </div>
-  {{setSymbol}}
 </div>
 
 </body>
