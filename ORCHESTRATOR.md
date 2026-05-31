@@ -78,7 +78,7 @@ Create new activation track variants for all four primitive track types using th
 
 - **Three options per design item**: every new visual element produces exactly 3 variants — option a, b, c — each a single card; named `<element>-v<N>-a.html`, `<element>-v<N>-b.html`, `<element>-v<N>-c.html`; design ID label visible on review page below each card
 - **Independence**: each design item is independent — holding or blocking one item does not affect any other
-- **Review page structure**: after any card design action, regenerate `docs/review/index.html` with two sections: **Under Review** (grouped by design element, 3 options side by side per group) and **Accepted** (one entry per accepted item); see VISUAL.md §10 for full spec. The file lives at `docs/review/index.html` — never at `review/index.html` (root-level path is not served by GitHub Pages)
+- **Review page structure**: the review page at `docs/review/index.html` is maintained exclusively by the App Design stream — the Card Design agent must NOT modify any file under `docs/`. The review page has two sections: **Under Review** (grouped by design element, 3 options side by side per group) and **Accepted** (one entry per accepted item); see VISUAL.md §10 for full spec
 - **Superseded versions rule**: when a design round receives feedback and a new round (v<N+1>) is created, **only show the current round on the review page** — remove all previous round options from Under Review; superseded versions are never accepted and must not appear; HTML files stay on disk but are not linked from the review page; applies immediately: `activation-track-multiturn-v01-a/b/c` must be removed from the review page (superseded by v02)
 
 #### Independent design tracks (each runs independently)
@@ -142,6 +142,9 @@ Create new activation track variants for all four primitive track types using th
 3. ~~**Viewport too small**~~ — ✅ Fixed: iframe sized 100%/100% but card HTML is fixed 375x525; changed iframe to fixed 375x525 with transform:scale() on both mobile and desktop, desktop scale fills available wrapper dimensions
 
 #### Next tasks (in order)
+
+**Task 0 — Fix effect variant selector bug (PRIORITY — review finding)**
+`effect-editor.component.ts` line 52: `onVariantChange(variant: EffectVariant)` receives the new variant from the dropdown `(ngModelChange)` but never assigns it to `this.effect.variant` before emitting. The spread `{ ...this.effect }` copies the old variant value, making the variant dropdown a silent no-op at runtime. Fix: assign `this.effect = { ...this.effect, variant };` before the emit call.
 
 **Task 1 — Implement dynamic container rendering (VISUAL.md §6.0)**
 The four effect containers (Permanent / Entry / Action / Exit) must:
