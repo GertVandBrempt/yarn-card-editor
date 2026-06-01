@@ -556,6 +556,17 @@ Supersedes: cooldown-trigger-marker-v01-a/b/c (v01 rejected — a/b external ind
 - cooldown-trigger-marker-v02-c.html — Option C: LARGE BOLD INSET — same outer diamond with right vertex gap (widest gap); large inset diamond (half-diag 9, 18px tip-to-tip); solid amber fill + thick amber stroke border (2px, opacity 0.8); NO center pip — the large amber mass is the focal element; heaviest visual weight; most prominent cutout; viewBox 0 0 52 52
 All three: dark body #1a0e04, amber detail #d4b87a; outer diamond identical to flow marker (half-diag 20, centered at 26,26); outer stroke drawn as four line segments omitting right vertex area; inset diamond fully within original bounding box; shown in context as Row 3 of a multi-turn track (activation row + flow marker row + cooldown trigger row) inside an action section on a Persona card "The Wayfarer"
 
+## cooldown-trigger-marker-v02 — CORRECTED: bounding-box compliance + trigger label + consistent marker sizing (2026-06-01)
+Base: cooldown-trigger-marker-v02-a/b/c (geometry and presentation corrections)
+Changed:
+- Option B inset center: (40,26) → (39,26) — rightmost tip was at x=47 (1px beyond outer diamond boundary x=46); now flush at x=46
+- Option C inset center: (39,26) → (37,26) — rightmost tip was at x=48 (2px beyond outer diamond boundary x=46); now flush at x=46
+- Option B outer stroke gap endpoints: recalculated to (35,18)/(35,34) to properly frame the repositioned medium inset
+- Option C outer stroke gap endpoints: recalculated to (33,16)/(33,36) to properly frame the repositioned large inset
+- All three: marker SVG rendered size: inconsistent (52×52 activation, 44×44 flow) → consistent 48×48 for all markers (activation, flow, cooldown trigger) per §8 consistent sizing rule
+- All three: added "On Flow Marker" trigger name label (Crimson Text 10px italic, muted amber at 55% opacity) per design-stage convention — provides readability anchor during review; label is between marker and arrow in the cooldown trigger effect row
+- All three: added .trigger-label CSS class for the trigger name label styling
+
 ## cooldown-trigger-marker-v01 — SUPERSEDED by v02 — Three cooldown trigger marker indicator-style options (2026-05-28)
 Base: design/variants/activation-track-multiturn-v02-a.html (card structure reused; new cooldown trigger marker symbol added as third row in multi-turn action track)
 - cooldown-trigger-marker-v01-a.html — Option A: FILLED WEDGE — solid filled amber triangle flush at the right vertex of the hollow diamond; base at (46,20)→(46,32), tip at (54,26); indicator extends ~8px beyond diamond right tip; no gap between diamond body and wedge; viewBox 0 0 60 52

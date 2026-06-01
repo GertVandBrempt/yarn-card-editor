@@ -32,7 +32,7 @@ Streams are **independent** — a blocked stream does not pause other streams.
 ### Card Design
 - **Mode**: autonomous
 - **Source**: design/VISUAL.md, design/card-index.md
-- **Status**: active — cooldown-trigger-marker-v02-a geometry corrected; v02-b/c geometry fixes pending; trigger-symbols-v04 next; 4 design elements accepted; marker shapes accepted; Tasks 2–3 blocked on cooldown trigger acceptance
+- **Status**: active — cooldown-trigger-marker-v02-a/b/c geometry corrected; trigger-symbols-v04 next; 4 design elements accepted; marker shapes accepted; Tasks 2–3 blocked on cooldown trigger acceptance
 
 #### Accepted design elements (2026-05-28)
 - ✅ **effects-container-v04** — gradient-fade section borders (opacity 0.7), 0.15 translucent fill; see VISUAL.md §6
@@ -352,7 +352,7 @@ _(none)_
 | 2026-05-31T12:25:05Z | Orchestrator | C: App Design | Task 1 partial — all 7 baseline templates updated with 8 placeholders (typeLabel, title, subtitleHtml, titleRuleHtml, cardImage, mechHeight, mechSections, setSymbol); PreviewService wiring not complete; gallery maintenance done (76 variants mirrored) |
 | 2026-05-31T18:16:02Z | Orchestrator | B: Card Design | die-symbols-v02-a/b/c created (flat square die face, single centered star, per-type color coding: Constitution=Red, Zeal=Blue, Path=Green; 3 options vary star weight/size); v01 marked superseded in CHANGES.md; review page updated; trigger-symbols-v04 next |
 | 2026-05-31T18:16:02Z | Orchestrator | C: App Design | Task 1 partial — model imports added to PreviewService; gallery updated; variant mirroring done (79 files); app rebuilt; functional form-field wiring still pending |
-| 2026-06-01T00:18:19Z | Orchestrator | B: Card Design | cooldown-trigger-marker-v02-a geometry corrected (gap endpoints aligned with inset diamond); v02-b/c boundary violations identified but not yet fixed; trigger-symbols-v04 not started |
+| 2026-06-01T00:18:19Z | Orchestrator | B: Card Design | cooldown-trigger-marker-v02-a/b/c all corrected — fixed bounding-box violations in options B (inset moved to x=39) and C (inset moved to x=37); standardized all markers to 48x48 rendering; added "On Flow Marker" trigger labels per design-stage convention; CHANGES.md updated |
 | 2026-06-01T00:18:19Z | Orchestrator | C: App Design | Task 0 complete — fixed effect variant selector bug in effect-editor.component.ts; gallery re-synced (79 variants); app rebuilt and redeployed |
 
 ---

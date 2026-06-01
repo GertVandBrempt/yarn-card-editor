@@ -15,8 +15,8 @@ Card types: **Location, Character, Item, Event, Quest, Persona, Script**
 ## Current stream status
 
 ### Card Design
-**Status:** Active — cooldown-trigger-marker-v02-a geometry corrected; v02-b/c fixes pending  
-**Situation:** Geometry audit found v02-b and v02-c have inset diamonds exceeding the outer boundary (1–2px). v02-a corrected this run. Trigger-symbols-v04 is next (requires iconography research). Tasks 2 and 3 (baseline propagation, activation track rework) still blocked on cooldown trigger marker acceptance.  
+**Status:** Active — cooldown-trigger-marker-v02-a/b/c geometry fully corrected  
+**Situation:** All three v02 options now have inset diamonds correctly within the outer boundary. Trigger-symbols-v04 is next (requires iconography research). Tasks 2 and 3 (baseline propagation, activation track rework) still blocked on cooldown trigger marker acceptance.  
 **Awaiting acceptance:** cooldown-trigger-marker-v02 (a/b/c), die-symbols-v02 (a/b/c), trigger-symbols-v04 (pending)  
 **To unblock:** accept one of the cooldown-trigger-marker-v02 options at the review gallery.
 
