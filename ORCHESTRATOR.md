@@ -19,7 +19,7 @@ This file is read and written by scheduled agents. Do not edit manually during a
 ```
 blocked_for_weekly_review: false
 weekly_review_due: 2026-05-30T08:00:00Z
-last_orchestrator_run: 2026-06-01T06:22:41Z
+last_orchestrator_run: 2026-06-01T12:18:47Z
 last_status_notification: 2026-05-31T12:00:00Z
 ```
 
@@ -32,7 +32,7 @@ Streams are **independent** — a blocked stream does not pause other streams.
 ### Card Design
 - **Mode**: autonomous
 - **Source**: design/VISUAL.md, design/card-index.md
-- **Status**: active — trigger-symbols-v04-a/b/c created (3 iconographic styles at 48px); cooldown-trigger-marker-v02 and die-symbols-v02 awaiting acceptance; Tasks 2–3 blocked on cooldown trigger acceptance
+- **Status**: active — Task 4 complete (trigger-symbols-v04 container placement and height fixes applied); cooldown-trigger-marker-v02 and die-symbols-v02 awaiting acceptance; Tasks 1–3 blocked on acceptance
 
 #### Accepted design elements (2026-05-28)
 - ✅ **effects-container-v04** — gradient-fade section borders (opacity 0.7), 0.15 translucent fill; see VISUAL.md §6
@@ -69,16 +69,12 @@ Create new activation track variants for all four primitive track types using th
 - Three options (a/b/c) per track type — vary spacing, proportions, and layout density, NOT the marker shapes
 - Track types to cover: Basic, Multi-turn (with flow markers and cooldown trigger), Multi-use, Use
 
-**Task 4 — Fix trigger-symbols-v04 container placement and heights (review findings)**
-Review identified 3 issues in all three trigger-symbols-v04 files:
-1. Character Phase trigger is in `sec-trigger-exit` (Exit) — move to `sec-trigger-entry` (Entry, yellow) per VISUAL.md §6 line 84
-2. On Flow Marker trigger is in `sec-trigger-exit` (Exit) — move to `sec-actions` (Action, red) per VISUAL.md §6 line 85
-3. `.sec-passive` has fixed `height: 38px` while `.effect-row` has `min-height: 48px` — remove all fixed container heights; use content-driven sizing per VISUAL.md §6.0
+~~**Task 4 — Fix trigger-symbols-v04 container placement and heights (review findings)**~~ — ✅ Fixed (2026-06-01T12:18:47Z): Character Phase moved to Entry, On Flow Marker moved to Action, all fixed heights removed — content-driven sizing applied
 
 #### Still awaiting acceptance
 - cooldown-trigger-marker-v02 (a/b/c) — in design; v01 rejected
 - die-symbols-v02 (a/b/c) — in design; v01 rejected
-- trigger-symbols-v04 (a/b/c) — in design; v03 rejected; v04 created, review findings pending fix (Task 4)
+- trigger-symbols-v04 (a/b/c) — in design; v03 rejected; v04 created, review findings fixed (Task 4 complete)
 
 #### Global rules (apply to all Card Design work)
 
@@ -133,14 +129,14 @@ Review identified 3 issues in all three trigger-symbols-v04 files:
 **Hold:** effects-v04 — create only after trigger symbols + activation tracks both accepted
 
 - **Blocked on**: —
-- **Last notified**: 2026-06-01T06:22:41Z
+- **Last notified**: 2026-06-01T12:18:47Z
 
 ---
 
 ### App Design
 - **Mode**: autonomous
 - **Source**: APP.md
-- **Status**: active — Task 1 (dynamic container rendering) complete; Task 3 next (subtitle design); Tasks 4–5 queued
+- **Status**: active — Task 1 complete; review gallery updated; Task 3 next (subtitle design); Tasks 4–5 queued
 
 #### Known issues (all resolved 2026-05-28)
 1. ~~**Site not on GitHub Pages**~~ — ✅ deploy.yml deleted (redundant); orchestrator owns build+deploy cycle
@@ -204,7 +200,7 @@ After Card Design propagates accepted baselines → re-sync updated baseline HTM
   - Review gallery: `docs/review/` ✅ (migrated 2026-05-28T00:17:35Z)
   - `.nojekyll`: `docs/.nojekyll` ✅ (created 2026-05-28T00:17:35Z)
 - **Blocked on**: —
-- **Last notified**: 2026-06-01T06:22:41Z
+- **Last notified**: 2026-06-01T12:18:47Z
 
 ---
 
@@ -362,6 +358,8 @@ _(none)_
 | 2026-06-01T00:18:19Z | Orchestrator | C: App Design | Task 0 complete — fixed effect variant selector bug in effect-editor.component.ts; gallery re-synced (79 variants); app rebuilt and redeployed |
 | 2026-06-01T06:22:41Z | Orchestrator | B: Card Design | trigger-symbols-v04-a/b/c created — 3 iconographic styles (naturalistic/theatrical/heraldic) at 48×48 viewBox; all 6 trigger types; v03 marked superseded in CHANGES.md |
 | 2026-06-01T06:22:41Z | Orchestrator | C: App Design | Task 1 complete — dynamic container rendering: removed fixed heights from all 4 effect container sections; empty containers hidden; mech-frame hidden when all sections empty; gallery synced; app rebuilt |
+| 2026-06-01T12:18:47Z | Orchestrator | B: Card Design | Task 4 complete — trigger-symbols-v04-a/b/c fixed: Character Phase moved to Entry container, On Flow Marker moved to Action container, all fixed container heights removed for content-driven sizing |
+| 2026-06-01T12:18:47Z | Orchestrator | C: App Design | Review gallery updated (timestamp); 2 new variant files mirrored to docs/design/variants/ (trigger-symbols-v04-b/c); Task 3 (subtitle) next |
 
 ---
 

@@ -1,4 +1,4 @@
-<!-- card-variant: trigger-symbols-v04-a | Trigger symbols v04 option A: NATURALISTIC PICTOGRAPHIC — each symbol is a recognizable real-world object silhouette; dark body #1a0e04 + amber/off-white detail #d4b87a; viewBox 0 0 48 48 rendered at 48×48; all 6 shown with trigger name labels in context on a Persona card -->
+<!-- card-variant: trigger-symbols-v04-c | Trigger symbols v04 option C: HERALDIC / EMBLEM — each symbol uses medieval heraldic shield-and-device language (shields, banners, keys, torches); dark body #1a0e04 + amber/off-white detail #d4b87a; viewBox 0 0 48 48 rendered at 48×48; all 6 shown with trigger name labels in context on a Persona card -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -203,26 +203,26 @@ body { margin: 0; display: flex; justify-content: center; align-items: flex-star
 
   <symbol id="art-d" viewBox="0 0 300 420">
     <defs>
-      <linearGradient id="a-sky" x1="0" y1="0" x2="0" y2="1">
+      <linearGradient id="c-sky" x1="0" y1="0" x2="0" y2="1">
         <stop offset="0%"   stop-color="#0a0818"/>
         <stop offset="40%"  stop-color="#161028"/>
         <stop offset="100%" stop-color="#080a08"/>
       </linearGradient>
-      <radialGradient id="a-glow" cx="50%" cy="42%" r="32%">
+      <radialGradient id="c-glow" cx="50%" cy="42%" r="32%">
         <stop offset="0%"   stop-color="#d8a050" stop-opacity="0.40"/>
         <stop offset="60%"  stop-color="#603018" stop-opacity="0.18"/>
         <stop offset="100%" stop-color="transparent"/>
       </radialGradient>
-      <radialGradient id="a-vig" cx="50%" cy="50%" r="62%">
+      <radialGradient id="c-vig" cx="50%" cy="50%" r="62%">
         <stop offset="30%" stop-color="transparent"/>
         <stop offset="100%" stop-color="#000" stop-opacity="0.85"/>
       </radialGradient>
     </defs>
-    <rect width="300" height="420" fill="url(#a-sky)"/>
-    <rect width="300" height="420" fill="url(#a-glow)"/>
+    <rect width="300" height="420" fill="url(#c-sky)"/>
+    <rect width="300" height="420" fill="url(#c-glow)"/>
     <ellipse cx="150" cy="280" rx="220" ry="40" fill="#0a0a08" opacity="0.85"/>
     <path d="M 0 230 L 30 200 L 50 220 L 80 180 L 110 215 L 140 195 L 170 220 L 200 185 L 230 215 L 260 200 L 300 230 L 300 420 L 0 420 Z" fill="#0c0808" opacity="0.92"/>
-    <rect width="300" height="420" fill="url(#a-vig)"/>
+    <rect width="300" height="420" fill="url(#c-vig)"/>
   </symbol>
 
   <symbol id="icon-shield" viewBox="0 0 24 24">
@@ -245,128 +245,176 @@ body { margin: 0; display: flex; justify-content: center; align-items: flex-star
   </symbol>
 
   <!--
-    §7 Trigger Symbols — v04-a: NATURALISTIC PICTOGRAPHIC
-    ═══════════════════════════════════════════════════════
-    Concept: each symbol uses a recognizable real-world object silhouette
-    that intuitively communicates the trigger. Dark body + amber detail.
+    §7 Trigger Symbols — v04-c: HERALDIC / EMBLEM
+    ═══════════════════════════════════════════════
+    Concept: each symbol uses medieval heraldic and emblematic devices —
+    torches, keys, banners, shields-as-containers — giving the symbols
+    a hand-crafted, manuscript-illustration quality suited to the card
+    frame's medieval aesthetic. Dark body + amber detail.
     ViewBox: 0 0 48 48 | Rendered: 48×48 (matching activation track markers)
 
-    trig-reveal      — On Reveal       — wide-open eye with radiating lash lines (seeing for the first time)
-    trig-enter       — On Enter        — open doorway with arrow entering (crossing a threshold)
-    trig-char-phase  — Character Phase — hourglass (passage of a character's time phase)
-    trig-leave       — On Leave        — open door with arrow exiting outward
-    trig-complete    — On Complete     — wax seal with checkmark impression
-    trig-flow-marker — On Flow Marker  — diamond token on a track rail with forward arrow
+    trig-reveal      — On Reveal       — lit torch / lantern (illuminating the hidden)
+    trig-enter       — On Enter        — key in keyhole (unlocking / gaining entry)
+    trig-char-phase  — Character Phase — helm / knight's visor (the character acts)
+    trig-leave       — On Leave        — broken chain links (breaking free / departing)
+    trig-complete    — On Complete     — laurel wreath (victory / achievement)
+    trig-flow-marker — On Flow Marker  — banner / pennant unfurling forward
   -->
 
-  <!-- On Reveal — wide open eye, amber iris with dark pupil, short lash/ray lines radiating from corners
-       The eye opening = the moment of seeing/revealing something hidden -->
+  <!-- On Reveal — lit torch: dark torch handle and head, amber flame above
+       The torch illuminates what was dark = revealing the hidden -->
   <symbol id="trig-reveal" viewBox="0 0 48 48">
-    <!-- Amber lash rays radiating from eye corners (drawn behind body) -->
-    <line x1="4" y1="14" x2="8" y2="18" stroke="#d4b87a" stroke-width="2" stroke-linecap="round"/>
-    <line x1="2" y1="24" x2="7" y2="24" stroke="#d4b87a" stroke-width="2" stroke-linecap="round"/>
-    <line x1="4" y1="34" x2="8" y2="30" stroke="#d4b87a" stroke-width="2" stroke-linecap="round"/>
-    <line x1="44" y1="14" x2="40" y2="18" stroke="#d4b87a" stroke-width="2" stroke-linecap="round"/>
-    <line x1="46" y1="24" x2="41" y2="24" stroke="#d4b87a" stroke-width="2" stroke-linecap="round"/>
-    <line x1="44" y1="34" x2="40" y2="30" stroke="#d4b87a" stroke-width="2" stroke-linecap="round"/>
-    <!-- Dark eye body — almond / pointed oval -->
-    <path d="M4 24 Q12 8 24 8 Q36 8 44 24 Q36 40 24 40 Q12 40 4 24 Z"
-          fill="#1a0e04" stroke="none"/>
-    <!-- Amber iris -->
-    <circle cx="24" cy="24" r="9" fill="#d4b87a"/>
-    <!-- Dark pupil -->
-    <circle cx="24" cy="24" r="4.5" fill="#1a0e04"/>
-    <!-- Small amber highlight dot in pupil (life / seeing) -->
-    <circle cx="22" cy="22" r="1.8" fill="#d4b87a"/>
+    <!-- Amber flame (layered teardrop shapes — outer glow, mid flame, inner bright core) -->
+    <path d="M24 2 Q30 10 30 16 Q30 22 24 22 Q18 22 18 16 Q18 10 24 2 Z"
+          fill="#d4b87a" opacity="0.4"/>
+    <path d="M24 5 Q28 11 28 16 Q28 20 24 20 Q20 20 20 16 Q20 11 24 5 Z"
+          fill="#d4b87a" opacity="0.7"/>
+    <path d="M24 9 Q26 13 26 16 Q26 18 24 18 Q22 18 22 16 Q22 13 24 9 Z"
+          fill="#d4b87a"/>
+    <!-- Dark torch cup / holder -->
+    <path d="M18 20 L30 20 L28 26 L20 26 Z" fill="#1a0e04"/>
+    <!-- Dark torch handle (long shaft) -->
+    <rect x="21" y="26" width="6" height="18" rx="1" fill="#1a0e04"/>
+    <!-- Amber grip wrapping on handle -->
+    <line x1="21" y1="30" x2="27" y2="30" stroke="#d4b87a" stroke-width="1.2" opacity="0.5"/>
+    <line x1="21" y1="34" x2="27" y2="34" stroke="#d4b87a" stroke-width="1.2" opacity="0.5"/>
+    <line x1="21" y1="38" x2="27" y2="38" stroke="#d4b87a" stroke-width="1.2" opacity="0.5"/>
+    <!-- Amber pommel at bottom -->
+    <circle cx="24" cy="45" r="2.5" fill="#d4b87a" opacity="0.6"/>
+    <!-- Amber light rays emanating from flame (short) -->
+    <line x1="14" y1="12" x2="17" y2="14" stroke="#d4b87a" stroke-width="1.5" stroke-linecap="round" opacity="0.35"/>
+    <line x1="34" y1="12" x2="31" y2="14" stroke="#d4b87a" stroke-width="1.5" stroke-linecap="round" opacity="0.35"/>
+    <line x1="12" y1="20" x2="16" y2="20" stroke="#d4b87a" stroke-width="1.5" stroke-linecap="round" opacity="0.3"/>
+    <line x1="36" y1="20" x2="32" y2="20" stroke="#d4b87a" stroke-width="1.5" stroke-linecap="round" opacity="0.3"/>
   </symbol>
 
-  <!-- On Enter — doorway frame with inward arrow: dark door frame rectangle, amber open space,
-       dark arrow entering from outside (left) into the amber interior -->
+  <!-- On Enter — key inserting into a keyhole: dark key body, amber keyhole and turning motion
+       The key unlocks entry — gaining access, crossing the threshold -->
   <symbol id="trig-enter" viewBox="0 0 48 48">
-    <!-- Dark door frame — thick outer rectangle -->
-    <rect x="12" y="4" width="32" height="40" rx="2" fill="#1a0e04"/>
-    <!-- Amber doorway opening (inner rectangle) -->
-    <rect x="18" y="10" width="20" height="34" rx="1" fill="#d4b87a"/>
-    <!-- Dark threshold step at bottom of door -->
-    <rect x="18" y="38" width="20" height="6" fill="#1a0e04"/>
-    <!-- Dark arrow entering from left into the doorway -->
-    <polygon points="4,24 14,18 14,21 24,21 24,27 14,27 14,30"
-             fill="#1a0e04" stroke="none"/>
-    <!-- Dark door handle on right side of opening -->
-    <circle cx="35" cy="27" r="2" fill="#1a0e04"/>
+    <!-- Dark keyhole plate (shield-shaped escutcheon) -->
+    <path d="M24 4 L36 12 L36 32 Q36 40 24 44 Q12 40 12 32 L12 12 Z"
+          fill="#1a0e04"/>
+    <!-- Amber keyhole opening — circle + slot -->
+    <circle cx="24" cy="18" r="6" fill="#d4b87a"/>
+    <rect x="22" y="18" width="4" height="14" rx="1" fill="#d4b87a"/>
+    <!-- Dark key silhouette inserted into keyhole (overlapping) -->
+    <circle cx="24" cy="18" r="3.5" fill="#1a0e04"/>
+    <!-- Dark key shaft going down through slot -->
+    <rect x="23" y="18" width="2" height="10" fill="#1a0e04"/>
+    <!-- Dark key bit / ward (the notched end of the key) -->
+    <path d="M21 26 L23 26 L23 30 L25 30 L25 26 L27 26 L27 32 L21 32 Z"
+          fill="#1a0e04"/>
+    <!-- Amber key bow (ring at top, peeking out above keyhole) -->
+    <circle cx="24" cy="10" r="4" fill="none" stroke="#d4b87a" stroke-width="2.5"/>
+    <circle cx="24" cy="10" r="1.5" fill="#d4b87a" opacity="0.5"/>
   </symbol>
 
-  <!-- Character Phase — hourglass: dark hourglass body with amber sand flowing
-       Hourglass = the passage of time in a character's turn phase -->
+  <!-- Character Phase — knight's helm / visor: dark helm silhouette with amber visor slit
+       The helm = the character in action; the visor slit = awareness / readiness during their phase -->
   <symbol id="trig-char-phase" viewBox="0 0 48 48">
-    <!-- Dark hourglass body -->
-    <path d="M10 4 L38 4 L38 8 Q38 18 24 24 Q38 30 38 40 L38 44 L10 44 L10 40 Q10 30 24 24 Q10 18 10 8 Z"
-          fill="#1a0e04" stroke="none"/>
-    <!-- Amber top plate -->
-    <rect x="8" y="3" width="32" height="4" rx="2" fill="#d4b87a"/>
-    <!-- Amber bottom plate -->
-    <rect x="8" y="41" width="32" height="4" rx="2" fill="#d4b87a"/>
-    <!-- Amber sand in upper chamber -->
-    <path d="M16 10 L32 10 Q30 18 24 21 Q18 18 16 10 Z" fill="#d4b87a" opacity="0.7"/>
-    <!-- Amber sand stream through neck -->
-    <rect x="22.5" y="21" width="3" height="6" fill="#d4b87a" opacity="0.6"/>
-    <!-- Amber sand pile in lower chamber -->
-    <path d="M16 38 Q18 32 24 28 Q30 32 32 38 Z" fill="#d4b87a" opacity="0.8"/>
+    <!-- Dark helm body — great helm silhouette (flat top, rounded chin) -->
+    <path d="M10 8 L38 8 Q42 8 42 14 L42 32 Q42 44 24 44 Q6 44 6 32 L6 14 Q6 8 10 8 Z"
+          fill="#1a0e04"/>
+    <!-- Amber visor slit (horizontal eye slit) -->
+    <rect x="10" y="22" width="28" height="4" rx="2" fill="#d4b87a"/>
+    <!-- Amber breathing holes on chin area (small dots) -->
+    <circle cx="18" cy="34" r="1.2" fill="#d4b87a" opacity="0.5"/>
+    <circle cx="24" cy="35" r="1.2" fill="#d4b87a" opacity="0.5"/>
+    <circle cx="30" cy="34" r="1.2" fill="#d4b87a" opacity="0.5"/>
+    <circle cx="21" cy="37" r="1" fill="#d4b87a" opacity="0.4"/>
+    <circle cx="27" cy="37" r="1" fill="#d4b87a" opacity="0.4"/>
+    <!-- Amber helm crest ridge (decorative line along top) -->
+    <line x1="16" y1="8" x2="32" y2="8" stroke="#d4b87a" stroke-width="2.5" stroke-linecap="round"/>
+    <!-- Amber rivet accents on sides -->
+    <circle cx="10" cy="18" r="1.5" fill="#d4b87a" opacity="0.45"/>
+    <circle cx="38" cy="18" r="1.5" fill="#d4b87a" opacity="0.45"/>
+    <circle cx="10" cy="28" r="1.5" fill="#d4b87a" opacity="0.45"/>
+    <circle cx="38" cy="28" r="1.5" fill="#d4b87a" opacity="0.45"/>
+    <!-- Amber nasal bar (vertical bar between eye slit halves) -->
+    <rect x="23" y="18" width="2" height="12" rx="1" fill="#d4b87a" opacity="0.6"/>
   </symbol>
 
-  <!-- On Leave — door frame with arrow exiting outward to the right
-       Arrow pointing out through a doorway = departure -->
+  <!-- On Leave — broken chain: dark chain links split apart with amber fracture lines
+       Breaking free from chains = leaving / departing a place or bond -->
   <symbol id="trig-leave" viewBox="0 0 48 48">
-    <!-- Dark door frame — thick outer rectangle -->
-    <rect x="4" y="4" width="32" height="40" rx="2" fill="#1a0e04"/>
-    <!-- Amber doorway opening (inner rectangle) -->
-    <rect x="10" y="10" width="20" height="34" rx="1" fill="#d4b87a"/>
-    <!-- Dark threshold step at bottom -->
-    <rect x="10" y="38" width="20" height="6" fill="#1a0e04"/>
-    <!-- Dark arrow exiting from doorway to the right -->
-    <polygon points="24,21 34,21 34,18 44,24 34,30 34,27 24,27"
-             fill="#1a0e04" stroke="none"/>
-    <!-- Dark door handle on left side of opening -->
-    <circle cx="13" cy="27" r="2" fill="#1a0e04"/>
+    <!-- Left chain segment — two intact dark links -->
+    <ellipse cx="10" cy="18" rx="6" ry="8" fill="none" stroke="#1a0e04" stroke-width="4"/>
+    <ellipse cx="10" cy="32" rx="6" ry="8" fill="none" stroke="#1a0e04" stroke-width="4"/>
+    <!-- Right chain segment — two intact dark links (shifted right and slightly offset) -->
+    <ellipse cx="38" cy="16" rx="6" ry="8" fill="none" stroke="#1a0e04" stroke-width="4"/>
+    <ellipse cx="38" cy="30" rx="6" ry="8" fill="none" stroke="#1a0e04" stroke-width="4"/>
+    <!-- Broken middle link — dark open fragments pulling apart -->
+    <path d="M16 20 Q20 16 22 20 L22 24 Q20 28 16 26"
+          fill="none" stroke="#1a0e04" stroke-width="4" stroke-linecap="round"/>
+    <path d="M32 18 Q28 14 26 18 L26 22 Q28 26 32 24"
+          fill="none" stroke="#1a0e04" stroke-width="4" stroke-linecap="round"/>
+    <!-- Amber fracture / break marks at the center (energy of breaking) -->
+    <line x1="22" y1="18" x2="26" y2="16" stroke="#d4b87a" stroke-width="2" stroke-linecap="round"/>
+    <line x1="22" y1="22" x2="26" y2="20" stroke="#d4b87a" stroke-width="2" stroke-linecap="round"/>
+    <line x1="22" y1="26" x2="26" y2="24" stroke="#d4b87a" stroke-width="2" stroke-linecap="round"/>
+    <!-- Amber sparks at break point -->
+    <circle cx="24" cy="14" r="1.5" fill="#d4b87a" opacity="0.6"/>
+    <circle cx="24" cy="28" r="1.5" fill="#d4b87a" opacity="0.6"/>
+    <line x1="21" y1="12" x2="19" y2="8" stroke="#d4b87a" stroke-width="1.2" stroke-linecap="round" opacity="0.5"/>
+    <line x1="27" y1="12" x2="29" y2="8" stroke="#d4b87a" stroke-width="1.2" stroke-linecap="round" opacity="0.5"/>
+    <line x1="21" y1="30" x2="19" y2="34" stroke="#d4b87a" stroke-width="1.2" stroke-linecap="round" opacity="0.4"/>
+    <line x1="27" y1="30" x2="29" y2="34" stroke="#d4b87a" stroke-width="1.2" stroke-linecap="round" opacity="0.4"/>
   </symbol>
 
-  <!-- On Complete — wax seal / stamp with checkmark impression
-       A round wax seal = official completion / confirmation -->
+  <!-- On Complete — laurel wreath with amber highlights
+       The victor's wreath = completion, achievement, triumph -->
   <symbol id="trig-complete" viewBox="0 0 48 48">
-    <!-- Amber ribbon tails behind seal -->
-    <path d="M16 36 L10 46 L16 42 L18 46 L20 38" fill="#d4b87a" opacity="0.6"/>
-    <path d="M32 36 L38 46 L32 42 L30 46 L28 38" fill="#d4b87a" opacity="0.6"/>
-    <!-- Dark circular seal body -->
-    <circle cx="24" cy="24" r="17" fill="#1a0e04"/>
-    <!-- Amber ring border of seal -->
-    <circle cx="24" cy="24" r="14" fill="none" stroke="#d4b87a" stroke-width="2.5"/>
-    <!-- Amber inner ring (double-ring seal border) -->
-    <circle cx="24" cy="24" r="11" fill="none" stroke="#d4b87a" stroke-width="1" opacity="0.5"/>
-    <!-- Amber bold checkmark impressed into seal -->
-    <polyline points="16,24 21,30 33,17"
+    <!-- Left laurel branch — dark leaves curving upward from bottom center -->
+    <path d="M22 42 Q14 38 10 32" fill="none" stroke="#1a0e04" stroke-width="2"/>
+    <ellipse cx="14" cy="36" rx="3" ry="5" transform="rotate(-30 14 36)" fill="#1a0e04"/>
+    <ellipse cx="10" cy="30" rx="3" ry="5" transform="rotate(-15 10 30)" fill="#1a0e04"/>
+    <ellipse cx="8" cy="22" rx="3" ry="5" transform="rotate(5 8 22)" fill="#1a0e04"/>
+    <ellipse cx="10" cy="14" rx="3" ry="5" transform="rotate(25 10 14)" fill="#1a0e04"/>
+    <ellipse cx="16" cy="8" rx="3" ry="5" transform="rotate(45 16 8)" fill="#1a0e04"/>
+    <!-- Right laurel branch — mirrored -->
+    <path d="M26 42 Q34 38 38 32" fill="none" stroke="#1a0e04" stroke-width="2"/>
+    <ellipse cx="34" cy="36" rx="3" ry="5" transform="rotate(30 34 36)" fill="#1a0e04"/>
+    <ellipse cx="38" cy="30" rx="3" ry="5" transform="rotate(15 38 30)" fill="#1a0e04"/>
+    <ellipse cx="40" cy="22" rx="3" ry="5" transform="rotate(-5 40 22)" fill="#1a0e04"/>
+    <ellipse cx="38" cy="14" rx="3" ry="5" transform="rotate(-25 38 14)" fill="#1a0e04"/>
+    <ellipse cx="32" cy="8" rx="3" ry="5" transform="rotate(-45 32 8)" fill="#1a0e04"/>
+    <!-- Amber vein lines on leaves (one per leaf, simplified) -->
+    <line x1="14" y1="33" x2="14" y2="39" stroke="#d4b87a" stroke-width="0.8" opacity="0.5"/>
+    <line x1="10" y1="27" x2="10" y2="33" stroke="#d4b87a" stroke-width="0.8" opacity="0.5"/>
+    <line x1="8" y1="19" x2="8" y2="25" stroke="#d4b87a" stroke-width="0.8" opacity="0.5"/>
+    <line x1="10" y1="11" x2="10" y2="17" stroke="#d4b87a" stroke-width="0.8" opacity="0.5"/>
+    <line x1="34" y1="33" x2="34" y2="39" stroke="#d4b87a" stroke-width="0.8" opacity="0.5"/>
+    <line x1="38" y1="27" x2="38" y2="33" stroke="#d4b87a" stroke-width="0.8" opacity="0.5"/>
+    <line x1="40" y1="19" x2="40" y2="25" stroke="#d4b87a" stroke-width="0.8" opacity="0.5"/>
+    <line x1="38" y1="11" x2="38" y2="17" stroke="#d4b87a" stroke-width="0.8" opacity="0.5"/>
+    <!-- Amber ribbon tie at bottom center -->
+    <path d="M20 42 Q24 40 28 42 L26 46 L24 44 L22 46 Z" fill="#d4b87a" opacity="0.65"/>
+    <!-- Amber bold checkmark in the center of the wreath -->
+    <polyline points="18,22 22,28 32,16"
               fill="none" stroke="#d4b87a" stroke-width="4"
               stroke-linecap="round" stroke-linejoin="round"/>
   </symbol>
 
-  <!-- On Flow Marker — diamond token sitting on a horizontal track rail with a forward arrow
-       Token advancing onto a slot = On Flow Marker trigger concept -->
+  <!-- On Flow Marker — banner / pennant unfurling forward with a diamond token device
+       A heraldic banner advancing = token moving forward along a track -->
   <symbol id="trig-flow-marker" viewBox="0 0 48 48">
-    <!-- Dark horizontal track rail -->
-    <rect x="2" y="28" width="44" height="6" rx="3" fill="#1a0e04"/>
-    <!-- Amber rail edge highlight -->
-    <rect x="2" y="28" width="44" height="6" rx="3" fill="none" stroke="#d4b87a" stroke-width="1.5" opacity="0.4"/>
-    <!-- Amber tick marks on rail (slots) -->
-    <line x1="14" y1="27" x2="14" y2="35" stroke="#d4b87a" stroke-width="1.5" opacity="0.4"/>
-    <line x1="26" y1="27" x2="26" y2="35" stroke="#d4b87a" stroke-width="1.5" opacity="0.4"/>
-    <line x1="38" y1="27" x2="38" y2="35" stroke="#d4b87a" stroke-width="1.5" opacity="0.4"/>
-    <!-- Dark diamond token resting on the rail at the second slot -->
-    <polygon points="26,8 38,20 26,32 14,20" fill="#1a0e04"/>
-    <!-- Amber inner diamond face on token -->
-    <polygon points="26,12 34,20 26,28 18,20" fill="#d4b87a" opacity="0.7"/>
-    <!-- Dark center pip on token -->
-    <polygon points="26,17 29,20 26,23 23,20" fill="#1a0e04"/>
-    <!-- Amber forward arrow (advancing motion) -->
-    <path d="M36,14 L44,14 L42,10 L48,16 L42,22 L44,18 L36,18 Z" fill="#d4b87a" opacity="0.65"/>
+    <!-- Dark banner pole (vertical staff on left side) -->
+    <rect x="6" y="2" width="3" height="44" rx="1.5" fill="#1a0e04"/>
+    <!-- Amber pole finial (pointed top) -->
+    <polygon points="7.5,0 10,4 5,4" fill="#d4b87a" opacity="0.7"/>
+    <!-- Dark banner / pennant body (waving rightward from pole) -->
+    <path d="M9 6 L42 8 Q38 18 42 28 L9 30 Z"
+          fill="#1a0e04"/>
+    <!-- Amber border stripe along top and bottom of banner -->
+    <path d="M9 6 L42 8" fill="none" stroke="#d4b87a" stroke-width="1.5" opacity="0.5"/>
+    <path d="M9 30 L42 28" fill="none" stroke="#d4b87a" stroke-width="1.5" opacity="0.5"/>
+    <!-- Amber diamond device on the banner (the "token" / marker charge) -->
+    <polygon points="26,12 34,18 26,24 18,18" fill="#d4b87a" opacity="0.7"/>
+    <!-- Dark inner diamond pip (activation-marker echo) -->
+    <polygon points="26,15 30,18 26,21 22,18" fill="#1a0e04"/>
+    <!-- Amber forward-pointing arrow below banner (advancing motion) -->
+    <polygon points="32,36 42,40 32,44" fill="#d4b87a" opacity="0.5"/>
+    <rect x="14" y="38" width="18" height="4" rx="1" fill="#d4b87a" opacity="0.35"/>
   </symbol>
 
 </defs>
@@ -398,7 +446,7 @@ body { margin: 0; display: flex; justify-content: center; align-items: flex-star
         </div>
       </div>
 
-      <!-- Trigger-entry: On Reveal, On Enter, Character Phase -->
+      <!-- Trigger-entry: On Reveal + On Enter -->
       <div class="sec sec-trigger-entry">
         <div class="effect-row">
           <div class="effect-lead">
@@ -418,17 +466,9 @@ body { margin: 0; display: flex; justify-content: center; align-items: flex-star
           <span class="trigger-arrow">&rarr;</span>
           <span class="effect-text">Draw 1 card when entering a new Location</span>
         </div>
-        <div class="effect-row">
-          <div class="effect-lead">
-            <svg width="48" height="48"><use href="#trig-char-phase"/></svg>
-          </div>
-          <span class="trigger-label">Character Phase</span>
-          <span class="trigger-arrow">&rarr;</span>
-          <span class="effect-text">Move 1 space at start of Character Phase</span>
-        </div>
       </div>
 
-      <!-- Actions: activation marker + On Flow Marker -->
+      <!-- Actions -->
       <div class="sec sec-actions">
         <div class="effect-row">
           <div class="effect-lead">
@@ -446,17 +486,9 @@ body { margin: 0; display: flex; justify-content: center; align-items: flex-star
             Strike <span class="sym-group"><svg width="16" height="16"><use href="#icon-damage"/></svg><span class="sym-mod">3</span></span> an adjacent enemy
           </span>
         </div>
-        <div class="effect-row">
-          <div class="effect-lead">
-            <svg width="48" height="48"><use href="#trig-flow-marker"/></svg>
-          </div>
-          <span class="trigger-label">On Flow Marker</span>
-          <span class="trigger-arrow">&rarr;</span>
-          <span class="effect-text">Advance track and draw 1 card</span>
-        </div>
       </div>
 
-      <!-- Trigger-exit: On Leave, On Complete -->
+      <!-- Trigger-exit: On Leave, Character Phase, On Complete, On Flow Marker -->
       <div class="sec sec-trigger-exit">
         <div class="effect-row">
           <div class="effect-lead">
@@ -470,11 +502,27 @@ body { margin: 0; display: flex; justify-content: center; align-items: flex-star
         </div>
         <div class="effect-row">
           <div class="effect-lead">
+            <svg width="48" height="48"><use href="#trig-char-phase"/></svg>
+          </div>
+          <span class="trigger-label">Character Phase</span>
+          <span class="trigger-arrow">&rarr;</span>
+          <span class="effect-text">Move 1 space at start of Character Phase</span>
+        </div>
+        <div class="effect-row">
+          <div class="effect-lead">
             <svg width="48" height="48"><use href="#trig-complete"/></svg>
           </div>
           <span class="trigger-label">On Complete</span>
           <span class="trigger-arrow">&rarr;</span>
           <span class="effect-text">Remove from play when quest is Complete</span>
+        </div>
+        <div class="effect-row">
+          <div class="effect-lead">
+            <svg width="48" height="48"><use href="#trig-flow-marker"/></svg>
+          </div>
+          <span class="trigger-label">On Flow Marker</span>
+          <span class="trigger-arrow">&rarr;</span>
+          <span class="effect-text">Advance track and draw 1 card</span>
         </div>
       </div>
 

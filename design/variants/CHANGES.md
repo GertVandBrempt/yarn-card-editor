@@ -614,6 +614,17 @@ All three options:
 - mech-frame height: 420px to accommodate all 6 trigger rows at 48px minimum row height
 - a/b/c vary the iconographic interpretation per trigger concept — not the size, colour, or layout
 
+## trigger-symbols-v04 — Fix container placement and heights (2026-06-01)
+Base: trigger-symbols-v04-a/b/c.html (all three options)
+Changed:
+- Character Phase trigger: moved from sec-trigger-exit (Exit) → sec-trigger-entry (Entry, yellow) per VISUAL.md §6 line 84
+- On Flow Marker trigger: moved from sec-trigger-exit (Exit) → sec-actions (Action, red) per VISUAL.md §6 line 85
+- All container sections (.sec-passive, .sec-trigger-entry, .sec-actions, .sec-trigger-exit): removed fixed height values → content-driven sizing per VISUAL.md §6.0
+- .mech-frame: height: 420px → height: auto; removed background gradient
+- .mech-sections: position: absolute → position: relative; removed overflow: hidden
+
+---
+
 ## set-symbol-v01 — Three set symbol position/size/treatment design options (2026-05-26)
 Base: design/BASELINE.html (Persona palette; each file shows two cards side-by-side: one Persona + one other type to demonstrate cross-type consistency)
 - set-symbol-v01-a.html — Option A: BOTTOM-RIGHT, CIRCULAR CONTAINER — dark circle (r=8.5, #1a0e04, opacity 0.85) with amber ring stroke (#d4b87a, 1px, opacity 0.55); inner diamond glyph placeholder (amber stroke polygon, points at N/E/S/W, stroke 1.2px, opacity 0.72) + center pip (r=1.5, amber, opacity 0.65); rendered 18×18px; positioned bottom:16px right:18px (inside card safe area, above frame border); shows Persona "The Wanderer" + Location "The Iron Gate"
