@@ -166,6 +166,16 @@ body { margin: 0; display: flex; justify-content: center; align-items: flex-star
   align-self: center;
 }
 
+.trigger-label {
+  font-family: 'Crimson Text', Georgia, serif;
+  font-size: 10px;
+  font-style: italic;
+  font-weight: 400;
+  color: rgba(212,184,122,0.55);
+  line-height: 1;
+  white-space: nowrap;
+}
+
 .sym-group {
   display: inline-flex;
   align-items: center;
@@ -263,7 +273,7 @@ body { margin: 0; display: flex; justify-content: center; align-items: flex-star
   <!--
     ACTIVATION MARKER (reference — accepted activation-track-basic-v01-b)
     Diamond with inner diamond. viewBox 0 0 52 52.
-    Centered at (26,26), outer half-diagonal 20, inner half-diagonal 13.
+    Centered at (26,26), outer half-diagonal 22, inner half-diagonal 13.
   -->
   <symbol id="marker-activation" viewBox="0 0 52 52">
     <polygon points="26,4 48,26 26,48 4,26" fill="#1a0e04" stroke="none"/>
@@ -275,6 +285,7 @@ body { margin: 0; display: flex; justify-content: center; align-items: flex-star
   <!--
     FLOW MARKER (cooldown slot — accepted activation-track-multiturn-v02-a)
     Hollow / empty diamond. viewBox 0 0 52 52.
+    Centered at (26,26), outer half-diagonal 20.
   -->
   <symbol id="marker-flow" viewBox="0 0 52 52">
     <polygon points="26,6 46,26 26,46 6,26" fill="#1a0e04" stroke="none"/>
@@ -290,13 +301,14 @@ body { margin: 0; display: flex; justify-content: center; align-items: flex-star
     the activation marker's inner diamond) sits in that cutout, fully
     within the original marker boundary.
 
-    Option A approach: SMALL, precise inset diamond.
+    Option A approach: SMALL, precise inset diamond — lightest visual weight.
     - Outer diamond: same as flow marker (half-diag 20, centered at 26,26)
-    - Right vertex gap: stroke removed from ~(40,20) to (40,32) area
     - Inset diamond: half-diagonal 5 (10px tip-to-tip) — compact
+    - Inset center: (41,26), rightmost tip at x=46 (flush with outer boundary)
     - Inset diamond fill: solid amber #d4b87a — same as activation marker inner
     - Inset has a small dark center pip (half-diag 2)
-    - Stroke weight on inset: none (solid fill only) — lightest treatment
+    - No stroke on inset (solid fill only) — lightest treatment
+    - Gap in outer stroke: top-right edge stops at ~(37,21), bottom-right stops at ~(37,31)
 
     viewBox: 0 0 52 52 — same footprint as flow marker
   -->
@@ -304,21 +316,18 @@ body { margin: 0; display: flex; justify-content: center; align-items: flex-star
     <!-- Outer diamond body — full dark fill, same as flow marker -->
     <polygon points="26,6 46,26 26,46 6,26" fill="#1a0e04" stroke="none"/>
 
-    <!-- Outer diamond stroke — drawn in segments, omitting the right vertex area.
-         We draw the stroke as four line segments, skipping the right corner.
-         Top-left edge: (26,9) to (9,26)
-         Bottom-left edge: (9,26) to (26,43)
-         Bottom-right edge: (26,43) to (39,30)  — stops before right vertex
-         Top-right edge: (39,22) to (26,9)  — starts after right vertex
-         The gap at the right vertex spans from (39,22) to (39,30), where the
-         inset diamond will sit. -->
+    <!-- Outer diamond stroke — four line segments, skipping the right vertex area.
+         The outer stroke runs on the inset path (26,9)-(43,26)-(26,43)-(9,26).
+         Top-right segment: stops at (37.5,20.5) to leave gap for inset top.
+         Bottom-right segment: starts at (37.5,31.5) to leave gap for inset bottom. -->
     <line x1="26" y1="9" x2="9" y2="26" stroke="#d4b87a" stroke-width="1.5" opacity="0.55" stroke-linecap="round"/>
     <line x1="9" y1="26" x2="26" y2="43" stroke="#d4b87a" stroke-width="1.5" opacity="0.55" stroke-linecap="round"/>
-    <line x1="26" y1="43" x2="39" y2="30" stroke="#d4b87a" stroke-width="1.5" opacity="0.55" stroke-linecap="round"/>
-    <line x1="39" y1="22" x2="26" y2="9" stroke="#d4b87a" stroke-width="1.5" opacity="0.55" stroke-linecap="round"/>
+    <line x1="26" y1="43" x2="37.5" y2="31.5" stroke="#d4b87a" stroke-width="1.5" opacity="0.55" stroke-linecap="round"/>
+    <line x1="37.5" y1="20.5" x2="26" y2="9" stroke="#d4b87a" stroke-width="1.5" opacity="0.55" stroke-linecap="round"/>
 
-    <!-- Inset diamond — small, compact (half-diag 5), centered at (41,26)
-         Sits in the gap where the right vertex was. Fully within the bounding box.
+    <!-- Inset diamond — compact (half-diag 5), centered at (41,26)
+         Tips: top (41,21), right (46,26), bottom (41,31), left (36,26).
+         Rightmost tip at x=46, flush with outer diamond right vertex.
          Styled like the activation marker's inner diamond: solid amber fill + dark pip. -->
     <polygon points="41,21 46,26 41,31 36,26" fill="#d4b87a" stroke="none"/>
     <polygon points="41,24 43,26 41,28 39,26" fill="#1a0e04" stroke="none"/>
@@ -349,7 +358,7 @@ body { margin: 0; display: flex; justify-content: center; align-items: flex-star
     Actions section — multi-turn track with cooldown trigger.
     Row 1: activation marker -> "Strike for [damage]2"
     Row 2: flow marker (hollow diamond) — pure delay slot
-    Row 3: cooldown trigger marker v02-a (compact inset diamond) -> "Gain [shield]1"
+    Row 3: cooldown trigger marker v02-a (compact inset diamond) -> "On Flow Marker -> Gain [shield]1"
   -->
   <div class="mech-frame">
     <div class="mech-sections">
@@ -359,7 +368,7 @@ body { margin: 0; display: flex; justify-content: center; align-items: flex-star
         <!-- Row 1: activation marker -> effect -->
         <div class="effect-row">
           <div class="effect-lead">
-            <svg width="52" height="52" viewBox="0 0 52 52" preserveAspectRatio="xMidYMid meet">
+            <svg width="48" height="48" viewBox="0 0 52 52" preserveAspectRatio="xMidYMid meet">
               <use href="#marker-activation"/>
             </svg>
           </div>
@@ -381,7 +390,7 @@ body { margin: 0; display: flex; justify-content: center; align-items: flex-star
         <!-- Row 2: flow marker — pure delay slot -->
         <div class="flow-row">
           <div class="effect-lead">
-            <svg width="44" height="44" viewBox="0 0 52 52" preserveAspectRatio="xMidYMid meet">
+            <svg width="48" height="48" viewBox="0 0 52 52" preserveAspectRatio="xMidYMid meet">
               <use href="#marker-flow"/>
             </svg>
           </div>
@@ -399,11 +408,12 @@ body { margin: 0; display: flex; justify-content: center; align-items: flex-star
         <!-- Row 3: cooldown trigger marker v02-a -> effect -->
         <div class="effect-row">
           <div class="effect-lead">
-            <svg width="52" height="52" viewBox="0 0 52 52" preserveAspectRatio="xMidYMid meet">
+            <svg width="48" height="48" viewBox="0 0 52 52" preserveAspectRatio="xMidYMid meet">
               <use href="#marker-cooldown-trigger-a"/>
             </svg>
           </div>
           <span class="effect-text">
+            <span class="trigger-label">On Flow Marker</span> &rarr;
             Gain
             <span class="sym-group"><svg width="16" height="16"><use href="#icon-shield"/></svg><span class="sym-mod">1</span></span>
           </span>

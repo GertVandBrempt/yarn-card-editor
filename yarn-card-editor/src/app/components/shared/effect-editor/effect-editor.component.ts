@@ -50,6 +50,7 @@ export class EffectEditorComponent implements OnChanges {
   }
 
   onVariantChange(variant: EffectVariant): void {
+    this.effect = { ...this.effect, variant };
     this.emit();
   }
 

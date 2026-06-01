@@ -19,7 +19,7 @@ This file is read and written by scheduled agents. Do not edit manually during a
 ```
 blocked_for_weekly_review: false
 weekly_review_due: 2026-05-30T08:00:00Z
-last_orchestrator_run: 2026-05-31T18:16:02Z
+last_orchestrator_run: 2026-06-01T00:18:19Z
 last_status_notification: 2026-05-31T12:00:00Z
 ```
 
@@ -32,7 +32,7 @@ Streams are **independent** — a blocked stream does not pause other streams.
 ### Card Design
 - **Mode**: autonomous
 - **Source**: design/VISUAL.md, design/card-index.md
-- **Status**: active — die-symbols-v02-a/b/c created; cooldown-trigger-marker-v02 awaiting acceptance; trigger-symbols-v04 next; 4 design elements accepted; marker shapes accepted; Tasks 2–3 blocked on cooldown trigger acceptance
+- **Status**: active — cooldown-trigger-marker-v02-a geometry corrected; v02-b/c geometry fixes pending; trigger-symbols-v04 next; 4 design elements accepted; marker shapes accepted; Tasks 2–3 blocked on cooldown trigger acceptance
 
 #### Accepted design elements (2026-05-28)
 - ✅ **effects-container-v04** — gradient-fade section borders (opacity 0.7), 0.15 translucent fill; see VISUAL.md §6
@@ -127,14 +127,14 @@ Create new activation track variants for all four primitive track types using th
 **Hold:** effects-v04 — create only after trigger symbols + activation tracks both accepted
 
 - **Blocked on**: —
-- **Last notified**: 2026-05-31T18:16:02Z
+- **Last notified**: 2026-06-01T00:18:19Z
 
 ---
 
 ### App Design
 - **Mode**: autonomous
 - **Source**: APP.md
-- **Status**: active — Task 1 in progress (imports added, functional wiring pending); Tasks 2–5 queued
+- **Status**: active — Task 0 (effect variant selector bug) fixed; Task 1 next (dynamic container rendering); Tasks 3–5 queued
 
 #### Known issues (all resolved 2026-05-28)
 1. ~~**Site not on GitHub Pages**~~ — ✅ deploy.yml deleted (redundant); orchestrator owns build+deploy cycle
@@ -143,8 +143,7 @@ Create new activation track variants for all four primitive track types using th
 
 #### Next tasks (in order)
 
-**Task 0 — Fix effect variant selector bug (PRIORITY — review finding)**
-`effect-editor.component.ts` line 52: `onVariantChange(variant: EffectVariant)` receives the new variant from the dropdown `(ngModelChange)` but never assigns it to `this.effect.variant` before emitting. The spread `{ ...this.effect }` copies the old variant value, making the variant dropdown a silent no-op at runtime. Fix: assign `this.effect = { ...this.effect, variant };` before the emit call.
+~~**Task 0 — Fix effect variant selector bug**~~ — ✅ Fixed (2026-06-01): `onVariantChange()` now assigns variant before emitting
 
 **Task 1 — Implement dynamic container rendering (VISUAL.md §6.0)**
 The four effect containers (Permanent / Entry / Action / Exit) must:
@@ -192,13 +191,14 @@ After Card Design propagates accepted baselines → re-sync updated baseline HTM
   13. ✅ **Fix live preview** — All 7 baseline templates had hardcoded title text; replaced with `{{title}}` placeholder so `PreviewService.injectFields()` can substitute form values
   14. ✅ **Fix card preview scale** — Changed iframe to fixed 375x525 with `transform:scale()` computed to fill desktop wrapper dimensions; mobile uses constrained scale
   15. 🔄 **Hook up all form fields to live preview** — In progress: model imports added to PreviewService; functional wiring of form fields to template rendering still pending
+  16. ✅ **Fix effect variant selector bug** — `onVariantChange()` now assigns `this.effect = { ...this.effect, variant }` before emitting; variant dropdown is functional at runtime
 - **Auto-sync rule**: After any Card Design stream action that updates `card-index.md` **or** creates a new trigger symbol / activation track variant, the App Design stream must re-run steps 5–9 automatically (sync SVGs + baselines → build → deploy). No user trigger needed.
 - **Pages layout rule**: GitHub Pages serves from `docs/` folder on master branch. All output files must live under `docs/`:
   - Editor: `docs/editor/` ✅
   - Review gallery: `docs/review/` ✅ (migrated 2026-05-28T00:17:35Z)
   - `.nojekyll`: `docs/.nojekyll` ✅ (created 2026-05-28T00:17:35Z)
 - **Blocked on**: —
-- **Last notified**: 2026-05-31T18:16:02Z
+- **Last notified**: 2026-06-01T00:18:19Z
 
 ---
 
@@ -352,6 +352,8 @@ _(none)_
 | 2026-05-31T12:25:05Z | Orchestrator | C: App Design | Task 1 partial — all 7 baseline templates updated with 8 placeholders (typeLabel, title, subtitleHtml, titleRuleHtml, cardImage, mechHeight, mechSections, setSymbol); PreviewService wiring not complete; gallery maintenance done (76 variants mirrored) |
 | 2026-05-31T18:16:02Z | Orchestrator | B: Card Design | die-symbols-v02-a/b/c created (flat square die face, single centered star, per-type color coding: Constitution=Red, Zeal=Blue, Path=Green; 3 options vary star weight/size); v01 marked superseded in CHANGES.md; review page updated; trigger-symbols-v04 next |
 | 2026-05-31T18:16:02Z | Orchestrator | C: App Design | Task 1 partial — model imports added to PreviewService; gallery updated; variant mirroring done (79 files); app rebuilt; functional form-field wiring still pending |
+| 2026-06-01T00:18:19Z | Orchestrator | B: Card Design | cooldown-trigger-marker-v02-a geometry corrected (gap endpoints aligned with inset diamond); v02-b/c boundary violations identified but not yet fixed; trigger-symbols-v04 not started |
+| 2026-06-01T00:18:19Z | Orchestrator | C: App Design | Task 0 complete — fixed effect variant selector bug in effect-editor.component.ts; gallery re-synced (79 variants); app rebuilt and redeployed |
 
 ---
 
