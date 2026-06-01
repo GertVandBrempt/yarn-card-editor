@@ -69,10 +69,16 @@ Create new activation track variants for all four primitive track types using th
 - Three options (a/b/c) per track type — vary spacing, proportions, and layout density, NOT the marker shapes
 - Track types to cover: Basic, Multi-turn (with flow markers and cooldown trigger), Multi-use, Use
 
+**Task 4 — Fix trigger-symbols-v04 container placement and heights (review findings)**
+Review identified 3 issues in all three trigger-symbols-v04 files:
+1. Character Phase trigger is in `sec-trigger-exit` (Exit) — move to `sec-trigger-entry` (Entry, yellow) per VISUAL.md §6 line 84
+2. On Flow Marker trigger is in `sec-trigger-exit` (Exit) — move to `sec-actions` (Action, red) per VISUAL.md §6 line 85
+3. `.sec-passive` has fixed `height: 38px` while `.effect-row` has `min-height: 48px` — remove all fixed container heights; use content-driven sizing per VISUAL.md §6.0
+
 #### Still awaiting acceptance
 - cooldown-trigger-marker-v02 (a/b/c) — in design; v01 rejected
 - die-symbols-v02 (a/b/c) — in design; v01 rejected
-- trigger-symbols-v04 (a/b/c) — in design; v03 rejected
+- trigger-symbols-v04 (a/b/c) — in design; v03 rejected; v04 created, review findings pending fix (Task 4)
 
 #### Global rules (apply to all Card Design work)
 
