@@ -1,26 +1,20 @@
-# ──────────────────────────────────────────
-# Angular / Node — yarn-card-editor/
-# ──────────────────────────────────────────
-
 # Dependencies
-yarn-card-editor/node_modules/
+node_modules/
 
 # Build output (Angular)
-yarn-card-editor/dist/
-yarn-card-editor/.angular/
+dist/
+.angular/
 
 # Test coverage
-yarn-card-editor/coverage/
+coverage/
 
 # Environment files
-yarn-card-editor/.env
-yarn-card-editor/.env.local
+.env
+.env.local
 
-# ──────────────────────────────────────────
 # Editors & OS
-# ──────────────────────────────────────────
-
 .DS_Store
 Thumbs.db
 desktop.ini
 .idea/
+
