@@ -406,13 +406,7 @@ const TRIGGER_LABELS: Record<string, string> = {
  * Containers render only when they have at least one row.
  * Heights are content-driven — no fixed pixel values.
  * Empty containers produce no shell and no gap.
- *
- * Height estimation constants used by buildMechSections to size the mech-frame.
- * These approximate the CSS layout: effect-label 20px + per-row 28px min-height + 4px padding.
  */
-const LABEL_HEIGHT = 20;
-const ROW_HEIGHT = 32;
-const FLAVOUR_HEIGHT = 48;
 
 @Injectable({ providedIn: 'root' })
 export class PreviewService {
@@ -484,17 +478,16 @@ export class PreviewService {
 
     // ── Mechanics sections (dynamic container rendering per VISUAL.md §6.0) ──
     // Containers render only when they contain at least one row.
+    // Heights are content-driven — no fixed pixel values.
     // Empty containers produce no shell and no gap.
-    const { sectionsHtml, totalHeight } = this.buildMechSections(card);
+    const { sectionsHtml, hasContent } = this.buildMechSections(card);
     html = this.replace(html, '{{mechSections}}', sectionsHtml);
     // When there are no mechanics sections, hide the mech-frame entirely (no empty shell, no gap)
-    if (totalHeight === 0) {
+    if (!hasContent) {
       html = html.replace(
-        /style="height:\{\{mechHeight\}\}px"/,
-        'style="display:none"'
+        /class="mech-frame"/,
+        'class="mech-frame" style="display:none"'
       );
-    } else {
-      html = this.replace(html, '{{mechHeight}}', String(totalHeight));
     }
 
     // ── Set symbol (set-symbol-v01-a accepted) ──────────
@@ -565,20 +558,20 @@ export class PreviewService {
 
   /**
    * Builds all mechanics sections HTML for the card.
-   * Returns the inner HTML for .mech-sections and total height for .mech-frame.
+   * Returns the inner HTML for .mech-sections and whether any content exists.
    *
-   * Containers rendered only when they have content (dynamic container rendering).
-   * Each container auto-scales height to its row count.
+   * Dynamic container rendering (VISUAL.md §6.0):
+   * - Containers render only when they contain at least one row
+   * - Heights are content-driven (no fixed pixel values)
+   * - Empty containers produce no shell and no gap
    */
-  private buildMechSections(card: AnyCard): { sectionsHtml: string; totalHeight: number } {
+  private buildMechSections(card: AnyCard): { sectionsHtml: string; hasContent: boolean } {
     const sections: string[] = [];
-    let estimatedHeight = 0;
 
     // ── 1) Passive / Permanent effects ──────────────────
     // Render only when at least one row exists; hide entirely when empty (no shell, no gap)
     const passives = this.getPassiveEffects(card);
     if (passives.length > 0) {
-      estimatedHeight += LABEL_HEIGHT + passives.length * ROW_HEIGHT;
       const rowsHtml = passives.map(p =>
         `<div class="effect-row"><span class="effect-text">${this.renderEffectText(p.text)}</span></div>`
       ).join('');
@@ -591,7 +584,6 @@ export class PreviewService {
     // ── 2) Entry triggers (on-reveal, on-enter) ─────────
     const entryTriggers = this.getEntryTriggers(card);
     if (entryTriggers.length > 0) {
-      estimatedHeight += LABEL_HEIGHT + entryTriggers.length * ROW_HEIGHT;
       const rowsHtml = entryTriggers.map(t => this.renderTriggerRow(t)).join('');
       sections.push(
         `<div class="sec sec-trigger">` +
@@ -602,13 +594,10 @@ export class PreviewService {
     // ── 3) Actions ──────────────────────────────────────
     const actions = this.getActions(card);
     if (actions.length > 0) {
-      let actionsRowCount = 0;
       const rowsHtml = actions.map(a => {
         const rows = this.renderActionRows(a);
-        actionsRowCount += rows.count;
         return rows.html;
       }).join('');
-      estimatedHeight += LABEL_HEIGHT + actionsRowCount * ROW_HEIGHT;
       sections.push(
         `<div class="sec sec-actions">` +
         `<div class="effect-label">Action</div>${rowsHtml}</div>`
@@ -618,7 +607,6 @@ export class PreviewService {
     // ── 4) Exit triggers (on-leave, on-complete) ────────
     const exitTriggers = this.getExitTriggers(card);
     if (exitTriggers.length > 0) {
-      estimatedHeight += LABEL_HEIGHT + exitTriggers.length * ROW_HEIGHT;
       const rowsHtml = exitTriggers.map(t => this.renderTriggerRow(t)).join('');
       sections.push(
         `<div class="sec sec-leave">` +
@@ -628,19 +616,13 @@ export class PreviewService {
 
     // ── 5) Flavour text (flavour-text-v01-c accepted) ───
     if (card.flavourText && card.flavourText.trim()) {
-      estimatedHeight += FLAVOUR_HEIGHT;
       sections.push(
         `<div class="sec sec-flavour">` +
         `<div class="flavour-inner"><span class="flavour-text">${this.escapeHtml(card.flavourText)}</span></div></div>`
       );
     }
 
-    // When no sections exist the mech-frame collapses to 0 — hidden entirely
-    if (estimatedHeight === 0) {
-      estimatedHeight = 0;
-    }
-
-    return { sectionsHtml: sections.join(''), totalHeight: estimatedHeight };
+    return { sectionsHtml: sections.join(''), hasContent: sections.length > 0 };
   }
 
   // ── Data extraction helpers (type-aware) ──────────────

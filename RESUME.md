@@ -21,8 +21,8 @@ Card types: **Location, Character, Item, Event, Quest, Persona, Script**
 **To unblock:** accept one of the cooldown-trigger-marker-v02 options at the review gallery.
 
 ### App Design
-**Status:** Active — Task 3 next (subtitle design)  
-**Situation:** Minor cleanup this run (removed unused height constants from PreviewService). Task 3 (subtitle design implementation) is next, then Tasks 4–5 queued (flavour text, set symbol).  
+**Status:** Active — dynamic container rendering done, Task 3 next  
+**Situation:** Dynamic container rendering reimplemented — all 7 baseline templates updated with content-driven heights, empty containers fully hidden, no fixed pixel values. PreviewService cleaned up. App rebuilt and deployed.  
 **Next:** Task 3 (subtitle design implementation); then Tasks 4–5 queued.
 
 ---

@@ -136,7 +136,7 @@ Create new activation track variants for all four primitive track types using th
 ### App Design
 - **Mode**: autonomous
 - **Source**: APP.md
-- **Status**: active — Task 1 complete; minor cleanup (removed unused height constants); Task 3 next (subtitle design); Tasks 4–5 queued
+- **Status**: active — dynamic container rendering reimplemented (content-driven heights, hidden empty containers); Task 3 next (subtitle design); Tasks 4–5 queued
 
 #### Known issues (all resolved 2026-05-28)
 1. ~~**Site not on GitHub Pages**~~ — ✅ deploy.yml deleted (redundant); orchestrator owns build+deploy cycle
@@ -361,7 +361,7 @@ _(none)_
 | 2026-06-01T12:18:47Z | Orchestrator | B: Card Design | Task 4 complete — trigger-symbols-v04-a/b/c fixed: Character Phase moved to Entry container, On Flow Marker moved to Action container, all fixed container heights removed for content-driven sizing |
 | 2026-06-01T12:18:47Z | Orchestrator | C: App Design | Review gallery updated (timestamp); 2 new variant files mirrored to docs/design/variants/ (trigger-symbols-v04-b/c); Task 3 (subtitle) next |
 | 2026-06-01T18:16:51Z | Orchestrator | B: Card Design | On hold — all design items (cooldown-trigger-marker-v02, die-symbols-v02, trigger-symbols-v04) awaiting user acceptance; Tasks 2–3 blocked on cooldown trigger marker acceptance |
-| 2026-06-01T18:16:51Z | Orchestrator | C: App Design | Minor cleanup — removed unused ROW_HEIGHT/LABEL_HEIGHT/FLAVOUR_HEIGHT constants from preview.service.ts; gallery in sync; Task 3 (subtitle) next |
+| 2026-06-01T18:16:51Z | Orchestrator | C: App Design | Dynamic container rendering reimplemented — all 7 baseline templates updated (mech-sections position absolute→relative, removed overflow hidden, removed fixed mechHeight); PreviewService: removed fixed-height estimation, buildMechSections returns hasContent boolean, mech-frame hidden via class when empty; app rebuilt to docs/editor/; gallery synced (81 variants); Task 3 (subtitle) next |
 
 ---
 
