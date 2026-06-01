@@ -1,4 +1,4 @@
-<!-- card-variant: trigger-symbols-v04-a | Trigger symbols v04 option A: NATURALISTIC PICTOGRAPHIC — each symbol is a recognizable real-world object silhouette; dark body #1a0e04 + amber/off-white detail #d4b87a; viewBox 0 0 48 48 rendered at 48×48; all 6 shown with trigger name labels in context on a Persona card -->
+<!-- card-variant: trigger-symbols-v04-b | Trigger symbols v04 option B: THEATRICAL / DRAMATIC — each symbol uses stage and narrative metaphors (curtains, portcullis, masks, scrolls); dark body #1a0e04 + amber/off-white detail #d4b87a; viewBox 0 0 48 48 rendered at 48×48; all 6 shown with trigger name labels in context on a Persona card -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -204,26 +204,26 @@ body { margin: 0; display: flex; justify-content: center; align-items: flex-star
 
   <symbol id="art-d" viewBox="0 0 300 420">
     <defs>
-      <linearGradient id="a-sky" x1="0" y1="0" x2="0" y2="1">
+      <linearGradient id="b-sky" x1="0" y1="0" x2="0" y2="1">
         <stop offset="0%"   stop-color="#0a0818"/>
         <stop offset="40%"  stop-color="#161028"/>
         <stop offset="100%" stop-color="#080a08"/>
       </linearGradient>
-      <radialGradient id="a-glow" cx="50%" cy="42%" r="32%">
+      <radialGradient id="b-glow" cx="50%" cy="42%" r="32%">
         <stop offset="0%"   stop-color="#d8a050" stop-opacity="0.40"/>
         <stop offset="60%"  stop-color="#603018" stop-opacity="0.18"/>
         <stop offset="100%" stop-color="transparent"/>
       </radialGradient>
-      <radialGradient id="a-vig" cx="50%" cy="50%" r="62%">
+      <radialGradient id="b-vig" cx="50%" cy="50%" r="62%">
         <stop offset="30%" stop-color="transparent"/>
         <stop offset="100%" stop-color="#000" stop-opacity="0.85"/>
       </radialGradient>
     </defs>
-    <rect width="300" height="420" fill="url(#a-sky)"/>
-    <rect width="300" height="420" fill="url(#a-glow)"/>
+    <rect width="300" height="420" fill="url(#b-sky)"/>
+    <rect width="300" height="420" fill="url(#b-glow)"/>
     <ellipse cx="150" cy="280" rx="220" ry="40" fill="#0a0a08" opacity="0.85"/>
     <path d="M 0 230 L 30 200 L 50 220 L 80 180 L 110 215 L 140 195 L 170 220 L 200 185 L 230 215 L 260 200 L 300 230 L 300 420 L 0 420 Z" fill="#0c0808" opacity="0.92"/>
-    <rect width="300" height="420" fill="url(#a-vig)"/>
+    <rect width="300" height="420" fill="url(#b-vig)"/>
   </symbol>
 
   <symbol id="icon-shield" viewBox="0 0 24 24">
@@ -246,128 +246,178 @@ body { margin: 0; display: flex; justify-content: center; align-items: flex-star
   </symbol>
 
   <!--
-    §7 Trigger Symbols — v04-a: NATURALISTIC PICTOGRAPHIC
-    ═══════════════════════════════════════════════════════
-    Concept: each symbol uses a recognizable real-world object silhouette
-    that intuitively communicates the trigger. Dark body + amber detail.
+    §7 Trigger Symbols — v04-b: THEATRICAL / DRAMATIC
+    ══════════════════════════════════════════════════
+    Concept: each symbol draws on stage, narrative, and medieval metaphors.
+    Objects like curtains, portcullises, sundials, and scrolls evoke a
+    story-world vocabulary rather than modern UI. Dark body + amber detail.
     ViewBox: 0 0 48 48 | Rendered: 48×48 (matching activation track markers)
 
-    trig-reveal      — On Reveal       — wide-open eye with radiating lash lines (seeing for the first time)
-    trig-enter       — On Enter        — open doorway with arrow entering (crossing a threshold)
-    trig-char-phase  — Character Phase — hourglass (passage of a character's time phase)
-    trig-leave       — On Leave        — open door with arrow exiting outward
-    trig-complete    — On Complete     — wax seal with checkmark impression
-    trig-flow-marker — On Flow Marker  — diamond token on a track rail with forward arrow
+    trig-reveal      — On Reveal       — parting curtains revealing a spotlight (theatrical unveiling)
+    trig-enter       — On Enter        — raised portcullis / castle gate (entering a place)
+    trig-char-phase  — Character Phase — sundial with gnomon shadow (the character's time passes)
+    trig-leave       — On Leave        — lowered portcullis / castle gate closing (departure)
+    trig-complete    — On Complete     — unfurled scroll with check mark (quest scroll completed)
+    trig-flow-marker — On Flow Marker  — wave / water current carrying a token forward
   -->
 
-  <!-- On Reveal — wide open eye, amber iris with dark pupil, short lash/ray lines radiating from corners
-       The eye opening = the moment of seeing/revealing something hidden -->
+  <!-- On Reveal — two dark curtain panels pulled apart, revealing an amber spotlight circle center
+       Theatre curtain reveal — the dramatic moment of unveiling -->
   <symbol id="trig-reveal" viewBox="0 0 48 48">
-    <!-- Amber lash rays radiating from eye corners (drawn behind body) -->
-    <line x1="4" y1="14" x2="8" y2="18" stroke="#d4b87a" stroke-width="2" stroke-linecap="round"/>
-    <line x1="2" y1="24" x2="7" y2="24" stroke="#d4b87a" stroke-width="2" stroke-linecap="round"/>
-    <line x1="4" y1="34" x2="8" y2="30" stroke="#d4b87a" stroke-width="2" stroke-linecap="round"/>
-    <line x1="44" y1="14" x2="40" y2="18" stroke="#d4b87a" stroke-width="2" stroke-linecap="round"/>
-    <line x1="46" y1="24" x2="41" y2="24" stroke="#d4b87a" stroke-width="2" stroke-linecap="round"/>
-    <line x1="44" y1="34" x2="40" y2="30" stroke="#d4b87a" stroke-width="2" stroke-linecap="round"/>
-    <!-- Dark eye body — almond / pointed oval -->
-    <path d="M4 24 Q12 8 24 8 Q36 8 44 24 Q36 40 24 40 Q12 40 4 24 Z"
+    <!-- Amber spotlight / light beam behind curtains -->
+    <path d="M18 6 L30 6 L36 44 L12 44 Z" fill="#d4b87a" opacity="0.3"/>
+    <circle cx="24" cy="22" r="8" fill="#d4b87a" opacity="0.7"/>
+    <!-- Amber stage floor -->
+    <rect x="4" y="40" width="40" height="4" rx="1" fill="#d4b87a" opacity="0.45"/>
+    <!-- Dark curtain rod at top -->
+    <rect x="2" y="3" width="44" height="5" rx="2.5" fill="#1a0e04"/>
+    <!-- Dark left curtain — draped, pulled aside to the left -->
+    <path d="M2 3 L2 44 L16 44 L18 38 Q19 28 16 20 Q14 14 14 8 L2 8 Z"
           fill="#1a0e04" stroke="none"/>
-    <!-- Amber iris -->
-    <circle cx="24" cy="24" r="9" fill="#d4b87a"/>
-    <!-- Dark pupil -->
-    <circle cx="24" cy="24" r="4.5" fill="#1a0e04"/>
-    <!-- Small amber highlight dot in pupil (life / seeing) -->
-    <circle cx="22" cy="22" r="1.8" fill="#d4b87a"/>
+    <!-- Dark right curtain — draped, pulled aside to the right -->
+    <path d="M46 3 L46 44 L32 44 L30 38 Q29 28 32 20 Q34 14 34 8 L46 8 Z"
+          fill="#1a0e04" stroke="none"/>
+    <!-- Amber curtain tie-back detail on left -->
+    <ellipse cx="14" cy="26" rx="2" ry="3" fill="#d4b87a" opacity="0.5"/>
+    <!-- Amber curtain tie-back detail on right -->
+    <ellipse cx="34" cy="26" rx="2" ry="3" fill="#d4b87a" opacity="0.5"/>
+    <!-- Amber bright center pip (the revealed thing) -->
+    <circle cx="24" cy="22" r="3" fill="#d4b87a"/>
+    <circle cx="24" cy="22" r="1.5" fill="#1a0e04"/>
   </symbol>
 
-  <!-- On Enter — doorway frame with inward arrow: dark door frame rectangle, amber open space,
-       dark arrow entering from outside (left) into the amber interior -->
+  <!-- On Enter — raised portcullis (castle gate): dark stone frame, amber-lit passage visible,
+       gate is raised above the opening showing entry is possible -->
   <symbol id="trig-enter" viewBox="0 0 48 48">
-    <!-- Dark door frame — thick outer rectangle -->
-    <rect x="12" y="4" width="32" height="40" rx="2" fill="#1a0e04"/>
-    <!-- Amber doorway opening (inner rectangle) -->
-    <rect x="18" y="10" width="20" height="34" rx="1" fill="#d4b87a"/>
-    <!-- Dark threshold step at bottom of door -->
-    <rect x="18" y="38" width="20" height="6" fill="#1a0e04"/>
-    <!-- Dark arrow entering from left into the doorway -->
-    <polygon points="4,24 14,18 14,21 24,21 24,27 14,27 14,30"
-             fill="#1a0e04" stroke="none"/>
-    <!-- Dark door handle on right side of opening -->
-    <circle cx="35" cy="27" r="2" fill="#1a0e04"/>
+    <!-- Dark stone wall / gatehouse frame -->
+    <rect x="4" y="4" width="40" height="40" rx="2" fill="#1a0e04"/>
+    <!-- Amber passage / opening under the portcullis -->
+    <rect x="12" y="18" width="24" height="26" rx="1" fill="#d4b87a"/>
+    <!-- Dark ground / threshold -->
+    <rect x="12" y="40" width="24" height="4" fill="#1a0e04"/>
+    <!-- Dark portcullis gate (raised to top of opening — gate bars visible above) -->
+    <!-- Vertical bars -->
+    <line x1="16" y1="10" x2="16" y2="20" stroke="#1a0e04" stroke-width="2.5"/>
+    <line x1="22" y1="10" x2="22" y2="20" stroke="#1a0e04" stroke-width="2.5"/>
+    <line x1="28" y1="10" x2="28" y2="20" stroke="#1a0e04" stroke-width="2.5"/>
+    <line x1="34" y1="10" x2="34" y2="20" stroke="#1a0e04" stroke-width="2.5"/>
+    <!-- Horizontal crossbar of portcullis -->
+    <line x1="12" y1="14" x2="36" y2="14" stroke="#1a0e04" stroke-width="2"/>
+    <line x1="12" y1="18" x2="36" y2="18" stroke="#1a0e04" stroke-width="2"/>
+    <!-- Amber arrow pointing inward (entering through gate) -->
+    <polygon points="18,30 24,24 30,30 27,30 27,36 21,36 21,30"
+             fill="#1a0e04" opacity="0.6"/>
+    <!-- Dark crenellations at top of gatehouse -->
+    <rect x="4" y="2" width="8" height="6" fill="#1a0e04"/>
+    <rect x="16" y="2" width="6" height="6" fill="#1a0e04"/>
+    <rect x="26" y="2" width="6" height="6" fill="#1a0e04"/>
+    <rect x="36" y="2" width="8" height="6" fill="#1a0e04"/>
+    <!-- Amber slots between crenellations -->
+    <rect x="12" y="4" width="4" height="3" fill="#d4b87a" opacity="0.3"/>
+    <rect x="22" y="4" width="4" height="3" fill="#d4b87a" opacity="0.3"/>
+    <rect x="32" y="4" width="4" height="3" fill="#d4b87a" opacity="0.3"/>
   </symbol>
 
-  <!-- Character Phase — hourglass: dark hourglass body with amber sand flowing
-       Hourglass = the passage of time in a character's turn phase -->
+  <!-- Character Phase — sundial: dark circular dial face, amber gnomon casting a shadow,
+       amber hour markers around the rim. The sun tracking time = a phase of the character's round -->
   <symbol id="trig-char-phase" viewBox="0 0 48 48">
-    <!-- Dark hourglass body -->
-    <path d="M10 4 L38 4 L38 8 Q38 18 24 24 Q38 30 38 40 L38 44 L10 44 L10 40 Q10 30 24 24 Q10 18 10 8 Z"
-          fill="#1a0e04" stroke="none"/>
-    <!-- Amber top plate -->
-    <rect x="8" y="3" width="32" height="4" rx="2" fill="#d4b87a"/>
-    <!-- Amber bottom plate -->
-    <rect x="8" y="41" width="32" height="4" rx="2" fill="#d4b87a"/>
-    <!-- Amber sand in upper chamber -->
-    <path d="M16 10 L32 10 Q30 18 24 21 Q18 18 16 10 Z" fill="#d4b87a" opacity="0.7"/>
-    <!-- Amber sand stream through neck -->
-    <rect x="22.5" y="21" width="3" height="6" fill="#d4b87a" opacity="0.6"/>
-    <!-- Amber sand pile in lower chamber -->
-    <path d="M16 38 Q18 32 24 28 Q30 32 32 38 Z" fill="#d4b87a" opacity="0.8"/>
+    <!-- Dark dial base / pedestal -->
+    <ellipse cx="24" cy="42" rx="18" ry="4" fill="#1a0e04"/>
+    <!-- Dark circular dial face (slightly tilted perspective — ellipse) -->
+    <ellipse cx="24" cy="26" rx="18" ry="16" fill="#1a0e04"/>
+    <!-- Amber dial ring -->
+    <ellipse cx="24" cy="26" rx="15" ry="13" fill="none" stroke="#d4b87a" stroke-width="2"/>
+    <!-- Amber hour markers (12 positions around ellipse, simplified to 4 cardinal + 4 intermediate) -->
+    <circle cx="24" cy="12" r="1.5" fill="#d4b87a"/>
+    <circle cx="24" cy="40" r="1.5" fill="#d4b87a" opacity="0.5"/>
+    <circle cx="9" cy="26" r="1.5" fill="#d4b87a" opacity="0.6"/>
+    <circle cx="39" cy="26" r="1.5" fill="#d4b87a" opacity="0.6"/>
+    <circle cx="13" cy="16" r="1.2" fill="#d4b87a" opacity="0.5"/>
+    <circle cx="35" cy="16" r="1.2" fill="#d4b87a" opacity="0.5"/>
+    <circle cx="13" cy="36" r="1.2" fill="#d4b87a" opacity="0.4"/>
+    <circle cx="35" cy="36" r="1.2" fill="#d4b87a" opacity="0.4"/>
+    <!-- Amber gnomon (triangular fin casting shadow — the time pointer) -->
+    <polygon points="24,26 24,10 28,26" fill="#d4b87a" opacity="0.8"/>
+    <!-- Dark shadow of gnomon on dial face -->
+    <polygon points="24,26 28,26 32,34" fill="#1a0e04" opacity="0.5"/>
+    <!-- Amber center pip -->
+    <circle cx="24" cy="26" r="2" fill="#d4b87a"/>
   </symbol>
 
-  <!-- On Leave — door frame with arrow exiting outward to the right
-       Arrow pointing out through a doorway = departure -->
+  <!-- On Leave — lowering portcullis / closing gate: dark stone frame,
+       gate bars descending to close the passage (opposite of On Enter) -->
   <symbol id="trig-leave" viewBox="0 0 48 48">
-    <!-- Dark door frame — thick outer rectangle -->
-    <rect x="4" y="4" width="32" height="40" rx="2" fill="#1a0e04"/>
-    <!-- Amber doorway opening (inner rectangle) -->
-    <rect x="10" y="10" width="20" height="34" rx="1" fill="#d4b87a"/>
-    <!-- Dark threshold step at bottom -->
-    <rect x="10" y="38" width="20" height="6" fill="#1a0e04"/>
-    <!-- Dark arrow exiting from doorway to the right -->
-    <polygon points="24,21 34,21 34,18 44,24 34,30 34,27 24,27"
-             fill="#1a0e04" stroke="none"/>
-    <!-- Dark door handle on left side of opening -->
-    <circle cx="13" cy="27" r="2" fill="#1a0e04"/>
+    <!-- Dark stone wall / gatehouse frame -->
+    <rect x="4" y="4" width="40" height="40" rx="2" fill="#1a0e04"/>
+    <!-- Amber passage behind (partially blocked — gate coming down) -->
+    <rect x="12" y="18" width="24" height="26" rx="1" fill="#d4b87a" opacity="0.4"/>
+    <!-- Dark ground / threshold -->
+    <rect x="12" y="40" width="24" height="4" fill="#1a0e04"/>
+    <!-- Dark portcullis gate (lowered halfway — blocking passage) -->
+    <!-- Vertical bars extending down through opening -->
+    <line x1="16" y1="10" x2="16" y2="36" stroke="#1a0e04" stroke-width="2.5"/>
+    <line x1="22" y1="10" x2="22" y2="36" stroke="#1a0e04" stroke-width="2.5"/>
+    <line x1="28" y1="10" x2="28" y2="36" stroke="#1a0e04" stroke-width="2.5"/>
+    <line x1="34" y1="10" x2="34" y2="36" stroke="#1a0e04" stroke-width="2.5"/>
+    <!-- Horizontal crossbars of portcullis -->
+    <line x1="12" y1="14" x2="36" y2="14" stroke="#1a0e04" stroke-width="2"/>
+    <line x1="12" y1="22" x2="36" y2="22" stroke="#1a0e04" stroke-width="2"/>
+    <line x1="12" y1="30" x2="36" y2="30" stroke="#1a0e04" stroke-width="2"/>
+    <!-- Amber arrow pointing outward from beneath gate -->
+    <path d="M24 38 L20 42 L22 42 L22 46 L26 46 L26 42 L28 42 Z"
+          fill="#d4b87a" opacity="0.7"/>
+    <!-- Dark crenellations at top -->
+    <rect x="4" y="2" width="8" height="6" fill="#1a0e04"/>
+    <rect x="16" y="2" width="6" height="6" fill="#1a0e04"/>
+    <rect x="26" y="2" width="6" height="6" fill="#1a0e04"/>
+    <rect x="36" y="2" width="8" height="6" fill="#1a0e04"/>
   </symbol>
 
-  <!-- On Complete — wax seal / stamp with checkmark impression
-       A round wax seal = official completion / confirmation -->
+  <!-- On Complete — unfurled scroll / parchment with a bold checkmark
+       The completed quest scroll — sealed and confirmed done -->
   <symbol id="trig-complete" viewBox="0 0 48 48">
-    <!-- Amber ribbon tails behind seal -->
-    <path d="M16 36 L10 46 L16 42 L18 46 L20 38" fill="#d4b87a" opacity="0.6"/>
-    <path d="M32 36 L38 46 L32 42 L30 46 L28 38" fill="#d4b87a" opacity="0.6"/>
-    <!-- Dark circular seal body -->
-    <circle cx="24" cy="24" r="17" fill="#1a0e04"/>
-    <!-- Amber ring border of seal -->
-    <circle cx="24" cy="24" r="14" fill="none" stroke="#d4b87a" stroke-width="2.5"/>
-    <!-- Amber inner ring (double-ring seal border) -->
-    <circle cx="24" cy="24" r="11" fill="none" stroke="#d4b87a" stroke-width="1" opacity="0.5"/>
-    <!-- Amber bold checkmark impressed into seal -->
-    <polyline points="16,24 21,30 33,17"
-              fill="none" stroke="#d4b87a" stroke-width="4"
+    <!-- Amber parchment body (main scroll area) -->
+    <rect x="10" y="8" width="28" height="32" rx="2" fill="#d4b87a" opacity="0.65"/>
+    <!-- Dark rolled top of scroll -->
+    <ellipse cx="24" cy="8" rx="16" ry="4" fill="#1a0e04"/>
+    <!-- Amber inner face of top roll -->
+    <ellipse cx="24" cy="8" rx="14" ry="3" fill="#d4b87a" opacity="0.35"/>
+    <!-- Dark rolled bottom of scroll -->
+    <ellipse cx="24" cy="40" rx="16" ry="4" fill="#1a0e04"/>
+    <!-- Amber inner face of bottom roll -->
+    <ellipse cx="24" cy="40" rx="14" ry="3" fill="#d4b87a" opacity="0.35"/>
+    <!-- Dark bold checkmark on the scroll body -->
+    <polyline points="16,24 22,31 34,16"
+              fill="none" stroke="#1a0e04" stroke-width="5"
               stroke-linecap="round" stroke-linejoin="round"/>
+    <!-- Amber text-line hints on scroll (decorative) -->
+    <line x1="14" y1="14" x2="34" y2="14" stroke="#1a0e04" stroke-width="1" opacity="0.2"/>
+    <line x1="14" y1="36" x2="34" y2="36" stroke="#1a0e04" stroke-width="1" opacity="0.2"/>
   </symbol>
 
-  <!-- On Flow Marker — diamond token sitting on a horizontal track rail with a forward arrow
-       Token advancing onto a slot = On Flow Marker trigger concept -->
+  <!-- On Flow Marker — flowing wave / current carrying a diamond token forward
+       Water current / river flow advancing a marker along a path -->
   <symbol id="trig-flow-marker" viewBox="0 0 48 48">
-    <!-- Dark horizontal track rail -->
-    <rect x="2" y="28" width="44" height="6" rx="3" fill="#1a0e04"/>
-    <!-- Amber rail edge highlight -->
-    <rect x="2" y="28" width="44" height="6" rx="3" fill="none" stroke="#d4b87a" stroke-width="1.5" opacity="0.4"/>
-    <!-- Amber tick marks on rail (slots) -->
-    <line x1="14" y1="27" x2="14" y2="35" stroke="#d4b87a" stroke-width="1.5" opacity="0.4"/>
-    <line x1="26" y1="27" x2="26" y2="35" stroke="#d4b87a" stroke-width="1.5" opacity="0.4"/>
-    <line x1="38" y1="27" x2="38" y2="35" stroke="#d4b87a" stroke-width="1.5" opacity="0.4"/>
-    <!-- Dark diamond token resting on the rail at the second slot -->
-    <polygon points="26,8 38,20 26,32 14,20" fill="#1a0e04"/>
-    <!-- Amber inner diamond face on token -->
-    <polygon points="26,12 34,20 26,28 18,20" fill="#d4b87a" opacity="0.7"/>
-    <!-- Dark center pip on token -->
-    <polygon points="26,17 29,20 26,23 23,20" fill="#1a0e04"/>
-    <!-- Amber forward arrow (advancing motion) -->
-    <path d="M36,14 L44,14 L42,10 L48,16 L42,22 L44,18 L36,18 Z" fill="#d4b87a" opacity="0.65"/>
+    <!-- Dark wave / current body (three stacked waves) -->
+    <path d="M2 18 Q10 12 18 18 Q26 24 34 18 Q42 12 46 18 L46 24 Q42 18 34 24 Q26 30 18 24 Q10 18 2 24 Z"
+          fill="#1a0e04" stroke="none"/>
+    <path d="M2 28 Q10 22 18 28 Q26 34 34 28 Q42 22 46 28 L46 34 Q42 28 34 34 Q26 40 18 34 Q10 28 2 34 Z"
+          fill="#1a0e04" stroke="none"/>
+    <!-- Amber wave crests / highlights -->
+    <path d="M4 18 Q10 14 16 18" fill="none" stroke="#d4b87a" stroke-width="1.5" opacity="0.5"/>
+    <path d="M20 18 Q26 14 32 18" fill="none" stroke="#d4b87a" stroke-width="1.5" opacity="0.5"/>
+    <path d="M36 18 Q42 14 46 18" fill="none" stroke="#d4b87a" stroke-width="1.5" opacity="0.4"/>
+    <path d="M4 28 Q10 24 16 28" fill="none" stroke="#d4b87a" stroke-width="1.5" opacity="0.4"/>
+    <path d="M20 28 Q26 24 32 28" fill="none" stroke="#d4b87a" stroke-width="1.5" opacity="0.4"/>
+    <!-- Dark diamond token riding on the wave -->
+    <polygon points="30,4 40,14 30,24 20,14" fill="#1a0e04"/>
+    <!-- Amber inner diamond face -->
+    <polygon points="30,7 37,14 30,21 23,14" fill="#d4b87a" opacity="0.7"/>
+    <!-- Dark center pip -->
+    <polygon points="30,11 33,14 30,17 27,14" fill="#1a0e04"/>
+    <!-- Amber forward motion lines behind token -->
+    <line x1="14" y1="10" x2="18" y2="10" stroke="#d4b87a" stroke-width="1.5" stroke-linecap="round" opacity="0.5"/>
+    <line x1="12" y1="14" x2="18" y2="14" stroke="#d4b87a" stroke-width="1.5" stroke-linecap="round" opacity="0.4"/>
   </symbol>
 
 </defs>
