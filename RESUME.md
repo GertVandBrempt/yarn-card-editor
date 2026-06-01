@@ -1,6 +1,6 @@
 # Yarn — Session Resume Context
 
-_Updated: 2026-06-01T12:18:47Z_
+_Updated: 2026-06-01T18:16:51Z_
 
 ---
 
@@ -15,14 +15,14 @@ Card types: **Location, Character, Item, Event, Quest, Persona, Script**
 ## Current stream status
 
 ### Card Design
-**Status:** Active — trigger-symbols-v04 review findings fixed  
-**Situation:** Task 4 complete — all three trigger-symbols-v04 files corrected: Character Phase moved to Entry container, On Flow Marker moved to Action container, all fixed container heights removed for content-driven sizing. Cooldown-trigger-marker-v02 and die-symbols-v02 still awaiting acceptance. Tasks 1–3 blocked on acceptance.  
+**Status:** On hold — awaiting user acceptance  
+**Situation:** All current design items are complete and awaiting acceptance: cooldown-trigger-marker-v02 (a/b/c), die-symbols-v02 (a/b/c), trigger-symbols-v04 (a/b/c). Tasks 2 (baseline propagation) and 3 (activation track rework) are blocked until cooldown trigger marker is accepted.  
 **Awaiting acceptance:** cooldown-trigger-marker-v02 (a/b/c), die-symbols-v02 (a/b/c), trigger-symbols-v04 (a/b/c)  
 **To unblock:** accept one of the cooldown-trigger-marker-v02 options at the review gallery.
 
 ### App Design
-**Status:** Active — review gallery updated, Task 3 next  
-**Situation:** Gallery timestamp updated, trigger-symbols-v04-b/c mirrored to docs. Task 3 (subtitle design) is next, then Tasks 4–5 queued.  
+**Status:** Active — Task 3 next (subtitle design)  
+**Situation:** Minor cleanup this run (removed unused height constants from PreviewService). Task 3 (subtitle design implementation) is next, then Tasks 4–5 queued (flavour text, set symbol).  
 **Next:** Task 3 (subtitle design implementation); then Tasks 4–5 queued.
 
 ---

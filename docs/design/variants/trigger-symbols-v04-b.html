@@ -448,7 +448,7 @@ body { margin: 0; display: flex; justify-content: center; align-items: flex-star
         </div>
       </div>
 
-      <!-- Trigger-entry: On Reveal + On Enter -->
+      <!-- Trigger-entry: On Reveal, On Enter, Character Phase -->
       <div class="sec sec-trigger-entry">
         <div class="effect-row">
           <div class="effect-lead">
@@ -468,9 +468,17 @@ body { margin: 0; display: flex; justify-content: center; align-items: flex-star
           <span class="trigger-arrow">&rarr;</span>
           <span class="effect-text">Draw 1 card when entering a new Location</span>
         </div>
+        <div class="effect-row">
+          <div class="effect-lead">
+            <svg width="48" height="48"><use href="#trig-char-phase"/></svg>
+          </div>
+          <span class="trigger-label">Character Phase</span>
+          <span class="trigger-arrow">&rarr;</span>
+          <span class="effect-text">Move 1 space at start of Character Phase</span>
+        </div>
       </div>
 
-      <!-- Actions -->
+      <!-- Actions: activation marker + On Flow Marker -->
       <div class="sec sec-actions">
         <div class="effect-row">
           <div class="effect-lead">
@@ -488,9 +496,17 @@ body { margin: 0; display: flex; justify-content: center; align-items: flex-star
             Strike <span class="sym-group"><svg width="16" height="16"><use href="#icon-damage"/></svg><span class="sym-mod">3</span></span> an adjacent enemy
           </span>
         </div>
+        <div class="effect-row">
+          <div class="effect-lead">
+            <svg width="48" height="48"><use href="#trig-flow-marker"/></svg>
+          </div>
+          <span class="trigger-label">On Flow Marker</span>
+          <span class="trigger-arrow">&rarr;</span>
+          <span class="effect-text">Advance track and draw 1 card</span>
+        </div>
       </div>
 
-      <!-- Trigger-exit: On Leave, Character Phase, On Complete, On Flow Marker -->
+      <!-- Trigger-exit: On Leave, On Complete -->
       <div class="sec sec-trigger-exit">
         <div class="effect-row">
           <div class="effect-lead">
@@ -504,27 +520,11 @@ body { margin: 0; display: flex; justify-content: center; align-items: flex-star
         </div>
         <div class="effect-row">
           <div class="effect-lead">
-            <svg width="48" height="48"><use href="#trig-char-phase"/></svg>
-          </div>
-          <span class="trigger-label">Character Phase</span>
-          <span class="trigger-arrow">&rarr;</span>
-          <span class="effect-text">Move 1 space at start of Character Phase</span>
-        </div>
-        <div class="effect-row">
-          <div class="effect-lead">
             <svg width="48" height="48"><use href="#trig-complete"/></svg>
           </div>
           <span class="trigger-label">On Complete</span>
           <span class="trigger-arrow">&rarr;</span>
           <span class="effect-text">Remove from play when quest is Complete</span>
-        </div>
-        <div class="effect-row">
-          <div class="effect-lead">
-            <svg width="48" height="48"><use href="#trig-flow-marker"/></svg>
-          </div>
-          <span class="trigger-label">On Flow Marker</span>
-          <span class="trigger-arrow">&rarr;</span>
-          <span class="effect-text">Advance track and draw 1 card</span>
         </div>
       </div>
 

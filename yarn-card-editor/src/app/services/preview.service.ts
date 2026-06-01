@@ -402,13 +402,17 @@ const TRIGGER_LABELS: Record<string, string> = {
 };
 
 /**
- * Height constants are used only for the mech-frame fallback min-height.
- * Individual sections no longer use fixed heights — they auto-size
- * to their content (dynamic container rendering per VISUAL.md §6.0).
+ * Dynamic container rendering per VISUAL.md §6.0:
+ * Containers render only when they have at least one row.
+ * Heights are content-driven — no fixed pixel values.
+ * Empty containers produce no shell and no gap.
+ *
+ * Height estimation constants used by buildMechSections to size the mech-frame.
+ * These approximate the CSS layout: effect-label 20px + per-row 28px min-height + 4px padding.
  */
-const ROW_HEIGHT = 28;
-const LABEL_HEIGHT = 18;
-const FLAVOUR_HEIGHT = 42;
+const LABEL_HEIGHT = 20;
+const ROW_HEIGHT = 32;
+const FLAVOUR_HEIGHT = 48;
 
 @Injectable({ providedIn: 'root' })
 export class PreviewService {

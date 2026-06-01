@@ -19,7 +19,7 @@ This file is read and written by scheduled agents. Do not edit manually during a
 ```
 blocked_for_weekly_review: false
 weekly_review_due: 2026-05-30T08:00:00Z
-last_orchestrator_run: 2026-06-01T12:18:47Z
+last_orchestrator_run: 2026-06-01T18:16:51Z
 last_status_notification: 2026-05-31T12:00:00Z
 ```
 
@@ -32,7 +32,7 @@ Streams are **independent** — a blocked stream does not pause other streams.
 ### Card Design
 - **Mode**: autonomous
 - **Source**: design/VISUAL.md, design/card-index.md
-- **Status**: active — Task 4 complete (trigger-symbols-v04 container placement and height fixes applied); cooldown-trigger-marker-v02 and die-symbols-v02 awaiting acceptance; Tasks 1–3 blocked on acceptance
+- **Status**: on hold — all design items awaiting user acceptance (cooldown-trigger-marker-v02, die-symbols-v02, trigger-symbols-v04); Tasks 2–3 blocked on cooldown trigger marker acceptance
 
 #### Accepted design elements (2026-05-28)
 - ✅ **effects-container-v04** — gradient-fade section borders (opacity 0.7), 0.15 translucent fill; see VISUAL.md §6
@@ -128,15 +128,15 @@ Create new activation track variants for all four primitive track types using th
 
 **Hold:** effects-v04 — create only after trigger symbols + activation tracks both accepted
 
-- **Blocked on**: —
-- **Last notified**: 2026-06-01T12:18:47Z
+- **Blocked on**: user acceptance of cooldown-trigger-marker-v02, die-symbols-v02, trigger-symbols-v04
+- **Last notified**: 2026-06-01T18:16:51Z
 
 ---
 
 ### App Design
 - **Mode**: autonomous
 - **Source**: APP.md
-- **Status**: active — Task 1 complete; review gallery updated; Task 3 next (subtitle design); Tasks 4–5 queued
+- **Status**: active — Task 1 complete; minor cleanup (removed unused height constants); Task 3 next (subtitle design); Tasks 4–5 queued
 
 #### Known issues (all resolved 2026-05-28)
 1. ~~**Site not on GitHub Pages**~~ — ✅ deploy.yml deleted (redundant); orchestrator owns build+deploy cycle
@@ -200,7 +200,7 @@ After Card Design propagates accepted baselines → re-sync updated baseline HTM
   - Review gallery: `docs/review/` ✅ (migrated 2026-05-28T00:17:35Z)
   - `.nojekyll`: `docs/.nojekyll` ✅ (created 2026-05-28T00:17:35Z)
 - **Blocked on**: —
-- **Last notified**: 2026-06-01T12:18:47Z
+- **Last notified**: 2026-06-01T18:16:51Z
 
 ---
 
@@ -360,6 +360,8 @@ _(none)_
 | 2026-06-01T06:22:41Z | Orchestrator | C: App Design | Task 1 complete — dynamic container rendering: removed fixed heights from all 4 effect container sections; empty containers hidden; mech-frame hidden when all sections empty; gallery synced; app rebuilt |
 | 2026-06-01T12:18:47Z | Orchestrator | B: Card Design | Task 4 complete — trigger-symbols-v04-a/b/c fixed: Character Phase moved to Entry container, On Flow Marker moved to Action container, all fixed container heights removed for content-driven sizing |
 | 2026-06-01T12:18:47Z | Orchestrator | C: App Design | Review gallery updated (timestamp); 2 new variant files mirrored to docs/design/variants/ (trigger-symbols-v04-b/c); Task 3 (subtitle) next |
+| 2026-06-01T18:16:51Z | Orchestrator | B: Card Design | On hold — all design items (cooldown-trigger-marker-v02, die-symbols-v02, trigger-symbols-v04) awaiting user acceptance; Tasks 2–3 blocked on cooldown trigger marker acceptance |
+| 2026-06-01T18:16:51Z | Orchestrator | C: App Design | Minor cleanup — removed unused ROW_HEIGHT/LABEL_HEIGHT/FLAVOUR_HEIGHT constants from preview.service.ts; gallery in sync; Task 3 (subtitle) next |
 
 ---
 
