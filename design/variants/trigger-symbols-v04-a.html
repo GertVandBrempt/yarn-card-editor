@@ -1,0 +1,488 @@
+<!-- card-variant: trigger-symbols-v04-a | Trigger symbols v04 option A: NATURALISTIC PICTOGRAPHIC — each symbol is a recognizable real-world object silhouette; dark body #1a0e04 + amber/off-white detail #d4b87a; viewBox 0 0 48 48 rendered at 48×48; all 6 shown with trigger name labels in context on a Persona card -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Crimson+Text:ital,wght@0,400;1,400;0,600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --card-w: 375px;
+  --card-h: 525px;
+  --card-r: 12.5px;
+  --bg-top:      #221004;
+  --bg-bot:      #180c02;
+  --type-border: #7a4818;
+  --type-text:   #c8860c;
+  --type-glow:   rgba(160,90,10,0.28);
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { margin: 0; display: flex; justify-content: center; align-items: flex-start; }
+
+.card {
+  position: relative;
+  width: var(--card-w); height: var(--card-h);
+  border-radius: var(--card-r); overflow: hidden; flex-shrink: 0;
+  box-shadow: 0 24px 70px rgba(0,0,0,0.97), 0 6px 16px rgba(0,0,0,0.8);
+}
+.card-fill { position: absolute; inset: 0; z-index: 0; border-radius: var(--card-r); background: #0d0a06; }
+.card-image { position: absolute; inset: 0; z-index: 1; }
+.card-image > svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+
+.grad-top {
+  position: absolute; left: 12.5px; right: 12.5px; top: 12.5px;
+  height: 194px; z-index: 2; pointer-events: none;
+  background: radial-gradient(ellipse 90% 100% at 50% 0%, rgba(0,0,0,.9) 0%, rgba(0,0,0,.6) 70%, transparent 100%);
+}
+.grad-body {
+  position: absolute; left: 12.5px; right: 12.5px; bottom: 12.5px;
+  height: 313px; z-index: 2; pointer-events: none;
+  background: radial-gradient(ellipse 90% 100% at 50% 100%, rgba(0,0,0,.9) 0%, rgba(0,0,0,.6) 70%, transparent 100%);
+}
+
+.card-frame {
+  position: absolute; inset: 0; z-index: 10; pointer-events: none;
+  border-radius: var(--card-r);
+  box-shadow:
+    inset 0 0 0 7.5px  #100a04,
+    inset 0 0 0 8.75px #3a2410,
+    inset 0 0 0 11.25px #100a04,
+    inset 0 0 0 12.5px #1e1408;
+}
+.card-frame > svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+
+.card-header { position: absolute; inset: 0; z-index: 11; pointer-events: none; }
+.type-band {
+  position: absolute; left: 12.5px; right: 12.5px; top: 17.5px;
+  height: 35px;
+  background: linear-gradient(180deg, var(--bg-top) 0%, var(--bg-bot) 100%);
+  border-top: 1.5px solid var(--type-border);
+  border-bottom: 1.5px solid var(--type-border);
+  box-shadow: 0 5px 20px 0 var(--type-glow), inset 0 1px 0 rgba(255,200,80,0.04);
+  display: flex; align-items: center; justify-content: center; overflow: hidden;
+}
+.type-band::before, .type-band::after { content: ''; display: block; flex: 1; height: 1px; opacity: 0.5; }
+.type-band::before { background: linear-gradient(to right, transparent 0%, var(--type-border) 100%); margin-right: 10px; }
+.type-band::after  { background: linear-gradient(to left,  transparent 0%, var(--type-border) 100%); margin-left:  10px; }
+.type-label {
+  color: var(--type-text); font-family: 'Cinzel', Georgia, serif;
+  font-size: 9px; font-weight: 700; letter-spacing: 5px; text-transform: uppercase;
+  white-space: nowrap; flex-shrink: 0; text-shadow: 0 0 12px var(--type-glow);
+}
+
+.card-title {
+  position: absolute; left: 22.5px; right: 22.5px; top: 65px;
+  text-align: center; color: #dcc06a; font-family: 'Cinzel', Georgia, serif;
+  font-size: 26px; font-weight: 700; letter-spacing: 0.5px; line-height: 1.2;
+  text-shadow: 0 1px 10px rgba(0,0,0,0.95);
+}
+.title-rule {
+  position: absolute; left: 67.5px; right: 67.5px; top: 103px; height: 1px;
+  background: linear-gradient(to right, transparent, var(--type-border) 25%, var(--type-border) 75%, transparent);
+  opacity: 0.6;
+}
+
+.mech-frame {
+  position: absolute; left: 22.5px; right: 22.5px; bottom: 22.5px;
+  height: 420px; z-index: 12; pointer-events: none;
+  background: linear-gradient(to bottom, transparent 0%, rgba(122,72,24,.25) 10%, rgba(122,72,24,.25) 90%, transparent 100%);
+}
+.mech-rule {
+  position: absolute; left: 17.5px; right: 17.5px; height: 1px;
+  background: linear-gradient(to right, transparent, var(--type-border) 18%, var(--type-border) 82%, transparent);
+  opacity: 0.55;
+}
+.mech-rule-top { top: 0; }
+.mech-rule-bot { bottom: 0; }
+
+.mech-sections {
+  position: absolute; top: 1px; bottom: 1px; left: 0; right: 0;
+  display: flex; flex-direction: column; overflow: hidden;
+}
+.sec {
+  width: 100%; flex-shrink: 0; position: relative;
+  display: flex; flex-direction: column;
+}
+.sec::before, .sec::after {
+  content: ''; position: absolute; left: 0; right: 0; height: 1px; opacity: 0.7;
+}
+.sec::before { top: 0; }
+.sec::after  { bottom: 0; }
+
+.sec-passive { height: 38px; background: rgba(48,120,240,0.15); }
+.sec-passive::before, .sec-passive::after {
+  background: linear-gradient(to right, transparent, #3078f0 18%, #3078f0 82%, transparent);
+}
+.sec-trigger-entry { height: 110px; background: rgba(240,200,48,0.15); }
+.sec-trigger-entry::before, .sec-trigger-entry::after {
+  background: linear-gradient(to right, transparent, #f0c830 18%, #f0c830 82%, transparent);
+}
+.sec-actions { height: 52px; background: rgba(232,80,48,0.15); }
+.sec-actions::before, .sec-actions::after {
+  background: linear-gradient(to right, transparent, #e85030 18%, #e85030 82%, transparent);
+}
+.sec-trigger-exit { height: 210px; background: rgba(240,200,48,0.15); }
+.sec-trigger-exit::before, .sec-trigger-exit::after {
+  background: linear-gradient(to right, transparent, #f0c830 18%, #f0c830 82%, transparent);
+}
+
+.effect-row {
+  flex: 1; display: flex; align-items: center; gap: 5px; padding: 0 10px; min-height: 48px;
+}
+.effect-lead {
+  flex-shrink: 0; width: 48px; height: 48px;
+  display: flex; align-items: center; justify-content: center;
+}
+.trigger-label {
+  font-family: 'Crimson Text', Georgia, serif;
+  font-size: 10px; font-style: italic; font-weight: 400;
+  color: rgba(212,184,122,0.55);
+  white-space: nowrap; flex-shrink: 0;
+}
+.trigger-arrow {
+  font-family: 'Crimson Text', Georgia, serif;
+  font-size: 13px; color: rgba(212,184,122,0.45);
+  flex-shrink: 0; margin: 0 2px;
+}
+.effect-row-passive { padding-left: 58px; }
+.effect-text {
+  flex: 1; font-family: 'Crimson Text', Georgia, serif;
+  font-size: 13px; font-style: normal; font-weight: 400;
+  color: rgba(220,200,160,0.82); line-height: 1.15;
+}
+.sym-group { display: inline-flex; align-items: center; gap: 2px; vertical-align: middle; }
+.sym-mod {
+  font-family: 'Crimson Text', Georgia, serif;
+  font-size: 14px; font-weight: 600; font-style: normal;
+  color: rgba(220,200,160,0.92); line-height: 1;
+}
+</style>
+</head>
+<body>
+
+<svg style="display:none" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <filter id="corner-glow" x="-80%" y="-80%" width="260%" height="260%">
+    <feGaussianBlur stdDeviation="3.5" result="blur"/>
+    <feComposite in="blur" operator="over"/>
+  </filter>
+
+  <symbol id="frame-d" viewBox="0 0 300 420" overflow="visible">
+    <rect x="14" y="14" width="272" height="392" rx="4" fill="none" stroke="#3a2410" stroke-width="0.65" opacity="0.75"/>
+    <polygon points="3,3 15,32 32,15"  fill="#7a5030" opacity="0.12" filter="url(#corner-glow)"/>
+    <polygon points="5,5 14,30 30,14"  fill="#5a3820" opacity="0.22"/>
+    <polygon points="7,7 14,27 27,14"  fill="#3e2c1a" opacity="0.9"/>
+    <polygon points="9,9 14,21 21,14"  fill="#6a4828" opacity="0.45"/>
+    <polygon points="297,3 285,32 268,15"  fill="#7a5030" opacity="0.12" filter="url(#corner-glow)"/>
+    <polygon points="295,5 286,30 270,14"  fill="#5a3820" opacity="0.22"/>
+    <polygon points="293,7 286,27 273,14"  fill="#3e2c1a" opacity="0.9"/>
+    <polygon points="291,9 286,21 279,14"  fill="#6a4828" opacity="0.45"/>
+    <polygon points="3,417 32,405 15,388"  fill="#7a5030" opacity="0.12" filter="url(#corner-glow)"/>
+    <polygon points="5,415 30,406 14,390"  fill="#5a3820" opacity="0.22"/>
+    <polygon points="7,413 27,406 14,393"  fill="#3e2c1a" opacity="0.9"/>
+    <polygon points="9,411 21,406 14,399"  fill="#6a4828" opacity="0.45"/>
+    <polygon points="297,417 268,405 285,388"  fill="#7a5030" opacity="0.12" filter="url(#corner-glow)"/>
+    <polygon points="295,415 270,406 286,390"  fill="#5a3820" opacity="0.22"/>
+    <polygon points="293,413 273,406 286,393"  fill="#3e2c1a" opacity="0.9"/>
+    <polygon points="291,411 279,406 286,399"  fill="#6a4828" opacity="0.45"/>
+    <polygon points="150,7 157,14 143,14"     fill="#3e2c1a" opacity="0.85"/>
+    <polygon points="150,9 155,14 145,14"     fill="#6a4828" opacity="0.4"/>
+    <polygon points="150,413 143,406 157,406"  fill="#3e2c1a" opacity="0.85"/>
+    <polygon points="150,411 145,406 155,406"  fill="#6a4828" opacity="0.4"/>
+    <polygon points="7,210 14,203 14,217"     fill="#3e2c1a" opacity="0.85"/>
+    <polygon points="9,210 14,205 14,215"     fill="#6a4828" opacity="0.4"/>
+    <polygon points="293,210 286,217 286,203"  fill="#3e2c1a" opacity="0.85"/>
+    <polygon points="291,210 286,215 286,205"  fill="#6a4828" opacity="0.4"/>
+    <line x1="42"  y1="14"  x2="126" y2="14"  stroke="#281806" stroke-width="0.8" stroke-dasharray="5,4"/>
+    <line x1="174" y1="14"  x2="258" y2="14"  stroke="#281806" stroke-width="0.8" stroke-dasharray="5,4"/>
+    <line x1="42"  y1="406" x2="126" y2="406" stroke="#281806" stroke-width="0.8" stroke-dasharray="5,4"/>
+    <line x1="174" y1="406" x2="258" y2="406" stroke="#281806" stroke-width="0.8" stroke-dasharray="5,4"/>
+    <line x1="14"  y1="46"  x2="14"  y2="186" stroke="#281806" stroke-width="0.8" stroke-dasharray="5,4"/>
+    <line x1="14"  y1="234" x2="14"  y2="374" stroke="#281806" stroke-width="0.8" stroke-dasharray="5,4"/>
+    <line x1="286" y1="46"  x2="286" y2="186" stroke="#281806" stroke-width="0.8" stroke-dasharray="5,4"/>
+    <line x1="286" y1="234" x2="286" y2="374" stroke="#281806" stroke-width="0.8" stroke-dasharray="5,4"/>
+  </symbol>
+
+  <symbol id="art-d" viewBox="0 0 300 420">
+    <defs>
+      <linearGradient id="a-sky" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%"   stop-color="#0a0818"/>
+        <stop offset="40%"  stop-color="#161028"/>
+        <stop offset="100%" stop-color="#080a08"/>
+      </linearGradient>
+      <radialGradient id="a-glow" cx="50%" cy="42%" r="32%">
+        <stop offset="0%"   stop-color="#d8a050" stop-opacity="0.40"/>
+        <stop offset="60%"  stop-color="#603018" stop-opacity="0.18"/>
+        <stop offset="100%" stop-color="transparent"/>
+      </radialGradient>
+      <radialGradient id="a-vig" cx="50%" cy="50%" r="62%">
+        <stop offset="30%" stop-color="transparent"/>
+        <stop offset="100%" stop-color="#000" stop-opacity="0.85"/>
+      </radialGradient>
+    </defs>
+    <rect width="300" height="420" fill="url(#a-sky)"/>
+    <rect width="300" height="420" fill="url(#a-glow)"/>
+    <ellipse cx="150" cy="280" rx="220" ry="40" fill="#0a0a08" opacity="0.85"/>
+    <path d="M 0 230 L 30 200 L 50 220 L 80 180 L 110 215 L 140 195 L 170 220 L 200 185 L 230 215 L 260 200 L 300 230 L 300 420 L 0 420 Z" fill="#0c0808" opacity="0.92"/>
+    <rect width="300" height="420" fill="url(#a-vig)"/>
+  </symbol>
+
+  <symbol id="icon-shield" viewBox="0 0 24 24">
+    <path d="M12 2 L20 5 L20 12 Q20 19 12 22 Q4 19 4 12 L4 5 Z"
+          fill="#4090e0" stroke="#205098" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  </symbol>
+  <symbol id="icon-damage" viewBox="0 0 24 24">
+    <polygon points="12,2 13.4,8.2 17.8,4.5 15.6,10.3 22,10.8 16.9,14.2 19.6,20.1 13.2,17 12,23 10.5,17.1 4.2,20.5 6.7,14.4 1,11.2 7.5,10.2 5,4.8 10.7,8.1"
+             fill="#f0c030" stroke="#a08000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  </symbol>
+  <symbol id="icon-heal" viewBox="0 0 24 24">
+    <path d="M12 21 C9 18 3 14 3 9 C3 6 5.5 4 8 5 C10 5.8 11 7.5 12 9 C13 7.5 14 5.8 16 5 C18.5 4 21 6 21 9 C21 14 15 18 12 21 Z"
+          fill="#e84020" stroke="#901808" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  </symbol>
+  <symbol id="icon-reveal-character" viewBox="0 0 24 24">
+    <rect x="6" y="5" width="13" height="16" rx="1.5" fill="#a89e18" stroke="#807800" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>
+    <rect x="2" y="2" width="13" height="16" rx="1.5" fill="#d4cc30" stroke="#807800" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>
+    <circle cx="8.5" cy="7.5" r="1.8" fill="#1a0e04"/>
+    <path d="M5.5 14.5 Q5.5 11 8.5 11 Q11.5 11 11.5 14.5" fill="#1a0e04" stroke="none"/>
+  </symbol>
+
+  <!--
+    §7 Trigger Symbols — v04-a: NATURALISTIC PICTOGRAPHIC
+    ═══════════════════════════════════════════════════════
+    Concept: each symbol uses a recognizable real-world object silhouette
+    that intuitively communicates the trigger. Dark body + amber detail.
+    ViewBox: 0 0 48 48 | Rendered: 48×48 (matching activation track markers)
+
+    trig-reveal      — On Reveal       — wide-open eye with radiating lash lines (seeing for the first time)
+    trig-enter       — On Enter        — open doorway with arrow entering (crossing a threshold)
+    trig-char-phase  — Character Phase — hourglass (passage of a character's time phase)
+    trig-leave       — On Leave        — open door with arrow exiting outward
+    trig-complete    — On Complete     — wax seal with checkmark impression
+    trig-flow-marker — On Flow Marker  — diamond token on a track rail with forward arrow
+  -->
+
+  <!-- On Reveal — wide open eye, amber iris with dark pupil, short lash/ray lines radiating from corners
+       The eye opening = the moment of seeing/revealing something hidden -->
+  <symbol id="trig-reveal" viewBox="0 0 48 48">
+    <!-- Amber lash rays radiating from eye corners (drawn behind body) -->
+    <line x1="4" y1="14" x2="8" y2="18" stroke="#d4b87a" stroke-width="2" stroke-linecap="round"/>
+    <line x1="2" y1="24" x2="7" y2="24" stroke="#d4b87a" stroke-width="2" stroke-linecap="round"/>
+    <line x1="4" y1="34" x2="8" y2="30" stroke="#d4b87a" stroke-width="2" stroke-linecap="round"/>
+    <line x1="44" y1="14" x2="40" y2="18" stroke="#d4b87a" stroke-width="2" stroke-linecap="round"/>
+    <line x1="46" y1="24" x2="41" y2="24" stroke="#d4b87a" stroke-width="2" stroke-linecap="round"/>
+    <line x1="44" y1="34" x2="40" y2="30" stroke="#d4b87a" stroke-width="2" stroke-linecap="round"/>
+    <!-- Dark eye body — almond / pointed oval -->
+    <path d="M4 24 Q12 8 24 8 Q36 8 44 24 Q36 40 24 40 Q12 40 4 24 Z"
+          fill="#1a0e04" stroke="none"/>
+    <!-- Amber iris -->
+    <circle cx="24" cy="24" r="9" fill="#d4b87a"/>
+    <!-- Dark pupil -->
+    <circle cx="24" cy="24" r="4.5" fill="#1a0e04"/>
+    <!-- Small amber highlight dot in pupil (life / seeing) -->
+    <circle cx="22" cy="22" r="1.8" fill="#d4b87a"/>
+  </symbol>
+
+  <!-- On Enter — doorway frame with inward arrow: dark door frame rectangle, amber open space,
+       dark arrow entering from outside (left) into the amber interior -->
+  <symbol id="trig-enter" viewBox="0 0 48 48">
+    <!-- Dark door frame — thick outer rectangle -->
+    <rect x="12" y="4" width="32" height="40" rx="2" fill="#1a0e04"/>
+    <!-- Amber doorway opening (inner rectangle) -->
+    <rect x="18" y="10" width="20" height="34" rx="1" fill="#d4b87a"/>
+    <!-- Dark threshold step at bottom of door -->
+    <rect x="18" y="38" width="20" height="6" fill="#1a0e04"/>
+    <!-- Dark arrow entering from left into the doorway -->
+    <polygon points="4,24 14,18 14,21 24,21 24,27 14,27 14,30"
+             fill="#1a0e04" stroke="none"/>
+    <!-- Dark door handle on right side of opening -->
+    <circle cx="35" cy="27" r="2" fill="#1a0e04"/>
+  </symbol>
+
+  <!-- Character Phase — hourglass: dark hourglass body with amber sand flowing
+       Hourglass = the passage of time in a character's turn phase -->
+  <symbol id="trig-char-phase" viewBox="0 0 48 48">
+    <!-- Dark hourglass body -->
+    <path d="M10 4 L38 4 L38 8 Q38 18 24 24 Q38 30 38 40 L38 44 L10 44 L10 40 Q10 30 24 24 Q10 18 10 8 Z"
+          fill="#1a0e04" stroke="none"/>
+    <!-- Amber top plate -->
+    <rect x="8" y="3" width="32" height="4" rx="2" fill="#d4b87a"/>
+    <!-- Amber bottom plate -->
+    <rect x="8" y="41" width="32" height="4" rx="2" fill="#d4b87a"/>
+    <!-- Amber sand in upper chamber -->
+    <path d="M16 10 L32 10 Q30 18 24 21 Q18 18 16 10 Z" fill="#d4b87a" opacity="0.7"/>
+    <!-- Amber sand stream through neck -->
+    <rect x="22.5" y="21" width="3" height="6" fill="#d4b87a" opacity="0.6"/>
+    <!-- Amber sand pile in lower chamber -->
+    <path d="M16 38 Q18 32 24 28 Q30 32 32 38 Z" fill="#d4b87a" opacity="0.8"/>
+  </symbol>
+
+  <!-- On Leave — door frame with arrow exiting outward to the right
+       Arrow pointing out through a doorway = departure -->
+  <symbol id="trig-leave" viewBox="0 0 48 48">
+    <!-- Dark door frame — thick outer rectangle -->
+    <rect x="4" y="4" width="32" height="40" rx="2" fill="#1a0e04"/>
+    <!-- Amber doorway opening (inner rectangle) -->
+    <rect x="10" y="10" width="20" height="34" rx="1" fill="#d4b87a"/>
+    <!-- Dark threshold step at bottom -->
+    <rect x="10" y="38" width="20" height="6" fill="#1a0e04"/>
+    <!-- Dark arrow exiting from doorway to the right -->
+    <polygon points="24,21 34,21 34,18 44,24 34,30 34,27 24,27"
+             fill="#1a0e04" stroke="none"/>
+    <!-- Dark door handle on left side of opening -->
+    <circle cx="13" cy="27" r="2" fill="#1a0e04"/>
+  </symbol>
+
+  <!-- On Complete — wax seal / stamp with checkmark impression
+       A round wax seal = official completion / confirmation -->
+  <symbol id="trig-complete" viewBox="0 0 48 48">
+    <!-- Amber ribbon tails behind seal -->
+    <path d="M16 36 L10 46 L16 42 L18 46 L20 38" fill="#d4b87a" opacity="0.6"/>
+    <path d="M32 36 L38 46 L32 42 L30 46 L28 38" fill="#d4b87a" opacity="0.6"/>
+    <!-- Dark circular seal body -->
+    <circle cx="24" cy="24" r="17" fill="#1a0e04"/>
+    <!-- Amber ring border of seal -->
+    <circle cx="24" cy="24" r="14" fill="none" stroke="#d4b87a" stroke-width="2.5"/>
+    <!-- Amber inner ring (double-ring seal border) -->
+    <circle cx="24" cy="24" r="11" fill="none" stroke="#d4b87a" stroke-width="1" opacity="0.5"/>
+    <!-- Amber bold checkmark impressed into seal -->
+    <polyline points="16,24 21,30 33,17"
+              fill="none" stroke="#d4b87a" stroke-width="4"
+              stroke-linecap="round" stroke-linejoin="round"/>
+  </symbol>
+
+  <!-- On Flow Marker — diamond token sitting on a horizontal track rail with a forward arrow
+       Token advancing onto a slot = On Flow Marker trigger concept -->
+  <symbol id="trig-flow-marker" viewBox="0 0 48 48">
+    <!-- Dark horizontal track rail -->
+    <rect x="2" y="28" width="44" height="6" rx="3" fill="#1a0e04"/>
+    <!-- Amber rail edge highlight -->
+    <rect x="2" y="28" width="44" height="6" rx="3" fill="none" stroke="#d4b87a" stroke-width="1.5" opacity="0.4"/>
+    <!-- Amber tick marks on rail (slots) -->
+    <line x1="14" y1="27" x2="14" y2="35" stroke="#d4b87a" stroke-width="1.5" opacity="0.4"/>
+    <line x1="26" y1="27" x2="26" y2="35" stroke="#d4b87a" stroke-width="1.5" opacity="0.4"/>
+    <line x1="38" y1="27" x2="38" y2="35" stroke="#d4b87a" stroke-width="1.5" opacity="0.4"/>
+    <!-- Dark diamond token resting on the rail at the second slot -->
+    <polygon points="26,8 38,20 26,32 14,20" fill="#1a0e04"/>
+    <!-- Amber inner diamond face on token -->
+    <polygon points="26,12 34,20 26,28 18,20" fill="#d4b87a" opacity="0.7"/>
+    <!-- Dark center pip on token -->
+    <polygon points="26,17 29,20 26,23 23,20" fill="#1a0e04"/>
+    <!-- Amber forward arrow (advancing motion) -->
+    <path d="M36,14 L44,14 L42,10 L48,16 L42,22 L44,18 L36,18 Z" fill="#d4b87a" opacity="0.65"/>
+  </symbol>
+
+</defs>
+</svg>
+
+<div class="card">
+  <div class="card-fill"></div>
+  <div class="card-image"><svg viewBox="0 0 300 420" xmlns="http://www.w3.org/2000/svg"><use href="#art-d"/></svg></div>
+  <div class="grad-top"></div>
+  <div class="grad-body"></div>
+  <div class="card-frame"><svg xmlns="http://www.w3.org/2000/svg"><use href="#frame-d"/></svg></div>
+  <div class="card-header">
+    <div class="type-band"><span class="type-label">Persona</span></div>
+    <div class="card-title">The Wanderer</div>
+    <div class="title-rule"></div>
+  </div>
+
+  <div class="mech-frame">
+    <div class="mech-rule mech-rule-top"></div>
+    <div class="mech-sections">
+
+      <!-- Passive section -->
+      <div class="sec sec-passive">
+        <div class="effect-row effect-row-passive">
+          <span class="effect-text">
+            <span class="sym-group"><svg width="16" height="16"><use href="#icon-shield"/></svg><span class="sym-mod">1</span></span>
+            Armor while in a Location
+          </span>
+        </div>
+      </div>
+
+      <!-- Trigger-entry: On Reveal + On Enter -->
+      <div class="sec sec-trigger-entry">
+        <div class="effect-row">
+          <div class="effect-lead">
+            <svg width="48" height="48"><use href="#trig-reveal"/></svg>
+          </div>
+          <span class="trigger-label">On Reveal</span>
+          <span class="trigger-arrow">&rarr;</span>
+          <span class="effect-text">
+            Reveal <span class="sym-group"><svg width="16" height="16"><use href="#icon-reveal-character"/></svg><span class="sym-mod">2</span></span> from any deck
+          </span>
+        </div>
+        <div class="effect-row">
+          <div class="effect-lead">
+            <svg width="48" height="48"><use href="#trig-enter"/></svg>
+          </div>
+          <span class="trigger-label">On Enter</span>
+          <span class="trigger-arrow">&rarr;</span>
+          <span class="effect-text">Draw 1 card when entering a new Location</span>
+        </div>
+      </div>
+
+      <!-- Actions -->
+      <div class="sec sec-actions">
+        <div class="effect-row">
+          <div class="effect-lead">
+            <svg width="48" height="48" viewBox="0 0 48 48">
+              <polygon points="24,6 42,24 24,42 6,24"
+                    fill="rgba(232,80,48,0.18)" stroke="#e85030" stroke-width="3"
+                    stroke-linecap="round" stroke-linejoin="round"/>
+              <polygon points="24,14 34,24 24,34 14,24"
+                    fill="#d4b87a" opacity="0.6"/>
+              <polygon points="24,19 29,24 24,29 19,24"
+                    fill="#1a0e04"/>
+            </svg>
+          </div>
+          <span class="effect-text">
+            Strike <span class="sym-group"><svg width="16" height="16"><use href="#icon-damage"/></svg><span class="sym-mod">3</span></span> an adjacent enemy
+          </span>
+        </div>
+      </div>
+
+      <!-- Trigger-exit: On Leave, Character Phase, On Complete, On Flow Marker -->
+      <div class="sec sec-trigger-exit">
+        <div class="effect-row">
+          <div class="effect-lead">
+            <svg width="48" height="48"><use href="#trig-leave"/></svg>
+          </div>
+          <span class="trigger-label">On Leave</span>
+          <span class="trigger-arrow">&rarr;</span>
+          <span class="effect-text">
+            Gain <span class="sym-group"><svg width="16" height="16"><use href="#icon-heal"/></svg><span class="sym-mod">1</span></span> when leaving a hostile Location
+          </span>
+        </div>
+        <div class="effect-row">
+          <div class="effect-lead">
+            <svg width="48" height="48"><use href="#trig-char-phase"/></svg>
+          </div>
+          <span class="trigger-label">Character Phase</span>
+          <span class="trigger-arrow">&rarr;</span>
+          <span class="effect-text">Move 1 space at start of Character Phase</span>
+        </div>
+        <div class="effect-row">
+          <div class="effect-lead">
+            <svg width="48" height="48"><use href="#trig-complete"/></svg>
+          </div>
+          <span class="trigger-label">On Complete</span>
+          <span class="trigger-arrow">&rarr;</span>
+          <span class="effect-text">Remove from play when quest is Complete</span>
+        </div>
+        <div class="effect-row">
+          <div class="effect-lead">
+            <svg width="48" height="48"><use href="#trig-flow-marker"/></svg>
+          </div>
+          <span class="trigger-label">On Flow Marker</span>
+          <span class="trigger-arrow">&rarr;</span>
+          <span class="effect-text">Advance track and draw 1 card</span>
+        </div>
+      </div>
+
+    </div>
+    <div class="mech-rule mech-rule-bot"></div>
+  </div>
+</div>
+
+</body>
+</html>

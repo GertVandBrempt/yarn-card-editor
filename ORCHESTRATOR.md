@@ -19,7 +19,7 @@ This file is read and written by scheduled agents. Do not edit manually during a
 ```
 blocked_for_weekly_review: false
 weekly_review_due: 2026-05-30T08:00:00Z
-last_orchestrator_run: 2026-06-01T00:18:19Z
+last_orchestrator_run: 2026-06-01T06:22:41Z
 last_status_notification: 2026-05-31T12:00:00Z
 ```
 
@@ -32,7 +32,7 @@ Streams are **independent** — a blocked stream does not pause other streams.
 ### Card Design
 - **Mode**: autonomous
 - **Source**: design/VISUAL.md, design/card-index.md
-- **Status**: active — cooldown-trigger-marker-v02-a/b/c geometry corrected; trigger-symbols-v04 next; 4 design elements accepted; marker shapes accepted; Tasks 2–3 blocked on cooldown trigger acceptance
+- **Status**: active — trigger-symbols-v04-a/b/c created (3 iconographic styles at 48px); cooldown-trigger-marker-v02 and die-symbols-v02 awaiting acceptance; Tasks 2–3 blocked on cooldown trigger acceptance
 
 #### Accepted design elements (2026-05-28)
 - ✅ **effects-container-v04** — gradient-fade section borders (opacity 0.7), 0.15 translucent fill; see VISUAL.md §6
@@ -127,14 +127,14 @@ Create new activation track variants for all four primitive track types using th
 **Hold:** effects-v04 — create only after trigger symbols + activation tracks both accepted
 
 - **Blocked on**: —
-- **Last notified**: 2026-06-01T00:18:19Z
+- **Last notified**: 2026-06-01T06:22:41Z
 
 ---
 
 ### App Design
 - **Mode**: autonomous
 - **Source**: APP.md
-- **Status**: active — Task 0 (effect variant selector bug) fixed; Task 1 next (dynamic container rendering); Tasks 3–5 queued
+- **Status**: active — Task 1 (dynamic container rendering) complete; Task 3 next (subtitle design); Tasks 4–5 queued
 
 #### Known issues (all resolved 2026-05-28)
 1. ~~**Site not on GitHub Pages**~~ — ✅ deploy.yml deleted (redundant); orchestrator owns build+deploy cycle
@@ -198,7 +198,7 @@ After Card Design propagates accepted baselines → re-sync updated baseline HTM
   - Review gallery: `docs/review/` ✅ (migrated 2026-05-28T00:17:35Z)
   - `.nojekyll`: `docs/.nojekyll` ✅ (created 2026-05-28T00:17:35Z)
 - **Blocked on**: —
-- **Last notified**: 2026-06-01T00:18:19Z
+- **Last notified**: 2026-06-01T06:22:41Z
 
 ---
 
@@ -354,6 +354,8 @@ _(none)_
 | 2026-05-31T18:16:02Z | Orchestrator | C: App Design | Task 1 partial — model imports added to PreviewService; gallery updated; variant mirroring done (79 files); app rebuilt; functional form-field wiring still pending |
 | 2026-06-01T00:18:19Z | Orchestrator | B: Card Design | cooldown-trigger-marker-v02-a/b/c all corrected — fixed bounding-box violations in options B (inset moved to x=39) and C (inset moved to x=37); standardized all markers to 48x48 rendering; added "On Flow Marker" trigger labels per design-stage convention; CHANGES.md updated |
 | 2026-06-01T00:18:19Z | Orchestrator | C: App Design | Task 0 complete — fixed effect variant selector bug in effect-editor.component.ts; gallery re-synced (79 variants); app rebuilt and redeployed |
+| 2026-06-01T06:22:41Z | Orchestrator | B: Card Design | trigger-symbols-v04-a/b/c created — 3 iconographic styles (naturalistic/theatrical/heraldic) at 48×48 viewBox; all 6 trigger types; v03 marked superseded in CHANGES.md |
+| 2026-06-01T06:22:41Z | Orchestrator | C: App Design | Task 1 complete — dynamic container rendering: removed fixed heights from all 4 effect container sections; empty containers hidden; mech-frame hidden when all sections empty; gallery synced; app rebuilt |
 
 ---
 

@@ -1,4 +1,4 @@
-<!-- card-variant: cooldown-trigger-marker-v02-a | Cooldown trigger marker v02 option A — hollow diamond with right vertex cut open; small inset diamond (half-diag 5) fills the cutout; compact, precise inset; lightest weight -->
+<!-- card-variant: activation-track-multiturn-v02-c | Multi-turn track v02 option C — diamond activation marker; 1 hollow cooldown diamond; generous spacing between shapes; directional arrow; no cooldown trigger; no return arrow -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -95,18 +95,39 @@ body { margin: 0; display: flex; justify-content: center; align-items: flex-star
   opacity: 0.6;
 }
 
+/*
+  Option C — Multi-turn v02
+  Diamond activation marker (inner diamond) + 1 hollow cooldown diamond.
+  Only 1 cooldown slot (shorter track than A's 2 and B's 3).
+  No cooldown trigger. Generous spacing between the two shapes — airy layout.
+  The single arrow connecting them is longer, showing the deliberate distance.
+  mech-frame height: 130px — compact single-row frame.
+*/
 .mech-frame {
   position: absolute;
   left: 22.5px; right: 22.5px;
   bottom: 22.5px;
-  height: auto;
+  height: 130px;
   z-index: 12;
   pointer-events: none;
+  background: linear-gradient(to bottom, transparent 0%, rgba(122,72,24,.25) 10%, rgba(122,72,24,.25) 90%, transparent 100%);
 }
+.mech-rule {
+  position: absolute;
+  left: 17.5px; right: 17.5px;
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--type-border) 18%, var(--type-border) 82%, transparent);
+  opacity: 0.55;
+}
+.mech-rule-top { top: 0; }
+.mech-rule-bot { bottom: 0; }
+
 .mech-sections {
-  position: relative;
+  position: absolute;
+  top: 1px; bottom: 1px; left: 0; right: 0;
   display: flex;
   flex-direction: column;
+  overflow: hidden;
 }
 .sec {
   width: 100%;
@@ -125,27 +146,22 @@ body { margin: 0; display: flex; justify-content: center; align-items: flex-star
 .sec::before { top: 0; }
 .sec::after  { bottom: 0; }
 
+/* actions — red */
 .sec-actions { flex: 1; background: rgba(232,80,48,0.15); }
 .sec-actions::before, .sec-actions::after {
   background: linear-gradient(to right, transparent, #e85030 18%, #e85030 82%, transparent);
 }
 
+/* Effect row */
 .effect-row {
   display: flex;
   align-items: center;
   gap: 8px;
   padding: 0 10px;
-  height: 72px;
+  flex: 1;
 }
 
-.flow-row {
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  padding: 0 10px;
-  height: 52px;
-}
-
+/* Leading track slot — wide enough for the vertical diamond track */
 .effect-lead {
   flex-shrink: 0;
   width: 52px;
@@ -155,6 +171,7 @@ body { margin: 0; display: flex; justify-content: center; align-items: flex-star
   justify-content: center;
 }
 
+/* Effect text */
 .effect-text {
   flex: 1;
   font-family: 'Crimson Text', Georgia, serif;
@@ -164,16 +181,6 @@ body { margin: 0; display: flex; justify-content: center; align-items: flex-star
   color: rgba(220,200,160,0.82);
   line-height: 1.3;
   align-self: center;
-}
-
-.trigger-label {
-  font-family: 'Crimson Text', Georgia, serif;
-  font-size: 10px;
-  font-style: italic;
-  font-weight: 400;
-  color: rgba(212,184,122,0.55);
-  line-height: 1;
-  white-space: nowrap;
 }
 
 .sym-group {
@@ -260,83 +267,70 @@ body { margin: 0; display: flex; justify-content: center; align-items: flex-star
     <rect width="300" height="420" fill="url(#a-vig)"/>
   </symbol>
 
-  <symbol id="icon-damage" viewBox="0 0 24 24">
-    <polygon points="12,2 13.4,8.2 17.8,4.5 15.6,10.3 22,10.8 16.9,14.2 19.6,20.1 13.2,17 12,23 10.5,17.1 4.2,20.5 6.7,14.4 1,11.2 7.5,10.2 5,4.8 10.7,8.1"
-             fill="#f0c030" stroke="#a08000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-  </symbol>
-
   <symbol id="icon-shield" viewBox="0 0 24 24">
-    <path d="M12 2 L20 5 L20 11 C20 16 16 20 12 22 C8 20 4 16 4 11 L4 5 Z"
-          fill="#4090e0" stroke="#1a0e04" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M12 2L4 5.5V11C4 15.55 7.42 19.74 12 21C16.58 19.74 20 15.55 20 11V5.5L12 2Z"
+          fill="#4090e0" stroke="#1a4080" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
   </symbol>
 
   <!--
-    ACTIVATION MARKER (reference — accepted activation-track-basic-v01-b)
-    Diamond with inner diamond. viewBox 0 0 52 52.
-    Centered at (26,26), outer half-diagonal 22, inner half-diagonal 13.
+    Option C — Multi-turn Track v02
+    ══════════════════════════════════════════════════
+    Locked shapes (§8):
+      • Activation marker: DIAMOND with INNER DIAMOND
+        Outer diamond: half-diagonal 22 (large — generous sizing)
+        Inner diamond: half-diagonal 11, amber fill
+        Center pip: dark diamond half-diagonal 4.5
+      • Cooldown slot 1: HOLLOW/EMPTY DIAMOND
+        Outer diamond: half-diagonal 18 (same visual weight as activation outer)
+        Amber edge stroke to define shape
+      • Connecting arrow: longer than A/B — reflects spacious layout
+      • NO cooldown trigger. NO return arrow.
+
+    Spacing philosophy (option C distinction):
+      - Activation and cooldown are further apart — breathing room
+      - The single cooldown slot is larger than in A/B (same half-diag)
+      - The arrow between them is noticeably longer (~20px gap)
+      - The overall composition feels less packed, more deliberate
+
+    Layout (centered on x=26):
+      [ACTIVATION DIAMOND]  y-center=26   half-diag=22
+           ↓ long arrow  y=48..68
+      [COOLDOWN HOLLOW]     y-center=88   half-diag=18
+
+    Total height: ~106 px
+    viewBox: 0 0 52 108
+    Color: dark body #1a0e04, amber detail #d4b87a
   -->
-  <symbol id="marker-activation" viewBox="0 0 52 52">
-    <polygon points="26,4 48,26 26,48 4,26" fill="#1a0e04" stroke="none"/>
-    <polygon points="26,4 48,26 26,48 4,26" fill="none" stroke="#d4b87a" stroke-width="2" opacity="0.55"/>
-    <polygon points="26,13 39,26 26,39 13,26" fill="#d4b87a" stroke="none"/>
-    <polygon points="26,22 31,26 26,30 21,26" fill="#1a0e04" stroke="none"/>
-  </symbol>
+  <symbol id="track-multiturn-v02c" viewBox="0 0 52 108">
 
-  <!--
-    FLOW MARKER (cooldown slot — accepted activation-track-multiturn-v02-a)
-    Hollow / empty diamond. viewBox 0 0 52 52.
-    Centered at (26,26), outer half-diagonal 20.
-  -->
-  <symbol id="marker-flow" viewBox="0 0 52 52">
-    <polygon points="26,6 46,26 26,46 6,26" fill="#1a0e04" stroke="none"/>
-    <polygon points="26,9 43,26 26,43 9,26" fill="none" stroke="#d4b87a" stroke-width="1.5" opacity="0.55"/>
-  </symbol>
+    <!-- === ACTIVATION MARKER: diamond with inner diamond (large) === -->
+    <!-- Outer diamond body: half-diagonal 22 -->
+    <polygon points="26,4 48,26 26,48 4,26"
+             fill="#1a0e04" stroke="none"/>
+    <!-- Inner diamond: half-diagonal 11, amber fill -->
+    <polygon points="26,15 37,26 26,37 15,26"
+             fill="#d4b87a" stroke="none"/>
+    <!-- Center pip: dark diamond half-diagonal 4.5 -->
+    <polygon points="26,21.5 30.5,26 26,30.5 21.5,26"
+             fill="#1a0e04" stroke="none"/>
 
-  <!--
-    COOLDOWN TRIGGER MARKER — v02 Option A: COMPACT INSET
-    ══════════════════════════════════════════════════════════════════════════
-    Same outer diamond silhouette and bounding box as the flow marker.
-    The right vertex of the outer diamond is cut open — the stroke is
-    interrupted at the right point. A smaller inset diamond (styled like
-    the activation marker's inner diamond) sits in that cutout, fully
-    within the original marker boundary.
+    <!-- === CONNECTING ARROW: long spacing between activation and cooldown === -->
+    <!-- Arrow line — noticeably longer than option A or B -->
+    <line x1="26" y1="49" x2="26" y2="64"
+          stroke="#1a0e04" stroke-width="1.5" stroke-linecap="round"/>
+    <!-- Arrowhead pointing down -->
+    <polygon points="26,69 22,63 30,63" fill="#1a0e04"/>
 
-    Option A approach: SMALL, precise inset diamond — lightest visual weight.
-    - Outer diamond: same as flow marker (half-diag 20, centered at 26,26)
-    - Inset diamond: half-diagonal 5 (10px tip-to-tip) — compact
-    - Inset center: (41,26), rightmost tip at x=46 (flush with outer boundary)
-    - Inset diamond fill: solid amber #d4b87a — same as activation marker inner
-    - Inset has a small dark center pip (half-diag 2)
-    - No stroke on inset (solid fill only) — lightest treatment
-    - Gap in outer stroke: top-right edge stops at ~(37,21), bottom-right stops at ~(37,31)
+    <!-- === COOLDOWN SLOT 1: hollow/empty diamond (large) === -->
+    <!-- Outer diamond body: half-diagonal 18 -->
+    <polygon points="26,72 44,90 26,108 8,90"
+             fill="#1a0e04" stroke="none"/>
+    <!-- Amber edge stroke — hollow silhouette, slightly thicker for larger shape -->
+    <polygon points="26,75 41,90 26,105 11,90"
+             fill="none" stroke="#d4b87a" stroke-width="1.5" opacity="0.55"/>
 
-    viewBox: 0 0 52 52 — same footprint as flow marker
-  -->
-  <symbol id="marker-cooldown-trigger-a" viewBox="0 0 52 52">
-    <!-- Outer diamond body — full dark fill, same as flow marker -->
-    <polygon points="26,6 46,26 26,46 6,26" fill="#1a0e04" stroke="none"/>
+    <!-- NOTE: no cooldown trigger, no return arrow — single cooldown cycle per §8 -->
 
-    <!-- Outer diamond stroke — four line segments, skipping the right vertex area.
-         The outer stroke runs on the inset path (26,9)-(43,26)-(26,43)-(9,26).
-         Top-right segment: stops at (37.5,20.5) to leave gap for inset top.
-         Bottom-right segment: starts at (37.5,31.5) to leave gap for inset bottom. -->
-    <line x1="26" y1="9" x2="9" y2="26" stroke="#d4b87a" stroke-width="1.5" opacity="0.55" stroke-linecap="round"/>
-    <line x1="9" y1="26" x2="26" y2="43" stroke="#d4b87a" stroke-width="1.5" opacity="0.55" stroke-linecap="round"/>
-    <line x1="26" y1="43" x2="37.5" y2="31.5" stroke="#d4b87a" stroke-width="1.5" opacity="0.55" stroke-linecap="round"/>
-    <line x1="37.5" y1="20.5" x2="26" y2="9" stroke="#d4b87a" stroke-width="1.5" opacity="0.55" stroke-linecap="round"/>
-
-    <!-- Inset diamond — compact (half-diag 5), centered at (41,26)
-         Tips: top (41,21), right (46,26), bottom (41,31), left (36,26).
-         Rightmost tip at x=46, flush with outer diamond right vertex.
-         Styled like the activation marker's inner diamond: solid amber fill + dark pip. -->
-    <polygon points="41,21 46,26 41,31 36,26" fill="#d4b87a" stroke="none"/>
-    <polygon points="41,24 43,26 41,28 39,26" fill="#1a0e04" stroke="none"/>
-  </symbol>
-
-  <!-- Connecting arrow between markers (downward) -->
-  <symbol id="connector-down" viewBox="0 0 52 14">
-    <line x1="26" y1="0" x2="26" y2="8" stroke="#1a0e04" stroke-width="1.5" stroke-linecap="round"/>
-    <polygon points="26,14 22,7 30,7" fill="#1a0e04"/>
   </symbol>
 
 </defs>
@@ -350,78 +344,37 @@ body { margin: 0; display: flex; justify-content: center; align-items: flex-star
   <div class="card-frame"><svg xmlns="http://www.w3.org/2000/svg"><use href="#frame-d"/></svg></div>
   <div class="card-header">
     <div class="type-band"><span class="type-label">Persona</span></div>
-    <div class="card-title">The Wayfarer</div>
+    <div class="card-title">The Arbiter</div>
     <div class="title-rule"></div>
   </div>
 
   <!--
-    Actions section — multi-turn track with cooldown trigger.
-    Row 1: activation marker -> "Strike for [damage]2"
-    Row 2: flow marker (hollow diamond) — pure delay slot
-    Row 3: cooldown trigger marker v02-a (compact inset diamond) -> "On Flow Marker -> Gain [shield]1"
+    Actions section — single Multi-turn action row.
+    Option C: Activation diamond (large) + 1 hollow cooldown diamond (large).
+    Generous spacing between shapes; arrow is noticeably longer than A/B.
+    No cooldown trigger. No return arrow.
+    Single effect row — track runs full height of the section.
   -->
   <div class="mech-frame">
+    <div class="mech-rule mech-rule-top"></div>
     <div class="mech-sections">
 
       <div class="sec sec-actions">
-
-        <!-- Row 1: activation marker -> effect -->
         <div class="effect-row">
           <div class="effect-lead">
-            <svg width="48" height="48" viewBox="0 0 52 52" preserveAspectRatio="xMidYMid meet">
-              <use href="#marker-activation"/>
+            <svg width="52" height="108" viewBox="0 0 52 108" preserveAspectRatio="xMidYMid meet">
+              <use href="#track-multiturn-v02c"/>
             </svg>
           </div>
           <span class="effect-text">
-            Strike an adjacent enemy for
-            <span class="sym-group"><svg width="16" height="16"><use href="#icon-damage"/></svg><span class="sym-mod">2</span></span>
+            Defend — gain
+            <span class="sym-group"><svg width="16" height="16"><use href="#icon-shield"/></svg><span class="sym-mod">2</span></span>
           </span>
         </div>
-
-        <!-- Connector arrow: activation -> flow -->
-        <div class="flow-row" style="height:18px; padding:0 10px;">
-          <div class="effect-lead">
-            <svg width="52" height="14" viewBox="0 0 52 14" preserveAspectRatio="xMidYMid meet">
-              <use href="#connector-down"/>
-            </svg>
-          </div>
-        </div>
-
-        <!-- Row 2: flow marker — pure delay slot -->
-        <div class="flow-row">
-          <div class="effect-lead">
-            <svg width="48" height="48" viewBox="0 0 52 52" preserveAspectRatio="xMidYMid meet">
-              <use href="#marker-flow"/>
-            </svg>
-          </div>
-        </div>
-
-        <!-- Connector arrow: flow -> cooldown trigger -->
-        <div class="flow-row" style="height:18px; padding:0 10px;">
-          <div class="effect-lead">
-            <svg width="52" height="14" viewBox="0 0 52 14" preserveAspectRatio="xMidYMid meet">
-              <use href="#connector-down"/>
-            </svg>
-          </div>
-        </div>
-
-        <!-- Row 3: cooldown trigger marker v02-a -> effect -->
-        <div class="effect-row">
-          <div class="effect-lead">
-            <svg width="48" height="48" viewBox="0 0 52 52" preserveAspectRatio="xMidYMid meet">
-              <use href="#marker-cooldown-trigger-a"/>
-            </svg>
-          </div>
-          <span class="effect-text">
-            <span class="trigger-label">On Flow Marker</span> &rarr;
-            Gain
-            <span class="sym-group"><svg width="16" height="16"><use href="#icon-shield"/></svg><span class="sym-mod">1</span></span>
-          </span>
-        </div>
-
       </div>
 
     </div>
+    <div class="mech-rule mech-rule-bot"></div>
   </div>
 </div>
 

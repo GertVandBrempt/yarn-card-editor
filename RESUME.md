@@ -1,6 +1,6 @@
 # Yarn — Session Resume Context
 
-_Updated: 2026-06-01T00:18:19Z_
+_Updated: 2026-06-01T06:22:41Z_
 
 ---
 
@@ -15,15 +15,15 @@ Card types: **Location, Character, Item, Event, Quest, Persona, Script**
 ## Current stream status
 
 ### Card Design
-**Status:** Active — cooldown-trigger-marker-v02-a/b/c geometry fully corrected  
-**Situation:** All three v02 options now have inset diamonds correctly within the outer boundary. Trigger-symbols-v04 is next (requires iconography research). Tasks 2 and 3 (baseline propagation, activation track rework) still blocked on cooldown trigger marker acceptance.  
-**Awaiting acceptance:** cooldown-trigger-marker-v02 (a/b/c), die-symbols-v02 (a/b/c), trigger-symbols-v04 (pending)  
+**Status:** Active — trigger-symbols-v04-a/b/c created  
+**Situation:** Three new trigger symbol variants designed at 48×48 (naturalistic pictographic / theatrical dramatic / heraldic emblem styles). All 6 trigger types covered. v03 marked superseded. Cooldown-trigger-marker-v02 and die-symbols-v02 still awaiting acceptance. Tasks 2–3 (baseline propagation, activation track rework) blocked on cooldown trigger acceptance.  
+**Awaiting acceptance:** cooldown-trigger-marker-v02 (a/b/c), die-symbols-v02 (a/b/c), trigger-symbols-v04 (a/b/c)  
 **To unblock:** accept one of the cooldown-trigger-marker-v02 options at the review gallery.
 
 ### App Design
-**Status:** Active — Task 0 complete, Task 1 next  
-**Situation:** Effect variant selector bug fixed — `onVariantChange()` now correctly assigns the variant before emitting. App rebuilt and redeployed. Review gallery re-synced.  
-**Next:** Task 1 (dynamic container rendering with effects-container-v04 styling); then Tasks 3–5 queued.
+**Status:** Active — Task 1 complete, Task 3 next  
+**Situation:** Dynamic container rendering implemented — removed fixed heights from all 4 effect container sections; empty containers hidden; mech-frame hidden when fully empty. App rebuilt and redeployed. Review gallery synced.  
+**Next:** Task 3 (subtitle design implementation); then Tasks 4–5 queued.
 
 ---
 

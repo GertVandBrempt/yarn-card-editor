@@ -401,11 +401,13 @@ const TRIGGER_LABELS: Record<string, string> = {
   'on-flow-marker': 'On Flow Marker',
 };
 
-/** Height per rendered effect row (px). */
+/**
+ * Height constants are used only for the mech-frame fallback min-height.
+ * Individual sections no longer use fixed heights — they auto-size
+ * to their content (dynamic container rendering per VISUAL.md §6.0).
+ */
 const ROW_HEIGHT = 28;
-/** Height of a section label header (px). */
 const LABEL_HEIGHT = 18;
-/** Height of the flavour text zone (px). */
 const FLAVOUR_HEIGHT = 42;
 
 @Injectable({ providedIn: 'root' })
@@ -476,10 +478,20 @@ export class PreviewService {
       html = this.replace(html, '{{cardImage}}', '');
     }
 
-    // ── Mechanics sections ──────────────────────────────
+    // ── Mechanics sections (dynamic container rendering per VISUAL.md §6.0) ──
+    // Containers render only when they contain at least one row.
+    // Empty containers produce no shell and no gap.
     const { sectionsHtml, totalHeight } = this.buildMechSections(card);
     html = this.replace(html, '{{mechSections}}', sectionsHtml);
-    html = this.replace(html, '{{mechHeight}}', String(totalHeight));
+    // When there are no mechanics sections, hide the mech-frame entirely (no empty shell, no gap)
+    if (totalHeight === 0) {
+      html = html.replace(
+        /style="height:\{\{mechHeight\}\}px"/,
+        'style="display:none"'
+      );
+    } else {
+      html = this.replace(html, '{{mechHeight}}', String(totalHeight));
+    }
 
     // ── Set symbol (set-symbol-v01-a accepted) ──────────
     // Show the set symbol whenever the card belongs to a set (setId is always present)
@@ -556,20 +568,18 @@ export class PreviewService {
    */
   private buildMechSections(card: AnyCard): { sectionsHtml: string; totalHeight: number } {
     const sections: string[] = [];
-    let height = 0;
+    let estimatedHeight = 0;
 
     // ── 1) Passive / Permanent effects ──────────────────
+    // Render only when at least one row exists; hide entirely when empty (no shell, no gap)
     const passives = this.getPassiveEffects(card);
     if (passives.length > 0) {
-      const labelH = LABEL_HEIGHT;
-      const rowsH = passives.length * ROW_HEIGHT;
-      const secH = labelH + rowsH;
-      height += secH;
+      estimatedHeight += LABEL_HEIGHT + passives.length * ROW_HEIGHT;
       const rowsHtml = passives.map(p =>
         `<div class="effect-row"><span class="effect-text">${this.renderEffectText(p.text)}</span></div>`
       ).join('');
       sections.push(
-        `<div class="sec sec-passive" style="height:${secH}px">` +
+        `<div class="sec sec-passive">` +
         `<div class="effect-label">Permanent</div>${rowsHtml}</div>`
       );
     }
@@ -577,13 +587,10 @@ export class PreviewService {
     // ── 2) Entry triggers (on-reveal, on-enter) ─────────
     const entryTriggers = this.getEntryTriggers(card);
     if (entryTriggers.length > 0) {
-      const labelH = LABEL_HEIGHT;
-      const rowsH = entryTriggers.length * ROW_HEIGHT;
-      const secH = labelH + rowsH;
-      height += secH;
+      estimatedHeight += LABEL_HEIGHT + entryTriggers.length * ROW_HEIGHT;
       const rowsHtml = entryTriggers.map(t => this.renderTriggerRow(t)).join('');
       sections.push(
-        `<div class="sec sec-trigger" style="height:${secH}px">` +
+        `<div class="sec sec-trigger">` +
         `<div class="effect-label">Entry</div>${rowsHtml}</div>`
       );
     }
@@ -591,17 +598,15 @@ export class PreviewService {
     // ── 3) Actions ──────────────────────────────────────
     const actions = this.getActions(card);
     if (actions.length > 0) {
-      const labelH = LABEL_HEIGHT;
       let actionsRowCount = 0;
       const rowsHtml = actions.map(a => {
         const rows = this.renderActionRows(a);
         actionsRowCount += rows.count;
         return rows.html;
       }).join('');
-      const secH = labelH + actionsRowCount * ROW_HEIGHT;
-      height += secH;
+      estimatedHeight += LABEL_HEIGHT + actionsRowCount * ROW_HEIGHT;
       sections.push(
-        `<div class="sec sec-actions" style="height:${secH}px">` +
+        `<div class="sec sec-actions">` +
         `<div class="effect-label">Action</div>${rowsHtml}</div>`
       );
     }
@@ -609,32 +614,29 @@ export class PreviewService {
     // ── 4) Exit triggers (on-leave, on-complete) ────────
     const exitTriggers = this.getExitTriggers(card);
     if (exitTriggers.length > 0) {
-      const labelH = LABEL_HEIGHT;
-      const rowsH = exitTriggers.length * ROW_HEIGHT;
-      const secH = labelH + rowsH;
-      height += secH;
+      estimatedHeight += LABEL_HEIGHT + exitTriggers.length * ROW_HEIGHT;
       const rowsHtml = exitTriggers.map(t => this.renderTriggerRow(t)).join('');
       sections.push(
-        `<div class="sec sec-leave" style="height:${secH}px">` +
+        `<div class="sec sec-leave">` +
         `<div class="effect-label">Exit</div>${rowsHtml}</div>`
       );
     }
 
     // ── 5) Flavour text (flavour-text-v01-c accepted) ───
     if (card.flavourText && card.flavourText.trim()) {
-      height += FLAVOUR_HEIGHT;
+      estimatedHeight += FLAVOUR_HEIGHT;
       sections.push(
-        `<div class="sec sec-flavour" style="height:${FLAVOUR_HEIGHT}px">` +
+        `<div class="sec sec-flavour">` +
         `<div class="flavour-inner"><span class="flavour-text">${this.escapeHtml(card.flavourText)}</span></div></div>`
       );
     }
 
-    // Minimum height when sections exist: ensure frame is visible
-    if (height === 0) {
-      height = 2; // Only top+bottom mech rules visible (no content)
+    // When no sections exist the mech-frame collapses to 0 — hidden entirely
+    if (estimatedHeight === 0) {
+      estimatedHeight = 0;
     }
 
-    return { sectionsHtml: sections.join(''), totalHeight: height };
+    return { sectionsHtml: sections.join(''), totalHeight: estimatedHeight };
   }
 
   // ── Data extraction helpers (type-aware) ──────────────

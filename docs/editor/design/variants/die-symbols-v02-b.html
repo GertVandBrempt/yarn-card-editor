@@ -1,4 +1,4 @@
-<!-- card-variant: cooldown-trigger-marker-v02-a | Cooldown trigger marker v02 option A — hollow diamond with right vertex cut open; small inset diamond (half-diag 5) fills the cutout; compact, precise inset; lightest weight -->
+<!-- card-variant: die-symbols-v02-b | Die Symbols v02 option B — flat square die face + single centered star; per-type color coding (Constitution=Red, Zeal=Blue, Path=Green); star is HEAVY-WEIGHT 5-point with wider arms; thicker color border accent; boldest star treatment -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -95,11 +95,18 @@ body { margin: 0; display: flex; justify-content: center; align-items: flex-star
   opacity: 0.6;
 }
 
+/*
+  Option B — Die Symbols v02-b
+  HEAVY STAR — larger outer radius (6.2), wider inner radius (3.2) = fatter arms.
+  Thicker border accent: 1.2px stroke at 0.55 opacity.
+  Star fills the die face more aggressively, reads very clearly at 20px.
+  Slightly brighter/more saturated color variants to match heavier presence.
+*/
 .mech-frame {
   position: absolute;
   left: 22.5px; right: 22.5px;
   bottom: 22.5px;
-  height: auto;
+  height: 180px;
   z-index: 12;
   pointer-events: none;
 }
@@ -107,6 +114,7 @@ body { margin: 0; display: flex; justify-content: center; align-items: flex-star
   position: relative;
   display: flex;
   flex-direction: column;
+  height: 100%;
 }
 .sec {
   width: 100%;
@@ -125,7 +133,15 @@ body { margin: 0; display: flex; justify-content: center; align-items: flex-star
 .sec::before { top: 0; }
 .sec::after  { bottom: 0; }
 
-.sec-actions { flex: 1; background: rgba(232,80,48,0.15); }
+.sec-passive { height: 56px; background: rgba(48,120,240,0.15); }
+.sec-passive::before, .sec-passive::after {
+  background: linear-gradient(to right, transparent, #3078f0 18%, #3078f0 82%, transparent);
+}
+.sec-trigger { height: 56px; background: rgba(240,200,48,0.15); }
+.sec-trigger::before, .sec-trigger::after {
+  background: linear-gradient(to right, transparent, #f0c830 18%, #f0c830 82%, transparent);
+}
+.sec-actions { height: 66px; background: rgba(232,80,48,0.15); }
 .sec-actions::before, .sec-actions::after {
   background: linear-gradient(to right, transparent, #e85030 18%, #e85030 82%, transparent);
 }
@@ -135,24 +151,7 @@ body { margin: 0; display: flex; justify-content: center; align-items: flex-star
   align-items: center;
   gap: 8px;
   padding: 0 10px;
-  height: 72px;
-}
-
-.flow-row {
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  padding: 0 10px;
-  height: 52px;
-}
-
-.effect-lead {
-  flex-shrink: 0;
-  width: 52px;
-  align-self: stretch;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  flex: 1;
 }
 
 .effect-text {
@@ -162,18 +161,8 @@ body { margin: 0; display: flex; justify-content: center; align-items: flex-star
   font-style: normal;
   font-weight: 400;
   color: rgba(220,200,160,0.82);
-  line-height: 1.3;
+  line-height: 1.4;
   align-self: center;
-}
-
-.trigger-label {
-  font-family: 'Crimson Text', Georgia, serif;
-  font-size: 10px;
-  font-style: italic;
-  font-weight: 400;
-  color: rgba(212,184,122,0.55);
-  line-height: 1;
-  white-space: nowrap;
 }
 
 .sym-group {
@@ -260,83 +249,69 @@ body { margin: 0; display: flex; justify-content: center; align-items: flex-star
     <rect width="300" height="420" fill="url(#a-vig)"/>
   </symbol>
 
+  <!--
+    Option B — Die Symbols v02-b: HEAVY STAR, THICK BORDER ACCENT
+    ══════════════════════════════════════════════════════════════════
+    Larger star: outer radius 6.2, inner radius 3.2 → fatter, wider arms.
+    The star occupies more of the die face, giving stronger color presence.
+    Thicker border accent: 1.2px at 0.55 opacity.
+    Slightly more saturated colors to match the heavier visual weight.
+
+    Constitution: #e03838 (brighter red)
+    Zeal:         #4080e0 (brighter blue)
+    Path:         #40c060 (brighter green)
+
+    Star points (outer r=6.2, inner r=3.2, center at 12,12):
+      P0 (top):        12, 5.8
+      i0:              13.43, 9.53
+      P1 (upper-right): 17.89, 10.08
+      i1:              14.46, 12.48
+      P2 (lower-right): 15.64, 16.40
+      i2:              12, 13.96
+      P3 (lower-left):  8.36, 16.40
+      i3:              9.54, 12.48
+      P4 (upper-left):  6.11, 10.08
+      i4:              10.57, 9.53
+  -->
+
+  <!-- Constitution: Bold red star -->
+  <symbol id="icon-die-constitution" viewBox="0 0 24 24">
+    <rect x="2" y="2" width="20" height="20" rx="2"
+          fill="#1a0e04" stroke="#1a0e04" stroke-width="2.5"
+          stroke-linecap="round" stroke-linejoin="round"/>
+    <!-- Thick red border accent -->
+    <rect x="3" y="3" width="18" height="18" rx="1.5"
+          fill="none" stroke="#e03838" stroke-width="1.2" opacity="0.55"/>
+    <!-- Red 5-point star — heavy, fat arms -->
+    <polygon points="12,5.8 13.43,9.53 17.89,10.08 14.46,12.48 15.64,16.40 12,13.96 8.36,16.40 9.54,12.48 6.11,10.08 10.57,9.53"
+             fill="#e03838" stroke="none"/>
+  </symbol>
+
+  <!-- Zeal: Bold blue star -->
+  <symbol id="icon-die-zeal" viewBox="0 0 24 24">
+    <rect x="2" y="2" width="20" height="20" rx="2"
+          fill="#1a0e04" stroke="#1a0e04" stroke-width="2.5"
+          stroke-linecap="round" stroke-linejoin="round"/>
+    <rect x="3" y="3" width="18" height="18" rx="1.5"
+          fill="none" stroke="#4080e0" stroke-width="1.2" opacity="0.55"/>
+    <polygon points="12,5.8 13.43,9.53 17.89,10.08 14.46,12.48 15.64,16.40 12,13.96 8.36,16.40 9.54,12.48 6.11,10.08 10.57,9.53"
+             fill="#4080e0" stroke="none"/>
+  </symbol>
+
+  <!-- Path: Bold green star -->
+  <symbol id="icon-die-path" viewBox="0 0 24 24">
+    <rect x="2" y="2" width="20" height="20" rx="2"
+          fill="#1a0e04" stroke="#1a0e04" stroke-width="2.5"
+          stroke-linecap="round" stroke-linejoin="round"/>
+    <rect x="3" y="3" width="18" height="18" rx="1.5"
+          fill="none" stroke="#40c060" stroke-width="1.2" opacity="0.55"/>
+    <polygon points="12,5.8 13.43,9.53 17.89,10.08 14.46,12.48 15.64,16.40 12,13.96 8.36,16.40 9.54,12.48 6.11,10.08 10.57,9.53"
+             fill="#40c060" stroke="none"/>
+  </symbol>
+
   <symbol id="icon-damage" viewBox="0 0 24 24">
     <polygon points="12,2 13.4,8.2 17.8,4.5 15.6,10.3 22,10.8 16.9,14.2 19.6,20.1 13.2,17 12,23 10.5,17.1 4.2,20.5 6.7,14.4 1,11.2 7.5,10.2 5,4.8 10.7,8.1"
              fill="#f0c030" stroke="#a08000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-  </symbol>
-
-  <symbol id="icon-shield" viewBox="0 0 24 24">
-    <path d="M12 2 L20 5 L20 11 C20 16 16 20 12 22 C8 20 4 16 4 11 L4 5 Z"
-          fill="#4090e0" stroke="#1a0e04" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-  </symbol>
-
-  <!--
-    ACTIVATION MARKER (reference — accepted activation-track-basic-v01-b)
-    Diamond with inner diamond. viewBox 0 0 52 52.
-    Centered at (26,26), outer half-diagonal 22, inner half-diagonal 13.
-  -->
-  <symbol id="marker-activation" viewBox="0 0 52 52">
-    <polygon points="26,4 48,26 26,48 4,26" fill="#1a0e04" stroke="none"/>
-    <polygon points="26,4 48,26 26,48 4,26" fill="none" stroke="#d4b87a" stroke-width="2" opacity="0.55"/>
-    <polygon points="26,13 39,26 26,39 13,26" fill="#d4b87a" stroke="none"/>
-    <polygon points="26,22 31,26 26,30 21,26" fill="#1a0e04" stroke="none"/>
-  </symbol>
-
-  <!--
-    FLOW MARKER (cooldown slot — accepted activation-track-multiturn-v02-a)
-    Hollow / empty diamond. viewBox 0 0 52 52.
-    Centered at (26,26), outer half-diagonal 20.
-  -->
-  <symbol id="marker-flow" viewBox="0 0 52 52">
-    <polygon points="26,6 46,26 26,46 6,26" fill="#1a0e04" stroke="none"/>
-    <polygon points="26,9 43,26 26,43 9,26" fill="none" stroke="#d4b87a" stroke-width="1.5" opacity="0.55"/>
-  </symbol>
-
-  <!--
-    COOLDOWN TRIGGER MARKER — v02 Option A: COMPACT INSET
-    ══════════════════════════════════════════════════════════════════════════
-    Same outer diamond silhouette and bounding box as the flow marker.
-    The right vertex of the outer diamond is cut open — the stroke is
-    interrupted at the right point. A smaller inset diamond (styled like
-    the activation marker's inner diamond) sits in that cutout, fully
-    within the original marker boundary.
-
-    Option A approach: SMALL, precise inset diamond — lightest visual weight.
-    - Outer diamond: same as flow marker (half-diag 20, centered at 26,26)
-    - Inset diamond: half-diagonal 5 (10px tip-to-tip) — compact
-    - Inset center: (41,26), rightmost tip at x=46 (flush with outer boundary)
-    - Inset diamond fill: solid amber #d4b87a — same as activation marker inner
-    - Inset has a small dark center pip (half-diag 2)
-    - No stroke on inset (solid fill only) — lightest treatment
-    - Gap in outer stroke: top-right edge stops at ~(37,21), bottom-right stops at ~(37,31)
-
-    viewBox: 0 0 52 52 — same footprint as flow marker
-  -->
-  <symbol id="marker-cooldown-trigger-a" viewBox="0 0 52 52">
-    <!-- Outer diamond body — full dark fill, same as flow marker -->
-    <polygon points="26,6 46,26 26,46 6,26" fill="#1a0e04" stroke="none"/>
-
-    <!-- Outer diamond stroke — four line segments, skipping the right vertex area.
-         The outer stroke runs on the inset path (26,9)-(43,26)-(26,43)-(9,26).
-         Top-right segment: stops at (37.5,20.5) to leave gap for inset top.
-         Bottom-right segment: starts at (37.5,31.5) to leave gap for inset bottom. -->
-    <line x1="26" y1="9" x2="9" y2="26" stroke="#d4b87a" stroke-width="1.5" opacity="0.55" stroke-linecap="round"/>
-    <line x1="9" y1="26" x2="26" y2="43" stroke="#d4b87a" stroke-width="1.5" opacity="0.55" stroke-linecap="round"/>
-    <line x1="26" y1="43" x2="37.5" y2="31.5" stroke="#d4b87a" stroke-width="1.5" opacity="0.55" stroke-linecap="round"/>
-    <line x1="37.5" y1="20.5" x2="26" y2="9" stroke="#d4b87a" stroke-width="1.5" opacity="0.55" stroke-linecap="round"/>
-
-    <!-- Inset diamond — compact (half-diag 5), centered at (41,26)
-         Tips: top (41,21), right (46,26), bottom (41,31), left (36,26).
-         Rightmost tip at x=46, flush with outer diamond right vertex.
-         Styled like the activation marker's inner diamond: solid amber fill + dark pip. -->
-    <polygon points="41,21 46,26 41,31 36,26" fill="#d4b87a" stroke="none"/>
-    <polygon points="41,24 43,26 41,28 39,26" fill="#1a0e04" stroke="none"/>
-  </symbol>
-
-  <!-- Connecting arrow between markers (downward) -->
-  <symbol id="connector-down" viewBox="0 0 52 14">
-    <line x1="26" y1="0" x2="26" y2="8" stroke="#1a0e04" stroke-width="1.5" stroke-linecap="round"/>
-    <polygon points="26,14 22,7 30,7" fill="#1a0e04"/>
   </symbol>
 
 </defs>
@@ -350,75 +325,46 @@ body { margin: 0; display: flex; justify-content: center; align-items: flex-star
   <div class="card-frame"><svg xmlns="http://www.w3.org/2000/svg"><use href="#frame-d"/></svg></div>
   <div class="card-header">
     <div class="type-band"><span class="type-label">Persona</span></div>
-    <div class="card-title">The Wayfarer</div>
+    <div class="card-title">The Stalwart</div>
     <div class="title-rule"></div>
   </div>
 
-  <!--
-    Actions section — multi-turn track with cooldown trigger.
-    Row 1: activation marker -> "Strike for [damage]2"
-    Row 2: flow marker (hollow diamond) — pure delay slot
-    Row 3: cooldown trigger marker v02-a (compact inset diamond) -> "On Flow Marker -> Gain [shield]1"
-  -->
   <div class="mech-frame">
     <div class="mech-sections">
 
+      <div class="sec sec-passive">
+        <div class="effect-row">
+          <span class="effect-text">
+            Gain +1 armor for each
+            <span class="sym-group"><svg width="20" height="20"><use href="#icon-die-constitution"/></svg></span>,
+            +1 speed per
+            <span class="sym-group"><svg width="20" height="20"><use href="#icon-die-zeal"/></svg></span>,
+            +1 insight per
+            <span class="sym-group"><svg width="20" height="20"><use href="#icon-die-path"/></svg></span>
+            rolled
+          </span>
+        </div>
+      </div>
+
+      <div class="sec sec-trigger">
+        <div class="effect-row">
+          <span class="effect-text">
+            On Reveal — if you rolled 2+
+            <span class="sym-group"><svg width="20" height="20"><use href="#icon-die-constitution"/></svg></span>,
+            draw a card
+          </span>
+        </div>
+      </div>
+
       <div class="sec sec-actions">
-
-        <!-- Row 1: activation marker -> effect -->
         <div class="effect-row">
-          <div class="effect-lead">
-            <svg width="48" height="48" viewBox="0 0 52 52" preserveAspectRatio="xMidYMid meet">
-              <use href="#marker-activation"/>
-            </svg>
-          </div>
           <span class="effect-text">
-            Strike an adjacent enemy for
-            <span class="sym-group"><svg width="16" height="16"><use href="#icon-damage"/></svg><span class="sym-mod">2</span></span>
+            When you roll 3+
+            <span class="sym-group"><svg width="20" height="20"><use href="#icon-die-path"/></svg></span>:
+            deal <span class="sym-group"><svg width="20" height="20"><use href="#icon-damage"/></svg><span class="sym-mod">4</span></span>
+            to target
           </span>
         </div>
-
-        <!-- Connector arrow: activation -> flow -->
-        <div class="flow-row" style="height:18px; padding:0 10px;">
-          <div class="effect-lead">
-            <svg width="52" height="14" viewBox="0 0 52 14" preserveAspectRatio="xMidYMid meet">
-              <use href="#connector-down"/>
-            </svg>
-          </div>
-        </div>
-
-        <!-- Row 2: flow marker — pure delay slot -->
-        <div class="flow-row">
-          <div class="effect-lead">
-            <svg width="48" height="48" viewBox="0 0 52 52" preserveAspectRatio="xMidYMid meet">
-              <use href="#marker-flow"/>
-            </svg>
-          </div>
-        </div>
-
-        <!-- Connector arrow: flow -> cooldown trigger -->
-        <div class="flow-row" style="height:18px; padding:0 10px;">
-          <div class="effect-lead">
-            <svg width="52" height="14" viewBox="0 0 52 14" preserveAspectRatio="xMidYMid meet">
-              <use href="#connector-down"/>
-            </svg>
-          </div>
-        </div>
-
-        <!-- Row 3: cooldown trigger marker v02-a -> effect -->
-        <div class="effect-row">
-          <div class="effect-lead">
-            <svg width="48" height="48" viewBox="0 0 52 52" preserveAspectRatio="xMidYMid meet">
-              <use href="#marker-cooldown-trigger-a"/>
-            </svg>
-          </div>
-          <span class="effect-text">
-            <span class="trigger-label">On Flow Marker</span> &rarr;
-            Gain
-            <span class="sym-group"><svg width="16" height="16"><use href="#icon-shield"/></svg><span class="sym-mod">1</span></span>
-          </span>
-        </div>
-
       </div>
 
     </div>

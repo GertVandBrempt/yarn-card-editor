@@ -492,7 +492,7 @@ Changed:
 - Palette: dark body #1a0e04 (same as trigger symbols); amber detail #d4b87a (matches trigger symbol detail color)
 - Display: all 3 die icons in same 3-section card layout as options A and B
 
-## trigger-symbols-v03 — First 3-option round for all 6 trigger symbols per §7 (2026-05-26)
+## trigger-symbols-v03 — SUPERSEDED by v04 — First 3-option round for all 6 trigger symbols per §7 (2026-05-26)
 Base: design/variants/trigger-symbols-v02.html (card structure reused; all 6 symbols redesigned per option)
 - trigger-symbols-v03-a.html — Option A: GEOMETRIC / ANGULAR — all shapes are sharp-edged polygons with no curves on main bodies
   - trig-reveal: 8-point star polygon (two overlapping squares) + amber inner diamond pip
@@ -573,6 +573,46 @@ Base: design/variants/activation-track-multiturn-v02-a.html (card structure reus
 - cooldown-trigger-marker-v01-b.html — Option B: LINE + ARROWHEAD — short amber stem line (6px, 1.5px stroke) extending rightward from right vertex, followed by a small separate filled arrowhead triangle; stem (47,26)→(54,26); arrowhead (53,21)→(59,26)→(53,31); gap-and-dart appearance; viewBox 0 0 64 52
 - cooldown-trigger-marker-v01-c.html — Option C: RIGHT-VERTEX NOTCH — no element extends beyond diamond boundary; instead the right vertex is cut inward to a concave V-notch: outer polygon points="26,6 44,22 40,26 44,30 26,46 6,26"; inner amber stroke mirrors the notch; small amber circle pip at notch apex (40,26) r=2; viewBox 0 0 52 52 (same footprint as flow marker)
 All three: dark body #1a0e04, amber detail #d4b87a; hollow diamond silhouette unchanged from flow marker; shown in context as Row 3 of a multi-turn track (activation row + flow marker row + cooldown trigger row) inside an action section on a Persona card "The Wayfarer"
+
+## trigger-symbols-v04 — Redesigned trigger symbols v04: 48×48 viewBox, intuitively legible pictographic icons, trigger name labels (2026-06-01)
+Base: design/variants/trigger-symbols-v03-a/b/c.html (card structure reused; all 6 symbols completely redesigned at 48×48 canvas per updated VISUAL.md §7 spec; v03 rejected)
+Supersedes: trigger-symbols-v03-a/b/c (v03 rejected — symbols were 24×24 viewBox at 20×20 rendered, too small and abstract; v04 uses 48×48 viewBox at 48×48 rendered to match activation track markers; all symbols must directly evoke trigger concept)
+
+- trigger-symbols-v04-a.html — Option A: NATURALISTIC PICTOGRAPHIC — real-world object silhouettes
+  - trig-reveal: wide-open eye silhouette (almond) + amber iris with dark pupil + highlight dot + radiating lash/ray lines — seeing/revealing
+  - trig-enter: dark door frame rectangle + amber doorway opening + dark arrow entering from left through doorway — crossing threshold
+  - trig-char-phase: dark hourglass body + amber top/bottom plates + amber sand in upper/lower chambers + sand stream through neck — passage of character time
+  - trig-leave: dark door frame + amber doorway + dark arrow exiting rightward through doorway — departure (mirrored enter)
+  - trig-complete: dark circular wax seal + amber double-ring border + amber ribbon tails + amber bold checkmark impression — official completion
+  - trig-flow-marker: dark horizontal track rail + amber tick marks + dark diamond token resting on rail + amber inner diamond + amber forward arrow — token advancing onto slot
+  - Distinguishing trait: everyday recognizable objects (eye, door, hourglass, seal, rail); most literal/universal iconography
+
+- trigger-symbols-v04-b.html — Option B: THEATRICAL / DRAMATIC — stage and narrative metaphors
+  - trig-reveal: dark parting curtain panels pulled aside + amber spotlight circle center + amber stage floor + amber tie-backs — theatrical unveiling
+  - trig-enter: dark crenellated gatehouse/portcullis frame + amber passage below + dark raised portcullis bars + dark arrow entering — castle gate entry
+  - trig-char-phase: dark elliptical sundial face + amber hour markers + amber gnomon triangle + dark shadow + amber dial ring — time passage via sundial
+  - trig-leave: dark crenellated gatehouse + portcullis lowered (bars blocking passage) + amber arrow exiting below — gate closing/departure
+  - trig-complete: amber parchment scroll body + dark rolled top/bottom ends + dark bold checkmark on body + dark text-line hints — completed quest scroll
+  - trig-flow-marker: dark stacked wave/current shapes + amber wave crest highlights + dark diamond token riding on wave + amber motion lines — current carrying token forward
+  - Distinguishing trait: medieval stage/narrative vocabulary (curtains, portcullis, sundial, scroll, waves); thematically aligned with card world
+
+- trigger-symbols-v04-c.html — Option C: HERALDIC / EMBLEM — medieval heraldic devices and charges
+  - trig-reveal: dark torch handle/shaft + amber layered flame (outer glow, mid, inner core) + amber grip wrapping + amber emanating light rays — torch illuminating the hidden
+  - trig-enter: dark shield-shaped escutcheon + amber keyhole (circle + slot) + dark key silhouette inserted + dark key ward + amber key bow ring at top — key unlocking entry
+  - trig-char-phase: dark great helm silhouette (flat top, rounded chin) + amber visor slit + amber breathing holes + amber crest ridge + amber rivets + amber nasal bar — knight acting in their phase
+  - trig-leave: dark chain link segments (left 2, right 2) + dark broken middle links pulling apart + amber fracture/break marks + amber sparks at break point — breaking free / departing
+  - trig-complete: dark laurel wreath (two branches of ellipse leaves curving up) + amber leaf veins + amber ribbon tie at base + amber bold checkmark in wreath center — victor's wreath
+  - trig-flow-marker: dark banner pole + amber pole finial + dark pennant/banner body unfurling right + amber border stripes + amber diamond device on banner + amber forward arrow below — heraldic banner advancing
+  - Distinguishing trait: medieval manuscript/heraldic language (torch, key, helm, chains, laurel, banner); most thematically decorative; strongest medieval identity
+
+All three options:
+- ViewBox: 0 0 48 48; rendered at 48×48 px (matching activation track marker size per §7 spec)
+- Palette: dark body #1a0e04 + amber/off-white detail #d4b87a (consistent across all triggers and options)
+- All 6 trigger types shown: On Reveal, On Enter, Character Phase, On Leave, On Complete, On Flow Marker
+- Trigger name labels (Crimson Text 10px italic, muted amber 55% opacity) between symbol and arrow per design-stage convention
+- Card mockup: Persona card "The Wanderer" with passive section, trigger-entry (2 rows), action (1 row), trigger-exit (4 rows)
+- mech-frame height: 420px to accommodate all 6 trigger rows at 48px minimum row height
+- a/b/c vary the iconographic interpretation per trigger concept — not the size, colour, or layout
 
 ## set-symbol-v01 — Three set symbol position/size/treatment design options (2026-05-26)
 Base: design/BASELINE.html (Persona palette; each file shows two cards side-by-side: one Persona + one other type to demonstrate cross-type consistency)

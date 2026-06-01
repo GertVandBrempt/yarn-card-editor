@@ -1,4 +1,4 @@
-<!-- card-variant: cooldown-trigger-marker-v02-a | Cooldown trigger marker v02 option A — hollow diamond with right vertex cut open; small inset diamond (half-diag 5) fills the cutout; compact, precise inset; lightest weight -->
+<!-- card-variant: cooldown-trigger-marker-v02-b | Cooldown trigger marker v02 option B — hollow diamond with right vertex cut open; medium inset diamond (half-diag 7) fills the cutout; amber fill + amber stroke border; moderate weight -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -270,11 +270,7 @@ body { margin: 0; display: flex; justify-content: center; align-items: flex-star
           fill="#4090e0" stroke="#1a0e04" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
   </symbol>
 
-  <!--
-    ACTIVATION MARKER (reference — accepted activation-track-basic-v01-b)
-    Diamond with inner diamond. viewBox 0 0 52 52.
-    Centered at (26,26), outer half-diagonal 22, inner half-diagonal 13.
-  -->
+  <!-- ACTIVATION MARKER -->
   <symbol id="marker-activation" viewBox="0 0 52 52">
     <polygon points="26,4 48,26 26,48 4,26" fill="#1a0e04" stroke="none"/>
     <polygon points="26,4 48,26 26,48 4,26" fill="none" stroke="#d4b87a" stroke-width="2" opacity="0.55"/>
@@ -282,58 +278,56 @@ body { margin: 0; display: flex; justify-content: center; align-items: flex-star
     <polygon points="26,22 31,26 26,30 21,26" fill="#1a0e04" stroke="none"/>
   </symbol>
 
-  <!--
-    FLOW MARKER (cooldown slot — accepted activation-track-multiturn-v02-a)
-    Hollow / empty diamond. viewBox 0 0 52 52.
-    Centered at (26,26), outer half-diagonal 20.
-  -->
+  <!-- FLOW MARKER -->
   <symbol id="marker-flow" viewBox="0 0 52 52">
     <polygon points="26,6 46,26 26,46 6,26" fill="#1a0e04" stroke="none"/>
     <polygon points="26,9 43,26 26,43 9,26" fill="none" stroke="#d4b87a" stroke-width="1.5" opacity="0.55"/>
   </symbol>
 
   <!--
-    COOLDOWN TRIGGER MARKER — v02 Option A: COMPACT INSET
+    COOLDOWN TRIGGER MARKER — v02 Option B: MEDIUM INSET WITH BORDER
     ══════════════════════════════════════════════════════════════════════════
     Same outer diamond silhouette and bounding box as the flow marker.
-    The right vertex of the outer diamond is cut open — the stroke is
-    interrupted at the right point. A smaller inset diamond (styled like
-    the activation marker's inner diamond) sits in that cutout, fully
-    within the original marker boundary.
+    Right vertex cut open. A MEDIUM inset diamond fills the cutout.
 
-    Option A approach: SMALL, precise inset diamond — lightest visual weight.
+    Option B approach: MEDIUM inset diamond with visible amber stroke border.
     - Outer diamond: same as flow marker (half-diag 20, centered at 26,26)
-    - Inset diamond: half-diagonal 5 (10px tip-to-tip) — compact
-    - Inset center: (41,26), rightmost tip at x=46 (flush with outer boundary)
-    - Inset diamond fill: solid amber #d4b87a — same as activation marker inner
-    - Inset has a small dark center pip (half-diag 2)
-    - No stroke on inset (solid fill only) — lightest treatment
-    - Gap in outer stroke: top-right edge stops at ~(37,21), bottom-right stops at ~(37,31)
+    - Inset diamond: half-diagonal 7 (14px tip-to-tip) — medium, more prominent than A
+    - Inset center: (39,26), rightmost tip at x=46 (flush with outer boundary)
+    - Inset diamond fill: solid amber #d4b87a
+    - Inset border stroke: amber #d4b87a, 1.5px, opacity 0.7 — adds a visible ring
+      that echoes the outer diamond's stroke treatment
+    - Inset has a dark center pip (half-diag 3) — slightly larger pip than A
+    - The stroke border around the inset makes it read more like a "mini activation
+      marker" — visually linking it to the activation marker's layered diamond style
 
     viewBox: 0 0 52 52 — same footprint as flow marker
   -->
-  <symbol id="marker-cooldown-trigger-a" viewBox="0 0 52 52">
-    <!-- Outer diamond body — full dark fill, same as flow marker -->
+  <symbol id="marker-cooldown-trigger-b" viewBox="0 0 52 52">
+    <!-- Outer diamond body — full dark fill -->
     <polygon points="26,6 46,26 26,46 6,26" fill="#1a0e04" stroke="none"/>
 
-    <!-- Outer diamond stroke — four line segments, skipping the right vertex area.
-         The outer stroke runs on the inset path (26,9)-(43,26)-(26,43)-(9,26).
-         Top-right segment: stops at (37.5,20.5) to leave gap for inset top.
-         Bottom-right segment: starts at (37.5,31.5) to leave gap for inset bottom. -->
+    <!-- Outer diamond stroke — segments with right vertex gap.
+         Gap spans from the edges meeting the inset diamond.
+         Top-right segment: stops at (35,19) to leave gap for inset.
+         Bottom-right segment: starts at (35,33) to leave gap for inset. -->
     <line x1="26" y1="9" x2="9" y2="26" stroke="#d4b87a" stroke-width="1.5" opacity="0.55" stroke-linecap="round"/>
     <line x1="9" y1="26" x2="26" y2="43" stroke="#d4b87a" stroke-width="1.5" opacity="0.55" stroke-linecap="round"/>
-    <line x1="26" y1="43" x2="37.5" y2="31.5" stroke="#d4b87a" stroke-width="1.5" opacity="0.55" stroke-linecap="round"/>
-    <line x1="37.5" y1="20.5" x2="26" y2="9" stroke="#d4b87a" stroke-width="1.5" opacity="0.55" stroke-linecap="round"/>
+    <line x1="26" y1="43" x2="35" y2="34" stroke="#d4b87a" stroke-width="1.5" opacity="0.55" stroke-linecap="round"/>
+    <line x1="35" y1="18" x2="26" y2="9" stroke="#d4b87a" stroke-width="1.5" opacity="0.55" stroke-linecap="round"/>
 
-    <!-- Inset diamond — compact (half-diag 5), centered at (41,26)
-         Tips: top (41,21), right (46,26), bottom (41,31), left (36,26).
-         Rightmost tip at x=46, flush with outer diamond right vertex.
-         Styled like the activation marker's inner diamond: solid amber fill + dark pip. -->
-    <polygon points="41,21 46,26 41,31 36,26" fill="#d4b87a" stroke="none"/>
-    <polygon points="41,24 43,26 41,28 39,26" fill="#1a0e04" stroke="none"/>
+    <!-- Inset diamond — medium size (half-diag 7), centered at (39,26)
+         Tips: top (39,19), right (46,26), bottom (39,33), left (32,26).
+         Rightmost tip at x=46, flush with outer diamond boundary.
+         Has both a solid amber fill AND a visible amber stroke border — the
+         border echoes the outer diamond edge treatment, creating a layered look. -->
+    <polygon points="39,19 46,26 39,33 32,26" fill="#d4b87a" stroke="none"/>
+    <polygon points="39,19 46,26 39,33 32,26" fill="none" stroke="#d4b87a" stroke-width="1.5" opacity="0.7"/>
+    <!-- Dark center pip — half-diag 3 -->
+    <polygon points="39,23 42,26 39,29 36,26" fill="#1a0e04" stroke="none"/>
   </symbol>
 
-  <!-- Connecting arrow between markers (downward) -->
+  <!-- Connecting arrow -->
   <symbol id="connector-down" viewBox="0 0 52 14">
     <line x1="26" y1="0" x2="26" y2="8" stroke="#1a0e04" stroke-width="1.5" stroke-linecap="round"/>
     <polygon points="26,14 22,7 30,7" fill="#1a0e04"/>
@@ -358,7 +352,7 @@ body { margin: 0; display: flex; justify-content: center; align-items: flex-star
     Actions section — multi-turn track with cooldown trigger.
     Row 1: activation marker -> "Strike for [damage]2"
     Row 2: flow marker (hollow diamond) — pure delay slot
-    Row 3: cooldown trigger marker v02-a (compact inset diamond) -> "On Flow Marker -> Gain [shield]1"
+    Row 3: cooldown trigger marker v02-b (medium inset diamond with border) -> "On Flow Marker -> Gain [shield]1"
   -->
   <div class="mech-frame">
     <div class="mech-sections">
@@ -378,7 +372,7 @@ body { margin: 0; display: flex; justify-content: center; align-items: flex-star
           </span>
         </div>
 
-        <!-- Connector arrow: activation -> flow -->
+        <!-- Connector arrow -->
         <div class="flow-row" style="height:18px; padding:0 10px;">
           <div class="effect-lead">
             <svg width="52" height="14" viewBox="0 0 52 14" preserveAspectRatio="xMidYMid meet">
@@ -396,7 +390,7 @@ body { margin: 0; display: flex; justify-content: center; align-items: flex-star
           </div>
         </div>
 
-        <!-- Connector arrow: flow -> cooldown trigger -->
+        <!-- Connector arrow -->
         <div class="flow-row" style="height:18px; padding:0 10px;">
           <div class="effect-lead">
             <svg width="52" height="14" viewBox="0 0 52 14" preserveAspectRatio="xMidYMid meet">
@@ -405,11 +399,11 @@ body { margin: 0; display: flex; justify-content: center; align-items: flex-star
           </div>
         </div>
 
-        <!-- Row 3: cooldown trigger marker v02-a -> effect -->
+        <!-- Row 3: cooldown trigger marker v02-b -> effect -->
         <div class="effect-row">
           <div class="effect-lead">
             <svg width="48" height="48" viewBox="0 0 52 52" preserveAspectRatio="xMidYMid meet">
-              <use href="#marker-cooldown-trigger-a"/>
+              <use href="#marker-cooldown-trigger-b"/>
             </svg>
           </div>
           <span class="effect-text">
