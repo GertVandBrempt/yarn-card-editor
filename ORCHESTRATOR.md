@@ -19,7 +19,7 @@ This file is read and written by scheduled agents. Do not edit manually during a
 ```
 blocked_for_weekly_review: false
 weekly_review_due: 2026-05-30T08:00:00Z
-last_orchestrator_run: 2026-06-01T18:16:51Z
+last_orchestrator_run: 2026-06-02T00:18:32Z
 last_status_notification: 2026-05-31T12:00:00Z
 ```
 
@@ -136,7 +136,7 @@ Create new activation track variants for all four primitive track types using th
 ### App Design
 - **Mode**: autonomous
 - **Source**: APP.md
-- **Status**: active — dynamic container rendering reimplemented (content-driven heights, hidden empty containers); Task 3 next (subtitle design); Tasks 4–5 queued
+- **Status**: active — Tasks 3 (subtitle), 4 (flavour text), 5 (set symbol) verified as already implemented in templates and PreviewService; Task 15 (form field wiring) complete; live preview pipeline fully functional; next work: new feature tasks or design element integration as accepted
 
 #### Known issues (all resolved 2026-05-28)
 1. ~~**Site not on GitHub Pages**~~ — ✅ deploy.yml deleted (redundant); orchestrator owns build+deploy cycle
@@ -153,27 +153,11 @@ The four effect containers (Permanent / Entry / Action / Exit) must:
 - Auto-scale height to their row count — no fixed heights, no overflow, no clipping
 - Apply the accepted `effects-container-v04` styling: 0.15 translucent fill + gradient-fade 1 px top and bottom border per container (opacity 0.7, transparent → color at 18–82% → transparent)
 
-**Task 3 — Implement accepted subtitle design (VISUAL.md §9.1)**
-`subtitle-v01-a` is accepted. Implement in all card preview templates:
-- Position: below the card title
-- Font: Cinzel 400 italic, amber, reduced opacity
-- Separator: short centre rule between title and subtitle
-- Hidden entirely when no subtitle value exists — title shifts down, no gap
+~~**Task 3 — Implement accepted subtitle design (VISUAL.md §9.1)**~~ — ✅ Complete (2026-06-02T00:18:32Z): already implemented in all 7 baseline templates and PreviewService
 
-**Task 4 — Implement accepted flavour text design (VISUAL.md §9.2)**
-`flavour-text-v01-c` is accepted. Implement in all card preview templates:
-- Position: borderless inset at the bottom of the mechanics frame
-- Top separator: internal gradient fade only — no rule line, no ornament
-- Fill: slightly darker translucent fill vs effect rows
-- Font: Crimson Text 14px italic
-- Hidden entirely when no flavour text value exists — no gap, no placeholder
+~~**Task 4 — Implement accepted flavour text design (VISUAL.md §9.2)**~~ — ✅ Complete (2026-06-02T00:18:32Z): already implemented in all 7 baseline templates and PreviewService
 
-**Task 5 — Implement accepted set symbol design (VISUAL.md §9.3)**
-`set-symbol-v01-a` is accepted. Implement in all card preview templates:
-- Position: bottom-right corner of the card
-- Container: dark circle with amber border ring
-- Glyph: small diamond placeholder inside the container
-- Size: 18px; shown only when a set is assigned to the card
+~~**Task 5 — Implement accepted set symbol design (VISUAL.md §9.3)**~~ — ✅ Complete (2026-06-02T00:18:32Z): already implemented in all 7 baseline templates and PreviewService
 
 #### Auto-sync rule (unchanged)
 After Card Design propagates accepted baselines → re-sync updated baseline HTMLs into `yarn-card-editor/src/assets/templates/`; rebuild; redeploy.
@@ -192,7 +176,7 @@ After Card Design propagates accepted baselines → re-sync updated baseline HTM
   12. ✅ **Delete deploy.yml** — Removed `.github/workflows/deploy.yml` (redundant with orchestrator build pipeline)
   13. ✅ **Fix live preview** — All 7 baseline templates had hardcoded title text; replaced with `{{title}}` placeholder so `PreviewService.injectFields()` can substitute form values
   14. ✅ **Fix card preview scale** — Changed iframe to fixed 375x525 with `transform:scale()` computed to fill desktop wrapper dimensions; mobile uses constrained scale
-  15. 🔄 **Hook up all form fields to live preview** — In progress: model imports added to PreviewService; functional wiring of form fields to template rendering still pending
+  15. ✅ **Hook up all form fields to live preview** — Complete (2026-06-02T00:18:32Z): form → cardChange → card signal → ngOnChanges → renderCard → injectFields pipeline fully wired end-to-end
   16. ✅ **Fix effect variant selector bug** — `onVariantChange()` now assigns `this.effect = { ...this.effect, variant }` before emitting; variant dropdown is functional at runtime
 - **Auto-sync rule**: After any Card Design stream action that updates `card-index.md` **or** creates a new trigger symbol / activation track variant, the App Design stream must re-run steps 5–9 automatically (sync SVGs + baselines → build → deploy). No user trigger needed.
 - **Pages layout rule**: GitHub Pages serves from `docs/` folder on master branch. All output files must live under `docs/`:
@@ -362,6 +346,8 @@ _(none)_
 | 2026-06-01T12:18:47Z | Orchestrator | C: App Design | Review gallery updated (timestamp); 2 new variant files mirrored to docs/design/variants/ (trigger-symbols-v04-b/c); Task 3 (subtitle) next |
 | 2026-06-01T18:16:51Z | Orchestrator | B: Card Design | On hold — all design items (cooldown-trigger-marker-v02, die-symbols-v02, trigger-symbols-v04) awaiting user acceptance; Tasks 2–3 blocked on cooldown trigger marker acceptance |
 | 2026-06-01T18:16:51Z | Orchestrator | C: App Design | Dynamic container rendering reimplemented — all 7 baseline templates updated (mech-sections position absolute→relative, removed overflow hidden, removed fixed mechHeight); PreviewService: removed fixed-height estimation, buildMechSections returns hasContent boolean, mech-frame hidden via class when empty; app rebuilt to docs/editor/; gallery synced (81 variants); Task 3 (subtitle) next |
+| 2026-06-02T00:18:32Z | Orchestrator | B: Card Design | On hold — all design items (cooldown-trigger-marker-v02, die-symbols-v02, trigger-symbols-v04) awaiting user acceptance; Tasks 2–3 blocked on cooldown trigger marker acceptance |
+| 2026-06-02T00:18:32Z | Orchestrator | C: App Design | Verified Tasks 3 (subtitle), 4 (flavour text), 5 (set symbol) already implemented in templates and PreviewService; Task 15 (form field wiring) complete; live preview pipeline fully functional; app rebuilt; gallery timestamp updated |
 
 ---
 
