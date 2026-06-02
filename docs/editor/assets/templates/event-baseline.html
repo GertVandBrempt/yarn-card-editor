@@ -122,16 +122,7 @@ body { margin: 0; display: flex; justify-content: center; align-items: flex-star
 .set-symbol { position: absolute; z-index: 13; bottom: 16px; right: 18px; width: 18px; height: 18px; pointer-events: none; }
 .sym-group { display: inline-flex; align-items: center; gap: 1px; vertical-align: middle; }
 .sym-mod { font-size: 11px; font-weight: 600; color: #d4b87a; }
-/* user actions — red */
-.sec-actions { height: 81px; background: rgba(232,80,48,0.15); }
-.sec-actions::before, .sec-actions::after {
-  background: linear-gradient(to right, transparent, #e85030 18%, #e85030 82%, transparent);
-}
-/* leave/discard trigger — same yellow as reveal/enter */
-.sec-leave { height: 56px; background: rgba(240,200,48,0.15); }
-.sec-leave::before, .sec-leave::after {
-  background: linear-gradient(to right, transparent, #f0c830 18%, #f0c830 82%, transparent);
-}
+/* Dynamic container rendering (VISUAL.md §6.0): content-driven height, no fixed values */
 </style>
 </head>
 <body>

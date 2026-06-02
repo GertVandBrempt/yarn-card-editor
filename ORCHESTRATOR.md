@@ -19,7 +19,7 @@ This file is read and written by scheduled agents. Do not edit manually during a
 ```
 blocked_for_weekly_review: false
 weekly_review_due: 2026-05-30T08:00:00Z
-last_orchestrator_run: 2026-06-02T00:18:32Z
+last_orchestrator_run: 2026-06-02T06:17:21Z
 last_status_notification: 2026-05-31T12:00:00Z
 ```
 
@@ -136,7 +136,7 @@ Create new activation track variants for all four primitive track types using th
 ### App Design
 - **Mode**: autonomous
 - **Source**: APP.md
-- **Status**: active — Tasks 3 (subtitle), 4 (flavour text), 5 (set symbol) verified as already implemented in templates and PreviewService; Task 15 (form field wiring) complete; live preview pipeline fully functional; next work: new feature tasks or design element integration as accepted
+- **Status**: active — Task 1 (dynamic container rendering) complete; all queued tasks done; awaiting new design element acceptances for integration work
 
 #### Known issues (all resolved 2026-05-28)
 1. ~~**Site not on GitHub Pages**~~ — ✅ deploy.yml deleted (redundant); orchestrator owns build+deploy cycle
@@ -147,11 +147,7 @@ Create new activation track variants for all four primitive track types using th
 
 ~~**Task 0 — Fix effect variant selector bug**~~ — ✅ Fixed (2026-06-01): `onVariantChange()` now assigns variant before emitting
 
-**Task 1 — Implement dynamic container rendering (VISUAL.md §6.0)**
-The four effect containers (Permanent / Entry / Action / Exit) must:
-- Render only when they contain at least one row — hide entirely when empty; no empty shell, no gap
-- Auto-scale height to their row count — no fixed heights, no overflow, no clipping
-- Apply the accepted `effects-container-v04` styling: 0.15 translucent fill + gradient-fade 1 px top and bottom border per container (opacity 0.7, transparent → color at 18–82% → transparent)
+~~**Task 1 — Implement dynamic container rendering (VISUAL.md §6.0)**~~ — ✅ Complete (2026-06-02T06:17:21Z): removed fixed height declarations from event/item/main-quest/side-quest baseline templates; all 7 templates now use auto-height containers with effects-container-v04 styling
 
 ~~**Task 3 — Implement accepted subtitle design (VISUAL.md §9.1)**~~ — ✅ Complete (2026-06-02T00:18:32Z): already implemented in all 7 baseline templates and PreviewService
 
@@ -178,6 +174,7 @@ After Card Design propagates accepted baselines → re-sync updated baseline HTM
   14. ✅ **Fix card preview scale** — Changed iframe to fixed 375x525 with `transform:scale()` computed to fill desktop wrapper dimensions; mobile uses constrained scale
   15. ✅ **Hook up all form fields to live preview** — Complete (2026-06-02T00:18:32Z): form → cardChange → card signal → ngOnChanges → renderCard → injectFields pipeline fully wired end-to-end
   16. ✅ **Fix effect variant selector bug** — `onVariantChange()` now assigns `this.effect = { ...this.effect, variant }` before emitting; variant dropdown is functional at runtime
+  17. ✅ **Dynamic container rendering** — Removed fixed height declarations (height: 81px on .sec-actions, height: 56px on .sec-leave) from 4 baseline templates (event, item, main-quest, side-quest); all 7 templates now use auto-height containers with effects-container-v04 styling
 - **Auto-sync rule**: After any Card Design stream action that updates `card-index.md` **or** creates a new trigger symbol / activation track variant, the App Design stream must re-run steps 5–9 automatically (sync SVGs + baselines → build → deploy). No user trigger needed.
 - **Pages layout rule**: GitHub Pages serves from `docs/` folder on master branch. All output files must live under `docs/`:
   - Editor: `docs/editor/` ✅
@@ -348,6 +345,8 @@ _(none)_
 | 2026-06-01T18:16:51Z | Orchestrator | C: App Design | Dynamic container rendering reimplemented — all 7 baseline templates updated (mech-sections position absolute→relative, removed overflow hidden, removed fixed mechHeight); PreviewService: removed fixed-height estimation, buildMechSections returns hasContent boolean, mech-frame hidden via class when empty; app rebuilt to docs/editor/; gallery synced (81 variants); Task 3 (subtitle) next |
 | 2026-06-02T00:18:32Z | Orchestrator | B: Card Design | On hold — all design items (cooldown-trigger-marker-v02, die-symbols-v02, trigger-symbols-v04) awaiting user acceptance; Tasks 2–3 blocked on cooldown trigger marker acceptance |
 | 2026-06-02T00:18:32Z | Orchestrator | C: App Design | Verified Tasks 3 (subtitle), 4 (flavour text), 5 (set symbol) already implemented in templates and PreviewService; Task 15 (form field wiring) complete; live preview pipeline fully functional; app rebuilt; gallery timestamp updated |
+| 2026-06-02T06:17:21Z | Orchestrator | B: Card Design | On hold — all design items (cooldown-trigger-marker-v02, die-symbols-v02, trigger-symbols-v04) awaiting user acceptance; Tasks 2–3 blocked on cooldown trigger marker acceptance |
+| 2026-06-02T06:17:21Z | Orchestrator | C: App Design | Task 1 complete — dynamic container rendering: removed fixed height declarations from 4 baseline templates (event, item, main-quest, side-quest); all 7 templates now use auto-height containers; app rebuilt to docs/editor/; gallery synced |
 
 ---
 

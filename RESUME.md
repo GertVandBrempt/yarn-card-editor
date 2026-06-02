@@ -1,6 +1,6 @@
 # Yarn — Session Resume Context
 
-_Updated: 2026-06-02T00:18:32Z_
+_Updated: 2026-06-02T06:17:21Z_
 
 ---
 
@@ -21,8 +21,8 @@ Card types: **Location, Character, Item, Event, Quest, Persona, Script**
 **To unblock:** accept one of the cooldown-trigger-marker-v02 options at the review gallery.
 
 ### App Design
-**Status:** Active — all queued tasks verified complete  
-**Situation:** Tasks 3 (subtitle), 4 (flavour text), 5 (set symbol) verified as already implemented in templates and PreviewService. Task 15 (form field wiring) complete — live preview pipeline fully wired end-to-end. App rebuilt and deployed.  
+**Status:** Active — all queued tasks complete  
+**Situation:** Task 1 (dynamic container rendering) completed this run — removed fixed height declarations from 4 baseline templates; all 7 templates now use auto-height containers with effects-container-v04 styling. All prior tasks (0–5, 15, 16) also complete. App rebuilt and deployed.  
 **Next:** New feature work or integration of design elements as they are accepted (die symbols, trigger symbols, cooldown trigger markers, activation tracks).
 
 ---
