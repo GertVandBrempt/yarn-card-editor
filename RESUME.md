@@ -1,6 +1,6 @@
 # Yarn — Session Resume Context
 
-_Updated: 2026-06-02T06:17:21Z_
+_Updated: 2026-06-02T12:14:54Z_
 
 ---
 
@@ -22,7 +22,7 @@ Card types: **Location, Character, Item, Event, Quest, Persona, Script**
 
 ### App Design
 **Status:** Active — all queued tasks complete  
-**Situation:** Task 1 (dynamic container rendering) completed this run — removed fixed height declarations from 4 baseline templates; all 7 templates now use auto-height containers with effects-container-v04 styling. All prior tasks (0–5, 15, 16) also complete. App rebuilt and deployed.  
+**Situation:** Maintenance run — variant mirroring verified (82 files in sync), review gallery up to date, editor build current. All prior tasks (0–5, 15–17) complete.  
 **Next:** New feature work or integration of design elements as they are accepted (die symbols, trigger symbols, cooldown trigger markers, activation tracks).
 
 ---
