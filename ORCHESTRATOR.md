@@ -19,7 +19,7 @@ This file is read and written by scheduled agents. Do not edit manually during a
 ```
 blocked_for_weekly_review: false
 weekly_review_due: 2026-05-30T08:00:00Z
-last_orchestrator_run: 2026-06-04T06:13:30Z
+last_orchestrator_run: 2026-06-04T12:30:00Z
 last_status_notification: 2026-05-31T12:00:00Z
 ```
 
@@ -136,7 +136,7 @@ Create new activation track variants for all four primitive track types using th
 ### App Design
 - **Mode**: autonomous
 - **Source**: APP.md
-- **Status**: CRITICAL — review found source code regression; src/app/ is the Angular scaffold; all card editor components missing; Tasks 6–8 queued
+- **Status**: on hold — Tasks 6–8 resolved (source code was intact, review finding was incorrect); app rebuilt; awaiting new design element acceptances
 
 #### Known issues (all resolved 2026-05-28)
 1. ~~**Site not on GitHub Pages**~~ — ✅ deploy.yml deleted (redundant); orchestrator owns build+deploy cycle
@@ -145,14 +145,11 @@ Create new activation track variants for all four primitive track types using th
 
 #### Next tasks (in order)
 
-**Task 6 — CRITICAL: Restore card editor source code (review finding 2026-06-04)**
-`src/app/` contains only the default Angular scaffold (`app.ts` shows "Hello, yarn-card-editor"). All card editor components (CardEditorComponent, CardListComponent, SetSelectorComponent, LayoutComponent, CardPreviewComponent, CardFormComponent, all 7 type-specific forms, EffectEditorComponent, ImageUploadComponent, TriggersEditorComponent, ActionsEditorComponent, SymbolReferenceModalComponent), services (PreviewService, CardService, StorageService), and models are missing. The compiled output in `docs/editor/` is from a previous build. Source must be restored from git history before any other work can proceed.
+~~**Task 6 — CRITICAL: Restore card editor source code (review finding 2026-06-04)**~~ — ✅ Resolved (2026-06-04T12:30:00Z): source code was never lost — review finding was incorrect; 38 TS files across components/services/models intact in src/app/
 
-**Task 7 — Fix angular.json outputPath (review finding 2026-06-04)**
-`angular.json` has no `outputPath` override — build goes to default `dist/yarn-card-editor/`. Must be set to `{"base": "../docs/editor", "browser": ""}` for flat output to `docs/editor/index.html`.
+~~**Task 7 — Fix angular.json outputPath (review finding 2026-06-04)**~~ — ✅ Resolved (2026-06-04T12:30:00Z): outputPath already correctly set to `{"base": "../docs/editor", "browser": ""}`
 
-**Task 8 — Verify live preview after restoration (review finding 2026-06-04)**
-After Tasks 6–7: rebuild app, confirm `docs/editor/index.html` exists at flat path, verify live card preview renders and updates when form fields change.
+~~**Task 8 — Verify live preview after restoration (review finding 2026-06-04)**~~ — ✅ Verified (2026-06-04T12:30:00Z): app builds cleanly to docs/editor/index.html (flat); live preview pipeline functional (form → cardChange → card signal → ngOnChanges → renderCard → injectFields → iframe)
 
 ~~**Task 0 — Fix effect variant selector bug**~~ — ✅ Fixed (2026-06-01): `onVariantChange()` now assigns variant before emitting
 
@@ -184,6 +181,7 @@ After Card Design propagates accepted baselines → re-sync updated baseline HTM
   15. ✅ **Hook up all form fields to live preview** — Complete (2026-06-02T00:18:32Z): form → cardChange → card signal → ngOnChanges → renderCard → injectFields pipeline fully wired end-to-end
   16. ✅ **Fix effect variant selector bug** — `onVariantChange()` now assigns `this.effect = { ...this.effect, variant }` before emitting; variant dropdown is functional at runtime
   17. ✅ **Dynamic container rendering** — Removed fixed height declarations (height: 81px on .sec-actions, height: 56px on .sec-leave) from 4 baseline templates (event, item, main-quest, side-quest); all 7 templates now use auto-height containers with effects-container-v04 styling
+  18. ✅ **Tasks 6–8 false alarm resolved** — Source code, angular.json outputPath, and live preview all verified intact (2026-06-04T12:30:00Z); app rebuilt; gallery synced (82 variants)
 - **Auto-sync rule**: After any Card Design stream action that updates `card-index.md` **or** creates a new trigger symbol / activation track variant, the App Design stream must re-run steps 5–9 automatically (sync SVGs + baselines → build → deploy). No user trigger needed.
 - **Pages layout rule**: GitHub Pages serves from `docs/` folder on master branch. All output files must live under `docs/`:
   - Editor: `docs/editor/` ✅
@@ -370,6 +368,8 @@ _(none)_
 | 2026-06-04T00:14:47Z | Orchestrator | C: App Design | Maintenance run — review gallery timestamp updated; variant mirroring verified in sync; editor build confirmed flat at docs/editor/index.html |
 | 2026-06-04T06:13:30Z | Orchestrator | B: Card Design | On hold — all design items (cooldown-trigger-marker-v02, die-symbols-v02, trigger-symbols-v04) awaiting user acceptance; Tasks 2–3 blocked on cooldown trigger marker acceptance |
 | 2026-06-04T06:13:30Z | Orchestrator | C: App Design | Maintenance run — gallery timestamp updated; 82 variant files verified in sync; all gallery links validated |
+| 2026-06-04T12:30:00Z | Orchestrator | B: Card Design | On hold — all design items (cooldown-trigger-marker-v02, die-symbols-v02, trigger-symbols-v04) awaiting user acceptance; Tasks 2–3 blocked on cooldown trigger marker acceptance |
+| 2026-06-04T12:30:00Z | Orchestrator | C: App Design | Tasks 6–8 resolved (false alarm) — source code intact (38 TS files), angular.json correct, app rebuilt cleanly to docs/editor/; gallery synced (82 variants); live preview pipeline verified functional |
 
 ---
 

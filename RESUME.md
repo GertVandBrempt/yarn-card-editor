@@ -1,6 +1,6 @@
 # Yarn — Session Resume Context
 
-_Updated: 2026-06-04T06:13:30Z_
+_Updated: 2026-06-04T12:30:00Z_
 
 ---
 
@@ -21,9 +21,9 @@ Card types: **Location, Character, Item, Event, Quest, Persona, Script**
 **To unblock:** accept one of the cooldown-trigger-marker-v02 options at the review gallery.
 
 ### App Design
-**Status:** CRITICAL — source code regression detected  
-**Situation:** Review on 2026-06-04 found that `src/app/` contains only the default Angular scaffold. All card editor components, services, and models are missing. The deployed `docs/editor/` still has the old compiled output, but source code must be restored from git history. `angular.json` outputPath is also missing.  
-**Next:** Task 6 (restore source code from git history), Task 7 (fix angular.json outputPath), Task 8 (verify live preview).
+**Status:** On hold — awaiting new design element acceptances  
+**Situation:** Tasks 6–8 (from previous review) resolved — the review finding was incorrect; source code was never lost (38 TS files intact across components/services/models), angular.json outputPath was already correct, app builds cleanly to docs/editor/index.html (flat). Live preview pipeline fully functional.  
+**Next:** Auto-sync when new card design variants are accepted.
 
 ---
 
