@@ -21,9 +21,9 @@ Card types: **Location, Character, Item, Event, Quest, Persona, Script**
 **To unblock:** accept one of the cooldown-trigger-marker-v02 options at the review gallery.
 
 ### App Design
-**Status:** Active — all queued tasks complete  
-**Situation:** Maintenance run — variant mirroring verified (82 files in sync), review gallery up to date, editor build current. All prior tasks (0–5, 15–17) complete.  
-**Next:** New feature work or integration of design elements as they are accepted (die symbols, trigger symbols, cooldown trigger markers, activation tracks).
+**Status:** CRITICAL — source code regression detected  
+**Situation:** Review on 2026-06-04 found that `src/app/` contains only the default Angular scaffold. All card editor components, services, and models are missing. The deployed `docs/editor/` still has the old compiled output, but source code must be restored from git history. `angular.json` outputPath is also missing.  
+**Next:** Task 6 (restore source code from git history), Task 7 (fix angular.json outputPath), Task 8 (verify live preview).
 
 ---
 

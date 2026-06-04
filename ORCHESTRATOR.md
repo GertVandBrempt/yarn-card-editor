@@ -136,7 +136,7 @@ Create new activation track variants for all four primitive track types using th
 ### App Design
 - **Mode**: autonomous
 - **Source**: APP.md
-- **Status**: active — all queued tasks complete; maintenance run (gallery timestamp update); awaiting new design element acceptances for integration work
+- **Status**: CRITICAL — review found source code regression; src/app/ is the Angular scaffold; all card editor components missing; Tasks 6–8 queued
 
 #### Known issues (all resolved 2026-05-28)
 1. ~~**Site not on GitHub Pages**~~ — ✅ deploy.yml deleted (redundant); orchestrator owns build+deploy cycle
@@ -144,6 +144,15 @@ Create new activation track variants for all four primitive track types using th
 3. ~~**Viewport too small**~~ — ✅ Fixed: iframe sized 100%/100% but card HTML is fixed 375x525; changed iframe to fixed 375x525 with transform:scale() on both mobile and desktop, desktop scale fills available wrapper dimensions
 
 #### Next tasks (in order)
+
+**Task 6 — CRITICAL: Restore card editor source code (review finding 2026-06-04)**
+`src/app/` contains only the default Angular scaffold (`app.ts` shows "Hello, yarn-card-editor"). All card editor components (CardEditorComponent, CardListComponent, SetSelectorComponent, LayoutComponent, CardPreviewComponent, CardFormComponent, all 7 type-specific forms, EffectEditorComponent, ImageUploadComponent, TriggersEditorComponent, ActionsEditorComponent, SymbolReferenceModalComponent), services (PreviewService, CardService, StorageService), and models are missing. The compiled output in `docs/editor/` is from a previous build. Source must be restored from git history before any other work can proceed.
+
+**Task 7 — Fix angular.json outputPath (review finding 2026-06-04)**
+`angular.json` has no `outputPath` override — build goes to default `dist/yarn-card-editor/`. Must be set to `{"base": "../docs/editor", "browser": ""}` for flat output to `docs/editor/index.html`.
+
+**Task 8 — Verify live preview after restoration (review finding 2026-06-04)**
+After Tasks 6–7: rebuild app, confirm `docs/editor/index.html` exists at flat path, verify live card preview renders and updates when form fields change.
 
 ~~**Task 0 — Fix effect variant selector bug**~~ — ✅ Fixed (2026-06-01): `onVariantChange()` now assigns variant before emitting
 
