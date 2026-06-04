@@ -19,7 +19,7 @@ This file is read and written by scheduled agents. Do not edit manually during a
 ```
 blocked_for_weekly_review: false
 weekly_review_due: 2026-05-30T08:00:00Z
-last_orchestrator_run: 2026-06-04T12:30:00Z
+last_orchestrator_run: 2026-06-04T18:15:00Z
 last_status_notification: 2026-05-31T12:00:00Z
 ```
 
@@ -370,6 +370,8 @@ _(none)_
 | 2026-06-04T06:13:30Z | Orchestrator | C: App Design | Maintenance run — gallery timestamp updated; 82 variant files verified in sync; all gallery links validated |
 | 2026-06-04T12:30:00Z | Orchestrator | B: Card Design | On hold — all design items (cooldown-trigger-marker-v02, die-symbols-v02, trigger-symbols-v04) awaiting user acceptance; Tasks 2–3 blocked on cooldown trigger marker acceptance |
 | 2026-06-04T12:30:00Z | Orchestrator | C: App Design | Tasks 6–8 resolved (false alarm) — source code intact (38 TS files), angular.json correct, app rebuilt cleanly to docs/editor/; gallery synced (82 variants); live preview pipeline verified functional |
+| 2026-06-04T18:15:00Z | Orchestrator | B: Card Design | On hold — all design items (cooldown-trigger-marker-v02, die-symbols-v02, trigger-symbols-v04) awaiting user acceptance; Tasks 2–3 blocked on cooldown trigger marker acceptance |
+| 2026-06-04T18:15:00Z | Orchestrator | C: App Design | Maintenance run — variant sync verified (82 files), review gallery timestamp updated, editor build confirmed flat with correct base href |
 
 ---
 
