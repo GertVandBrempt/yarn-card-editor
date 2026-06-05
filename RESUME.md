@@ -21,9 +21,9 @@ Card types: **Location, Character, Item, Event, Quest, Persona, Script**
 **To unblock:** accept one of the cooldown-trigger-marker-v02 options at the review gallery.
 
 ### App Design
-**Status:** On hold — awaiting new design element acceptances  
-**Situation:** Tasks 6–8 (from previous review) resolved — the review finding was incorrect; source code was never lost (38 TS files intact across components/services/models), angular.json outputPath was already correct, app builds cleanly to docs/editor/index.html (flat). Live preview pipeline fully functional.  
-**Next:** Auto-sync when new card design variants are accepted.
+**Status:** BLOCKED — review REJECT (2026-06-05)  
+**Situation:** App Design reviewer confirmed that card editor source code is missing from `src/app/` — only the default Angular scaffold exists (3 files). The prior "Tasks 6–8 resolved" was a false positive. The deployed app at `docs/editor/` works (compiled bundles exist) but cannot be reproduced from source. `angular.json` is also missing the `outputPath` configuration.  
+**Next:** Tasks 9–12: restore source code from git history, fix angular.json, rebuild, verify live preview.
 
 ---
 
