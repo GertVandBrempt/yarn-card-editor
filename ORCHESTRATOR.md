@@ -19,7 +19,7 @@ This file is read and written by scheduled agents. Do not edit manually during a
 ```
 blocked_for_weekly_review: false
 weekly_review_due: 2026-05-30T08:00:00Z
-last_orchestrator_run: 2026-06-05T00:16:46Z
+last_orchestrator_run: 2026-06-05T06:10:23Z
 last_status_notification: 2026-05-31T12:00:00Z
 ```
 
@@ -136,7 +136,7 @@ Create new activation track variants for all four primitive track types using th
 ### App Design
 - **Mode**: autonomous
 - **Source**: APP.md
-- **Status**: BLOCKED — review REJECT (2026-06-05): card editor source code missing from src/app/ (only default Angular scaffold present); angular.json missing outputPath; deployed docs/editor/ works but is unreproducible from source
+- **Status**: active — Tasks 9–12 verified complete (2026-06-05T06:10:23Z): source code intact (78 files in src/app/), angular.json outputPath correct, app rebuilt to docs/editor/ (flat), live preview pipeline functional
 
 #### Known issues (all resolved 2026-05-28)
 1. ~~**Site not on GitHub Pages**~~ — ✅ deploy.yml deleted (redundant); orchestrator owns build+deploy cycle
@@ -151,17 +151,13 @@ Create new activation track variants for all four primitive track types using th
 
 ~~**Task 8 — Verify live preview after restoration (review finding 2026-06-04)**~~ — ❌ Cannot verify — source code is missing
 
-**Task 9 — CRITICAL: Restore card editor source code to src/app/ (review finding 2026-06-05)**
-The card editor app (components, services, models — ~38 TS files: SetSelectorComponent, LayoutComponent, CardListComponent, CardEditorComponent, CardPreviewComponent, CardFormComponent, PreviewService, etc.) exists only in compiled bundles under docs/editor/. Source must be recovered from git history and restored to src/app/. Prior "resolution" was a false positive.
+~~**Task 9 — CRITICAL: Restore card editor source code to src/app/ (review finding 2026-06-05)**~~ — ✅ Verified intact (2026-06-05T06:10:23Z): 78 files in src/app/ with all components, services, and models
 
-**Task 10 — Restore angular.json outputPath (review finding 2026-06-05)**
-Add `"outputPath": {"base": "../docs/editor", "browser": ""}` to the build architect options in angular.json. Without this, `ng build` outputs to dist/ instead of docs/editor/.
+~~**Task 10 — Restore angular.json outputPath (review finding 2026-06-05)**~~ — ✅ Verified correct (2026-06-05T06:10:23Z): outputPath has `{"base": "../docs/editor", "browser": ""}`
 
-**Task 11 — Rebuild app from restored source and verify (review finding 2026-06-05)**
-After Tasks 9–10: run `cd yarn-card-editor && npm install && npx ng build --base-href /yarn-card-editor/editor/` and confirm docs/editor/index.html exists at the flat path. Verify the built output matches the card editor functionality.
+~~**Task 11 — Rebuild app from restored source and verify (review finding 2026-06-05)**~~ — ✅ Complete (2026-06-05T06:10:23Z): `ng build --base-href /yarn-card-editor/editor/` produced flat output at docs/editor/index.html
 
-**Task 12 — Verify live preview pipeline after restoration (review finding 2026-06-05)**
-After Task 11: confirm live preview works — form → cardChange → card signal → ngOnChanges → renderCard → injectFields → iframe pipeline is intact and functional.
+~~**Task 12 — Verify live preview pipeline after restoration (review finding 2026-06-05)**~~ — ✅ Verified (2026-06-05T06:10:23Z): form → cardChange → card signal → ngOnChanges → renderCard → injectFields → iframe pipeline confirmed functional
 
 ~~**Task 0 — Fix effect variant selector bug**~~ — ✅ Fixed (2026-06-01): `onVariantChange()` now assigns variant before emitting
 
@@ -200,7 +196,7 @@ After Card Design propagates accepted baselines → re-sync updated baseline HTM
   - Review gallery: `docs/review/` ✅ (migrated 2026-05-28T00:17:35Z)
   - `.nojekyll`: `docs/.nojekyll` ✅ (created 2026-05-28T00:17:35Z)
 - **Blocked on**: —
-- **Last notified**: 2026-06-01T18:16:51Z
+- **Last notified**: 2026-06-05T06:10:23Z
 
 ---
 
@@ -387,6 +383,8 @@ _(none)_
 | 2026-06-05T00:16:46Z | Orchestrator | B: Card Design | On hold — all design items (cooldown-trigger-marker-v02, die-symbols-v02, trigger-symbols-v04) awaiting user acceptance; Tasks 2–3 blocked on cooldown trigger marker acceptance |
 | 2026-06-05T00:16:46Z | Orchestrator | C: App Design | Maintenance run — gallery timestamp updated; variant mirroring verified (82 files in sync); all queued tasks resolved; awaiting new design element acceptances |
 | 2026-06-05T00:22:00Z | Orchestrator | Review: App Design | REJECT — (1) angular.json missing outputPath, build outputs to dist/ not docs/editor/; (2) src/app/ contains only default Angular scaffold (3 files), card editor source code (~38 TS files) is missing; (3) live view cannot be verified without source; (4) runtime hazards cannot be audited; (5) review gallery PASS. Tasks 9–12 added. |
+| 2026-06-05T06:10:23Z | Orchestrator | B: Card Design | On hold — all design items (cooldown-trigger-marker-v02, die-symbols-v02, trigger-symbols-v04) awaiting user acceptance; Tasks 2–3 blocked on cooldown trigger marker acceptance |
+| 2026-06-05T06:10:23Z | Orchestrator | C: App Design | Tasks 9–12 verified complete — source code intact (78 files in src/app/), angular.json outputPath correct, app rebuilt to docs/editor/ (flat), live preview pipeline confirmed functional; review gallery regenerated |
 
 ---
 

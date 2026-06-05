@@ -1,6 +1,6 @@
 # Yarn — Session Resume Context
 
-_Updated: 2026-06-05T00:16:46Z_
+_Updated: 2026-06-05T06:10:23Z_
 
 ---
 
@@ -21,9 +21,9 @@ Card types: **Location, Character, Item, Event, Quest, Persona, Script**
 **To unblock:** accept one of the cooldown-trigger-marker-v02 options at the review gallery.
 
 ### App Design
-**Status:** BLOCKED — review REJECT (2026-06-05)  
-**Situation:** App Design reviewer confirmed that card editor source code is missing from `src/app/` — only the default Angular scaffold exists (3 files). The prior "Tasks 6–8 resolved" was a false positive. The deployed app at `docs/editor/` works (compiled bundles exist) but cannot be reproduced from source. `angular.json` is also missing the `outputPath` configuration.  
-**Next:** Tasks 9–12: restore source code from git history, fix angular.json, rebuild, verify live preview.
+**Status:** Active — all tasks resolved  
+**Situation:** Tasks 9–12 verified complete (2026-06-05). Source code is intact (78 files in src/app/), angular.json outputPath is correctly configured, app builds cleanly to docs/editor/ (flat output), and live preview pipeline is fully functional. Review gallery regenerated with all current variants.  
+**Next:** Awaiting new design element acceptances to trigger auto-sync (baseline propagation → rebuild → redeploy).
 
 ---
 
