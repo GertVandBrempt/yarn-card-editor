@@ -19,7 +19,7 @@ This file is read and written by scheduled agents. Do not edit manually during a
 ```
 blocked_for_weekly_review: false
 weekly_review_due: 2026-05-30T08:00:00Z
-last_orchestrator_run: 2026-06-05T12:19:03Z
+last_orchestrator_run: 2026-06-05T18:10:50Z
 last_status_notification: 2026-05-31T12:00:00Z
 ```
 
@@ -32,7 +32,7 @@ Streams are **independent** — a blocked stream does not pause other streams.
 ### Card Design
 - **Mode**: autonomous
 - **Source**: design/VISUAL.md, design/card-index.md
-- **Status**: active — Task 2 (baseline propagation) FAILED (2026-06-05T12:19:03Z, agent wrote to wrong filenames); activation-track-basic-v02-a/b/c partially created (Task 3 work); Task 2 remains next
+- **Status**: active — Task 2 (baseline propagation) complete (2026-06-05T18:10:50Z); all 7 baselines updated with 4 accepted design elements; Task 3 (activation track rework) is next
 
 #### Accepted design elements (2026-05-28)
 - ✅ **effects-container-v04** — gradient-fade section borders (opacity 0.7), 0.15 translucent fill; see VISUAL.md §6
@@ -50,9 +50,7 @@ Streams are **independent** — a blocked stream does not pause other streams.
 
 ~~**Task 1 — Redesign cooldown trigger marker v02 (PRIORITY — blocks Task 2)**~~ — ✅ Complete (2026-06-05): cooldown-trigger-marker-v02-b accepted; see Accepted marker shapes
 
-**Task 2 — Baseline propagation (unblocked)**
-Update all card type baseline files in `design/variants/` (per card-index.md) to incorporate the four accepted design elements (effects-container-v04, set-symbol-v01-a, flavour-text-v01-c, subtitle-v01-a).
-⚠️ **Agent error (2026-06-05T12:19:03Z):** Agent attempted this task but wrote to wrong filenames (`*-baseline.html`) instead of the actual baselines listed in card-index.md (e.g. `location-v01.html`, `char-main-v01.html`). No baselines were modified. Task remains open.
+~~**Task 2 — Baseline propagation (unblocked)**~~ — ✅ Complete (2026-06-05T18:10:50Z): all 7 baselines (location-v01, char-main-v01, char-companion-v01, item-v01, event-v01, quest-main-v01, quest-side-v01) updated with effects-container-v04, set-symbol-v01-a, flavour-text-v01-c, subtitle-v01-a
 
 **Task 3 — Activation track rework (unblocked 2026-06-05)**
 Create new activation track variants for all four primitive track types using the accepted marker shapes at the updated size. Previous track variants (`activation-track-basic-v01`, `activation-track-multiturn-v01/v02`, `activation-track-multiuse-v01`, `activation-track-use-v01`) are superseded — do NOT show them on the review page. New variants must:
@@ -120,14 +118,14 @@ Create new activation track variants for all four primitive track types using th
 **Hold:** effects-v04 — create only after trigger symbols + activation tracks both accepted
 
 - **Blocked on**: trigger-symbols-v05 creation + acceptance (independent — does not block Task 3)
-- **Last notified**: 2026-06-05T12:19:03Z
+- **Last notified**: 2026-06-05T18:10:50Z
 
 ---
 
 ### App Design
 - **Mode**: autonomous
 - **Source**: APP.md
-- **Status**: active — Task 15 (rebuild + verify) and Task 23 (die symbol SVGs) complete (2026-06-05T12:19:03Z); review gallery regenerated (85 variants mirrored); app rebuilt with die symbols; Task 16 (set overview readability) is next
+- **Status**: active — Task 16 (set overview page readability) complete (2026-06-05T18:10:50Z); SetSelectorComponent restyled with dark theme + amber accents + proper contrast; review gallery regenerated (88 variants mirrored); app rebuilt; Task 17 (trigger limit bug) is next
 
 #### Known issues (all resolved 2026-05-28)
 1. ~~**Site not on GitHub Pages**~~ — ✅ deploy.yml deleted (redundant); orchestrator owns build+deploy cycle
@@ -158,8 +156,7 @@ Create new activation track variants for all four primitive track types using th
 
 ~~**Task 23 — Integrate die symbol SVGs (die-symbols-v02-b) into PreviewService**~~ — ✅ Complete (2026-06-05T12:19:03Z): 3 die SVG symbols (Constitution=Red, Zeal=Blue, Path=Green) added to preview.service.ts SVG_DEFS; icon names registered; app rebuilt
 
-**Task 16 — Fix set overview page readability (black on black)**
-The set selector / set overview page (`SetSelectorComponent`) is unreadable — dark text or elements on a dark background. Audit `yarn-card-editor/src/app/pages/set-selector/` (component + CSS) and fix contrast so the page is clearly legible. Apply a light or themed background to the set cards/list, ensure all text meets reasonable contrast against its background. Rebuild and redeploy after fixing.
+~~**Task 16 — Fix set overview page readability (black on black)**~~ — ✅ Complete (2026-06-05T18:10:50Z): SetSelectorComponent restyled with dark parchment background (#1a1510), amber accents (#d4a843), proper text contrast, hover states, responsive layout
 
 **Task 17 — Fix trigger limit bug: only one trigger can be added per card**
 Currently adding more than one trigger to a card does not work — only a single trigger persists or is rendered. Audit `TriggersEditorComponent` (`yarn-card-editor/src/app/components/shared/triggers-editor/`) and the type-specific form components that host it. Likely causes: the triggers binding is initialised as a single object instead of an array, `push()` called on an undefined array, or the parent form replaces the array on each add instead of appending. Fix so multiple triggers can be added, reordered, and removed on all card types. Rebuild and redeploy after fixing.
@@ -328,7 +325,7 @@ After Card Design propagates accepted baselines → re-sync updated baseline HTM
   - Review gallery: `docs/review/` ✅ (migrated 2026-05-28T00:17:35Z)
   - `.nojekyll`: `docs/.nojekyll` ✅ (created 2026-05-28T00:17:35Z)
 - **Blocked on**: —
-- **Last notified**: 2026-06-05T12:19:03Z
+- **Last notified**: 2026-06-05T18:10:50Z
 
 > ⚠️ **Path note (2026-06-05, permanent):** `src/app/` at repo root is the default Angular scaffold — ignore it. All App Design work uses `yarn-card-editor/src/app/`. Agents that check `src/app/` and report missing source are looking in the wrong place.
 
@@ -523,6 +520,8 @@ _(none)_
 | 2026-06-05 (user) | Diagnosis | App Design path confusion | Root cause: agents were checking `src/app/` (repo root scaffold, 5 files) instead of `yarn-card-editor/src/app/` (full app). Source was always present. angular.json outputPath was always correct. Tasks 13–14 resolved. Task 15 (rebuild + verify) is next. |
 | 2026-06-05T12:19:03Z | Orchestrator | B: Card Design | Task 2 FAILED — agent wrote to wrong filenames (`*-baseline.html` instead of actual baselines per card-index.md); no baselines modified; also created activation-track-basic-v02-a/b/c (partial Task 3 work) |
 | 2026-06-05T12:19:03Z | Orchestrator | C: App Design | Tasks 15 + 23 complete — rebuild from real source verified; die symbol SVGs (die-symbols-v02-b) integrated into PreviewService (Constitution=Red, Zeal=Blue, Path=Green); review gallery regenerated (85 variants); app rebuilt with die symbols |
+| 2026-06-05T18:10:50Z | Orchestrator | B: Card Design | Task 2 complete — baseline propagation: all 7 baselines (location-v01, char-main-v01, char-companion-v01, item-v01, event-v01, quest-main-v01, quest-side-v01) updated with effects-container-v04, set-symbol-v01-a, flavour-text-v01-c, subtitle-v01-a; CHANGES.md updated |
+| 2026-06-05T18:10:50Z | Orchestrator | C: App Design | Task 16 complete — SetSelectorComponent restyled with dark parchment background, amber accents, proper contrast; review gallery regenerated (88 variants mirrored); app rebuilt and redeployed |
 
 ---
 

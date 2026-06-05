@@ -94,6 +94,15 @@ body { margin: 0; display: flex; justify-content: center; align-items: flex-star
   background: linear-gradient(to right, transparent, var(--type-border) 25%, var(--type-border) 75%, transparent);
   opacity: 0.6;
 }
+.card-subtitle {
+  position: absolute; left: 22.5px; right: 22.5px; top: 108px;
+  text-align: center; color: #c8a050;
+  font-family: 'Cinzel', Georgia, serif;
+  font-size: 10px; font-weight: 400; font-style: italic;
+  letter-spacing: 3px; text-transform: uppercase;
+  opacity: 0.72;
+  text-shadow: 0 0 8px rgba(0,0,0,0.8);
+}
 
 /* Mechanics frame */
 .mech-frame {
@@ -157,6 +166,36 @@ body { margin: 0; display: flex; justify-content: center; align-items: flex-star
 .sec-leave { height: 56px; background: rgba(240,200,48,0.15); }
 .sec-leave::before, .sec-leave::after {
   background: linear-gradient(to right, transparent, #f0c830 18%, #f0c830 82%, transparent);
+}
+
+/* Flavour text — integrated borderless inset at bottom of mechanics frame */
+.sec-flavour {
+  padding: 8px 14px;
+  background: rgba(8,5,2,0.35);
+  position: relative;
+}
+.sec-flavour::before {
+  content: '';
+  position: absolute;
+  left: 0; right: 0; top: 0;
+  height: 1px;
+  background: linear-gradient(to right, transparent, rgba(212,184,122,0.38) 18%, rgba(212,184,122,0.38) 82%, transparent);
+}
+.sec-flavour::after { display: none; }
+.flavour-text {
+  font-family: 'Crimson Text', Georgia, serif;
+  font-size: 14px; font-style: italic;
+  color: rgba(230,208,162,0.68);
+  text-align: center;
+  line-height: 1.4;
+}
+
+/* Set symbol — bottom-right circular container */
+.set-symbol {
+  position: absolute;
+  bottom: 16px; right: 18px;
+  width: 18px; height: 18px;
+  z-index: 13;
 }
 </style>
 </head>

@@ -1,21 +1,36 @@
+/* ═══════════════════════════════════════════════
+   Set Selector — dark warm brown + gold palette
+   Matches the main editor shell aesthetic
+═══════════════════════════════════════════════ */
+
 .set-selector {
   max-width: 640px;
-  margin: 2rem auto;
-  padding: 1rem;
-  font-family: sans-serif;
+  margin: 0 auto;
+  padding: 3rem 1.5rem;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  color: #c8b08a;
+  min-height: 100dvh;
 }
 
 h1 {
-  font-size: 1.8rem;
-  margin-bottom: 0.25rem;
+  font-family: 'Cinzel', Georgia, serif;
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: #dcc06a;
+  letter-spacing: 1px;
+  margin: 0 0 0.15rem;
 }
 
 h2 {
-  font-size: 1.2rem;
-  color: #555;
-  margin-bottom: 1.5rem;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: #6a4820;
+  margin: 0 0 2rem;
 }
 
+/* ── Create set row ── */
 .create-set {
   display: flex;
   gap: 0.5rem;
@@ -24,27 +39,51 @@ h2 {
 
 .create-set input {
   flex: 1;
-  padding: 0.5rem 0.75rem;
-  border: 1px solid #ccc;
+  padding: 0.6rem 0.75rem;
+  background: rgba(14, 9, 4, 0.9);
+  border: 1px solid #1e1208;
   border-radius: 4px;
-  font-size: 1rem;
+  color: #c8b08a;
+  font-size: 0.9rem;
+  font-family: 'Inter', system-ui, sans-serif;
+  transition: border-color 0.15s;
+}
+
+.create-set input:focus {
+  outline: none;
+  border-color: #6a3810;
+  background: rgba(18, 12, 6, 0.95);
+}
+
+.create-set input::placeholder {
+  color: #4a3018;
 }
 
 .create-set button {
-  padding: 0.5rem 1rem;
-  background: #2563eb;
-  color: #fff;
-  border: none;
+  padding: 0.6rem 1.2rem;
+  background: rgba(122, 72, 24, 0.28);
+  border: 1px solid #7a4818;
+  color: #dcc06a;
   border-radius: 4px;
   cursor: pointer;
-  font-size: 1rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.4px;
+  transition: background 0.15s, border-color 0.15s;
+  white-space: nowrap;
+}
+
+.create-set button:hover {
+  background: rgba(122, 72, 24, 0.48);
+  border-color: #c89030;
 }
 
 .create-set button:disabled {
-  opacity: 0.5;
+  opacity: 0.35;
   cursor: not-allowed;
 }
 
+/* ── Set list ── */
 .set-list {
   list-style: none;
   padding: 0;
@@ -56,59 +95,76 @@ h2 {
   align-items: center;
   gap: 0.75rem;
   padding: 0.75rem 1rem;
-  border: 1px solid #e5e7eb;
+  border: 1px solid #1e1208;
   border-radius: 6px;
   margin-bottom: 0.5rem;
   cursor: pointer;
-  transition: background 0.15s;
+  background: rgba(14, 9, 4, 0.6);
+  transition: background 0.15s, border-color 0.15s;
 }
 
 .set-item:hover {
-  background: #f3f4f6;
+  background: rgba(122, 72, 24, 0.15);
+  border-color: #4a2e10;
 }
 
 .set-name {
   flex: 1;
   font-weight: 500;
+  color: #c8b08a;
+  font-size: 0.95rem;
 }
 
 .set-type {
-  font-size: 0.8rem;
-  color: #6b7280;
-  background: #f3f4f6;
-  padding: 0.15rem 0.4rem;
-  border-radius: 4px;
+  font-size: 0.7rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #6a4820;
+  background: rgba(20, 12, 4, 0.8);
+  padding: 0.2rem 0.5rem;
+  border-radius: 100px;
+  border: 1px solid #1e1208;
 }
 
 .set-updated {
-  font-size: 0.8rem;
-  color: #9ca3af;
+  font-size: 0.75rem;
+  color: #5a3810;
 }
 
 .delete-btn {
   background: none;
-  border: none;
-  color: #9ca3af;
+  border: 1px solid transparent;
+  color: #5a3810;
   cursor: pointer;
   font-size: 1rem;
-  padding: 0.25rem;
+  padding: 0.25rem 0.35rem;
   border-radius: 4px;
+  opacity: 0;
+  transition: opacity 0.12s, color 0.12s, border-color 0.12s;
+}
+
+.set-item:hover .delete-btn {
+  opacity: 1;
 }
 
 .delete-btn:hover {
-  color: #ef4444;
-  background: #fee2e2;
+  color: #d04020;
+  border-color: #d04020;
 }
 
+/* ── Loading / empty / error states ── */
 .loading,
 .empty {
-  color: #6b7280;
+  color: #6a4820;
   text-align: center;
-  padding: 2rem;
+  padding: 2.5rem 1rem;
+  font-size: 0.9rem;
+  line-height: 1.7;
 }
 
 .error {
-  color: #ef4444;
+  color: #d04020;
   text-align: center;
   padding: 1rem;
+  font-size: 0.9rem;
 }
