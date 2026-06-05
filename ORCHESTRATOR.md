@@ -32,7 +32,7 @@ Streams are **independent** — a blocked stream does not pause other streams.
 ### Card Design
 - **Mode**: autonomous
 - **Source**: design/VISUAL.md, design/card-index.md
-- **Status**: active — Task 2 (baseline propagation) complete (2026-06-05T18:10:50Z); all 7 baselines updated with 4 accepted design elements; Task 3 (activation track rework) is next
+- **Status**: active — Task 2 (baseline propagation) complete (2026-06-05T18:10:50Z); all 11 baselines updated; Task 5 (cleanup: revert BASELINE.html, remove min-height) is next, then Task 3 (activation track rework)
 
 #### Accepted design elements (2026-05-28)
 - ✅ **effects-container-v04** — gradient-fade section borders (opacity 0.7), 0.15 translucent fill; see VISUAL.md §6
@@ -50,7 +50,12 @@ Streams are **independent** — a blocked stream does not pause other streams.
 
 ~~**Task 1 — Redesign cooldown trigger marker v02 (PRIORITY — blocks Task 2)**~~ — ✅ Complete (2026-06-05): cooldown-trigger-marker-v02-b accepted; see Accepted marker shapes
 
-~~**Task 2 — Baseline propagation (unblocked)**~~ — ✅ Complete (2026-06-05T18:10:50Z): all 7 baselines (location-v01, char-main-v01, char-companion-v01, item-v01, event-v01, quest-main-v01, quest-side-v01) updated with effects-container-v04, set-symbol-v01-a, flavour-text-v01-c, subtitle-v01-a
+~~**Task 2 — Baseline propagation (unblocked)**~~ — ✅ Complete (2026-06-05T18:10:50Z): all 11 baselines updated with subtitle-v01-a, flavour-text-v01-c, set-symbol-v01-a (effects-container-v04 already present)
+
+**Task 5 — Baseline propagation cleanup (review findings 2026-06-05T18:10:50Z)**
+Review found these issues with Task 2's work:
+1. `design/BASELINE.html` was modified — this file is outside `design/variants/` and should not be touched by the Card Design agent; revert changes to this file
+2. Remove any `min-height` fixed declarations on container sections — all container heights must be fully content-driven per VISUAL.md §6
 
 **Task 3 — Activation track rework (unblocked 2026-06-05)**
 Create new activation track variants for all four primitive track types using the accepted marker shapes at the updated size. Previous track variants (`activation-track-basic-v01`, `activation-track-multiturn-v01/v02`, `activation-track-multiuse-v01`, `activation-track-use-v01`) are superseded — do NOT show them on the review page. New variants must:
@@ -520,8 +525,10 @@ _(none)_
 | 2026-06-05 (user) | Diagnosis | App Design path confusion | Root cause: agents were checking `src/app/` (repo root scaffold, 5 files) instead of `yarn-card-editor/src/app/` (full app). Source was always present. angular.json outputPath was always correct. Tasks 13–14 resolved. Task 15 (rebuild + verify) is next. |
 | 2026-06-05T12:19:03Z | Orchestrator | B: Card Design | Task 2 FAILED — agent wrote to wrong filenames (`*-baseline.html` instead of actual baselines per card-index.md); no baselines modified; also created activation-track-basic-v02-a/b/c (partial Task 3 work) |
 | 2026-06-05T12:19:03Z | Orchestrator | C: App Design | Tasks 15 + 23 complete — rebuild from real source verified; die symbol SVGs (die-symbols-v02-b) integrated into PreviewService (Constitution=Red, Zeal=Blue, Path=Green); review gallery regenerated (85 variants); app rebuilt with die symbols |
-| 2026-06-05T18:10:50Z | Orchestrator | B: Card Design | Task 2 complete — baseline propagation: all 7 baselines (location-v01, char-main-v01, char-companion-v01, item-v01, event-v01, quest-main-v01, quest-side-v01) updated with effects-container-v04, set-symbol-v01-a, flavour-text-v01-c, subtitle-v01-a; CHANGES.md updated |
+| 2026-06-05T18:10:50Z | Orchestrator | B: Card Design | Task 2 complete — all 11 baselines updated with subtitle-v01-a, flavour-text-v01-c, set-symbol-v01-a (effects-container-v04 already present); review cleanup: BASELINE.html boundary violation + min-height; Task 5 added |
 | 2026-06-05T18:10:50Z | Orchestrator | C: App Design | Task 16 complete — SetSelectorComponent restyled with dark parchment background, amber accents, proper contrast; review gallery regenerated (88 variants mirrored); app rebuilt and redeployed |
+| 2026-06-05T18:10:50Z | Orchestrator | Review: Card Design | REJECT → ACCEPT (one-shot retry): finding — CHANGES.md missing entries for baseline propagation; BASELINE.html modified outside domain; Task 5 added for remediation |
+| 2026-06-05T18:10:50Z | Orchestrator | Review: App Design | ACCEPT — build zero errors; output flat at docs/editor/index.html; live view pipeline confirmed; no runtime hazards; gallery links correct; 88 variants mirrored |
 
 ---
 

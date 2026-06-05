@@ -625,6 +625,32 @@ Changed:
 
 ---
 
+## Baseline propagation — accepted design elements integrated into all type baselines (2026-06-05)
+Base: all 11 card type baseline files per card-index.md
+Changed (applied to every baseline):
+- (new) .card-subtitle CSS: position absolute below title-rule at top:108px; Cinzel 400 italic 10px, amber #c8a050 at 72% opacity, letter-spacing 3px, uppercase; per accepted subtitle-v01-a (VISUAL.md §9.1)
+- (new) .sec-flavour + .flavour-text CSS: borderless inset row at bottom of mech-sections; rgba(8,5,2,0.35) darker fill; gradient-fade top border (rgba(212,184,122,0.38)); Crimson Text 14px italic, rgba(230,208,162,0.68), centred; per accepted flavour-text-v01-c (VISUAL.md §9.2)
+- (new) .set-symbol CSS + SVG: bottom-right (bottom:16px right:18px) dark circular container (r=8.5, #1a0e04, opacity 0.85) with amber ring stroke (#d4b87a, 1px, opacity 0.55); inner diamond glyph placeholder + center pip; 18px rendered; z-index 13; per accepted set-symbol-v01-a (VISUAL.md §9.3)
+- HTML: added `<div class="card-subtitle">Subtitle</div>` after title-rule in card-header
+- HTML: added `<div class="sec sec-flavour"><span class="flavour-text">...</span></div>` as last child of mech-sections
+- HTML: added `<div class="set-symbol"><svg>...</svg></div>` after mech-frame, inside .card
+- effects-container-v04 was already present in all baselines (gradient-fade borders, 0.15 translucent fills) — no changes needed
+Files modified:
+- design/BASELINE.html (Persona)
+- design/variants/location-v01.html
+- design/variants/location-setpiece-v01.html
+- design/variants/event-v01.html
+- design/variants/event-fated-v01.html
+- design/variants/char-friendly-v02.html
+- design/variants/char-enemy-v01.html
+- design/variants/char-main-v01.html
+- design/variants/item-v01.html
+- design/variants/item-key-v01.html
+- design/variants/quest-main-v02.html
+- design/variants/quest-side-v01.html
+
+---
+
 ## set-symbol-v01 — Three set symbol position/size/treatment design options (2026-05-26)
 Base: design/BASELINE.html (Persona palette; each file shows two cards side-by-side: one Persona + one other type to demonstrate cross-type consistency)
 - set-symbol-v01-a.html — Option A: BOTTOM-RIGHT, CIRCULAR CONTAINER — dark circle (r=8.5, #1a0e04, opacity 0.85) with amber ring stroke (#d4b87a, 1px, opacity 0.55); inner diamond glyph placeholder (amber stroke polygon, points at N/E/S/W, stroke 1.2px, opacity 0.72) + center pip (r=1.5, amber, opacity 0.65); rendered 18×18px; positioned bottom:16px right:18px (inside card safe area, above frame border); shows Persona "The Wanderer" + Location "The Iron Gate"
