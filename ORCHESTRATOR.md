@@ -32,7 +32,7 @@ Streams are **independent** — a blocked stream does not pause other streams.
 ### Card Design
 - **Mode**: autonomous
 - **Source**: design/VISUAL.md, design/card-index.md
-- **Status**: on hold — all design items awaiting user acceptance (cooldown-trigger-marker-v02, die-symbols-v02, trigger-symbols-v04); Tasks 2–3 blocked on cooldown trigger marker acceptance
+- **Status**: active — cooldown-trigger-marker-v02-b and die-symbols-v02-b accepted (2026-06-05); Tasks 2 and 3 unblocked; trigger-symbols-v04 superseded by v05 (simplify + scale down to ~29px)
 
 #### Accepted design elements (2026-05-28)
 - ✅ **effects-container-v04** — gradient-fade section borders (opacity 0.7), 0.15 translucent fill; see VISUAL.md §6
@@ -40,11 +40,11 @@ Streams are **independent** — a blocked stream does not pause other streams.
 - ✅ **flavour-text-v01-c** — borderless inset at bottom of mechanics frame, gradient-fade top only, Crimson Text 14px italic; see VISUAL.md §9.2
 - ✅ **subtitle-v01-a** — below title, Cinzel 400 italic amber, centre rule separator; see VISUAL.md §9.1
 
-#### Accepted marker shapes (2026-05-28)
+#### Accepted marker shapes
 - ✅ **Activation marker** — inlayed diamond (reference: `activation-track-basic-v01-b`)
 - ✅ **Flow marker (cooldown slot)** — hollow diamond, no inner element (reference: `activation-track-multiturn-v02-a`)
 - ✅ **Use marker** — square with inner square (reference: `activation-track-use-v01-a`)
-- ⚠️ **Cooldown trigger marker** — v01 rejected (a/b: external indicators violate shared bounding-box; c: notch concept is closest but needs inset diamond fill); v02 queued; see VISUAL.md §8 for updated spec
+- ✅ **Cooldown trigger marker** — hollow diamond with right vertex cut open; medium inset diamond (amber fill + amber stroke) fills the cutout (reference: `cooldown-trigger-marker-v02-b`, accepted 2026-06-05)
 
 #### Next tasks (in order)
 
@@ -61,20 +61,19 @@ v01-a/b/c are rejected. Create `design/variants/cooldown-trigger-marker-v02-a/b/
 **Task 2 — Baseline propagation (blocked until Task 1 and cooldown trigger marker accepted)**
 Update all card type baseline files in `design/variants/` (per card-index.md) to incorporate the four accepted design elements (effects-container-v04, set-symbol-v01-a, flavour-text-v01-c, subtitle-v01-a).
 
-**Task 3 — Activation track rework (blocked until cooldown trigger marker accepted)**
-Create new activation track variants for all four primitive track types using the accepted marker shapes. Previous track variants (`activation-track-basic-v01`, `activation-track-multiturn-v01/v02`, `activation-track-multiuse-v01`, `activation-track-use-v01`) are superseded — do NOT show them on the review page. New variants must:
+**Task 3 — Activation track rework (unblocked 2026-06-05)**
+Create new activation track variants for all four primitive track types using the accepted marker shapes at the updated size. Previous track variants (`activation-track-basic-v01`, `activation-track-multiturn-v01/v02`, `activation-track-multiuse-v01`, `activation-track-use-v01`) are superseded — do NOT show them on the review page. New variants must:
 - Show cards with the correct 4-container layout (VISUAL.md §6): Permanent (blue) / Entry (yellow) / Action (red) / Exit (yellow)
 - Use accepted marker shapes per VISUAL.md §8
+- **Marker size:** ~29px rendered (scaled down ~2/5ths from original 48px spec) — same size as trigger symbols; verify markers read clearly at this size before finalising
 - Show each track type in the Action container with realistic effect rows
-- Three options (a/b/c) per track type — vary spacing, proportions, and layout density, NOT the marker shapes
-- Track types to cover: Basic, Multi-turn (with flow markers and cooldown trigger), Multi-use, Use
+- Three options (a/b/c) per track type — vary spacing, proportions, and layout density, NOT the marker shapes or size
+- Track types to cover: Basic, Multi-turn (with flow markers and cooldown trigger marker v02-b), Multi-use, Use
 
 ~~**Task 4 — Fix trigger-symbols-v04 container placement and heights (review findings)**~~ — ✅ Fixed (2026-06-01T12:18:47Z): Character Phase moved to Entry, On Flow Marker moved to Action, all fixed heights removed — content-driven sizing applied
 
 #### Still awaiting acceptance
-- cooldown-trigger-marker-v02 (a/b/c) — in design; v01 rejected
-- die-symbols-v02 (a/b/c) — in design; v01 rejected
-- trigger-symbols-v04 (a/b/c) — in design; v03 rejected; v04 created, review findings fixed (Task 4 complete)
+- trigger-symbols-v05 (a/b/c) — v04-a direction kept, icons to be simplified and scaled to ~29px; v04 superseded
 
 #### Global rules (apply to all Card Design work)
 
@@ -101,11 +100,7 @@ Create new activation track variants for all four primitive track types using th
 
 **Track 2 — Die Symbols** *(3 options for the full set of 3 die icons)*
 - ~~**die-symbols-v01-a/b/c**~~ — ❌ Rejected (2026-05-31) — v01-a closest; pips replaced with single star; per-type color coding required; see v02
-- **die-symbols-v02-a/b/c** — New round per updated spec in VISUAL.md §7:
-  - Base: flat square die face (v01-a foundation)
-  - Inner marking: single centered star per die face — not pips
-  - Color: locked — Constitution=Red, Zeal=Blue, Path=Green; colour lives in star + thin border accent; dark die body; agent picks specific hex values that read at 20 px, confirmed on acceptance
-  - a/b/c vary star weight, size, and exact color treatment — not the base shape
+- ~~**die-symbols-v02-a/b/c**~~ — ✅ **v02-b accepted (2026-06-05)** — heavy-weight 5-point star, wide arms, thicker color border accent; see VISUAL.md §7 for locked spec
 
 **Track 3 — Subtitle** *(3 options)*
 - ~~**subtitle-v01-a/b/c**~~ — ✅ Complete (2026-05-26T13:03:32Z) — A: below title, Cinzel italic amber; B: between band+title, Crimson Text italic cream+diamonds; C: embedded in type band as second row, band expands 35→52px
@@ -118,17 +113,20 @@ Create new activation track variants for all four primitive track types using th
 
 **Track 6 — Trigger Symbols** *(3 options)*
 - ~~**trigger-symbols-v03-a/b/c**~~ — ❌ Rejected (2026-05-31) — colouring approach kept; symbols too abstract, not intuitively linked to trigger concepts; size too small (20px); see v04
-- **trigger-symbols-v04-a/b/c** — New round per updated spec in VISUAL.md §7:
-  - **Before designing:** use WebSearch to research iconography for each trigger concept (On Reveal, On Enter, Character Phase, On Leave, On Complete, On Flow Marker) — find real references, not abstract placeholders
-  - **Size:** ~48px rendered (matching activation track markers); viewbox 0 0 48 48; use the full canvas
-  - **Colour:** dark body + amber/off-white detail — same palette as v03; this is kept
-  - **Clarity:** each symbol must directly and intuitively evoke its trigger without prior knowledge — no abstract geometry
-  - **Row format:** show each symbol in context with the trigger name label per the design-stage convention in card-design-agent.md (label is for review only, not final design)
-  - a/b/c vary the specific iconographic interpretation per trigger — not the size or colour
+- ~~**trigger-symbols-v04-a**~~ — closest direction (2026-06-05); icons too fat/overdesigned — simplify and scale down; see v05
+- ~~**trigger-symbols-v04-b/c**~~ — not the chosen direction; disregard
+- **trigger-symbols-v05-a/b/c** — Iterate from v04-a per updated spec in VISUAL.md §7:
+  - **Scope: 5 triggers only** — On Reveal, On Enter, Character Phase, On Leave, On Complete; **do NOT include On Flow Marker** — that is represented by the accepted cooldown trigger marker shape (v02-b) in the Action container and requires no separate trigger symbol
+  - **Starting point:** v04-a iconographic direction — keep the same conceptual shapes per trigger; strip away all decoration and internal detail
+  - **Shape rule:** basic silhouettes only — max two distinct shape elements per icon; no internal lines, no layering, no decorative fills; if you can remove an element and still read the icon, remove it
+  - **Color:** exactly two tones — dark body + one lighter tone (off-white or amber); no additional colors or gradients
+  - **Size:** render at ~29px (scaled down ~2/5ths from v04); viewbox 0 0 48 48 (design at full res); confirm legibility at 29px render size before finalising
+  - **Row format:** show each symbol in context with the trigger name label on a real card mockup
+  - a/b/c vary the degree of simplification and exact silhouette treatment — not the trigger concepts or palette
 
 **Hold:** effects-v04 — create only after trigger symbols + activation tracks both accepted
 
-- **Blocked on**: user acceptance of cooldown-trigger-marker-v02, die-symbols-v02, trigger-symbols-v04
+- **Blocked on**: trigger-symbols-v04 acceptance (independent — does not block Tasks 2 or 3)
 - **Last notified**: 2026-06-01T18:16:51Z
 
 ---
@@ -136,7 +134,7 @@ Create new activation track variants for all four primitive track types using th
 ### App Design
 - **Mode**: autonomous
 - **Source**: APP.md
-- **Status**: BLOCKED — review REJECT (2026-06-05T06:10:23Z): App Design agent false-positive (3rd consecutive); src/app/ still contains only default Angular scaffold (5 files); angular.json still missing outputPath; card editor source was never committed to this repo
+- **Status**: Unblocked (2026-06-05, user-confirmed): source confusion resolved — full Angular source (components, services, models) exists at `yarn-card-editor/src/app/`; agents were incorrectly checking `src/app/` (repo root scaffold, 5 files only); `yarn-card-editor/angular.json` outputPath is correct; Task 15 (rebuild + verify) is next
 
 #### Known issues (all resolved 2026-05-28)
 1. ~~**Site not on GitHub Pages**~~ — ✅ deploy.yml deleted (redundant); orchestrator owns build+deploy cycle
@@ -159,14 +157,145 @@ Create new activation track variants for all four primitive track types using th
 
 ~~**Task 12 — Verify live preview pipeline after restoration (review finding 2026-06-05)**~~ — ❌ False positive (2026-06-05T06:10:23Z): agent claimed verification but src/app/ still has only scaffold code
 
-**Task 13 — CRITICAL: Recover card editor source from git history (review finding 2026-06-05, 3rd consecutive REJECT)**
-⚠️ **DO NOT mark this task as complete without running `ls src/app/` and confirming 30+ TypeScript files exist (components/, services/, models/ subdirectories).** The App Design agent has falsely claimed resolution 3 times. The card editor source (CardEditorComponent, CardPreviewComponent, CardFormComponent, CardListComponent, CardService, PreviewService, LayoutComponent, SetSelectorComponent, EffectEditorComponent, TriggersEditorComponent, ActionsEditorComponent, ImageUploadComponent, SymbolReferenceModalComponent, 7 type-specific form components, routing module, Card/Effect/CardType models) was built and deployed but NEVER COMMITTED to the repo. Recovery approach: search git reflog and all branches for any commit that added these files to src/app/. If no commit exists, the source must be reverse-engineered from the compiled bundles in docs/editor/ or recreated from APP.md specifications.
+~~**Task 13 — Recover card editor source (2026-06-05)**~~ — ✅ Resolved (2026-06-05, user-confirmed): source never missing; agents were checking `src/app/` (repo root scaffold) instead of `yarn-card-editor/src/app/` (full Angular app with all components, services, models). Path confusion only.
 
-**Task 14 — Add outputPath to angular.json (review finding 2026-06-05, 3rd consecutive REJECT)**
-⚠️ **DO NOT mark this task as complete without reading angular.json and confirming the outputPath key exists.** Add `"outputPath": {"base": "../docs/editor", "browser": ""}` to `projects.yarn-card-editor.architect.build.options` in yarn-card-editor/angular.json. Verify by running `grep -A2 outputPath yarn-card-editor/angular.json`.
+~~**Task 14 — Add outputPath to angular.json (2026-06-05)**~~ — ✅ Resolved (2026-06-05, user-confirmed): `yarn-card-editor/angular.json` already contains correct `outputPath: {"base": "../docs/editor", "browser": ""}`. Reviewer was inspecting wrong angular.json or none at all.
 
-**Task 15 — Rebuild from REAL source and verify (depends on Tasks 13–14)**
-After Tasks 13–14: run `cd yarn-card-editor && npm install && npx ng build --base-href /yarn-card-editor/editor/`. The output MUST be a functional card editor (not the default "Hello, yarn-card-editor" scaffold). Verify by checking that docs/editor/index.html references card editor chunks, not scaffold chunks.
+**Task 15 — Rebuild from real source and verify**
+Run `cd yarn-card-editor && npm install && npx ng build --base-href /yarn-card-editor/editor/`. Confirm `docs/editor/index.html` is a functional card editor build, then redeploy.
+
+**Task 16 — Fix set overview page readability (black on black)**
+The set selector / set overview page (`SetSelectorComponent`) is unreadable — dark text or elements on a dark background. Audit `yarn-card-editor/src/app/pages/set-selector/` (component + CSS) and fix contrast so the page is clearly legible. Apply a light or themed background to the set cards/list, ensure all text meets reasonable contrast against its background. Rebuild and redeploy after fixing.
+
+**Task 17 — Fix trigger limit bug: only one trigger can be added per card**
+Currently adding more than one trigger to a card does not work — only a single trigger persists or is rendered. Audit `TriggersEditorComponent` (`yarn-card-editor/src/app/components/shared/triggers-editor/`) and the type-specific form components that host it. Likely causes: the triggers binding is initialised as a single object instead of an array, `push()` called on an undefined array, or the parent form replaces the array on each add instead of appending. Fix so multiple triggers can be added, reordered, and removed on all card types. Rebuild and redeploy after fixing.
+
+**Task 18 — Introduce Row/Container domain model and fix activation track rendering**
+
+This is a domain model refactor. Read it fully before touching any code.
+
+**The model**
+
+The fundamental rendering unit is a `Row`:
+```ts
+interface Row {
+  symbol?: ContainerSymbol;  // absent in passive rows
+  effect?: Effect;           // absent in symbol-only rows
+}
+```
+
+A `Container` is a flat ordered list of rows with a declared type:
+```ts
+interface Container {
+  type: ContainerType;   // Permanent | Entry | Action | Exit
+  rows: Row[];
+}
+```
+
+Each `ContainerType` constrains which `ContainerSymbol` values are valid for its rows:
+- **Permanent / passive containers** — no symbol; rows have effect only
+- **Entry (trigger) container** — symbol is one of the trigger type enum values (On Reveal, On Enter, Character Phase, On Leave, On Complete, On Flow Marker)
+- **Action container** — symbol is one of the activation marker type enum values (Activation, FlowMarker, CooldownTrigger, UseMarker)
+- **Exit container** — same as trigger container
+
+`Action` remains an **editor-level grouping only** — it bundles related rows (e.g. an activation row + its cooldown rows) under one editable entry so the user can manage them together. It does not exist at render time: `PreviewService` flattens each action's rows into the container's row list and renders them in order.
+
+**Part A — Domain model (models/)**
+- Add `Row`, `Container`, `ContainerType`, `ContainerSymbol` (and per-container symbol enums) to `yarn-card-editor/src/app/models/`
+- Refactor `Action` and `Trigger` to compose into `Row[]` for rendering; keep `Action` as an editor grouping
+- Update all card type models to use `Container[]` instead of separate effects/actions/triggers arrays
+- Export everything from `models/index.ts`
+
+**Part B — Preview (PreviewService)**
+- Render card as containers → flatten rows → `symbol? + effect?` per row
+- A use-track action with N uses renders as one row with N use markers before the effect text
+- A cooldown-track action renders as: one activation-marker row, then one row per cooldown slot (FlowMarker or CooldownTrigger symbol, with effect if CooldownTrigger)
+
+**Part C — Forms**
+- Update `ActionsEditorComponent` and `TriggersEditorComponent` to edit `Row[]` within an action/trigger grouping
+- Multi-turn action sub-form: list of cooldown slot rows, each togglable between FlowMarker and CooldownTrigger; CooldownTrigger rows show an inline effect editor
+- Use-track action sub-form: a use-count spinner that drives the marker count on the single effect row
+- All changes must be live-preview-wired
+
+Rebuild and redeploy after all three parts are complete.
+
+**Task 19 — Card type locked at creation; immediate save; autosave on every edit**
+
+Three related behaviours that must be implemented together.
+
+**Card type selection up-front**
+When creating a new card, the user must choose the card type before the editor opens. The type selection UI (a modal, a dedicated step, or a type-picker on the new-card button — agent's choice, but must be clear and unambiguous) is shown first; only after a type is selected does the editor open for that card type. Once created, the card type field is read-only and cannot be changed. Remove any type-change control from the editor form.
+
+**Immediate save on creation**
+As soon as a new card is created (type selected, editor opened), `CardService` must persist it to storage immediately — before the user edits any field. This ensures the card exists in the set even if the user closes the editor without making changes.
+
+**Autosave on every edit**
+Every change to any form field must trigger a save to `CardService` (and through it, to localStorage or whatever persistence layer is in use) without any explicit "Save" button interaction. Debounce the save by ~500 ms to avoid excessive writes on rapid keystrokes. The user should never need to manually save a card.
+
+Rebuild and redeploy after completing this task.
+
+**Task 21 — Card list grouped by type, with counts, colour coding, and collapsible groups**
+
+Rework the card list (`CardListComponent`, `yarn-card-editor/src/app/components/card-list/`) so that cards are displayed grouped by card type rather than as a flat list.
+
+**Grouping and counts**
+- Cards are grouped by type: Location, Character, Item, Event, Quest, Persona, Script
+- A header row per group shows the type name and the count of cards in that group (e.g. "Characters — 4")
+- A total count is shown above all groups (e.g. "12 cards total")
+- Groups with zero cards are hidden
+
+**Collapsible groups**
+- Each group is independently expandable and collapsible via a toggle on its header
+- Default state: all groups expanded
+- Toggle state persists for the duration of the session (no need for localStorage persistence)
+
+**Colour coding**
+- Each card list item is colour coded using the established card type colour from `design/VISUAL.md` (or `design/card-index.md` if the per-type colours are defined there). Read those files to source the correct colours before implementing.
+- The colour should be applied as a left border or subtle background tint on the list item — not a full background fill that impairs readability
+- Group headers use the same colour as their type
+
+Rebuild and redeploy after completing this task.
+
+**Task 22 — Gray out undesigned feature fields consistently (living task)**
+
+⚠️ This is a **living task** — it must be revisited and updated each time the Card Design stream accepts a new visual feature. When a card design feature is accepted and propagated to baselines, the corresponding form fields must be re-enabled in the same App Design run.
+
+**Goal**
+Form fields that correspond to features not yet visually designed must be rendered in a grayed-out / disabled state. They must still be present in the form (so data model slots are already wired), but clearly indicated as "coming soon" — not yet functional in the card preview. Do not hide them; do not remove them from the model.
+
+**Consistent treatment**
+- Disabled fields use a uniform visual style: muted label colour, grayed input, a tooltip or inline label reading "Not yet designed"
+- The same CSS class / Angular directive is used for all disabled-feature fields — not ad-hoc per field
+- When a feature is enabled, removing that class/directive is the only change needed
+
+**Fields currently undesigned (initial list — update as features are accepted)**
+- **Health / Life Point Slots** — rendered on card frame but visual design not yet finalised
+- **Location adjacency / connection arrows** — §3.3 of DESIGN.md; solid/hollow arrow directions between locations; not yet in VISUAL.md
+- Add further fields here as they are identified during implementation
+
+**Process rule**
+When the Card Design stream accepts a new visual element that corresponds to a grayed-out field, the App Design agent must:
+1. Enable the field (remove disabled treatment)
+2. Wire its value into `PreviewService` rendering
+3. Remove it from the "currently undesigned" list above in this task description
+4. Update ORCHESTRATOR.md accordingly
+
+Rebuild and redeploy after the initial implementation of this task.
+
+**Task 20 — Export to JSON and import from JSON**
+
+**Export**
+Add an "Export" action (button in the set overview or editor toolbar) that serialises the current card set to JSON and triggers a browser file download. The filename should default to `<set-name>.json`. The JSON must be the canonical serialisation of the `CardSet` model — no UI-only fields, no internal IDs that have no meaning outside the app. All card types and their full data must round-trip cleanly.
+
+**Import**
+Add an "Import" action that accepts a `.json` file via a file picker. On import: validate that the file is a valid `CardSet` JSON (correct structure and card types); if valid, load it as a new card set (or offer to replace the current one if a set is already open); if invalid, show a clear error message. Do not silently swallow malformed files.
+
+**Robustness**
+- The export format is the source of truth — import must accept any file exported by the same app version
+- Unknown fields in the imported JSON should be ignored (forward-compatibility), not rejected
+- Any import validation error must surface to the user with enough detail to understand what is wrong
+
+Rebuild and redeploy after completing this task.
 
 ~~**Task 0 — Fix effect variant selector bug**~~ — ✅ Fixed (2026-06-01): `onVariantChange()` now assigns variant before emitting
 
@@ -206,6 +335,8 @@ After Card Design propagates accepted baselines → re-sync updated baseline HTM
   - `.nojekyll`: `docs/.nojekyll` ✅ (created 2026-05-28T00:17:35Z)
 - **Blocked on**: —
 - **Last notified**: 2026-06-05T06:10:23Z
+
+> ⚠️ **Path note (2026-06-05, permanent):** `src/app/` at repo root is the default Angular scaffold — ignore it. All App Design work uses `yarn-card-editor/src/app/`. Agents that check `src/app/` and report missing source are looking in the wrong place.
 
 ---
 
@@ -395,6 +526,7 @@ _(none)_
 | 2026-06-05T06:10:23Z | Orchestrator | B: Card Design | On hold — all design items (cooldown-trigger-marker-v02, die-symbols-v02, trigger-symbols-v04) awaiting user acceptance; Tasks 2–3 blocked on cooldown trigger marker acceptance |
 | 2026-06-05T06:10:23Z | Orchestrator | C: App Design | Tasks 9–12 FALSE POSITIVE — agent claimed verification but reviewer confirmed src/app/ still has only 5 scaffold files, angular.json still missing outputPath; this is 3rd consecutive false positive |
 | 2026-06-05T06:10:23Z | Orchestrator | Review: App Design | REJECT — (1) angular.json missing outputPath; (2) src/app/ is default scaffold (5 files), card editor source never committed; (3) docs/editor/ is orphaned compiled artifact with no reproducible build path. Tasks 13–15 added with stronger verification requirements. |
+| 2026-06-05 (user) | Diagnosis | App Design path confusion | Root cause: agents were checking `src/app/` (repo root scaffold, 5 files) instead of `yarn-card-editor/src/app/` (full app). Source was always present. angular.json outputPath was always correct. Tasks 13–14 resolved. Task 15 (rebuild + verify) is next. |
 
 ---
 

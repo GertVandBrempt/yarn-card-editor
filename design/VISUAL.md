@@ -125,17 +125,16 @@ Icons are used inline in effect text to represent game concepts. The accepted ic
 
 ### Trigger symbol style rules
 
-Trigger symbols are **larger than effect icons** — they share the same minimum row height as activation track markers, and must use that space to be immediately legible.
+Trigger symbols lead trigger rows on the card. They are compact, clean, and instantly legible.
 
-- **Size:** same rendered dimensions as activation track markers (~48 px at card scale) — not 20×20; the row height is driven by this size
-- **ViewBox:** `0 0 48 48` (or equivalent larger canvas) — take full advantage of the space; do not scale a 24×24 design up
-- **Body fill:** dark (`#1a0e04` or close variant) — same dark tone used for card frame and strokes
-- **Detail / highlight fill:** a single lighter tone (warm off-white or light amber) for interior shape details — consistent across all trigger symbols
-- **No per-trigger color variation** — all trigger symbols share the same dark+light palette; shape alone distinguishes trigger type
-- **Clarity requirement:** each symbol must be intuitively legible at a glance — the shape should directly evoke the trigger concept without requiring prior knowledge; abstract geometric shapes are not acceptable; research real-world iconography for each trigger concept before designing
+- **Size:** ~29 px rendered at card scale (reduced from initial 48 px spec — scaled down by approximately 2/5ths); row height is driven by this size
+- **ViewBox:** `0 0 48 48` internal canvas — design at full resolution, render small; do not compromise detail for size
+- **Color:** exactly two tones — dark body (`#1a0e04` or close variant) and one lighter tone (warm off-white or light amber) for interior details; no per-trigger color variation; shape alone distinguishes trigger type
+- **Shape principle:** trim, reduced forms — basic silhouettes only; no internal line detail, no decorative layering, no more than two distinct shape elements per icon; overdesigned or "fat" icons are rejected
+- **Clarity requirement:** each symbol must be intuitively legible at a glance at ~29 px — test legibility at render size, not at design size
 - **Display context:** always shown as the leading symbol of a trigger row on a card, followed by the trigger name label (see §6.1); variant files must show them in use inside the trigger sections of a real card mockup
 
-**Trigger types requiring symbols:**
+**Trigger types requiring symbols (5 total):**
 
 | Trigger | When it fires | Design direction (starting point — research and improve) |
 |---|---|---|
@@ -144,7 +143,8 @@ Trigger symbols are **larger than effect icons** — they share the same minimum
 | Character Phase | Each character phase of the round | Person silhouette / figure in motion |
 | On Leave | When the card leaves its play area | Arrow exiting a frame / door opening outward |
 | On Complete | When an objective is completed | Checkmark / seal / ribbon |
-| On Flow Marker | When a token advances onto this slot | Flowing arrow / token-on-slot / wave |
+
+> **On Flow Marker** is **not** a trigger symbol — it is represented in the Action container by the accepted cooldown trigger marker shape (`cooldown-trigger-marker-v02-b`). Do not design a separate icon for it.
 
 ### Accepted icons
 
@@ -158,30 +158,22 @@ Trigger symbols are **larger than effect icons** — they share the same minimum
 | `icon-reveal-character` | Reveal a character | `#d4cc30` yellow | Overlapping cards, person pip |
 | `icon-reveal-item` | Reveal an item | `#40a0c0` teal | Overlapping cards, diamond pip |
 
-### Die symbols — in design
+### Die symbols — accepted `die-symbols-v02-b` *(accepted 2026-06-05)*
 
 Each persona die type has a distinct icon used inline in conditional effect text (e.g. "if you rolled 2+ <die-constitution>"). Three die types, one icon each:
 
-| ID | Die type | Persona role |
-|---|---|---|
-| `icon-die-constitution` | Constitution | Endurance / body |
-| `icon-die-zeal` | Zeal | Spirit / drive |
-| `icon-die-path` | Path | Mind / skill |
+| ID | Die type | Persona role | Color |
+|---|---|---|---|
+| `icon-die-constitution` | Constitution | Endurance / body | Red |
+| `icon-die-zeal` | Zeal | Spirit / drive | Blue |
+| `icon-die-path` | Path | Mind / skill | Green |
 
-**Style rules:**
+**Locked style (from `die-symbols-v02-b`):**
 - ViewBox `0 0 24 24`; rendered at 20×20 inline
-- Base shape: flat square die face (from `die-symbols-v01-a`) — no perspective, no rounded corners beyond stroke
+- Base shape: flat square die face — no perspective, no rounded corners beyond stroke
 - Stroke: `#1a0e04`, `stroke-width="2.5"`, round linecap/join
-- Inner marking: a **single star** — one star per die, centered on the face; not pips or pip-counts
-- **Color coding**: each die type has a locked colour; colour lives in the star and a thin border accent on the die face — **not** a brightly filled body; the die body remains dark, consistent with the card palette:
-
-| Aspect | Colour |
-|---|---|
-| Constitution | Red |
-| Zeal | Blue |
-| Path | Green |
-
-- All three dice share the same base shape and star; colour alone distinguishes type at a glance; agent picks specific hex values that read clearly at 20 px on a dark background; values confirmed on acceptance
+- Inner marking: **heavy-weight 5-point star**, wide arms, centered on the die face — not pips
+- Color: lives in the star and a thicker border accent on the die face; die body remains dark; specific hex values to be extracted from `die-symbols-v02-b.html` and locked here on integration
 
 ### Shelved (pending design)
 
@@ -226,7 +218,7 @@ AND and OR are **compound containers** — each holds two or more sub-tracks. Ea
 - **Color scheme:** same dark body + lighter detail palette as trigger symbols — no separate color per track type; shape and structure alone distinguish types
 - **Layout:** vertical — each track runs top-to-bottom inside its action row, covering the full width of the action container
 - **Simplicity:** minimal shapes only — avoid decoration; a marker is a shape, a flow path is a line or arrow; nothing more
-- **Marker size:** all activation markers, cooldown markers, and trigger markers must be the **same size** across all track types — large enough to physically place a standard board game cube (~8 mm, e.g. Pandemic cubes); target ~48 px diameter/side at card scale (375 px wide)
+- **Marker size:** all activation markers, cooldown markers, and trigger markers must be the **same size** across all track types — target ~29 px diameter/side at card scale (375 px wide), matching the trigger symbol render size (both scaled down by ~2/5ths from the original 48 px spec)
 - **Consistent sizing:** all icons and markers across the entire card (effect icons, trigger symbols, activation markers) share the same base size — no marker may be larger or smaller than another
 - **One track per card:** each primitive track type (Basic, Multi-turn, Multi-use, Use) gets its own dedicated card variant with one sample action row using that track
 - **AND/OR:** hold — design only after all four primitive track types are accepted
@@ -241,7 +233,7 @@ Every marker communicates **who or what fires the trigger**. All markers share t
 |---|---|---|---|
 | **Activation marker** | Outer diamond + inlayed inner diamond | `activation-track-basic-v01-b` | Player places token here to fire the action |
 | **Flow marker (cooldown slot)** | Hollow / empty diamond — no inner element | `activation-track-multiturn-v02-a` | Token rests here during cooldown; no effect fires; pure delay slot |
-| **Cooldown trigger marker** | Hollow diamond + right-edge arrow indicator | *(no accepted file yet — spec below)* | Auto-fires an effect when token advances onto this slot (On Flow Marker); same hollow diamond silhouette as flow marker; a small arrow or wedge on the right edge of the outer diamond signals the auto-fire |
+| **Cooldown trigger marker** | Hollow diamond with right vertex cut open; medium inset diamond (amber fill + amber stroke) fills the cutout | `cooldown-trigger-marker-v02-b` *(accepted 2026-06-05)* | Auto-fires an effect when token advances onto this slot (On Flow Marker); same hollow diamond silhouette as flow marker; right vertex interrupted and replaced by a recessed inset diamond signalling auto-fire |
 | **Use marker** | Square with inner square (diamond rotated 45°) | `activation-track-use-v01-a` | Pre-filled token slot; token removed on use; N markers = N charges |
 
 #### Cooldown trigger marker — design spec

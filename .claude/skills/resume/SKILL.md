@@ -9,24 +9,23 @@ Read RESUME.md and give a concise session brief so the user can continue work wi
 
 ## Steps
 
-1. Read `RESUME.md`. If the file does not exist or is empty, say: "No resume state found. Which session type? **game design** / **app design** / **card design**" and wait.
+1. Read `RESUME.md`. If the file does not exist or is empty, say: "No resume state found. What would you like to work on?" and wait.
 
 2. Output a brief (≤ 10 lines) covering:
    - **Current task:** what was in progress
    - **Files touched:** which files were modified last session
    - **Decisions made:** any design choices locked in
-   - **Next action:** the exact next step recorded in RESUME.md
 
-3. Ask: "Session type? **game design** / **app design** / **card design**" — wait for the user to reply.
+3. List the pending next actions from RESUME.md as a numbered menu and ask: "Which would you like to tackle first?" — wait for the user to reply.
 
-4. Based on the session type, read the following files **once**:
-   - **game design** → read `DESIGN.md`
-   - **app design** → no additional files
-   - **card design** → read `design/VISUAL.md`, then read `design/card-index.md`
+4. Based on what the user wants to work on, read the relevant files **once**:
+   - **game design work** → read `DESIGN.md`
+   - **app design work** → no additional files
+   - **card design work** → read `design/VISUAL.md`, then read `design/card-index.md`
 
-5. Confirm what was loaded in one line (e.g. "Loaded: DESIGN.md. Ready."), then wait for a task.
+5. Confirm what was loaded in one line (e.g. "Loaded: DESIGN.md. Ready."), then proceed with the chosen task.
 
-Do not start any work until the user gives a task after step 5.
+Do not start any work until the user replies in step 3.
 
 ## On-demand loading (card design sessions)
 

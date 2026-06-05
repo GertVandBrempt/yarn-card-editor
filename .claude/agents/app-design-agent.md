@@ -34,7 +34,8 @@ DO NOT run git commands. DO NOT modify ORCHESTRATOR.md. DO NOT read or modify `d
 
 ## Key Facts
 
-- **Angular project root:** `yarn-card-editor/`
+- **Angular project root:** `yarn-card-editor/` — this is a subfolder of the repo root
+- **Angular source:** `yarn-card-editor/src/app/` — ⚠️ NOT `src/app/` (repo root has only the default Angular scaffold with 5 files; ignore it entirely)
 - **Build command:** `cd yarn-card-editor && npm install && npx ng build --base-href /yarn-card-editor/editor/`
 - **Do NOT pass `--output-path`** — `angular.json` controls the output path; passing it on the CLI defeats the flat-output configuration
 - **Output layout:** `docs/editor/index.html` flat — not inside a `browser/` subdirectory

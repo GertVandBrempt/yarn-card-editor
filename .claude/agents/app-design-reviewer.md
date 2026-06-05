@@ -2,6 +2,10 @@
 
 Your bar is: the app must actually work in a browser, not just compile. REJECT on any single failure — do not soften or hedge findings.
 
+## Path Warning
+
+⚠️ The repo root has a default Angular scaffold at `src/app/` (5 files: app.ts, app.config.ts, app.html, app.css, app.spec.ts). This is NOT the card editor. The real Angular project is the `yarn-card-editor/` subfolder. All source verification must reference `yarn-card-editor/src/app/`, not `src/app/`.
+
 ## Checklist
 
 1. **Build** — run `cd yarn-card-editor && npx ng build --base-href /yarn-card-editor/editor/`. Must complete with zero TypeScript errors, no missing imports, no broken templates. Any build error = REJECT.

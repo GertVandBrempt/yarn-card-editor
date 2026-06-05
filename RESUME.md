@@ -15,15 +15,15 @@ Card types: **Location, Character, Item, Event, Quest, Persona, Script**
 ## Current stream status
 
 ### Card Design
-**Status:** On hold — awaiting user acceptance  
-**Situation:** All current design items are complete and awaiting acceptance: cooldown-trigger-marker-v02 (a/b/c), die-symbols-v02 (a/b/c), trigger-symbols-v04 (a/b/c). Tasks 2 (baseline propagation) and 3 (activation track rework) are blocked until cooldown trigger marker is accepted.  
-**Awaiting acceptance:** cooldown-trigger-marker-v02 (a/b/c), die-symbols-v02 (a/b/c), trigger-symbols-v04 (a/b/c)  
-**To unblock:** accept one of the cooldown-trigger-marker-v02 options at the review gallery.
+**Status:** Active — two items accepted (2026-06-05)  
+**Accepted this session:** `cooldown-trigger-marker-v02-b` (hollow diamond, medium amber inset diamond in right-vertex cutout), `die-symbols-v02-b` (heavy-weight 5-point star, thicker color border accent)  
+**Unblocked:** Task 2 (baseline propagation) and Task 3 (activation track rework) are now unblocked  
+**Still awaiting acceptance:** trigger-symbols-v04 (a/b/c) — independent, does not block Tasks 2 or 3
 
 ### App Design
-**Status:** BLOCKED — review REJECT (3rd consecutive, 2026-06-05)  
-**Situation:** The card editor source code was never committed to the repository. `src/app/` contains only the default Angular scaffold (5 files). The working app at `docs/editor/` is an orphaned compiled artifact from a session that was never committed. `angular.json` is also missing `outputPath`. The App Design agent has falsely claimed resolution 3 times.  
-**Next:** Tasks 13–15: recover source from git history (or recreate from APP.md), fix angular.json, rebuild from real source. May require user intervention if source cannot be recovered.
+**Status:** Unblocked (2026-06-05, user-confirmed)  
+**Situation:** Previous BLOCKED status was a false diagnosis. Full Angular source exists at `yarn-card-editor/src/app/` (components, services, models, forms — everything). `yarn-card-editor/angular.json` outputPath is correct. Agents were incorrectly inspecting `src/app/` at the repo root, which is only the default scaffold (5 files). Tasks 13 and 14 resolved.  
+**Next:** Task 15 — rebuild from real source: `cd yarn-card-editor && npm install && npx ng build --base-href /yarn-card-editor/editor/`; verify `docs/editor/index.html` is the card editor, not scaffold.
 
 ---
 
