@@ -1,6 +1,6 @@
 # Yarn — Session Resume Context
 
-_Updated: 2026-06-05T06:10:23Z_
+_Updated: 2026-06-05T12:19:03Z_
 
 ---
 
@@ -15,15 +15,17 @@ Card types: **Location, Character, Item, Event, Quest, Persona, Script**
 ## Current stream status
 
 ### Card Design
-**Status:** Active — two items accepted (2026-06-05)  
-**Accepted this session:** `cooldown-trigger-marker-v02-b` (hollow diamond, medium amber inset diamond in right-vertex cutout), `die-symbols-v02-b` (heavy-weight 5-point star, thicker color border accent)  
-**Unblocked:** Task 2 (baseline propagation) and Task 3 (activation track rework) are now unblocked  
-**Still awaiting acceptance:** trigger-symbols-v04 (a/b/c) — independent, does not block Tasks 2 or 3
+**Status:** Active — Task 2 (baseline propagation) FAILED this run  
+**Issue:** Agent wrote to wrong filenames (`*-baseline.html`) instead of actual baselines from card-index.md (e.g. `location-v01.html`, `char-main-v01.html`). No baselines were modified.  
+**Partial work:** activation-track-basic-v02-a/b/c created (Task 3 work, incomplete — only basic track type done)  
+**Next:** Task 2 — Baseline propagation (retry with correct filenames)  
+**Independent track pending:** trigger-symbols-v05 (a/b/c) — needs creation; does not block Task 3
 
 ### App Design
-**Status:** Unblocked (2026-06-05, user-confirmed)  
-**Situation:** Previous BLOCKED status was a false diagnosis. Full Angular source exists at `yarn-card-editor/src/app/` (components, services, models, forms — everything). `yarn-card-editor/angular.json` outputPath is correct. Agents were incorrectly inspecting `src/app/` at the repo root, which is only the default scaffold (5 files). Tasks 13 and 14 resolved.  
-**Next:** Task 15 — rebuild from real source: `cd yarn-card-editor && npm install && npx ng build --base-href /yarn-card-editor/editor/`; verify `docs/editor/index.html` is the card editor, not scaffold.
+**Status:** Active — Tasks 15 + 23 complete  
+**Completed this run:** App rebuilt from real source; die symbol SVGs (die-symbols-v02-b) integrated into PreviewService with per-type color coding; review gallery regenerated (85 variants)  
+**Next:** Task 16 — Fix set overview page readability (black on black)  
+**Backlog:** Task 17 (trigger limit bug), Task 18 (Row/Container domain model), Task 19 (autosave), Task 21 (grouped card list), Task 22 (gray out undesigned fields), Task 20 (export/import JSON)
 
 ---
 
@@ -46,8 +48,8 @@ Card types: **Location, Character, Item, Event, Quest, Persona, Script**
 
 ## How to continue work
 
-- **Review card variants:** visit https://gertvandbrempt.github.io/yarn-card-editor/review/ and accept or give feedback on pending designs
-- **Accept variants:** say "accept cooldown-trigger-marker-v02-a" (or b/c) to unblock baseline propagation and track rework
+- **Review card variants:** visit https://gertvandbrempt.github.io/yarn-card-editor/review/ — trigger-symbols-v05 and cooldown-trigger-marker-v02 are under review
+- **Accept variants:** say "accept trigger-symbols-v05-a" (or b/c) to advance trigger symbol design
 - **Game design:** handled in interactive sessions only — no orchestrator stream
 - **Weekly review:** the orchestrator will pause and notify you when a review gate is reached
 

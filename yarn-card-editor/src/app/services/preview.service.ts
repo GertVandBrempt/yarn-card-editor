@@ -12,6 +12,7 @@ import { MainQuestCard, SideQuestCard, Objective } from '../models/quest-card.mo
  * SVG symbol definitions extracted from the latest design variants.
  *
  * Trigger symbols: trigger-symbols-v03-a.html (highest version)
+ * Die symbols: die-symbols-v02-b.html (accepted — heavy star, per-type color coding)
  * Activation track basic: activation-track-basic-v01-a.html
  * Activation track multiturn: activation-track-multiturn-v02-a/b/c.html (highest version)
  * Activation track multiuse: activation-track-multiuse-v01-a/b/c.html
@@ -351,6 +352,38 @@ const SVG_DEFS = `
   <symbol id="track-fallback" viewBox="0 0 24 24">
     <circle cx="12" cy="12" r="10" fill="#1a0e04"/>
     <circle cx="12" cy="12" r="6" fill="#d4b87a"/>
+  </symbol>
+
+  <!-- Die symbols — die-symbols-v02-b accepted -->
+  <!-- Constitution: Bold red star (heavy 5-point, outer r=6.2, inner r=3.2) -->
+  <symbol id="icon-die-constitution" viewBox="0 0 24 24">
+    <rect x="2" y="2" width="20" height="20" rx="2"
+          fill="#1a0e04" stroke="#1a0e04" stroke-width="2.5"
+          stroke-linecap="round" stroke-linejoin="round"/>
+    <rect x="3" y="3" width="18" height="18" rx="1.5"
+          fill="none" stroke="#e03838" stroke-width="1.2" opacity="0.55"/>
+    <polygon points="12,5.8 13.43,9.53 17.89,10.08 14.46,12.48 15.64,16.40 12,13.96 8.36,16.40 9.54,12.48 6.11,10.08 10.57,9.53"
+             fill="#e03838" stroke="none"/>
+  </symbol>
+  <!-- Zeal: Bold blue star -->
+  <symbol id="icon-die-zeal" viewBox="0 0 24 24">
+    <rect x="2" y="2" width="20" height="20" rx="2"
+          fill="#1a0e04" stroke="#1a0e04" stroke-width="2.5"
+          stroke-linecap="round" stroke-linejoin="round"/>
+    <rect x="3" y="3" width="18" height="18" rx="1.5"
+          fill="none" stroke="#4080e0" stroke-width="1.2" opacity="0.55"/>
+    <polygon points="12,5.8 13.43,9.53 17.89,10.08 14.46,12.48 15.64,16.40 12,13.96 8.36,16.40 9.54,12.48 6.11,10.08 10.57,9.53"
+             fill="#4080e0" stroke="none"/>
+  </symbol>
+  <!-- Path: Bold green star -->
+  <symbol id="icon-die-path" viewBox="0 0 24 24">
+    <rect x="2" y="2" width="20" height="20" rx="2"
+          fill="#1a0e04" stroke="#1a0e04" stroke-width="2.5"
+          stroke-linecap="round" stroke-linejoin="round"/>
+    <rect x="3" y="3" width="18" height="18" rx="1.5"
+          fill="none" stroke="#40c060" stroke-width="1.2" opacity="0.55"/>
+    <polygon points="12,5.8 13.43,9.53 17.89,10.08 14.46,12.48 15.64,16.40 12,13.96 8.36,16.40 9.54,12.48 6.11,10.08 10.57,9.53"
+             fill="#40c060" stroke="none"/>
   </symbol>
 
   <!-- Set symbol — set-symbol-v01-a accepted -->
@@ -859,6 +892,7 @@ export class PreviewService {
     const ICON_NAMES = [
       'damage', 'shield', 'heal', 'scout', 'gain-action',
       'reveal-character', 'reveal-item',
+      'die-constitution', 'die-zeal', 'die-path',
     ];
 
     for (const icon of ICON_NAMES) {

@@ -19,7 +19,7 @@ This file is read and written by scheduled agents. Do not edit manually during a
 ```
 blocked_for_weekly_review: false
 weekly_review_due: 2026-05-30T08:00:00Z
-last_orchestrator_run: 2026-06-05T06:10:23Z
+last_orchestrator_run: 2026-06-05T12:19:03Z
 last_status_notification: 2026-05-31T12:00:00Z
 ```
 
@@ -32,7 +32,7 @@ Streams are **independent** — a blocked stream does not pause other streams.
 ### Card Design
 - **Mode**: autonomous
 - **Source**: design/VISUAL.md, design/card-index.md
-- **Status**: active — cooldown-trigger-marker-v02-b and die-symbols-v02-b accepted (2026-06-05); Tasks 2 and 3 unblocked; trigger-symbols-v04 superseded by v05 (simplify + scale down to ~29px)
+- **Status**: active — Task 2 (baseline propagation) FAILED (2026-06-05T12:19:03Z, agent wrote to wrong filenames); activation-track-basic-v02-a/b/c partially created (Task 3 work); Task 2 remains next
 
 #### Accepted design elements (2026-05-28)
 - ✅ **effects-container-v04** — gradient-fade section borders (opacity 0.7), 0.15 translucent fill; see VISUAL.md §6
@@ -48,18 +48,11 @@ Streams are **independent** — a blocked stream does not pause other streams.
 
 #### Next tasks (in order)
 
-**Task 1 — Redesign cooldown trigger marker v02 (PRIORITY — blocks Task 2)**
-v01-a/b/c are rejected. Create `design/variants/cooldown-trigger-marker-v02-a/b/c`. Follow the updated spec in VISUAL.md §8:
-- Same outer diamond silhouette and bounding box as all other markers — no part may extend beyond that boundary
-- The right vertex of the outer diamond stroke is cut open (interrupted) at that point
-- A smaller inset diamond — styled like the inner diamond of the activation marker — is placed in the cutout, fully within the original boundary
-- The inset diamond is the only distinguishing element; the rest of the outer diamond remains the hollow-diamond silhouette of the flow marker
-- All three options (a/b/c) must stay within the shared bounding box; vary only the proportions and weight of the inset diamond (size, stroke weight, fill treatment)
-- Show each option at card scale inside an action row on a real card mockup
-- Mark cooldown-trigger-marker-v01-a/b/c as superseded in CHANGES.md; remove from Under Review on the review page
+~~**Task 1 — Redesign cooldown trigger marker v02 (PRIORITY — blocks Task 2)**~~ — ✅ Complete (2026-06-05): cooldown-trigger-marker-v02-b accepted; see Accepted marker shapes
 
-**Task 2 — Baseline propagation (blocked until Task 1 and cooldown trigger marker accepted)**
+**Task 2 — Baseline propagation (unblocked)**
 Update all card type baseline files in `design/variants/` (per card-index.md) to incorporate the four accepted design elements (effects-container-v04, set-symbol-v01-a, flavour-text-v01-c, subtitle-v01-a).
+⚠️ **Agent error (2026-06-05T12:19:03Z):** Agent attempted this task but wrote to wrong filenames (`*-baseline.html`) instead of the actual baselines listed in card-index.md (e.g. `location-v01.html`, `char-main-v01.html`). No baselines were modified. Task remains open.
 
 **Task 3 — Activation track rework (unblocked 2026-06-05)**
 Create new activation track variants for all four primitive track types using the accepted marker shapes at the updated size. Previous track variants (`activation-track-basic-v01`, `activation-track-multiturn-v01/v02`, `activation-track-multiuse-v01`, `activation-track-use-v01`) are superseded — do NOT show them on the review page. New variants must:
@@ -126,15 +119,15 @@ Create new activation track variants for all four primitive track types using th
 
 **Hold:** effects-v04 — create only after trigger symbols + activation tracks both accepted
 
-- **Blocked on**: trigger-symbols-v04 acceptance (independent — does not block Tasks 2 or 3)
-- **Last notified**: 2026-06-01T18:16:51Z
+- **Blocked on**: trigger-symbols-v05 creation + acceptance (independent — does not block Task 3)
+- **Last notified**: 2026-06-05T12:19:03Z
 
 ---
 
 ### App Design
 - **Mode**: autonomous
 - **Source**: APP.md
-- **Status**: Unblocked (2026-06-05, user-confirmed): source confusion resolved — full Angular source (components, services, models) exists at `yarn-card-editor/src/app/`; agents were incorrectly checking `src/app/` (repo root scaffold, 5 files only); `yarn-card-editor/angular.json` outputPath is correct; Task 15 (rebuild + verify) is next
+- **Status**: active — Task 15 (rebuild + verify) and Task 23 (die symbol SVGs) complete (2026-06-05T12:19:03Z); review gallery regenerated (85 variants mirrored); app rebuilt with die symbols; Task 16 (set overview readability) is next
 
 #### Known issues (all resolved 2026-05-28)
 1. ~~**Site not on GitHub Pages**~~ — ✅ deploy.yml deleted (redundant); orchestrator owns build+deploy cycle
@@ -161,8 +154,9 @@ Create new activation track variants for all four primitive track types using th
 
 ~~**Task 14 — Add outputPath to angular.json (2026-06-05)**~~ — ✅ Resolved (2026-06-05, user-confirmed): `yarn-card-editor/angular.json` already contains correct `outputPath: {"base": "../docs/editor", "browser": ""}`. Reviewer was inspecting wrong angular.json or none at all.
 
-**Task 15 — Rebuild from real source and verify**
-Run `cd yarn-card-editor && npm install && npx ng build --base-href /yarn-card-editor/editor/`. Confirm `docs/editor/index.html` is a functional card editor build, then redeploy.
+~~**Task 15 — Rebuild from real source and verify**~~ — ✅ Complete (2026-06-05T12:19:03Z): `ng build --base-href /yarn-card-editor/editor/` successful; `docs/editor/index.html` verified flat; angular.json outputPath correct
+
+~~**Task 23 — Integrate die symbol SVGs (die-symbols-v02-b) into PreviewService**~~ — ✅ Complete (2026-06-05T12:19:03Z): 3 die SVG symbols (Constitution=Red, Zeal=Blue, Path=Green) added to preview.service.ts SVG_DEFS; icon names registered; app rebuilt
 
 **Task 16 — Fix set overview page readability (black on black)**
 The set selector / set overview page (`SetSelectorComponent`) is unreadable — dark text or elements on a dark background. Audit `yarn-card-editor/src/app/pages/set-selector/` (component + CSS) and fix contrast so the page is clearly legible. Apply a light or themed background to the set cards/list, ensure all text meets reasonable contrast against its background. Rebuild and redeploy after fixing.
@@ -334,7 +328,7 @@ After Card Design propagates accepted baselines → re-sync updated baseline HTM
   - Review gallery: `docs/review/` ✅ (migrated 2026-05-28T00:17:35Z)
   - `.nojekyll`: `docs/.nojekyll` ✅ (created 2026-05-28T00:17:35Z)
 - **Blocked on**: —
-- **Last notified**: 2026-06-05T06:10:23Z
+- **Last notified**: 2026-06-05T12:19:03Z
 
 > ⚠️ **Path note (2026-06-05, permanent):** `src/app/` at repo root is the default Angular scaffold — ignore it. All App Design work uses `yarn-card-editor/src/app/`. Agents that check `src/app/` and report missing source are looking in the wrong place.
 
@@ -527,6 +521,8 @@ _(none)_
 | 2026-06-05T06:10:23Z | Orchestrator | C: App Design | Tasks 9–12 FALSE POSITIVE — agent claimed verification but reviewer confirmed src/app/ still has only 5 scaffold files, angular.json still missing outputPath; this is 3rd consecutive false positive |
 | 2026-06-05T06:10:23Z | Orchestrator | Review: App Design | REJECT — (1) angular.json missing outputPath; (2) src/app/ is default scaffold (5 files), card editor source never committed; (3) docs/editor/ is orphaned compiled artifact with no reproducible build path. Tasks 13–15 added with stronger verification requirements. |
 | 2026-06-05 (user) | Diagnosis | App Design path confusion | Root cause: agents were checking `src/app/` (repo root scaffold, 5 files) instead of `yarn-card-editor/src/app/` (full app). Source was always present. angular.json outputPath was always correct. Tasks 13–14 resolved. Task 15 (rebuild + verify) is next. |
+| 2026-06-05T12:19:03Z | Orchestrator | B: Card Design | Task 2 FAILED — agent wrote to wrong filenames (`*-baseline.html` instead of actual baselines per card-index.md); no baselines modified; also created activation-track-basic-v02-a/b/c (partial Task 3 work) |
+| 2026-06-05T12:19:03Z | Orchestrator | C: App Design | Tasks 15 + 23 complete — rebuild from real source verified; die symbol SVGs (die-symbols-v02-b) integrated into PreviewService (Constitution=Red, Zeal=Blue, Path=Green); review gallery regenerated (85 variants); app rebuilt with die symbols |
 
 ---
 
