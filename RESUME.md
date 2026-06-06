@@ -1,6 +1,6 @@
 # Yarn — Session Resume Context
 
-_Updated: 2026-06-06T00:10:28Z_
+_Updated: 2026-06-06T12:13:19Z_
 
 ---
 
@@ -15,15 +15,15 @@ Card types: **Location, Character, Item, Event, Quest, Persona, Script**
 ## Current stream status
 
 ### Card Design
-**Status:** Active — Tasks 5 (cleanup) + 3 (activation track rework) complete
-**Completed this run:** BASELINE.html reverted; min-height removed from 6 existing variants; multiuse-v02-a/b/c and use-v02-a/b/c created (6 new files); all 4 primitive activation track types now have updated variants with accepted markers at ~29px
-**Next:** trigger-symbols-v05 (a/b/c) — needs creation; independent of activation tracks
+**Status:** Active — trigger-symbols-v05-a created (partial)
+**Completed this run:** trigger-symbols-v05-a/b created (a: maximum reduction, b: moderate simplification, 5 triggers at 29px); v05-c still needed (agent hit context limit)
+**Next:** Complete trigger-symbols-v05 (create v05-c variant, update CHANGES.md)
 **Awaiting acceptance:** activation-track-basic-v02, activation-track-multiturn-v03, activation-track-multiuse-v02, activation-track-use-v02, trigger-symbols-v05
 
 ### App Design
-**Status:** Active — Task 17 complete
-**Completed this run:** Trigger limit bug fixed — form components (Location/Character/Event/Quest), PreviewService, and CardService all updated to use `triggers: Trigger[]` array correctly; multiple triggers now work on all card types; review gallery regenerated (90 variants); app rebuilt
-**Next:** Task 18 — Introduce Row/Container domain model and fix activation track rendering
+**Status:** Active — Task 18 Part A started
+**Completed this run:** Container/Row domain model types created (container.model.ts); review gallery regenerated (94 variants mirrored); card models not yet refactored to use Container[]
+**Next:** Complete Task 18 — refactor card type models, update PreviewService, update Forms, rebuild
 **Backlog:** Task 19 (autosave), Task 21 (grouped card list), Task 22 (gray out undesigned fields), Task 20 (export/import JSON)
 
 ---

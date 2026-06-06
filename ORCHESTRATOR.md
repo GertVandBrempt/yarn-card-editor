@@ -19,7 +19,7 @@ This file is read and written by scheduled agents. Do not edit manually during a
 ```
 blocked_for_weekly_review: false
 weekly_review_due: 2026-05-30T08:00:00Z
-last_orchestrator_run: 2026-06-06T00:10:28Z
+last_orchestrator_run: 2026-06-06T12:13:19Z
 last_status_notification: 2026-05-31T12:00:00Z
 ```
 
@@ -32,7 +32,7 @@ Streams are **independent** — a blocked stream does not pause other streams.
 ### Card Design
 - **Mode**: autonomous
 - **Source**: design/VISUAL.md, design/card-index.md
-- **Status**: active — Task 5 (cleanup) + Task 3 (activation track rework) complete (2026-06-06T00:10:28Z); BASELINE.html reverted, min-height removed from 6 existing variants, multiuse-v02 + use-v02 created (6 new files); trigger-symbols-v05 is next
+- **Status**: active — trigger-symbols-v05-a/b created (2026-06-06T12:13:19Z); v05-c still needed; CHANGES.md entry pending
 
 #### Accepted design elements (2026-05-28)
 - ✅ **effects-container-v04** — gradient-fade section borders (opacity 0.7), 0.15 translucent fill; see VISUAL.md §6
@@ -112,15 +112,15 @@ Streams are **independent** — a blocked stream does not pause other streams.
 
 **Hold:** effects-v04 — create only after trigger symbols + activation tracks both accepted
 
-- **Blocked on**: trigger-symbols-v05 creation + acceptance (activation tracks now complete — only trigger symbols remain before effects-v04)
-- **Last notified**: 2026-06-06T00:10:28Z
+- **Blocked on**: trigger-symbols-v05 completion (v05-c creation + CHANGES.md update) + acceptance (activation tracks now complete — only trigger symbols remain before effects-v04)
+- **Last notified**: 2026-06-06T12:13:19Z
 
 ---
 
 ### App Design
 - **Mode**: autonomous
 - **Source**: APP.md
-- **Status**: active — Task 17 (trigger limit bug) complete (2026-06-06T00:10:28Z); form components + PreviewService + CardService fixed to use triggers array correctly; review gallery regenerated (90 variants mirrored); app rebuilt; Task 18 (Row/Container domain model) is next
+- **Status**: active — Task 18 Part A started (2026-06-06T12:13:19Z); Container/Row/ContainerType/ContainerSymbol/ActivationSymbol model types created in container.model.ts; exported from index.ts; review gallery regenerated (94 variants mirrored); card models not yet refactored to use Container[]; PreviewService + Forms not yet updated; rebuild pending
 
 #### Known issues (all resolved 2026-05-28)
 1. ~~**Site not on GitHub Pages**~~ — ✅ deploy.yml deleted (redundant); orchestrator owns build+deploy cycle
@@ -320,7 +320,7 @@ After Card Design propagates accepted baselines → re-sync updated baseline HTM
   - Review gallery: `docs/review/` ✅ (migrated 2026-05-28T00:17:35Z)
   - `.nojekyll`: `docs/.nojekyll` ✅ (created 2026-05-28T00:17:35Z)
 - **Blocked on**: —
-- **Last notified**: 2026-06-06T00:10:28Z
+- **Last notified**: 2026-06-06T12:13:19Z
 
 > ⚠️ **Path note (2026-06-05, permanent):** `src/app/` at repo root is the default Angular scaffold — ignore it. All App Design work uses `yarn-card-editor/src/app/`. Agents that check `src/app/` and report missing source are looking in the wrong place.
 
@@ -521,6 +521,8 @@ _(none)_
 | 2026-06-05T18:10:50Z | Orchestrator | Review: App Design | ACCEPT — build zero errors; output flat at docs/editor/index.html; live view pipeline confirmed; no runtime hazards; gallery links correct; 88 variants mirrored |
 | 2026-06-06T00:10:28Z | Orchestrator | B: Card Design | Task 5 complete — BASELINE.html reverted, min-height removed from 6 variant files; Task 3 complete — multiuse-v02-a/b/c + use-v02-a/b/c created (6 new files); all 4 activation track types done |
 | 2026-06-06T00:10:28Z | Orchestrator | C: App Design | Task 17 complete — trigger limit bug fixed in 6 files (4 form components + CardService + PreviewService); form components now use triggers array directly; review gallery regenerated (90 variants); app rebuilt |
+| 2026-06-06T12:13:19Z | Orchestrator | B: Card Design | trigger-symbols-v05-a/b created (a: maximum reduction silhouettes, b: moderate simplification, 5 triggers at 29px); v05-c not yet created (agent hit context limit); CHANGES.md not yet updated |
+| 2026-06-06T12:13:19Z | Orchestrator | C: App Design | Task 18 Part A started — Container/Row/ContainerType/ContainerSymbol/ActivationSymbol/TriggerSymbol model types created in container.model.ts; exported from index.ts; review gallery regenerated (94 variants mirrored incl. trigger-symbols-v05-a); card models not yet refactored; PreviewService + Forms pending |
 
 ---
 
