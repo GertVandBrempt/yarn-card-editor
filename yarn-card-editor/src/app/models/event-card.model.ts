@@ -7,5 +7,5 @@ import { Trigger } from './effect.model';
 export interface EventCard extends CardBase {
   type: 'event';
   tier: EventTier;
-  onReveal: Trigger;           // Required — fires immediately when drawn/placed
+  triggers: Trigger[];         // First trigger is on-reveal (required); additional triggers allowed
 }

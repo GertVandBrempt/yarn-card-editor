@@ -33,16 +33,9 @@ export class CharacterFormComponent implements OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['card']) {
-      this.local = { ...this.card };
-      this.syncTriggersFromCard();
+      this.local = { ...this.card, triggers: [...(this.card.triggers ?? [])] };
+      this.triggers = [...this.local.triggers];
     }
-  }
-
-  private syncTriggersFromCard(): void {
-    this.triggers = [
-      ...(this.local.onReveal ? [this.local.onReveal] : []),
-      ...(this.local.characterPhase ? [this.local.characterPhase] : []),
-    ];
   }
 
   onTitleChange(title: string): void { this.local = { ...this.local, title }; this.emit(); }
@@ -54,10 +47,8 @@ export class CharacterFormComponent implements OnChanges {
   onImageChange(imageUrl: string | undefined): void { this.local = { ...this.local, imageUrl }; this.emit(); }
 
   onTriggersChange(triggers: Trigger[]): void {
-    const onReveal = triggers.find((t) => t.type === 'on-reveal');
-    const characterPhase = triggers.find((t) => t.type === 'character-phase');
-    this.local = { ...this.local, onReveal, characterPhase };
-    this.triggers = triggers;
+    this.local = { ...this.local, triggers: [...triggers] };
+    this.triggers = [...triggers];
     this.emit();
   }
 

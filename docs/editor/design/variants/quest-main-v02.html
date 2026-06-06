@@ -167,6 +167,36 @@ body { margin: 0; display: flex; justify-content: center; align-items: flex-star
 .sec-leave::before, .sec-leave::after {
   background: linear-gradient(to right, transparent, #f0c830 18%, #f0c830 82%, transparent);
 }
+
+/* Flavour text — integrated borderless inset at bottom of mechanics frame */
+.sec-flavour {
+  padding: 8px 14px;
+  background: rgba(8,5,2,0.35);
+  position: relative;
+}
+.sec-flavour::before {
+  content: '';
+  position: absolute;
+  left: 0; right: 0; top: 0;
+  height: 1px;
+  background: linear-gradient(to right, transparent, rgba(212,184,122,0.38) 18%, rgba(212,184,122,0.38) 82%, transparent);
+}
+.sec-flavour::after { display: none; }
+.flavour-text {
+  font-family: 'Crimson Text', Georgia, serif;
+  font-size: 14px; font-style: italic;
+  color: rgba(230,208,162,0.68);
+  text-align: center;
+  line-height: 1.4;
+}
+
+/* Set symbol — bottom-right circular container */
+.set-symbol {
+  position: absolute;
+  bottom: 16px; right: 18px;
+  width: 18px; height: 18px;
+  z-index: 13;
+}
 </style>
 </head>
 <body>
@@ -252,6 +282,7 @@ body { margin: 0; display: flex; justify-content: center; align-items: flex-star
     <div class="type-band"><span class="type-label">Main Quest</span></div>
     <div class="card-title">Card Title</div>
     <div class="title-rule"></div>
+    <div class="card-subtitle">Subtitle</div>
   </div>
   <div class="mech-frame">
     <div class="mech-rule mech-rule-top"></div>
@@ -260,8 +291,17 @@ body { margin: 0; display: flex; justify-content: center; align-items: flex-star
       <div class="sec sec-trigger"></div>
       <div class="sec sec-actions"></div>
       <div class="sec sec-leave"></div>
+      <div class="sec sec-flavour"><span class="flavour-text">In the amber glow of fading light, the path reveals itself.</span></div>
     </div>
     <div class="mech-rule mech-rule-bot"></div>
+  </div>
+  <div class="set-symbol">
+    <svg width="18" height="18" viewBox="0 0 18 18" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="9" cy="9" r="8.5" fill="#1a0e04" opacity="0.85"/>
+      <circle cx="9" cy="9" r="8.5" fill="none" stroke="#d4b87a" stroke-width="1" opacity="0.55"/>
+      <polygon points="9,3.5 12.5,9 9,14.5 5.5,9" fill="none" stroke="#d4b87a" stroke-width="1.2" opacity="0.72"/>
+      <circle cx="9" cy="9" r="1.5" fill="#d4b87a" opacity="0.65"/>
+    </svg>
   </div>
 </div>
 

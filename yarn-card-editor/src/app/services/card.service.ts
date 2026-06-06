@@ -96,6 +96,7 @@ export class CardService {
           type: 'location',
           tier: 'generic',
           connections: [],
+          triggers: [],
           actions: [],
         } satisfies LocationCard;
 
@@ -106,6 +107,7 @@ export class CardService {
           tier: 'generic',
           alignment: 'neutral',
           initiative: 0,
+          triggers: [],
           actions: [],
         } satisfies CharacterCard;
 
@@ -123,7 +125,7 @@ export class CardService {
           ...base,
           type: 'event',
           tier: 'generic',
-          onReveal: { type: 'on-reveal', effect: { variant: 'fixed', text: '' } },
+          triggers: [{ type: 'on-reveal', effect: { variant: 'fixed', text: '' } }],
         } satisfies EventCard;
 
       case 'main-quest':

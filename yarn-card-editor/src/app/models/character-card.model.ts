@@ -14,8 +14,7 @@ export interface CharacterCard extends CardBase {
   tier: CharacterTier;
   alignment: CharacterAlignment;
   initiative: number;
-  onReveal?: Trigger;
-  characterPhase?: Trigger;
+  triggers: Trigger[];         // Multiple triggers supported (on-reveal, character-phase)
   actions: Action[];           // Available while in Game Area
   allyMode?: AllyModeFields;  // Present only if character can be recruited
 }

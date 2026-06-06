@@ -25,8 +25,12 @@ export class EventFormComponent implements OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['card']) {
-      this.local = { ...this.card };
-      this.triggers = [this.local.onReveal];
+      this.local = { ...this.card, triggers: [...(this.card.triggers ?? [])] };
+      // Ensure at least one on-reveal trigger exists (required for Event cards)
+      if (this.local.triggers.length === 0) {
+        this.local.triggers = [{ type: 'on-reveal', effect: { variant: 'fixed', text: '' } }];
+      }
+      this.triggers = [...this.local.triggers];
     }
   }
 
@@ -37,10 +41,8 @@ export class EventFormComponent implements OnChanges {
   onImageChange(imageUrl: string | undefined): void { this.local = { ...this.local, imageUrl }; this.emit(); }
 
   onTriggersChange(triggers: Trigger[]): void {
-    // onReveal is required; always use first trigger (cannot be removed)
-    const onReveal = triggers[0] ?? this.local.onReveal;
-    this.local = { ...this.local, onReveal };
-    this.triggers = [onReveal];
+    this.local = { ...this.local, triggers: [...triggers] };
+    this.triggers = [...triggers];
     this.emit();
   }
 

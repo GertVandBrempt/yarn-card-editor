@@ -29,22 +29,14 @@ export class LocationFormComponent implements OnChanges {
   local!: LocationCard;
   allowedTriggerTypes = [...LOCATION_TRIGGER_TYPES] as any[];
 
-  // Triggers flattened for TriggersEditorComponent
+  // Triggers array bound to TriggersEditorComponent
   triggers: Trigger[] = [];
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['card']) {
-      this.local = { ...this.card };
-      this.syncTriggersFromCard();
+      this.local = { ...this.card, triggers: [...(this.card.triggers ?? [])] };
+      this.triggers = [...this.local.triggers];
     }
-  }
-
-  private syncTriggersFromCard(): void {
-    this.triggers = [
-      ...(this.local.onReveal ? [this.local.onReveal] : []),
-      ...(this.local.onEnter ? [this.local.onEnter] : []),
-      ...(this.local.onLeave ? [this.local.onLeave] : []),
-    ];
   }
 
   onTitleChange(title: string): void {
@@ -73,12 +65,8 @@ export class LocationFormComponent implements OnChanges {
   }
 
   onTriggersChange(triggers: Trigger[]): void {
-    // Map flat trigger list back to named trigger fields by type
-    const onReveal = triggers.find((t) => t.type === 'on-reveal');
-    const onEnter = triggers.find((t) => t.type === 'on-enter');
-    const onLeave = triggers.find((t) => t.type === 'on-leave');
-    this.local = { ...this.local, onReveal, onEnter, onLeave };
-    this.triggers = triggers;
+    this.local = { ...this.local, triggers: [...triggers] };
+    this.triggers = [...triggers];
     this.emit();
   }
 

@@ -1,4 +1,4 @@
-<!-- card-variant: activation-track-multiturn-v03-a | Multi-turn track v03 option A — 4-container layout, all accepted markers at ~29px, compact spacing, activation + 2 flow + cooldown trigger, connecting arrows -->
+<!-- card-variant: activation-track-multiuse-v02-a | Multi-use track v02 option A — 4-container layout, 3 accepted diamond activation markers at ~29px, compact vertical layout, each marker leads its own effect row -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -93,7 +93,6 @@ body { margin: 0; display: flex; justify-content: center; align-items: flex-star
 .sec-exit::before, .sec-exit::after { background: linear-gradient(to right, transparent, #f0c830 18%, #f0c830 82%, transparent); }
 
 .effect-row { display: flex; align-items: center; gap: 6px; padding: 4px 10px; }
-.flow-row { display: flex; align-items: center; justify-content: flex-start; padding: 0 10px; height: 14px; }
 .effect-lead { flex-shrink: 0; width: 36px; display: flex; align-items: center; justify-content: center; }
 .effect-text {
   flex: 1; font-family: 'Crimson Text', Georgia, serif; font-size: 14px; font-style: normal; font-weight: 400;
@@ -105,6 +104,13 @@ body { margin: 0; display: flex; justify-content: center; align-items: flex-star
 }
 .sym-group { display: inline-flex; align-items: center; gap: 2px; vertical-align: middle; }
 .sym-mod { font-family: 'Crimson Text', Georgia, serif; font-size: 14px; font-weight: 600; color: rgba(220,200,160,0.92); line-height: 1; }
+
+/* Hairline divider between action rows */
+.action-divider {
+  height: 1px;
+  margin: 0 10px;
+  background: linear-gradient(to right, transparent, rgba(232,80,48,0.35) 18%, rgba(232,80,48,0.35) 82%, transparent);
+}
 </style>
 </head>
 <body>
@@ -167,6 +173,9 @@ body { margin: 0; display: flex; justify-content: center; align-items: flex-star
   <symbol id="icon-shield" viewBox="0 0 24 24">
     <path d="M12 2 L20 5 L20 11 C20 16 16 20 12 22 C8 20 4 16 4 11 L4 5 Z" fill="#4090e0" stroke="#1a0e04" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
   </symbol>
+  <symbol id="icon-heal" viewBox="0 0 24 24">
+    <path d="M12 4 C10 2 6 2 4 5 C2 8 3 12 12 20 C21 12 22 8 20 5 C18 2 14 2 12 4Z" fill="#e84020" stroke="#1a0e04" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+  </symbol>
 
   <!-- ACTIVATION MARKER — diamond with inner diamond, viewBox 0 0 52 52 -->
   <symbol id="marker-activation" viewBox="0 0 52 52">
@@ -174,30 +183,6 @@ body { margin: 0; display: flex; justify-content: center; align-items: flex-star
     <polygon points="26,4 48,26 26,48 4,26" fill="none" stroke="#d4b87a" stroke-width="2" opacity="0.55"/>
     <polygon points="26,13 39,26 26,39 13,26" fill="#d4b87a" stroke="none"/>
     <polygon points="26,22 31,26 26,30 21,26" fill="#1a0e04" stroke="none"/>
-  </symbol>
-
-  <!-- FLOW MARKER — hollow diamond, viewBox 0 0 52 52 -->
-  <symbol id="marker-flow" viewBox="0 0 52 52">
-    <polygon points="26,6 46,26 26,46 6,26" fill="#1a0e04" stroke="none"/>
-    <polygon points="26,9 43,26 26,43 9,26" fill="none" stroke="#d4b87a" stroke-width="1.5" opacity="0.55"/>
-  </symbol>
-
-  <!-- COOLDOWN TRIGGER MARKER v02-b — hollow diamond, right vertex cut, medium inset diamond -->
-  <symbol id="marker-cooldown-trigger" viewBox="0 0 52 52">
-    <polygon points="26,6 46,26 26,46 6,26" fill="#1a0e04" stroke="none"/>
-    <line x1="26" y1="9" x2="9" y2="26" stroke="#d4b87a" stroke-width="1.5" opacity="0.55" stroke-linecap="round"/>
-    <line x1="9" y1="26" x2="26" y2="43" stroke="#d4b87a" stroke-width="1.5" opacity="0.55" stroke-linecap="round"/>
-    <line x1="26" y1="43" x2="35" y2="34" stroke="#d4b87a" stroke-width="1.5" opacity="0.55" stroke-linecap="round"/>
-    <line x1="35" y1="18" x2="26" y2="9" stroke="#d4b87a" stroke-width="1.5" opacity="0.55" stroke-linecap="round"/>
-    <polygon points="39,19 46,26 39,33 32,26" fill="#d4b87a" stroke="none"/>
-    <polygon points="39,19 46,26 39,33 32,26" fill="none" stroke="#d4b87a" stroke-width="1.5" opacity="0.7"/>
-    <polygon points="39,23 42,26 39,29 36,26" fill="#1a0e04" stroke="none"/>
-  </symbol>
-
-  <!-- Connecting arrow — small downward arrow -->
-  <symbol id="connector-down" viewBox="0 0 12 10">
-    <line x1="6" y1="0" x2="6" y2="6" stroke="#1a0e04" stroke-width="1.2" stroke-linecap="round"/>
-    <polygon points="6,10 3,5 9,5" fill="#1a0e04"/>
   </symbol>
 
 </defs>
@@ -211,15 +196,15 @@ body { margin: 0; display: flex; justify-content: center; align-items: flex-star
   <div class="card-frame"><svg xmlns="http://www.w3.org/2000/svg"><use href="#frame-d"/></svg></div>
   <div class="card-header">
     <div class="type-band"><span class="type-label">Persona</span></div>
-    <div class="card-title">The Chronicler</div>
+    <div class="card-title">The Arbiter</div>
     <div class="title-rule"></div>
   </div>
 
   <!--
-    Option A — COMPACT multi-turn track.
-    Action section contains: activation marker row, arrow, flow marker, arrow, cooldown trigger row.
-    Tight spacing (4px padding, 14px connector rows).
-    All markers at 29×29.
+    Option A — COMPACT multi-use track.
+    3 independent activation markers, each leads its own effect row.
+    Tight spacing (4px padding, 6px gap). Markers at 29×29.
+    No connecting arrows — slots are independent.
   -->
   <div class="mech-frame">
     <div class="mech-sections">
@@ -231,31 +216,31 @@ body { margin: 0; display: flex; justify-content: center; align-items: flex-star
             <svg width="20" height="20"><use href="#icon-shield"/></svg>
           </div>
           <span class="effect-text">
-            <span class="sym-group"><span class="sym-mod">+1</span></span> armor while holding a tome
+            <span class="sym-group"><span class="sym-mod">+1</span></span> armor while at full health
           </span>
         </div>
       </div>
 
-      <!-- ENTRY (yellow) — Character Phase -->
+      <!-- ENTRY (yellow) — On Reveal -->
       <div class="sec sec-entry">
         <div class="effect-row">
           <div class="effect-lead">
             <svg width="20" height="20" viewBox="0 0 24 24">
-              <circle cx="12" cy="8" r="4" fill="#1a0e04" stroke="#d4b87a" stroke-width="1.5" opacity="0.6"/>
-              <path d="M4 20 C4 15 8 13 12 13 C16 13 20 15 20 20" fill="none" stroke="#d4b87a" stroke-width="1.5" opacity="0.6"/>
+              <circle cx="12" cy="12" r="8" fill="#1a0e04" stroke="#d4b87a" stroke-width="2" opacity="0.6"/>
+              <circle cx="12" cy="12" r="3" fill="#d4b87a"/>
             </svg>
           </div>
           <span class="effect-text">
-            <span class="trigger-label">Character Phase</span> &rarr;
+            <span class="trigger-label">On Reveal</span> &rarr;
             Draw 1 card
           </span>
         </div>
       </div>
 
-      <!-- ACTION (red) — Multi-turn track with cooldown trigger -->
+      <!-- ACTION (red) — Multi-use: 3 independent activation slots -->
       <div class="sec sec-actions">
 
-        <!-- Row 1: Activation marker → effect -->
+        <!-- Slot 1 -->
         <div class="effect-row">
           <div class="effect-lead">
             <svg width="29" height="29" viewBox="0 0 52 52" preserveAspectRatio="xMidYMid meet">
@@ -264,60 +249,37 @@ body { margin: 0; display: flex; justify-content: center; align-items: flex-star
           </div>
           <span class="effect-text">
             Strike for
-            <span class="sym-group"><svg width="16" height="16"><use href="#icon-damage"/></svg><span class="sym-mod">3</span></span>
+            <span class="sym-group"><svg width="16" height="16"><use href="#icon-damage"/></svg><span class="sym-mod">2</span></span>
           </span>
         </div>
 
-        <!-- Connector arrow -->
-        <div class="flow-row">
-          <div class="effect-lead">
-            <svg width="12" height="10" viewBox="0 0 12 10"><use href="#connector-down"/></svg>
-          </div>
-        </div>
+        <div class="action-divider"></div>
 
-        <!-- Row 2: Flow marker — pure delay slot, no effect text -->
-        <div class="effect-row" >
-          <div class="effect-lead">
-            <svg width="29" height="29" viewBox="0 0 52 52" preserveAspectRatio="xMidYMid meet">
-              <use href="#marker-flow"/>
-            </svg>
-          </div>
-        </div>
-
-        <!-- Connector arrow -->
-        <div class="flow-row">
-          <div class="effect-lead">
-            <svg width="12" height="10" viewBox="0 0 12 10"><use href="#connector-down"/></svg>
-          </div>
-        </div>
-
-        <!-- Row 3: Flow marker — pure delay slot -->
-        <div class="effect-row" >
-          <div class="effect-lead">
-            <svg width="29" height="29" viewBox="0 0 52 52" preserveAspectRatio="xMidYMid meet">
-              <use href="#marker-flow"/>
-            </svg>
-          </div>
-        </div>
-
-        <!-- Connector arrow -->
-        <div class="flow-row">
-          <div class="effect-lead">
-            <svg width="12" height="10" viewBox="0 0 12 10"><use href="#connector-down"/></svg>
-          </div>
-        </div>
-
-        <!-- Row 4: Cooldown trigger marker → effect -->
+        <!-- Slot 2 -->
         <div class="effect-row">
           <div class="effect-lead">
             <svg width="29" height="29" viewBox="0 0 52 52" preserveAspectRatio="xMidYMid meet">
-              <use href="#marker-cooldown-trigger"/>
+              <use href="#marker-activation"/>
             </svg>
           </div>
           <span class="effect-text">
-            <span class="trigger-label">On Flow Marker</span> &rarr;
             Gain
-            <span class="sym-group"><svg width="16" height="16"><use href="#icon-shield"/></svg><span class="sym-mod">1</span></span>
+            <span class="sym-group"><svg width="16" height="16"><use href="#icon-shield"/></svg><span class="sym-mod">2</span></span>
+          </span>
+        </div>
+
+        <div class="action-divider"></div>
+
+        <!-- Slot 3 -->
+        <div class="effect-row">
+          <div class="effect-lead">
+            <svg width="29" height="29" viewBox="0 0 52 52" preserveAspectRatio="xMidYMid meet">
+              <use href="#marker-activation"/>
+            </svg>
+          </div>
+          <span class="effect-text">
+            Heal
+            <span class="sym-group"><svg width="16" height="16"><use href="#icon-heal"/></svg><span class="sym-mod">1</span></span>
           </span>
         </div>
 
@@ -333,7 +295,7 @@ body { margin: 0; display: flex; justify-content: center; align-items: flex-star
           </div>
           <span class="effect-text">
             <span class="trigger-label">On Leave</span> &rarr;
-            Shuffle discard into deck
+            Discard 1 card
           </span>
         </div>
       </div>

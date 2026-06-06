@@ -677,50 +677,40 @@ export class PreviewService {
     }
   }
 
-  /** Get entry triggers (on-reveal, on-enter) from a card. */
+  /** Entry trigger type IDs (rendered in the Entry section). */
+  private static readonly ENTRY_TRIGGER_TYPES: Set<string> = new Set([
+    'on-reveal', 'on-enter',
+  ]);
+
+  /** Exit trigger type IDs (rendered in the Exit section). */
+  private static readonly EXIT_TRIGGER_TYPES: Set<string> = new Set([
+    'on-leave', 'character-phase', 'on-complete', 'on-flow-marker',
+  ]);
+
+  /** Get entry triggers (on-reveal, on-enter) from a card's triggers array. */
   private getEntryTriggers(card: AnyCard): Trigger[] {
-    const triggers: Trigger[] = [];
-    switch (card.type) {
-      case 'location': {
-        const loc = card as LocationCard;
-        if (loc.onReveal) triggers.push(loc.onReveal);
-        if (loc.onEnter) triggers.push(loc.onEnter);
-        break;
-      }
-      case 'character': {
-        const ch = card as CharacterCard;
-        if (ch.onReveal) triggers.push(ch.onReveal);
-        break;
-      }
-      case 'event': {
-        const ev = card as EventCard;
-        if (ev.onReveal) triggers.push(ev.onReveal);
-        break;
-      }
-      default:
-        break;
-    }
-    return triggers;
+    const allTriggers = this.getCardTriggers(card);
+    return allTriggers.filter(t => PreviewService.ENTRY_TRIGGER_TYPES.has(t.type));
   }
 
-  /** Get exit triggers (on-leave, character-phase, on-complete) from a card. */
+  /** Get exit triggers (on-leave, character-phase, on-complete, on-flow-marker) from a card's triggers array. */
   private getExitTriggers(card: AnyCard): Trigger[] {
-    const triggers: Trigger[] = [];
+    const allTriggers = this.getCardTriggers(card);
+    return allTriggers.filter(t => PreviewService.EXIT_TRIGGER_TYPES.has(t.type));
+  }
+
+  /** Extract all triggers from a card regardless of card type. */
+  private getCardTriggers(card: AnyCard): Trigger[] {
     switch (card.type) {
-      case 'location': {
-        const loc = card as LocationCard;
-        if (loc.onLeave) triggers.push(loc.onLeave);
-        break;
-      }
-      case 'character': {
-        const ch = card as CharacterCard;
-        if (ch.characterPhase) triggers.push(ch.characterPhase);
-        break;
-      }
+      case 'location':
+        return (card as LocationCard).triggers ?? [];
+      case 'character':
+        return (card as CharacterCard).triggers ?? [];
+      case 'event':
+        return (card as EventCard).triggers ?? [];
       default:
-        break;
+        return [];
     }
-    return triggers;
   }
 
   /** Get actions array from a card (most types have actions). */

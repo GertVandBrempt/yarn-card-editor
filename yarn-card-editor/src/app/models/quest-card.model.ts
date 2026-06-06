@@ -6,7 +6,7 @@ import { Trigger } from './effect.model';
 export interface Objective {
   title: string;
   description: string;
-  onComplete?: Trigger;
+  triggers: Trigger[];         // Multiple on-complete triggers supported
 }
 
 // Main Quest Card (§3.7 DESIGN.md)

@@ -14,8 +14,6 @@ export interface LocationCard extends CardBase {
   type: 'location';
   tier: LocationTier;
   connections: Connection[];   // Up to 4, one per cardinal direction
-  onReveal?: Trigger;
-  onEnter?: Trigger;
-  onLeave?: Trigger;
+  triggers: Trigger[];         // Multiple triggers supported (on-reveal, on-enter, on-leave)
   actions: Action[];
 }

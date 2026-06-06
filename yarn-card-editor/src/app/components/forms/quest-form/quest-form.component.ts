@@ -61,7 +61,7 @@ export class QuestFormComponent implements OnChanges {
 
   // Objective management
   addObjective(): void {
-    const newObj: Objective = { title: '', description: '' };
+    const newObj: Objective = { title: '', description: '', triggers: [] };
     this.local = { ...this.local, objectives: [...this.local.objectives, newObj] };
     this.emit();
   }
@@ -83,12 +83,11 @@ export class QuestFormComponent implements OnChanges {
   }
 
   onObjectiveTriggerChange(index: number, triggers: Trigger[]): void {
-    const onComplete = triggers[0];
-    this.updateObjective(index, { onComplete });
+    this.updateObjective(index, { triggers: [...triggers] });
   }
 
   getObjectiveTriggers(obj: Objective): Trigger[] {
-    return obj.onComplete ? [obj.onComplete] : [];
+    return obj.triggers ?? [];
   }
 
   private updateObjective(index: number, patch: Partial<Objective>): void {

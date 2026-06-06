@@ -19,7 +19,7 @@ This file is read and written by scheduled agents. Do not edit manually during a
 ```
 blocked_for_weekly_review: false
 weekly_review_due: 2026-05-30T08:00:00Z
-last_orchestrator_run: 2026-06-05T18:10:50Z
+last_orchestrator_run: 2026-06-06T00:10:28Z
 last_status_notification: 2026-05-31T12:00:00Z
 ```
 
@@ -32,7 +32,7 @@ Streams are **independent** — a blocked stream does not pause other streams.
 ### Card Design
 - **Mode**: autonomous
 - **Source**: design/VISUAL.md, design/card-index.md
-- **Status**: active — Task 2 (baseline propagation) complete (2026-06-05T18:10:50Z); all 11 baselines updated; Task 5 (cleanup: revert BASELINE.html, remove min-height) is next, then Task 3 (activation track rework)
+- **Status**: active — Task 5 (cleanup) + Task 3 (activation track rework) complete (2026-06-06T00:10:28Z); BASELINE.html reverted, min-height removed from 6 existing variants, multiuse-v02 + use-v02 created (6 new files); trigger-symbols-v05 is next
 
 #### Accepted design elements (2026-05-28)
 - ✅ **effects-container-v04** — gradient-fade section borders (opacity 0.7), 0.15 translucent fill; see VISUAL.md §6
@@ -52,19 +52,9 @@ Streams are **independent** — a blocked stream does not pause other streams.
 
 ~~**Task 2 — Baseline propagation (unblocked)**~~ — ✅ Complete (2026-06-05T18:10:50Z): all 11 baselines updated with subtitle-v01-a, flavour-text-v01-c, set-symbol-v01-a (effects-container-v04 already present)
 
-**Task 5 — Baseline propagation cleanup (review findings 2026-06-05T18:10:50Z)**
-Review found these issues with Task 2's work:
-1. `design/BASELINE.html` was modified — this file is outside `design/variants/` and should not be touched by the Card Design agent; revert changes to this file
-2. Remove any `min-height` fixed declarations on container sections — all container heights must be fully content-driven per VISUAL.md §6
+~~**Task 5 — Baseline propagation cleanup (review findings 2026-06-05T18:10:50Z)**~~ — ✅ Complete (2026-06-06T00:10:28Z): BASELINE.html reverted; min-height removed from basic-v02-a/b/c and multiturn-v03-a/b/c
 
-**Task 3 — Activation track rework (unblocked 2026-06-05)**
-Create new activation track variants for all four primitive track types using the accepted marker shapes at the updated size. Previous track variants (`activation-track-basic-v01`, `activation-track-multiturn-v01/v02`, `activation-track-multiuse-v01`, `activation-track-use-v01`) are superseded — do NOT show them on the review page. New variants must:
-- Show cards with the correct 4-container layout (VISUAL.md §6): Permanent (blue) / Entry (yellow) / Action (red) / Exit (yellow)
-- Use accepted marker shapes per VISUAL.md §8
-- **Marker size:** ~29px rendered (scaled down ~2/5ths from original 48px spec) — same size as trigger symbols; verify markers read clearly at this size before finalising
-- Show each track type in the Action container with realistic effect rows
-- Three options (a/b/c) per track type — vary spacing, proportions, and layout density, NOT the marker shapes or size
-- Track types to cover: Basic, Multi-turn (with flow markers and cooldown trigger marker v02-b), Multi-use, Use
+~~**Task 3 — Activation track rework (unblocked 2026-06-05)**~~ — ✅ Complete (2026-06-06T00:10:28Z): all 4 track types created with accepted markers at ~29px — basic-v02-a/b/c (existing, cleaned), multiturn-v03-a/b/c (existing, cleaned), multiuse-v02-a/b/c (new), use-v02-a/b/c (new); 4-container layout, content-driven heights, spacing/density variations across a/b/c
 
 ~~**Task 4 — Fix trigger-symbols-v04 container placement and heights (review findings)**~~ — ✅ Fixed (2026-06-01T12:18:47Z): Character Phase moved to Entry, On Flow Marker moved to Action, all fixed heights removed — content-driven sizing applied
 
@@ -122,15 +112,15 @@ Create new activation track variants for all four primitive track types using th
 
 **Hold:** effects-v04 — create only after trigger symbols + activation tracks both accepted
 
-- **Blocked on**: trigger-symbols-v05 creation + acceptance (independent — does not block Task 3)
-- **Last notified**: 2026-06-05T18:10:50Z
+- **Blocked on**: trigger-symbols-v05 creation + acceptance (activation tracks now complete — only trigger symbols remain before effects-v04)
+- **Last notified**: 2026-06-06T00:10:28Z
 
 ---
 
 ### App Design
 - **Mode**: autonomous
 - **Source**: APP.md
-- **Status**: active — Task 16 (set overview page readability) complete (2026-06-05T18:10:50Z); SetSelectorComponent restyled with dark theme + amber accents + proper contrast; review gallery regenerated (88 variants mirrored); app rebuilt; Task 17 (trigger limit bug) is next
+- **Status**: active — Task 17 (trigger limit bug) complete (2026-06-06T00:10:28Z); form components + PreviewService + CardService fixed to use triggers array correctly; review gallery regenerated (90 variants mirrored); app rebuilt; Task 18 (Row/Container domain model) is next
 
 #### Known issues (all resolved 2026-05-28)
 1. ~~**Site not on GitHub Pages**~~ — ✅ deploy.yml deleted (redundant); orchestrator owns build+deploy cycle
@@ -163,8 +153,7 @@ Create new activation track variants for all four primitive track types using th
 
 ~~**Task 16 — Fix set overview page readability (black on black)**~~ — ✅ Complete (2026-06-05T18:10:50Z): SetSelectorComponent restyled with dark parchment background (#1a1510), amber accents (#d4a843), proper text contrast, hover states, responsive layout
 
-**Task 17 — Fix trigger limit bug: only one trigger can be added per card**
-Currently adding more than one trigger to a card does not work — only a single trigger persists or is rendered. Audit `TriggersEditorComponent` (`yarn-card-editor/src/app/components/shared/triggers-editor/`) and the type-specific form components that host it. Likely causes: the triggers binding is initialised as a single object instead of an array, `push()` called on an undefined array, or the parent form replaces the array on each add instead of appending. Fix so multiple triggers can be added, reordered, and removed on all card types. Rebuild and redeploy after fixing.
+~~**Task 17 — Fix trigger limit bug: only one trigger can be added per card**~~ — ✅ Complete (2026-06-06T00:10:28Z): root cause was form components decomposing triggers array into non-existent named fields (onReveal, onEnter, etc.) then overwriting on change detection; PreviewService had same issue; CardService factory missing triggers array for character type. Fixed in 6 files: LocationFormComponent, CharacterFormComponent, EventFormComponent, QuestFormComponent, CardService, PreviewService
 
 **Task 18 — Introduce Row/Container domain model and fix activation track rendering**
 
@@ -324,13 +313,14 @@ After Card Design propagates accepted baselines → re-sync updated baseline HTM
   16. ✅ **Fix effect variant selector bug** — `onVariantChange()` now assigns `this.effect = { ...this.effect, variant }` before emitting; variant dropdown is functional at runtime
   17. ✅ **Dynamic container rendering** — Removed fixed height declarations (height: 81px on .sec-actions, height: 56px on .sec-leave) from 4 baseline templates (event, item, main-quest, side-quest); all 7 templates now use auto-height containers with effects-container-v04 styling
   18. ✅ **Tasks 6–8 false alarm resolved** — Source code, angular.json outputPath, and live preview all verified intact (2026-06-04T12:30:00Z); app rebuilt; gallery synced (82 variants)
+  19. ✅ **Fix trigger limit bug** — Form components (Location/Character/Event/Quest) + PreviewService + CardService fixed to read/write `triggers: Trigger[]` array instead of non-existent named fields; multiple triggers now work on all card types; app rebuilt; gallery synced (90 variants)
 - **Auto-sync rule**: After any Card Design stream action that updates `card-index.md` **or** creates a new trigger symbol / activation track variant, the App Design stream must re-run steps 5–9 automatically (sync SVGs + baselines → build → deploy). No user trigger needed.
 - **Pages layout rule**: GitHub Pages serves from `docs/` folder on master branch. All output files must live under `docs/`:
   - Editor: `docs/editor/` ✅
   - Review gallery: `docs/review/` ✅ (migrated 2026-05-28T00:17:35Z)
   - `.nojekyll`: `docs/.nojekyll` ✅ (created 2026-05-28T00:17:35Z)
 - **Blocked on**: —
-- **Last notified**: 2026-06-05T18:10:50Z
+- **Last notified**: 2026-06-06T00:10:28Z
 
 > ⚠️ **Path note (2026-06-05, permanent):** `src/app/` at repo root is the default Angular scaffold — ignore it. All App Design work uses `yarn-card-editor/src/app/`. Agents that check `src/app/` and report missing source are looking in the wrong place.
 
@@ -529,6 +519,8 @@ _(none)_
 | 2026-06-05T18:10:50Z | Orchestrator | C: App Design | Task 16 complete — SetSelectorComponent restyled with dark parchment background, amber accents, proper contrast; review gallery regenerated (88 variants mirrored); app rebuilt and redeployed |
 | 2026-06-05T18:10:50Z | Orchestrator | Review: Card Design | REJECT → ACCEPT (one-shot retry): finding — CHANGES.md missing entries for baseline propagation; BASELINE.html modified outside domain; Task 5 added for remediation |
 | 2026-06-05T18:10:50Z | Orchestrator | Review: App Design | ACCEPT — build zero errors; output flat at docs/editor/index.html; live view pipeline confirmed; no runtime hazards; gallery links correct; 88 variants mirrored |
+| 2026-06-06T00:10:28Z | Orchestrator | B: Card Design | Task 5 complete — BASELINE.html reverted, min-height removed from 6 variant files; Task 3 complete — multiuse-v02-a/b/c + use-v02-a/b/c created (6 new files); all 4 activation track types done |
+| 2026-06-06T00:10:28Z | Orchestrator | C: App Design | Task 17 complete — trigger limit bug fixed in 6 files (4 form components + CardService + PreviewService); form components now use triggers array directly; review gallery regenerated (90 variants); app rebuilt |
 
 ---
 

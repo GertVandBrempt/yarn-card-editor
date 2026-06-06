@@ -636,7 +636,6 @@ Changed (applied to every baseline):
 - HTML: added `<div class="set-symbol"><svg>...</svg></div>` after mech-frame, inside .card
 - effects-container-v04 was already present in all baselines (gradient-fade borders, 0.15 translucent fills) — no changes needed
 Files modified:
-- design/BASELINE.html (Persona)
 - design/variants/location-v01.html
 - design/variants/location-setpiece-v01.html
 - design/variants/event-v01.html
@@ -648,6 +647,40 @@ Files modified:
 - design/variants/item-key-v01.html
 - design/variants/quest-main-v02.html
 - design/variants/quest-side-v01.html
+
+## Baseline propagation cleanup — Task 5 (2026-06-06)
+Base: design/BASELINE.html
+Changed:
+- Reverted design/BASELINE.html to pre-propagation state: removed .card-subtitle CSS, .sec-flavour + .flavour-text CSS, .set-symbol CSS; removed subtitle HTML element, sec-flavour HTML element, set-symbol HTML element
+- Reason: design/BASELINE.html is outside design/variants/ and should not be modified by the Card Design agent; the 11 type baselines inside design/variants/ retain all propagated elements
+- min-height audit: confirmed no min-height fixed declarations exist on container sections in any of the 11 type baselines — all container heights are content-driven per VISUAL.md §6
+
+## activation-track-basic-v02 / multiturn-v03 — min-height cleanup (2026-06-06)
+Base: activation-track-basic-v02-a/b/c.html, activation-track-multiturn-v03-a/b/c.html
+Changed:
+- Removed min-height from .effect-row CSS in all 6 files per VISUAL.md §6 (container heights must be fully content-driven)
+- activation-track-basic-v02-a: removed `min-height: 36px` from .effect-row
+- activation-track-basic-v02-b: removed `min-height: 40px` from .effect-row
+- activation-track-basic-v02-c: removed `min-height: 46px` from .effect-row; removed min-height reference from HTML comment
+- activation-track-multiturn-v03-a: removed `min-height: 36px` from .effect-row CSS; removed 2× inline `style="min-height:32px;"` from flow-marker effect rows
+- activation-track-multiturn-v03-b: removed `min-height: 40px` from .effect-row CSS; removed 1× inline `style="min-height:34px;"` from flow-marker effect row
+- activation-track-multiturn-v03-c: removed `min-height: 42px` from .effect-row CSS; removed 3× inline `style="min-height:34px;"` from flow-marker effect rows
+
+## activation-track-multiuse-v02 — Multi-use track v02: 4-container layout, accepted diamond markers at ~29px (2026-06-06)
+Supersedes: activation-track-multiuse-v01-a/b/c
+Base: activation-track-basic-v02-a/b/c (CSS structure reused; track type changed to multi-use with independent activation slots)
+- activation-track-multiuse-v02-a.html — Option A: COMPACT — 3 independent activation diamond markers (29×29), each leads own effect row; tight spacing (4px padding, 6px gap); hairline gradient dividers between action rows; card "The Arbiter" with strike/shield/heal effects; 4 containers (permanent blue + entry yellow + action red + exit yellow)
+- activation-track-multiuse-v02-b.html — Option B: BALANCED — 4 independent activation diamond markers (29×29), each leads own effect row; medium spacing (6px padding, 8px gap); strike×2/shield/heal effects; card "The Templar" with On Enter trigger; 4 containers
+- activation-track-multiuse-v02-c.html — Option C: GENEROUS — 2 independent activation diamond markers (29×29), each leads own effect row; wide spacing (8px padding, 10px gap); longer effect text with wrapping; card "The Vigil" with On Reveal trigger; 4 containers
+- All three: no min-height; no connecting arrows between slots (independent); markers use accepted activation-track-basic-v01-b diamond shape at 29px rendered; content-driven container heights per VISUAL.md §6
+
+## activation-track-use-v02 — Use (one-time) track v02: 4-container layout, accepted square-with-inner-square marker at ~29px (2026-06-06)
+Supersedes: activation-track-use-v01-a/b/c
+Base: activation-track-basic-v02-a/b/c (CSS structure reused; marker shape changed to square with inner square per accepted use-v01-a spec)
+- activation-track-use-v02-a.html — Option A: COMPACT — single square-with-inner-square use marker (29×29); tight spacing (4px padding, 6px gap); card "The Last Stand" — deal 5 damage to all enemies; On Reveal → gain shield; On Complete → draw 2; 4 containers; use marker: outer 36×36 dark, inner 18×18 amber, center pip 6×6 dark, amber stroke 2px
+- activation-track-use-v02-b.html — Option B: BALANCED — single use marker (29×29); medium spacing (6px padding, 8px gap); card "The Oath" — restore 6 HP (permanently consumed); 2 permanent effects; Character Phase trigger; On Leave trigger; 4 containers
+- activation-track-use-v02-c.html — Option C: GENEROUS — single use marker (29×29); wide spacing (8px padding, 10px gap); card "The Warden's Vow" — mark + deal 3 + exhaust permanently; On Reveal + On Enter triggers; On Leave trigger; flavour text row included; 4 containers
+- All three: no min-height; single consumed marker (permanently removed on use, no return); content-driven container heights per VISUAL.md §6
 
 ---
 

@@ -92,7 +92,7 @@ body { margin: 0; display: flex; justify-content: center; align-items: flex-star
 .sec-exit { background: rgba(240,200,48,0.15); }
 .sec-exit::before, .sec-exit::after { background: linear-gradient(to right, transparent, #f0c830 18%, #f0c830 82%, transparent); }
 
-.effect-row { display: flex; align-items: center; gap: 6px; padding: 4px 10px; min-height: 36px; }
+.effect-row { display: flex; align-items: center; gap: 6px; padding: 4px 10px; }
 .flow-row { display: flex; align-items: center; justify-content: flex-start; padding: 0 10px; height: 14px; }
 .effect-lead { flex-shrink: 0; width: 36px; display: flex; align-items: center; justify-content: center; }
 .effect-text {
@@ -276,7 +276,7 @@ body { margin: 0; display: flex; justify-content: center; align-items: flex-star
         </div>
 
         <!-- Row 2: Flow marker — pure delay slot, no effect text -->
-        <div class="effect-row" style="min-height:32px;">
+        <div class="effect-row" >
           <div class="effect-lead">
             <svg width="29" height="29" viewBox="0 0 52 52" preserveAspectRatio="xMidYMid meet">
               <use href="#marker-flow"/>
@@ -292,7 +292,7 @@ body { margin: 0; display: flex; justify-content: center; align-items: flex-star
         </div>
 
         <!-- Row 3: Flow marker — pure delay slot -->
-        <div class="effect-row" style="min-height:32px;">
+        <div class="effect-row" >
           <div class="effect-lead">
             <svg width="29" height="29" viewBox="0 0 52 52" preserveAspectRatio="xMidYMid meet">
               <use href="#marker-flow"/>

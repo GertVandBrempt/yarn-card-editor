@@ -1,6 +1,6 @@
 # Yarn — Session Resume Context
 
-_Updated: 2026-06-05T18:10:50Z_
+_Updated: 2026-06-06T00:10:28Z_
 
 ---
 
@@ -15,16 +15,16 @@ Card types: **Location, Character, Item, Event, Quest, Persona, Script**
 ## Current stream status
 
 ### Card Design
-**Status:** Active — Task 2 (baseline propagation) complete  
-**Completed this run:** All 7 card type baselines updated with the four accepted design elements (effects-container-v04, set-symbol-v01-a, flavour-text-v01-c, subtitle-v01-a)  
-**Next:** Task 3 — Activation track rework (4 primitive track types with accepted marker shapes at ~29px)  
-**Independent track pending:** trigger-symbols-v05 (a/b/c) — needs creation; does not block Task 3
+**Status:** Active — Tasks 5 (cleanup) + 3 (activation track rework) complete
+**Completed this run:** BASELINE.html reverted; min-height removed from 6 existing variants; multiuse-v02-a/b/c and use-v02-a/b/c created (6 new files); all 4 primitive activation track types now have updated variants with accepted markers at ~29px
+**Next:** trigger-symbols-v05 (a/b/c) — needs creation; independent of activation tracks
+**Awaiting acceptance:** activation-track-basic-v02, activation-track-multiturn-v03, activation-track-multiuse-v02, activation-track-use-v02, trigger-symbols-v05
 
 ### App Design
-**Status:** Active — Task 16 complete  
-**Completed this run:** SetSelectorComponent restyled with dark parchment theme, amber accents, proper text contrast; review gallery regenerated (88 variants); app rebuilt  
-**Next:** Task 17 — Fix trigger limit bug (only one trigger can be added per card)  
-**Backlog:** Task 18 (Row/Container domain model), Task 19 (autosave), Task 21 (grouped card list), Task 22 (gray out undesigned fields), Task 20 (export/import JSON)
+**Status:** Active — Task 17 complete
+**Completed this run:** Trigger limit bug fixed — form components (Location/Character/Event/Quest), PreviewService, and CardService all updated to use `triggers: Trigger[]` array correctly; multiple triggers now work on all card types; review gallery regenerated (90 variants); app rebuilt
+**Next:** Task 18 — Introduce Row/Container domain model and fix activation track rendering
+**Backlog:** Task 19 (autosave), Task 21 (grouped card list), Task 22 (gray out undesigned fields), Task 20 (export/import JSON)
 
 ---
 
@@ -47,8 +47,8 @@ Card types: **Location, Character, Item, Event, Quest, Persona, Script**
 
 ## How to continue work
 
-- **Review card variants:** visit https://gertvandbrempt.github.io/yarn-card-editor/review/ — trigger-symbols-v05 and activation-track variants are under review
-- **Accept variants:** say "accept trigger-symbols-v05-a" (or b/c) to advance trigger symbol design
+- **Review card variants:** visit https://gertvandbrempt.github.io/yarn-card-editor/review/ — activation track v02/v03 variants and trigger-symbols-v05 are under review
+- **Accept variants:** say "accept activation-track-basic-v02-a" (or b/c) to advance track design
 - **Game design:** handled in interactive sessions only — no orchestrator stream
 - **Weekly review:** the orchestrator will pause and notify you when a review gate is reached
 
