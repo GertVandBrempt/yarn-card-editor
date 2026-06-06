@@ -689,3 +689,40 @@ Base: design/BASELINE.html (Persona palette; each file shows two cards side-by-s
 - set-symbol-v01-a.html — Option A: BOTTOM-RIGHT, CIRCULAR CONTAINER — dark circle (r=8.5, #1a0e04, opacity 0.85) with amber ring stroke (#d4b87a, 1px, opacity 0.55); inner diamond glyph placeholder (amber stroke polygon, points at N/E/S/W, stroke 1.2px, opacity 0.72) + center pip (r=1.5, amber, opacity 0.65); rendered 18×18px; positioned bottom:16px right:18px (inside card safe area, above frame border); shows Persona "The Wanderer" + Location "The Iron Gate"
 - set-symbol-v01-b.html — Option B: BOTTOM-LEFT, ROUNDED-SQUARE CONTAINER WITH MONOGRAM — dark rounded-square (18×18 rx=3, #1a0e04, opacity 0.88) with amber border stroke (#d4b87a, 1px, opacity 0.50); inner recessed panel (13×13 rx=1.5, #241408, opacity 0.60); monogram letter "Y" placeholder (Cinzel 700, 11px, amber, opacity 0.72); rendered 20×20px (larger than A); positioned bottom:16px LEFT:18px (opposite corner from A); shows Persona "The Wanderer" + Event "The Ashen Pact"
 - set-symbol-v01-c.html — Option C: FRAMELESS EMBOSSED TREFOIL IN FRAME BORDER ZONE — no container background; three interlocking circle loops forming a trefoil knot (r=3, amber stroke 1.2px, opacity 0.62) with soft glow shadow layer (stroke 1.8px, opacity 0.30, blurred); center pip where loops meet (r=1.2, amber, opacity 0.55); rendered 16×16px (smallest); positioned bottom:4px right:4px (tucked INTO the card frame border zone, partially overlapping the dark inset ring); shows Persona "The Wanderer" + Item "Warden's Lantern"
+
+## trigger-symbols-v05 — Simplified trigger symbols from v04-a direction: basic silhouettes, ~29px, 5 triggers only (2026-06-06)
+Base: design/variants/trigger-symbols-v04-a.html (naturalistic pictographic direction kept; shapes stripped to basic silhouettes per updated VISUAL.md §7 spec)
+Supersedes: trigger-symbols-v04-a/b/c (v04-a closest direction; icons too fat/overdesigned — v05 simplifies and scales to ~29px)
+- trigger-symbols-v05-a.html — Option A: MAXIMUM REDUCTION — each icon is one bold dark silhouette with one amber interior shape; absolute minimum elements
+  - trig-reveal: dark eye almond + solid amber iris circle + dark pupil dot — 3 shapes total, simplest possible eye
+  - trig-enter: dark door rectangle + amber rectangular opening + dark triangular arrow entering from left — flat slab door, no arch
+  - trig-char-phase: dark hourglass body + amber top/bottom plates only — no sand detail, plates alone signal time
+  - trig-leave: dark door rectangle + amber opening + dark triangular arrow exiting right — mirrored enter
+  - trig-complete: dark circle + bold amber checkmark stroke (5px) — pure seal + check, no ring detail
+  - Distinguishing trait: fewest possible shapes; most aggressive reduction; some icons have only 2-3 SVG elements
+
+- trigger-symbols-v05-b.html — Option B: STRUCTURED SILHOUETTES — two distinct shape elements per icon with clear negative-space cutouts; retains more v04-a character
+  - trig-reveal: dark eye almond + amber iris RING (hollow, stroke-width 4) + small amber pupil fill — ring treatment vs A's solid fill
+  - trig-enter: dark arch/portal frame (curved top) + amber arched doorway opening + dark arrow — arch shape adds identity vs A's flat rectangle
+  - trig-char-phase: dark hourglass + amber plates + amber sand triangles visible in upper/lower chambers — sand wedges add hourglass character
+  - trig-leave: dark arch/portal frame + amber arched opening + dark outward arrow — mirrored enter with matching arch
+  - trig-complete: dark circle + amber ring border (stroke 2, 50% opacity) + bold amber checkmark (4.5px) — ring adds seal character vs A's bare circle
+  - Distinguishing trait: moderate simplification; each icon has one more identifying detail than A; arch doorways and sand triangles carry more visual character
+
+- trigger-symbols-v05-c.html — Option C: WEIGHTED CONTOURS — boldest/heaviest treatment; same shapes but rendered with maximum visual mass and thicker strokes
+  - trig-reveal: wide dark eye (extends nearly full 48px) + LARGE amber iris (r=11) + larger dark pupil (r=5) — proportionally more amber than A/B
+  - trig-enter: heavy dark door frame (36px wide, rx=3) + wide amber doorway (22px) + bold dark arrow triangle — thickest door frame, most amber area
+  - trig-char-phase: broad dark hourglass + thick amber plates (5px tall) + amber waist bar (rounded rect at center) — waist bar is unique to C, replaces sand
+  - trig-leave: heavy dark door frame + wide amber doorway + bold outward arrow — mirrored enter with same heavy weight
+  - trig-complete: thick dark ring (r=22) + thick amber ring border (stroke 3) + heavy amber checkmark (stroke 6px) — heaviest line weights, most visible at small size
+  - Distinguishing trait: heaviest visual weight; most amber surface area; icons fill the most canvas; thick strokes ensure legibility at 29px
+
+All three options:
+- ViewBox: 0 0 48 48; rendered at 29×29 px (scaled down ~2/5ths per §7 spec)
+- Palette: dark body #1a0e04 + amber #d4b87a (two tones only, no gradients, no per-trigger color)
+- 5 trigger types only: On Reveal, On Enter, Character Phase, On Leave, On Complete (On Flow Marker excluded per spec — represented by cooldown trigger marker)
+- Shape rule: max two distinct shape elements per icon; no internal lines, no decorative fills
+- Trigger name labels (Crimson Text 10px italic, muted amber 55% opacity) between symbol and arrow per design-stage convention
+- Card mockup: Persona card "The Wanderer" with 4 containers (permanent blue, entry yellow with 3 trigger rows, action red with activation marker, exit yellow with 2 trigger rows)
+- Content-driven container heights per VISUAL.md §6; no min-height; no fixed mech-frame height
+- a/b/c vary the degree of simplification and silhouette weight — not the trigger concepts, palette, or layout

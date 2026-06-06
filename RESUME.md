@@ -16,8 +16,8 @@ Card types: **Location, Character, Item, Event, Quest, Persona, Script**
 
 ### Card Design
 **Status:** Active — trigger-symbols-v05-a created (partial)
-**Completed this run:** trigger-symbols-v05-a/b created (a: maximum reduction, b: moderate simplification, 5 triggers at 29px); v05-c still needed (agent hit context limit)
-**Next:** Complete trigger-symbols-v05 (create v05-c variant, update CHANGES.md)
+**Completed this run:** trigger-symbols-v05-a/b/c all created (a: maximum reduction, b: moderate simplification, c: richer silhouettes; 5 triggers at 29px)
+**Next:** Update CHANGES.md for v05; awaiting user acceptance
 **Awaiting acceptance:** activation-track-basic-v02, activation-track-multiturn-v03, activation-track-multiuse-v02, activation-track-use-v02, trigger-symbols-v05
 
 ### App Design

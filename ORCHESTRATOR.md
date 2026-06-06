@@ -32,7 +32,7 @@ Streams are **independent** — a blocked stream does not pause other streams.
 ### Card Design
 - **Mode**: autonomous
 - **Source**: design/VISUAL.md, design/card-index.md
-- **Status**: active — trigger-symbols-v05-a/b created (2026-06-06T12:13:19Z); v05-c still needed; CHANGES.md entry pending
+- **Status**: active — trigger-symbols-v05-a/b/c all created (2026-06-06T12:13:19Z); CHANGES.md entry pending
 
 #### Accepted design elements (2026-05-28)
 - ✅ **effects-container-v04** — gradient-fade section borders (opacity 0.7), 0.15 translucent fill; see VISUAL.md §6
@@ -112,7 +112,7 @@ Streams are **independent** — a blocked stream does not pause other streams.
 
 **Hold:** effects-v04 — create only after trigger symbols + activation tracks both accepted
 
-- **Blocked on**: trigger-symbols-v05 completion (v05-c creation + CHANGES.md update) + acceptance (activation tracks now complete — only trigger symbols remain before effects-v04)
+- **Blocked on**: trigger-symbols-v05 CHANGES.md update + acceptance (activation tracks now complete — only trigger symbols remain before effects-v04)
 - **Last notified**: 2026-06-06T12:13:19Z
 
 ---
@@ -521,7 +521,7 @@ _(none)_
 | 2026-06-05T18:10:50Z | Orchestrator | Review: App Design | ACCEPT — build zero errors; output flat at docs/editor/index.html; live view pipeline confirmed; no runtime hazards; gallery links correct; 88 variants mirrored |
 | 2026-06-06T00:10:28Z | Orchestrator | B: Card Design | Task 5 complete — BASELINE.html reverted, min-height removed from 6 variant files; Task 3 complete — multiuse-v02-a/b/c + use-v02-a/b/c created (6 new files); all 4 activation track types done |
 | 2026-06-06T00:10:28Z | Orchestrator | C: App Design | Task 17 complete — trigger limit bug fixed in 6 files (4 form components + CardService + PreviewService); form components now use triggers array directly; review gallery regenerated (90 variants); app rebuilt |
-| 2026-06-06T12:13:19Z | Orchestrator | B: Card Design | trigger-symbols-v05-a/b created (a: maximum reduction silhouettes, b: moderate simplification, 5 triggers at 29px); v05-c not yet created (agent hit context limit); CHANGES.md not yet updated |
+| 2026-06-06T12:13:19Z | Orchestrator | B: Card Design | trigger-symbols-v05-a/b/c all created (a: maximum reduction, b: moderate simplification, c: richer silhouettes; 5 triggers at 29px each); CHANGES.md not yet updated |
 | 2026-06-06T12:13:19Z | Orchestrator | C: App Design | Task 18 Part A started — Container/Row/ContainerType/ContainerSymbol/ActivationSymbol/TriggerSymbol model types created in container.model.ts; exported from index.ts; review gallery regenerated (94 variants mirrored incl. trigger-symbols-v05-a); card models not yet refactored; PreviewService + Forms pending |
 
 ---
