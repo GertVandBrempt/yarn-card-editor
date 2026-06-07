@@ -1,6 +1,6 @@
 # Yarn — Session Resume Context
 
-_Updated: 2026-06-07T06:13:58Z_
+_Updated: 2026-06-07T12:24:53Z_
 
 ---
 
@@ -21,10 +21,10 @@ Card types: **Location, Character, Item, Event, Quest, Persona, Script**
 **Awaiting acceptance:** activation-track-basic-v02, activation-track-multiturn-v03, activation-track-multiuse-v02, activation-track-use-v02, trigger-symbols-v05
 
 ### App Design
-**Status:** Active — Task 18 fully complete (all 3 parts)
-**Completed this run:** Task 18 Part C (Forms) — ActionsEditorComponent updated with cooldown slot sub-form (FlowMarker/CooldownTrigger toggle per slot, inline effect editor); use-track sub-form improved with marker count hint; all live-preview-wired; app rebuilt
-**Next:** Task 19 — Card type locked at creation; immediate save; autosave on every edit
-**Backlog:** Task 21 (grouped card list), Task 22 (gray out undesigned fields), Task 20 (export/import JSON)
+**Status:** Active — Task 19 verified, Task 21 complete
+**Completed this run:** Task 19 verified already implemented (type selection, read-only type, immediate save, autosave with 500ms debounce); Task 21 — card list grouped by type with counts, colour coding, and collapsible groups
+**Next:** Task 22 — Gray out undesigned feature fields consistently (living task)
+**Backlog:** Task 20 (export/import JSON)
 
 ---
 

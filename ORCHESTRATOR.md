@@ -19,7 +19,7 @@ This file is read and written by scheduled agents. Do not edit manually during a
 ```
 blocked_for_weekly_review: false
 weekly_review_due: 2026-05-30T08:00:00Z
-last_orchestrator_run: 2026-06-07T06:13:58Z
+last_orchestrator_run: 2026-06-07T12:24:53Z
 last_status_notification: 2026-05-31T12:00:00Z
 ```
 
@@ -113,14 +113,14 @@ Streams are **independent** — a blocked stream does not pause other streams.
 **Hold:** effects-v04 — create only after trigger symbols + activation tracks both accepted
 
 - **Blocked on**: trigger-symbols-v05 acceptance (CHANGES.md entry verified present; activation tracks complete — only trigger symbols remain before effects-v04)
-- **Last notified**: 2026-06-07T06:13:58Z
+- **Last notified**: 2026-06-07T12:24:53Z
 
 ---
 
 ### App Design
 - **Mode**: autonomous
 - **Source**: APP.md
-- **Status**: active — Task 18 complete (2026-06-07T06:13:58Z); Part C (Forms) done: ActionsEditorComponent updated with multi-turn cooldown slot sub-form (FlowMarker/CooldownTrigger toggle per slot, inline effect editor) and use-track sub-form (use count spinner with marker count hint); all changes live-preview-wired; app rebuilt
+- **Status**: active — Task 19 verified already implemented; Task 21 complete (2026-06-07T12:24:53Z): card list grouped by type with counts, colour coding, and collapsible groups; app rebuilt
 
 #### Known issues (all resolved 2026-05-28)
 1. ~~**Site not on GitHub Pages**~~ — ✅ deploy.yml deleted (redundant); orchestrator owns build+deploy cycle
@@ -204,42 +204,9 @@ Each `ContainerType` constrains which `ContainerSymbol` values are valid for its
 
 Rebuild and redeploy after all three parts are complete.
 
-**Task 19 — Card type locked at creation; immediate save; autosave on every edit**
+~~**Task 19 — Card type locked at creation; immediate save; autosave on every edit**~~ — ✅ Verified already implemented (2026-06-07T12:24:53Z): type selection up-front via per-type sidebar buttons; type read-only after creation; immediate save on creation; autosave with 500ms debounce; no manual Save button
 
-Three related behaviours that must be implemented together.
-
-**Card type selection up-front**
-When creating a new card, the user must choose the card type before the editor opens. The type selection UI (a modal, a dedicated step, or a type-picker on the new-card button — agent's choice, but must be clear and unambiguous) is shown first; only after a type is selected does the editor open for that card type. Once created, the card type field is read-only and cannot be changed. Remove any type-change control from the editor form.
-
-**Immediate save on creation**
-As soon as a new card is created (type selected, editor opened), `CardService` must persist it to storage immediately — before the user edits any field. This ensures the card exists in the set even if the user closes the editor without making changes.
-
-**Autosave on every edit**
-Every change to any form field must trigger a save to `CardService` (and through it, to localStorage or whatever persistence layer is in use) without any explicit "Save" button interaction. Debounce the save by ~500 ms to avoid excessive writes on rapid keystrokes. The user should never need to manually save a card.
-
-Rebuild and redeploy after completing this task.
-
-**Task 21 — Card list grouped by type, with counts, colour coding, and collapsible groups**
-
-Rework the card list (`CardListComponent`, `yarn-card-editor/src/app/components/card-list/`) so that cards are displayed grouped by card type rather than as a flat list.
-
-**Grouping and counts**
-- Cards are grouped by type: Location, Character, Item, Event, Quest, Persona, Script
-- A header row per group shows the type name and the count of cards in that group (e.g. "Characters — 4")
-- A total count is shown above all groups (e.g. "12 cards total")
-- Groups with zero cards are hidden
-
-**Collapsible groups**
-- Each group is independently expandable and collapsible via a toggle on its header
-- Default state: all groups expanded
-- Toggle state persists for the duration of the session (no need for localStorage persistence)
-
-**Colour coding**
-- Each card list item is colour coded using the established card type colour from `design/VISUAL.md` (or `design/card-index.md` if the per-type colours are defined there). Read those files to source the correct colours before implementing.
-- The colour should be applied as a left border or subtle background tint on the list item — not a full background fill that impairs readability
-- Group headers use the same colour as their type
-
-Rebuild and redeploy after completing this task.
+~~**Task 21 — Card list grouped by type, with counts, colour coding, and collapsible groups**~~ — ✅ Complete (2026-06-07T12:24:53Z): CardListComponent refactored with TYPE_ORDER, TYPE_COLORS, CardGroup interface; groupedCards computed signal groups by type, hides empty groups; totalCount header; collapsible groups with chevron toggle (session-only state); per-type colour on group headers + card left borders + type badges; mobile responsive
 
 **Task 22 — Gray out undesigned feature fields consistently (living task)**
 
@@ -316,13 +283,15 @@ After Card Design propagates accepted baselines → re-sync updated baseline HTM
   19. ✅ **Fix trigger limit bug** — Form components (Location/Character/Event/Quest) + PreviewService + CardService fixed to read/write `triggers: Trigger[]` array instead of non-existent named fields; multiple triggers now work on all card types; app rebuilt; gallery synced (90 variants)
   20. ✅ **Task 18 Parts A+B — Container/Row domain model + PreviewService refactor** — container-utils.ts created; PreviewService refactored to use Container/Row model with renderRow/getRowSymbolHtml/ACTIVATION_SYMBOL_MAP; review gallery regenerated with all trigger-symbols-v05 and multiuse-v02 variants; app rebuilt
   21. ✅ **Task 18 Part C — Forms** — ActionsEditorComponent updated with cooldown slot sub-form (CooldownSlot interface, per-slot FlowMarker/CooldownTrigger toggle, inline effect editor for triggers); use-track sub-form improved with marker count hint; all live-preview-wired; app rebuilt
+  22. ✅ **Task 19 verified already implemented** — type selection up-front, type read-only after creation, immediate save on creation, autosave with 500ms debounce
+  23. ✅ **Task 21 — Card list grouped by type** — CardListComponent refactored: TYPE_ORDER, TYPE_COLORS, CardGroup interface, groupedCards computed signal, collapsible groups with chevron toggle, per-type colour coding on headers + card items, totalCount header, mobile responsive; app rebuilt
 - **Auto-sync rule**: After any Card Design stream action that updates `card-index.md` **or** creates a new trigger symbol / activation track variant, the App Design stream must re-run steps 5–9 automatically (sync SVGs + baselines → build → deploy). No user trigger needed.
 - **Pages layout rule**: GitHub Pages serves from `docs/` folder on master branch. All output files must live under `docs/`:
   - Editor: `docs/editor/` ✅
   - Review gallery: `docs/review/` ✅ (migrated 2026-05-28T00:17:35Z)
   - `.nojekyll`: `docs/.nojekyll` ✅ (created 2026-05-28T00:17:35Z)
 - **Blocked on**: —
-- **Last notified**: 2026-06-07T06:13:58Z
+- **Last notified**: 2026-06-07T12:24:53Z
 
 > ⚠️ **Path note (2026-06-05, permanent):** `src/app/` at repo root is the default Angular scaffold — ignore it. All App Design work uses `yarn-card-editor/src/app/`. Agents that check `src/app/` and report missing source are looking in the wrong place.
 
@@ -529,6 +498,8 @@ _(none)_
 | 2026-06-07T00:23:26Z | Orchestrator | C: App Design | Task 18 Parts A+B complete — container-utils.ts created (triggerToRow, actionToRows, passiveToRow, cardToContainers); PreviewService refactored to Container/Row model (renderRow, getRowSymbolHtml, ACTIVATION_SYMBOL_MAP); review gallery fixed (trigger-symbols-v05 + multiuse-v02 all 3 options); app rebuilt; Part C (Forms) next |
 | 2026-06-07T06:13:58Z | Orchestrator | B: Card Design | Blocked — trigger-symbols-v05-a/b/c awaiting user acceptance; all other tasks complete or on hold; effects-v04 blocked on trigger symbols acceptance |
 | 2026-06-07T06:13:58Z | Orchestrator | C: App Design | Task 18 Part C complete — ActionsEditorComponent updated with cooldown slot sub-form (CooldownSlot interface, FlowMarker/CooldownTrigger toggle per slot, inline effect editor for triggers); use-track sub-form improved (marker count hint); all live-preview-wired; app rebuilt; Task 19 next |
+| 2026-06-07T12:24:53Z | Orchestrator | B: Card Design | Blocked — trigger-symbols-v05-a/b/c awaiting user acceptance; all other tasks complete or on hold; effects-v04 blocked on trigger symbols acceptance |
+| 2026-06-07T12:24:53Z | Orchestrator | C: App Design | Task 19 verified already implemented (type selection, read-only type, immediate save, autosave); Task 21 complete — card list grouped by type with TYPE_ORDER, TYPE_COLORS, collapsible groups, per-type colour coding; review gallery synced (97 variants); app rebuilt |
 
 ---
 

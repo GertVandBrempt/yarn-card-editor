@@ -3,7 +3,7 @@
 
   <div class="card-list-content">
     @if (loading()) {
-      <p class="state-msg">Loading cards…</p>
+      <p class="state-msg">Loading cards...</p>
     } @else if (error()) {
       <p class="state-msg error">{{ error() }}</p>
     } @else if (allCards().length === 0) {
@@ -11,19 +11,42 @@
     } @else if (filteredCards().length === 0) {
       <p class="state-msg empty">No cards match the current filter.</p>
     } @else {
-      <ul class="card-list">
-        @for (card of filteredCards(); track card.id) {
-          <li class="card-item" (click)="openCard(card)">
-            <span class="card-type-badge">{{ typeLabel(card.type) }}</span>
-            <span class="card-title">{{ card.title || 'Untitled' }}</span>
-            @if (card.subtitle) {
-              <span class="card-subtitle">{{ card.subtitle }}</span>
-            }
-            <span class="card-updated">{{ card.updatedAt | date:'mediumDate' }}</span>
-            <button class="delete-btn" (click)="deleteCard(card, $event)" title="Delete card">✕</button>
-          </li>
-        }
-      </ul>
+      <div class="total-count">{{ totalCount() }} card{{ totalCount() === 1 ? '' : 's' }} total</div>
+
+      @for (group of groupedCards(); track group.type) {
+        <div class="card-group">
+          <button
+            class="group-header"
+            [style.border-left-color]="group.colour"
+            (click)="toggleGroup(group.type)"
+            [attr.aria-expanded]="group.expanded"
+          >
+            <span class="group-chevron" [class.collapsed]="!group.expanded">&#9662;</span>
+            <span class="group-label" [style.color]="group.colour">{{ group.label }}</span>
+            <span class="group-count">{{ group.cards.length }}</span>
+          </button>
+
+          @if (group.expanded) {
+            <ul class="card-list">
+              @for (card of group.cards; track card.id) {
+                <li
+                  class="card-item"
+                  [style.border-left-color]="group.colour"
+                  (click)="openCard(card)"
+                >
+                  <span class="card-type-badge" [style.color]="group.colour" [style.border-color]="group.colour">{{ typeLabel(card.type) }}</span>
+                  <span class="card-title">{{ card.title || 'Untitled' }}</span>
+                  @if (card.subtitle) {
+                    <span class="card-subtitle">{{ card.subtitle }}</span>
+                  }
+                  <span class="card-updated">{{ card.updatedAt | date:'mediumDate' }}</span>
+                  <button class="delete-btn" (click)="deleteCard(card, $event)" title="Delete card">&#10005;</button>
+                </li>
+              }
+            </ul>
+          }
+        </div>
+      }
     }
   </div>
 </div>

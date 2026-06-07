@@ -5,6 +5,18 @@ import { CardService } from '../../services/card.service';
 import { AnyCard, CardType } from '../../models';
 import { CardFilterComponent, CardFilterState } from '../card-filter/card-filter.component';
 
+/** Ordered list of card types for display grouping */
+const TYPE_ORDER: CardType[] = [
+  'location',
+  'character',
+  'item',
+  'event',
+  'main-quest',
+  'side-quest',
+  'persona',
+  'script',
+];
+
 const TYPE_LABELS: Record<CardType, string> = {
   persona: 'Persona',
   location: 'Location',
@@ -15,6 +27,30 @@ const TYPE_LABELS: Record<CardType, string> = {
   'side-quest': 'Side Quest',
   script: 'Script',
 };
+
+/**
+ * Per-type accent colour derived from accepted card baselines (--type-text CSS var).
+ * Used for group headers, left border on list items, and badge styling.
+ */
+const TYPE_COLORS: Record<CardType, string> = {
+  persona: '#c8860c',
+  location: '#40b060',
+  character: '#d0cc30',
+  item: '#40a0c0',
+  event: '#4878c8',
+  'main-quest': '#d4a808',
+  'side-quest': '#90a8b8',
+  script: '#9870d8',
+};
+
+/** A single group of cards sharing the same type */
+export interface CardGroup {
+  type: CardType;
+  label: string;
+  colour: string;
+  cards: AnyCard[];
+  expanded: boolean;
+}
 
 @Component({
   selector: 'app-card-list',
@@ -31,6 +67,9 @@ export class CardListComponent implements OnInit {
   setId = '';
   typeLabels = TYPE_LABELS;
 
+  /** Track which groups are collapsed (session-only, all start expanded) */
+  private collapsedTypes = new Set<CardType>();
+
   filteredCards = computed(() => {
     const { searchQuery, selectedTypes } = this.filterState();
     let cards = this.allCards();
@@ -46,6 +85,31 @@ export class CardListComponent implements OnInit {
 
     return cards;
   });
+
+  /** Cards grouped by type, ordered by TYPE_ORDER, hiding empty groups */
+  groupedCards = computed<CardGroup[]>(() => {
+    const cards = this.filteredCards();
+    const byType = new Map<CardType, AnyCard[]>();
+
+    for (const card of cards) {
+      const list = byType.get(card.type) ?? [];
+      list.push(card);
+      byType.set(card.type, list);
+    }
+
+    return TYPE_ORDER
+      .filter(type => byType.has(type))
+      .map(type => ({
+        type,
+        label: TYPE_LABELS[type],
+        colour: TYPE_COLORS[type],
+        cards: byType.get(type)!.sort((a, b) => b.updatedAt.localeCompare(a.updatedAt)),
+        expanded: !this.collapsedTypes.has(type),
+      }));
+  });
+
+  /** Total count across all filtered cards */
+  totalCount = computed(() => this.filteredCards().length);
 
   constructor(
     private cardService: CardService,
@@ -69,6 +133,16 @@ export class CardListComponent implements OnInit {
     this.filterState.set(state);
   }
 
+  toggleGroup(type: CardType): void {
+    if (this.collapsedTypes.has(type)) {
+      this.collapsedTypes.delete(type);
+    } else {
+      this.collapsedTypes.add(type);
+    }
+    // Force recomputation of groupedCards by touching allCards signal
+    this.allCards.update(cards => [...cards]);
+  }
+
   openCard(card: AnyCard): void {
     this.router.navigate(['/sets', this.setId, 'cards', card.id]);
   }
@@ -82,5 +156,9 @@ export class CardListComponent implements OnInit {
 
   typeLabel(type: CardType): string {
     return TYPE_LABELS[type] ?? type;
+  }
+
+  typeColour(type: CardType): string {
+    return TYPE_COLORS[type] ?? '#6b7280';
   }
 }

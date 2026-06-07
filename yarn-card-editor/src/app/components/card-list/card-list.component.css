@@ -1,3 +1,5 @@
+/* CardListComponent — grouped by type with colour coding */
+
 .card-list-page {
   display: flex;
   flex-direction: column;
@@ -20,6 +22,74 @@
   color: #ef4444;
 }
 
+/* ── Total count ── */
+
+.total-count {
+  font-size: 0.82rem;
+  color: #6b7280;
+  padding: 0.25rem 0.5rem 0.75rem;
+  font-weight: 500;
+}
+
+/* ── Card group ── */
+
+.card-group {
+  margin-bottom: 0.75rem;
+}
+
+.group-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  width: 100%;
+  padding: 0.6rem 0.75rem;
+  background: #f1f5f9;
+  border: 1px solid #e2e8f0;
+  border-left: 3px solid transparent;
+  border-radius: 6px 6px 0 0;
+  cursor: pointer;
+  transition: background 0.15s;
+  font-family: inherit;
+  font-size: inherit;
+}
+
+.group-header:hover {
+  background: #e8edf4;
+}
+
+.group-chevron {
+  font-size: 0.7rem;
+  color: #94a3b8;
+  transition: transform 0.2s ease;
+  display: inline-block;
+  flex-shrink: 0;
+}
+
+.group-chevron.collapsed {
+  transform: rotate(-90deg);
+}
+
+.group-label {
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  flex: 1;
+  text-align: left;
+}
+
+.group-count {
+  font-size: 0.78rem;
+  color: #6b7280;
+  background: #e2e8f0;
+  padding: 0.1rem 0.5rem;
+  border-radius: 10px;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+/* ── Card list (within a group) ── */
+
 .card-list {
   list-style: none;
   padding: 0;
@@ -30,38 +100,54 @@
   display: flex;
   align-items: center;
   gap: 0.75rem;
-  padding: 0.75rem 1rem;
+  padding: 0.65rem 1rem;
   border: 1px solid #e5e7eb;
-  border-radius: 6px;
-  margin-bottom: 0.5rem;
+  border-top: none;
+  border-left: 3px solid transparent;
   background: #fff;
   cursor: pointer;
-  transition: box-shadow 0.15s;
+  transition: box-shadow 0.15s, background 0.1s;
+}
+
+.card-item:last-child {
+  border-radius: 0 0 6px 6px;
 }
 
 .card-item:hover {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  background: #fafbfc;
 }
 
 .card-type-badge {
-  font-size: 0.72rem;
+  font-size: 0.68rem;
   text-transform: uppercase;
   letter-spacing: 0.04em;
-  background: #e0e7ff;
-  color: #3730a3;
-  padding: 0.15rem 0.45rem;
+  background: transparent;
+  border: 1px solid currentColor;
+  padding: 0.12rem 0.4rem;
   border-radius: 4px;
   flex-shrink: 0;
+  font-weight: 600;
+  opacity: 0.85;
 }
 
 .card-title {
   flex: 1;
   font-weight: 500;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .card-subtitle {
   font-size: 0.85rem;
   color: #6b7280;
+  flex-shrink: 0;
+  max-width: 30%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .card-updated {
@@ -84,4 +170,23 @@
 .delete-btn:hover {
   color: #ef4444;
   background: #fee2e2;
+}
+
+/* ── Mobile adjustments ── */
+
+@media (max-width: 767px) {
+  .card-item {
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+
+  .card-subtitle {
+    max-width: 100%;
+    order: 10;
+    flex-basis: 100%;
+  }
+
+  .card-updated {
+    font-size: 0.72rem;
+  }
 }

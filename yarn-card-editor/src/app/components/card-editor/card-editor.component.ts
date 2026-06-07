@@ -20,7 +20,6 @@ export class CardEditorComponent implements OnInit {
   error = signal<string | null>(null);
 
   private setId = '';
-  private isNew = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -34,7 +33,6 @@ export class CardEditorComponent implements OnInit {
 
     if (cardId) {
       // Edit existing card
-      this.isNew = false;
       try {
         const card = await this.cardService.getCard(cardId);
         if (!card) {
@@ -46,11 +44,23 @@ export class CardEditorComponent implements OnInit {
         this.error.set('Failed to load card.');
       }
     } else {
-      // New card — type comes from query param
-      this.isNew = true;
+      // New card — type comes from query param (selected up-front via sidebar)
       const type = (this.route.snapshot.queryParamMap.get('type') ?? 'persona') as CardType;
       const newCard = this.cardService.createCard(type, this.setId);
       this.card.set(newCard);
+
+      // Immediately persist the new card so it exists in the set
+      // even if the user closes the editor without making changes
+      try {
+        await this.cardService.saveCard(newCard);
+        this.saved.set(true);
+        // Update URL to the card's permanent route
+        this.router.navigate(['/sets', this.setId, 'cards', newCard.id], {
+          replaceUrl: true,
+        });
+      } catch {
+        this.error.set('Failed to save new card.');
+      }
     }
   }
 
@@ -65,7 +75,7 @@ export class CardEditorComponent implements OnInit {
 
   private autoSave(): void {
     if (this.autoSaveTimer) clearTimeout(this.autoSaveTimer);
-    this.autoSaveTimer = setTimeout(() => this.saveCard(), 800);
+    this.autoSaveTimer = setTimeout(() => this.saveCard(), 500);
   }
 
   async saveCard(): Promise<void> {
@@ -76,14 +86,6 @@ export class CardEditorComponent implements OnInit {
     try {
       await this.cardService.saveCard(card);
       this.saved.set(true);
-
-      // If this was a new card, update the URL so browser history is correct
-      if (this.isNew) {
-        this.isNew = false;
-        this.router.navigate(['/sets', this.setId, 'cards', card.id], {
-          replaceUrl: true,
-        });
-      }
     } catch {
       this.error.set('Failed to save card.');
     } finally {
