@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { CardSetService } from '../../services/card-set.service';
+import { ImportExportService } from '../../services/import-export.service';
 import { CardSet } from '../../models/card-set.model';
 
 @Component({
@@ -17,9 +18,12 @@ export class SetSelectorComponent implements OnInit {
   newSetName = '';
   loading = signal(true);
   error = signal<string | null>(null);
+  importStatus = signal<string | null>(null);
+  importError = signal<string | null>(null);
 
   constructor(
     private cardSetService: CardSetService,
+    private importExportService: ImportExportService,
     private router: Router
   ) {}
 
@@ -54,5 +58,41 @@ export class SetSelectorComponent implements OnInit {
 
     await this.cardSetService.deleteSet(set.id);
     this.sets.update((sets) => sets.filter((s) => s.id !== set.id));
+  }
+
+  async importSet(): Promise<void> {
+    this.importError.set(null);
+    this.importStatus.set(null);
+
+    const file = await this.importExportService.openFilePicker();
+    if (!file) return;
+
+    this.importStatus.set('Validating...');
+
+    const result = await this.importExportService.readAndValidate(file);
+
+    if (!result.valid || !result.data) {
+      this.importStatus.set(null);
+      this.importError.set(result.errors.join('\n'));
+      return;
+    }
+
+    this.importStatus.set('Importing...');
+
+    try {
+      const newId = await this.importExportService.importAsNewSet(result.data);
+      this.importStatus.set('Imported!');
+      setTimeout(() => {
+        this.importStatus.set(null);
+        this.router.navigate(['/sets', newId]);
+      }, 800);
+    } catch {
+      this.importStatus.set(null);
+      this.importError.set('Import failed. Please try again.');
+    }
+  }
+
+  dismissImportError(): void {
+    this.importError.set(null);
   }
 }

@@ -38,6 +38,27 @@
       <button class="nav-btn new-card-btn" (click)="navigateToNewCard('main-quest')">Main Quest</button>
       <button class="nav-btn new-card-btn" (click)="navigateToNewCard('side-quest')">Side Quest</button>
       <button class="nav-btn new-card-btn" (click)="navigateToNewCard('script')">Script</button>
+
+      <div class="nav-section-label">Set Actions</div>
+      <button class="nav-btn action-btn export-btn" (click)="exportSet()">
+        Export to JSON
+        @if (exportStatus()) {
+          <span class="action-status">{{ exportStatus() }}</span>
+        }
+      </button>
+      <button class="nav-btn action-btn import-btn" (click)="importSet()">
+        Import from JSON
+        @if (importStatus()) {
+          <span class="action-status">{{ importStatus() }}</span>
+        }
+      </button>
+
+      @if (importError()) {
+        <div class="import-error">
+          <span class="import-error-text">{{ importError() }}</span>
+          <button class="import-error-dismiss" (click)="dismissImportError()">Dismiss</button>
+        </div>
+      }
     </nav>
   </aside>
 

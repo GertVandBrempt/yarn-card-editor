@@ -17,7 +17,20 @@
       <button (click)="createSet()" [disabled]="!newSetName.trim()">
         Create Set
       </button>
+      <button class="import-btn" (click)="importSet()">
+        Import JSON
+        @if (importStatus()) {
+          <span class="import-status">{{ importStatus() }}</span>
+        }
+      </button>
     </div>
+
+    @if (importError()) {
+      <div class="import-error-banner">
+        <span class="import-error-text">{{ importError() }}</span>
+        <button class="import-error-dismiss" (click)="dismissImportError()">Dismiss</button>
+      </div>
+    }
 
     @if (sets().length === 0) {
       <p class="empty">No card sets yet. Create one to get started.</p>

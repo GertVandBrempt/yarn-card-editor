@@ -83,6 +83,67 @@ h2 {
   cursor: not-allowed;
 }
 
+/* ── Import button ── */
+.import-btn {
+  padding: 0.6rem 1.2rem;
+  background: rgba(40, 80, 60, 0.28);
+  border: 1px solid #2a6040;
+  color: #6abf8a;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.4px;
+  transition: background 0.15s, border-color 0.15s;
+  white-space: nowrap;
+}
+
+.import-btn:hover {
+  background: rgba(40, 80, 60, 0.48);
+  border-color: #40a060;
+}
+
+.import-status {
+  font-size: 0.72rem;
+  color: #4ade80;
+  margin-left: 0.4rem;
+}
+
+/* ── Import error banner ── */
+.import-error-banner {
+  background: rgba(180, 40, 20, 0.15);
+  border: 1px solid rgba(180, 40, 20, 0.3);
+  border-radius: 6px;
+  padding: 0.6rem 0.75rem;
+  margin-bottom: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.import-error-text {
+  font-size: 0.82rem;
+  color: #f0a0a0;
+  white-space: pre-wrap;
+  line-height: 1.4;
+}
+
+.import-error-dismiss {
+  background: none;
+  border: 1px solid rgba(180, 40, 20, 0.4);
+  color: #f0a0a0;
+  cursor: pointer;
+  font-size: 0.72rem;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  align-self: flex-end;
+  transition: background 0.15s;
+}
+
+.import-error-dismiss:hover {
+  background: rgba(180, 40, 20, 0.2);
+}
+
 /* ── Set list ── */
 .set-list {
   list-style: none;

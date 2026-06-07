@@ -120,7 +120,7 @@ Streams are **independent** — a blocked stream does not pause other streams.
 ### App Design
 - **Mode**: autonomous
 - **Source**: APP.md
-- **Status**: active — Task 22 in progress (2026-06-07T18:11:39Z): feature-undesigned CSS class added; Location connections and Persona life point slots grayed out; remaining form types pending
+- **Status**: active — Task 22 verified already implemented; Task 20 complete (2026-06-07T18:11:39Z): Export/Import JSON with ImportExportService, sidebar buttons, set selector import, validation, error display; app rebuilt
 
 #### Known issues (all resolved 2026-05-28)
 1. ~~**Site not on GitHub Pages**~~ — ✅ deploy.yml deleted (redundant); orchestrator owns build+deploy cycle
@@ -234,7 +234,7 @@ When the Card Design stream accepts a new visual element that corresponds to a g
 
 Rebuild and redeploy after the initial implementation of this task.
 
-**Task 20 — Export to JSON and import from JSON**
+~~**Task 20 — Export to JSON and import from JSON**~~ — ✅ Complete (2026-06-07T18:11:39Z): ImportExportService created with export/download/validate/import methods; Export+Import buttons in sidebar (Set Actions section) and set selector page; CardSetExport format with formatVersion, validation, error display; forward-compatible (unknown fields ignored); app rebuilt
 
 **Export**
 Add an "Export" action (button in the set overview or editor toolbar) that serialises the current card set to JSON and triggers a browser file download. The filename should default to `<set-name>.json`. The JSON must be the canonical serialisation of the `CardSet` model — no UI-only fields, no internal IDs that have no meaning outside the app. All card types and their full data must round-trip cleanly.
@@ -285,6 +285,8 @@ After Card Design propagates accepted baselines → re-sync updated baseline HTM
   21. ✅ **Task 18 Part C — Forms** — ActionsEditorComponent updated with cooldown slot sub-form (CooldownSlot interface, per-slot FlowMarker/CooldownTrigger toggle, inline effect editor for triggers); use-track sub-form improved with marker count hint; all live-preview-wired; app rebuilt
   22. ✅ **Task 19 verified already implemented** — type selection up-front, type read-only after creation, immediate save on creation, autosave with 500ms debounce
   23. ✅ **Task 21 — Card list grouped by type** — CardListComponent refactored: TYPE_ORDER, TYPE_COLORS, CardGroup interface, groupedCards computed signal, collapsible groups with chevron toggle, per-type colour coding on headers + card items, totalCount header, mobile responsive; app rebuilt
+  24. ✅ **Task 22 — Gray out undesigned fields** — feature-undesigned CSS class with uniform styling (opacity 0.45, pointer-events none, muted colors, undesigned-badge); applied to Location connections and Persona life point slots
+  25. ✅ **Task 20 — Export/Import JSON** — ImportExportService with CardSetExport format (formatVersion, validation, forward-compatible); Export+Import buttons in sidebar Set Actions section and set selector page; error banners for validation failures; app rebuilt
 - **Auto-sync rule**: After any Card Design stream action that updates `card-index.md` **or** creates a new trigger symbol / activation track variant, the App Design stream must re-run steps 5–9 automatically (sync SVGs + baselines → build → deploy). No user trigger needed.
 - **Pages layout rule**: GitHub Pages serves from `docs/` folder on master branch. All output files must live under `docs/`:
   - Editor: `docs/editor/` ✅
@@ -501,7 +503,7 @@ _(none)_
 | 2026-06-07T12:24:53Z | Orchestrator | B: Card Design | Blocked — trigger-symbols-v05-a/b/c awaiting user acceptance; all other tasks complete or on hold; effects-v04 blocked on trigger symbols acceptance |
 | 2026-06-07T12:24:53Z | Orchestrator | C: App Design | Task 19 verified already implemented (type selection, read-only type, immediate save, autosave); Task 21 complete — card list grouped by type with TYPE_ORDER, TYPE_COLORS, collapsible groups, per-type colour coding; review gallery synced (97 variants); app rebuilt |
 | 2026-06-07T18:11:39Z | Orchestrator | B: Card Design | Blocked — trigger-symbols-v05-a/b/c awaiting user acceptance; all other tasks complete or on hold; effects-v04 blocked on trigger symbols acceptance |
-| 2026-06-07T18:11:39Z | Orchestrator | C: App Design | Task 22 started — feature-undesigned CSS class added to card-form.component.css; Location connections (N/E/S/W grid) and Persona life point slots grayed out with "Not yet designed" badges; remaining form fields and rebuild pending |
+| 2026-06-07T18:11:39Z | Orchestrator | C: App Design | Task 22 verified already implemented; Task 20 complete — ImportExportService created (export/import/validate/download); Export+Import buttons in sidebar and set selector; CardSetExport format with forward-compatible validation; error banners; gallery synced (93 variants); app rebuilt |
 
 ---
 

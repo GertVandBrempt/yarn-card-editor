@@ -21,10 +21,10 @@ Card types: **Location, Character, Item, Event, Quest, Persona, Script**
 **Awaiting acceptance:** activation-track-basic-v02, activation-track-multiturn-v03, activation-track-multiuse-v02, activation-track-use-v02, trigger-symbols-v05
 
 ### App Design
-**Status:** Active — Task 22 in progress
-**Completed this run:** Task 22 partial — `.feature-undesigned` CSS class created; Location connections and Persona life point slots grayed out with "Not yet designed" badges
-**Next:** Task 22 continued — apply undesigned treatment to remaining form types (Character health/life points); rebuild and redeploy
-**Backlog:** Task 20 (export/import JSON)
+**Status:** Active — Task 20 and Task 22 complete
+**Completed this run:** Task 22 — gray out undesigned fields (Location connections, Persona life points); Task 20 — Export/Import JSON (ImportExportService, sidebar + set selector buttons, validation, error display)
+**Next:** Task 18 verification (forms may need completion check); Task 22 is a living task revisited when new visual features are accepted
+**Backlog:** None — all queued tasks complete
 
 ---
 
