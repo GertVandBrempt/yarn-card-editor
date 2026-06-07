@@ -504,6 +504,7 @@ _(none)_
 | 2026-06-07T12:24:53Z | Orchestrator | C: App Design | Task 19 verified already implemented (type selection, read-only type, immediate save, autosave); Task 21 complete — card list grouped by type with TYPE_ORDER, TYPE_COLORS, collapsible groups, per-type colour coding; review gallery synced (97 variants); app rebuilt |
 | 2026-06-07T18:11:39Z | Orchestrator | B: Card Design | Blocked — trigger-symbols-v05-a/b/c awaiting user acceptance; all other tasks complete or on hold; effects-v04 blocked on trigger symbols acceptance |
 | 2026-06-07T18:11:39Z | Orchestrator | C: App Design | Task 22 verified already implemented; Task 20 complete — ImportExportService created (export/import/validate/download); Export+Import buttons in sidebar and set selector; CardSetExport format with forward-compatible validation; error banners; gallery synced (93 variants); app rebuilt |
+| 2026-06-07T18:11:39Z | Orchestrator | Review: App Design | ACCEPT — build zero errors; output flat at docs/editor/index.html; live view pipeline confirmed (signal chain form→card→preview→iframe); no runtime hazards; gallery correct (97 variants, ../design/variants/ paths); .nojekyll present |
 
 ---
 
