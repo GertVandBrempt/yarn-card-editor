@@ -47,6 +47,42 @@
                 (ngModelChange)="onCooldownChange(ai, $event)"
               />
             </div>
+
+            <!-- Cooldown slot sub-form: each slot is FlowMarker or CooldownTrigger -->
+            @if (getCooldownSlots(ai).length > 0) {
+              <div class="cooldown-slots-section">
+                <div class="cooldown-slots-header">
+                  <span class="cooldown-slots-label">Cooldown Slots</span>
+                </div>
+                @for (slot of getCooldownSlots(ai); track slot.position; let si = $index) {
+                  <div class="cooldown-slot-entry" [class.is-trigger]="slot.isTrigger">
+                    <div class="cooldown-slot-header">
+                      <span class="cooldown-slot-position">{{ slot.position }}</span>
+                      <span class="cooldown-slot-type">
+                        {{ slot.isTrigger ? 'Cooldown Trigger' : 'Flow Marker' }}
+                      </span>
+                      <button
+                        class="cooldown-slot-toggle"
+                        type="button"
+                        (click)="onSlotToggle(ai, si)"
+                        [title]="slot.isTrigger ? 'Switch to Flow Marker' : 'Switch to Cooldown Trigger'"
+                      >
+                        {{ slot.isTrigger ? 'Make Flow' : 'Make Trigger' }}
+                      </button>
+                    </div>
+                    @if (slot.isTrigger) {
+                      <div class="cooldown-slot-effect">
+                        <app-effect-editor
+                          [effect]="slot.effect"
+                          [label]="'Trigger Effect'"
+                          (effectChange)="onSlotEffectChange(ai, si, $event)"
+                        />
+                      </div>
+                    }
+                  </div>
+                }
+              </div>
+            }
           }
 
           @if (action.trackType === 'multi-use') {
@@ -64,7 +100,7 @@
 
           @if (action.trackType === 'use') {
             <div class="track-subfields">
-              <label class="subfield-label">Charges</label>
+              <label class="subfield-label">Uses</label>
               <input
                 class="subfield-input"
                 type="number"
@@ -72,6 +108,9 @@
                 [ngModel]="action.chargeCount ?? 1"
                 (ngModelChange)="onChargeCountChange(ai, $event)"
               />
+              <span class="subfield-hint">
+                {{ (action.chargeCount ?? 1) === 1 ? '1 use marker' : (action.chargeCount ?? 1) + ' use markers' }}
+              </span>
             </div>
           }
 

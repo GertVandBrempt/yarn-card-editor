@@ -19,7 +19,7 @@ This file is read and written by scheduled agents. Do not edit manually during a
 ```
 blocked_for_weekly_review: false
 weekly_review_due: 2026-05-30T08:00:00Z
-last_orchestrator_run: 2026-06-07T00:23:26Z
+last_orchestrator_run: 2026-06-07T06:13:58Z
 last_status_notification: 2026-05-31T12:00:00Z
 ```
 
@@ -32,7 +32,7 @@ Streams are **independent** — a blocked stream does not pause other streams.
 ### Card Design
 - **Mode**: autonomous
 - **Source**: design/VISUAL.md, design/card-index.md
-- **Status**: active — trigger-symbols-v05-a/b/c verified spec-compliant (2026-06-07T00:23:26Z); CHANGES.md entry confirmed present; awaiting user acceptance
+- **Status**: blocked — trigger-symbols-v05-a/b/c verified spec-compliant; CHANGES.md entry confirmed present; awaiting user acceptance; all other tasks complete or on hold
 
 #### Accepted design elements (2026-05-28)
 - ✅ **effects-container-v04** — gradient-fade section borders (opacity 0.7), 0.15 translucent fill; see VISUAL.md §6
@@ -113,14 +113,14 @@ Streams are **independent** — a blocked stream does not pause other streams.
 **Hold:** effects-v04 — create only after trigger symbols + activation tracks both accepted
 
 - **Blocked on**: trigger-symbols-v05 acceptance (CHANGES.md entry verified present; activation tracks complete — only trigger symbols remain before effects-v04)
-- **Last notified**: 2026-06-07T00:23:26Z
+- **Last notified**: 2026-06-07T06:13:58Z
 
 ---
 
 ### App Design
 - **Mode**: autonomous
 - **Source**: APP.md
-- **Status**: active — Task 18 Parts A+B complete (2026-06-07T00:23:26Z); container-utils.ts created with conversion utilities (triggerToRow, actionToRows, passiveToRow, cardToContainers); PreviewService refactored to use Container/Row model (renderRow, getRowSymbolHtml, ACTIVATION_SYMBOL_MAP); review gallery regenerated (trigger-symbols-v05 + multiuse-v02 all 3 options now shown); app rebuilt; Part C (Forms) pending
+- **Status**: active — Task 18 complete (2026-06-07T06:13:58Z); Part C (Forms) done: ActionsEditorComponent updated with multi-turn cooldown slot sub-form (FlowMarker/CooldownTrigger toggle per slot, inline effect editor) and use-track sub-form (use count spinner with marker count hint); all changes live-preview-wired; app rebuilt
 
 #### Known issues (all resolved 2026-05-28)
 1. ~~**Site not on GitHub Pages**~~ — ✅ deploy.yml deleted (redundant); orchestrator owns build+deploy cycle
@@ -315,13 +315,14 @@ After Card Design propagates accepted baselines → re-sync updated baseline HTM
   18. ✅ **Tasks 6–8 false alarm resolved** — Source code, angular.json outputPath, and live preview all verified intact (2026-06-04T12:30:00Z); app rebuilt; gallery synced (82 variants)
   19. ✅ **Fix trigger limit bug** — Form components (Location/Character/Event/Quest) + PreviewService + CardService fixed to read/write `triggers: Trigger[]` array instead of non-existent named fields; multiple triggers now work on all card types; app rebuilt; gallery synced (90 variants)
   20. ✅ **Task 18 Parts A+B — Container/Row domain model + PreviewService refactor** — container-utils.ts created; PreviewService refactored to use Container/Row model with renderRow/getRowSymbolHtml/ACTIVATION_SYMBOL_MAP; review gallery regenerated with all trigger-symbols-v05 and multiuse-v02 variants; app rebuilt
+  21. ✅ **Task 18 Part C — Forms** — ActionsEditorComponent updated with cooldown slot sub-form (CooldownSlot interface, per-slot FlowMarker/CooldownTrigger toggle, inline effect editor for triggers); use-track sub-form improved with marker count hint; all live-preview-wired; app rebuilt
 - **Auto-sync rule**: After any Card Design stream action that updates `card-index.md` **or** creates a new trigger symbol / activation track variant, the App Design stream must re-run steps 5–9 automatically (sync SVGs + baselines → build → deploy). No user trigger needed.
 - **Pages layout rule**: GitHub Pages serves from `docs/` folder on master branch. All output files must live under `docs/`:
   - Editor: `docs/editor/` ✅
   - Review gallery: `docs/review/` ✅ (migrated 2026-05-28T00:17:35Z)
   - `.nojekyll`: `docs/.nojekyll` ✅ (created 2026-05-28T00:17:35Z)
 - **Blocked on**: —
-- **Last notified**: 2026-06-07T00:23:26Z
+- **Last notified**: 2026-06-07T06:13:58Z
 
 > ⚠️ **Path note (2026-06-05, permanent):** `src/app/` at repo root is the default Angular scaffold — ignore it. All App Design work uses `yarn-card-editor/src/app/`. Agents that check `src/app/` and report missing source are looking in the wrong place.
 
@@ -526,6 +527,8 @@ _(none)_
 | 2026-06-06T12:13:19Z | Orchestrator | C: App Design | Task 18 Part A started — Container/Row/ContainerType/ContainerSymbol/ActivationSymbol/TriggerSymbol model types created in container.model.ts; exported from index.ts; review gallery regenerated (94 variants mirrored incl. trigger-symbols-v05-a); card models not yet refactored; PreviewService + Forms pending |
 | 2026-06-07T00:23:26Z | Orchestrator | B: Card Design | Verified trigger-symbols-v05-a/b/c — all spec-compliant (5 triggers, 29px, viewBox 48x48, two-tone, max 2 shape elements); CHANGES.md entry confirmed present; awaiting user acceptance |
 | 2026-06-07T00:23:26Z | Orchestrator | C: App Design | Task 18 Parts A+B complete — container-utils.ts created (triggerToRow, actionToRows, passiveToRow, cardToContainers); PreviewService refactored to Container/Row model (renderRow, getRowSymbolHtml, ACTIVATION_SYMBOL_MAP); review gallery fixed (trigger-symbols-v05 + multiuse-v02 all 3 options); app rebuilt; Part C (Forms) next |
+| 2026-06-07T06:13:58Z | Orchestrator | B: Card Design | Blocked — trigger-symbols-v05-a/b/c awaiting user acceptance; all other tasks complete or on hold; effects-v04 blocked on trigger symbols acceptance |
+| 2026-06-07T06:13:58Z | Orchestrator | C: App Design | Task 18 Part C complete — ActionsEditorComponent updated with cooldown slot sub-form (CooldownSlot interface, FlowMarker/CooldownTrigger toggle per slot, inline effect editor for triggers); use-track sub-form improved (marker count hint); all live-preview-wired; app rebuilt; Task 19 next |
 
 ---
 

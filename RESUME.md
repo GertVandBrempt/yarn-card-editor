@@ -1,6 +1,6 @@
 # Yarn — Session Resume Context
 
-_Updated: 2026-06-07T00:23:26Z_
+_Updated: 2026-06-07T06:13:58Z_
 
 ---
 
@@ -15,16 +15,16 @@ Card types: **Location, Character, Item, Event, Quest, Persona, Script**
 ## Current stream status
 
 ### Card Design
-**Status:** Active — trigger-symbols-v05-a/b/c verified spec-compliant; CHANGES.md entry confirmed
-**Completed this run:** Verified all 3 trigger-symbols-v05 variants (5 triggers, 29px, two-tone, max 2 shape elements per icon)
+**Status:** Blocked — trigger-symbols-v05-a/b/c verified spec-compliant; awaiting user acceptance
+**Completed this run:** No work — blocked on user acceptance
 **Next:** Awaiting user acceptance of trigger-symbols-v05; once accepted, effects-v04 design track unblocks
 **Awaiting acceptance:** activation-track-basic-v02, activation-track-multiturn-v03, activation-track-multiuse-v02, activation-track-use-v02, trigger-symbols-v05
 
 ### App Design
-**Status:** Active — Task 18 Parts A+B complete, Part C pending
-**Completed this run:** container-utils.ts created (triggerToRow, actionToRows, passiveToRow, cardToContainers); PreviewService refactored to Container/Row model; review gallery fixed (all v05 + multiuse-v02 options shown); app rebuilt
-**Next:** Task 18 Part C — update ActionsEditorComponent + TriggersEditorComponent to edit Row[] within groupings; multi-turn/use-track sub-forms; wire to live preview
-**Backlog:** Task 19 (autosave), Task 21 (grouped card list), Task 22 (gray out undesigned fields), Task 20 (export/import JSON)
+**Status:** Active — Task 18 fully complete (all 3 parts)
+**Completed this run:** Task 18 Part C (Forms) — ActionsEditorComponent updated with cooldown slot sub-form (FlowMarker/CooldownTrigger toggle per slot, inline effect editor); use-track sub-form improved with marker count hint; all live-preview-wired; app rebuilt
+**Next:** Task 19 — Card type locked at creation; immediate save; autosave on every edit
+**Backlog:** Task 21 (grouped card list), Task 22 (gray out undesigned fields), Task 20 (export/import JSON)
 
 ---
 

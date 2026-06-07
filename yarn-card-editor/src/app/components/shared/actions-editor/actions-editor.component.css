@@ -176,6 +176,97 @@
   min-height: 36px;
 }
 
+/* ── Cooldown slots (multi-turn) ─────────────────── */
+.cooldown-slots-section {
+  border: 1px solid #e5e7eb;
+  border-radius: 5px;
+  padding: 0.5rem 0.6rem;
+  background: #f9fafb;
+  margin-top: 0.25rem;
+}
+
+.cooldown-slots-header {
+  margin-bottom: 0.4rem;
+}
+
+.cooldown-slots-label {
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #6b7280;
+}
+
+.cooldown-slot-entry {
+  border: 1px solid #e5e7eb;
+  border-radius: 4px;
+  padding: 0.4rem 0.5rem;
+  margin-bottom: 0.35rem;
+  background: #fff;
+  transition: border-color 0.15s;
+}
+
+.cooldown-slot-entry.is-trigger {
+  border-color: #c4b5fd;
+  background: #faf5ff;
+}
+
+.cooldown-slot-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.cooldown-slot-position {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #9ca3af;
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f3f4f6;
+  border-radius: 50%;
+}
+
+.cooldown-slot-type {
+  font-size: 0.82rem;
+  color: #374151;
+  flex: 1;
+}
+
+.cooldown-slot-toggle {
+  background: none;
+  border: 1px solid #d1d5db;
+  color: #6b7280;
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  cursor: pointer;
+  flex-shrink: 0;
+  min-height: 28px;
+}
+
+.cooldown-slot-toggle:hover {
+  background: #f3f4f6;
+  color: #374151;
+  border-color: #9ca3af;
+}
+
+.cooldown-slot-effect {
+  margin-top: 0.4rem;
+  padding-left: 1.5rem;
+}
+
+/* ── Use-track hint ──────────────────────────────── */
+.subfield-hint {
+  font-size: 0.78rem;
+  color: #9ca3af;
+  flex-shrink: 0;
+}
+
 /* ── AND/OR sub-tracks ───────────────────────────── */
 .subtracks-section {
   border: 1px solid #e5e7eb;
@@ -255,7 +346,8 @@
   .remove-btn,
   .add-effect-btn,
   .remove-effect-btn,
-  .add-subtrack-btn {
+  .add-subtrack-btn,
+  .cooldown-slot-toggle {
     min-height: 44px;
     min-width: 44px;
   }
