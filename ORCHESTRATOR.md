@@ -19,7 +19,7 @@ This file is read and written by scheduled agents. Do not edit manually during a
 ```
 blocked_for_weekly_review: false
 weekly_review_due: 2026-05-30T08:00:00Z
-last_orchestrator_run: 2026-06-06T12:13:19Z
+last_orchestrator_run: 2026-06-07T00:23:26Z
 last_status_notification: 2026-05-31T12:00:00Z
 ```
 
@@ -32,7 +32,7 @@ Streams are **independent** — a blocked stream does not pause other streams.
 ### Card Design
 - **Mode**: autonomous
 - **Source**: design/VISUAL.md, design/card-index.md
-- **Status**: active — trigger-symbols-v05-a/b/c all created (2026-06-06T12:13:19Z); CHANGES.md entry pending
+- **Status**: active — trigger-symbols-v05-a/b/c verified spec-compliant (2026-06-07T00:23:26Z); CHANGES.md entry confirmed present; awaiting user acceptance
 
 #### Accepted design elements (2026-05-28)
 - ✅ **effects-container-v04** — gradient-fade section borders (opacity 0.7), 0.15 translucent fill; see VISUAL.md §6
@@ -112,15 +112,15 @@ Streams are **independent** — a blocked stream does not pause other streams.
 
 **Hold:** effects-v04 — create only after trigger symbols + activation tracks both accepted
 
-- **Blocked on**: trigger-symbols-v05 CHANGES.md update + acceptance (activation tracks now complete — only trigger symbols remain before effects-v04)
-- **Last notified**: 2026-06-06T12:13:19Z
+- **Blocked on**: trigger-symbols-v05 acceptance (CHANGES.md entry verified present; activation tracks complete — only trigger symbols remain before effects-v04)
+- **Last notified**: 2026-06-07T00:23:26Z
 
 ---
 
 ### App Design
 - **Mode**: autonomous
 - **Source**: APP.md
-- **Status**: active — Task 18 Part A started (2026-06-06T12:13:19Z); Container/Row/ContainerType/ContainerSymbol/ActivationSymbol model types created in container.model.ts; exported from index.ts; review gallery regenerated (94 variants mirrored); card models not yet refactored to use Container[]; PreviewService + Forms not yet updated; rebuild pending
+- **Status**: active — Task 18 Parts A+B complete (2026-06-07T00:23:26Z); container-utils.ts created with conversion utilities (triggerToRow, actionToRows, passiveToRow, cardToContainers); PreviewService refactored to use Container/Row model (renderRow, getRowSymbolHtml, ACTIVATION_SYMBOL_MAP); review gallery regenerated (trigger-symbols-v05 + multiuse-v02 all 3 options now shown); app rebuilt; Part C (Forms) pending
 
 #### Known issues (all resolved 2026-05-28)
 1. ~~**Site not on GitHub Pages**~~ — ✅ deploy.yml deleted (redundant); orchestrator owns build+deploy cycle
@@ -314,13 +314,14 @@ After Card Design propagates accepted baselines → re-sync updated baseline HTM
   17. ✅ **Dynamic container rendering** — Removed fixed height declarations (height: 81px on .sec-actions, height: 56px on .sec-leave) from 4 baseline templates (event, item, main-quest, side-quest); all 7 templates now use auto-height containers with effects-container-v04 styling
   18. ✅ **Tasks 6–8 false alarm resolved** — Source code, angular.json outputPath, and live preview all verified intact (2026-06-04T12:30:00Z); app rebuilt; gallery synced (82 variants)
   19. ✅ **Fix trigger limit bug** — Form components (Location/Character/Event/Quest) + PreviewService + CardService fixed to read/write `triggers: Trigger[]` array instead of non-existent named fields; multiple triggers now work on all card types; app rebuilt; gallery synced (90 variants)
+  20. ✅ **Task 18 Parts A+B — Container/Row domain model + PreviewService refactor** — container-utils.ts created; PreviewService refactored to use Container/Row model with renderRow/getRowSymbolHtml/ACTIVATION_SYMBOL_MAP; review gallery regenerated with all trigger-symbols-v05 and multiuse-v02 variants; app rebuilt
 - **Auto-sync rule**: After any Card Design stream action that updates `card-index.md` **or** creates a new trigger symbol / activation track variant, the App Design stream must re-run steps 5–9 automatically (sync SVGs + baselines → build → deploy). No user trigger needed.
 - **Pages layout rule**: GitHub Pages serves from `docs/` folder on master branch. All output files must live under `docs/`:
   - Editor: `docs/editor/` ✅
   - Review gallery: `docs/review/` ✅ (migrated 2026-05-28T00:17:35Z)
   - `.nojekyll`: `docs/.nojekyll` ✅ (created 2026-05-28T00:17:35Z)
 - **Blocked on**: —
-- **Last notified**: 2026-06-06T12:13:19Z
+- **Last notified**: 2026-06-07T00:23:26Z
 
 > ⚠️ **Path note (2026-06-05, permanent):** `src/app/` at repo root is the default Angular scaffold — ignore it. All App Design work uses `yarn-card-editor/src/app/`. Agents that check `src/app/` and report missing source are looking in the wrong place.
 
@@ -523,6 +524,8 @@ _(none)_
 | 2026-06-06T00:10:28Z | Orchestrator | C: App Design | Task 17 complete — trigger limit bug fixed in 6 files (4 form components + CardService + PreviewService); form components now use triggers array directly; review gallery regenerated (90 variants); app rebuilt |
 | 2026-06-06T12:13:19Z | Orchestrator | B: Card Design | trigger-symbols-v05-a/b/c all created (a: maximum reduction, b: moderate simplification, c: richer silhouettes; 5 triggers at 29px each); CHANGES.md not yet updated |
 | 2026-06-06T12:13:19Z | Orchestrator | C: App Design | Task 18 Part A started — Container/Row/ContainerType/ContainerSymbol/ActivationSymbol/TriggerSymbol model types created in container.model.ts; exported from index.ts; review gallery regenerated (94 variants mirrored incl. trigger-symbols-v05-a); card models not yet refactored; PreviewService + Forms pending |
+| 2026-06-07T00:23:26Z | Orchestrator | B: Card Design | Verified trigger-symbols-v05-a/b/c — all spec-compliant (5 triggers, 29px, viewBox 48x48, two-tone, max 2 shape elements); CHANGES.md entry confirmed present; awaiting user acceptance |
+| 2026-06-07T00:23:26Z | Orchestrator | C: App Design | Task 18 Parts A+B complete — container-utils.ts created (triggerToRow, actionToRows, passiveToRow, cardToContainers); PreviewService refactored to Container/Row model (renderRow, getRowSymbolHtml, ACTIVATION_SYMBOL_MAP); review gallery fixed (trigger-symbols-v05 + multiuse-v02 all 3 options); app rebuilt; Part C (Forms) next |
 
 ---
 

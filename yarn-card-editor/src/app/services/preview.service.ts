@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { AnyCard, CardType, TriggerType } from '../models';
 import { Trigger, Action, PassiveEffect, Effect } from '../models/effect.model';
+import { Container, Row, ContainerSymbol, ActivationSymbol } from '../models/container.model';
+import { cardToContainers } from '../models/container-utils';
 import { PersonaCard } from '../models/persona-card.model';
 import { LocationCard } from '../models/location-card.model';
 import { CharacterCard } from '../models/character-card.model';
@@ -435,6 +437,16 @@ const TRIGGER_LABELS: Record<string, string> = {
 };
 
 /**
+ * Maps activation symbol types to their SVG rendering.
+ */
+const ACTIVATION_SYMBOL_MAP: Record<ActivationSymbol, { svgId: string; viewBox: string }> = {
+  'activation': { svgId: 'track-basic-a', viewBox: '0 0 52 80' },
+  'flow-marker': { svgId: 'track-multiturn-v02c', viewBox: '0 0 52 108' },
+  'cooldown-trigger': { svgId: 'track-cooldown-trigger-v02b', viewBox: '0 0 52 32' },
+  'use-marker': { svgId: 'track-use-a-marker', viewBox: '0 0 52 52' },
+};
+
+/**
  * Dynamic container rendering per VISUAL.md §6.0:
  * Containers render only when they have at least one row.
  * Heights are content-driven — no fixed pixel values.
@@ -509,7 +521,8 @@ export class PreviewService {
       html = this.replace(html, '{{cardImage}}', '');
     }
 
-    // ── Mechanics sections (dynamic container rendering per VISUAL.md §6.0) ──
+    // ── Mechanics sections (Container/Row rendering model) ──
+    // Convert card editor fields to Container[] and render through rows.
     // Containers render only when they contain at least one row.
     // Heights are content-driven — no fixed pixel values.
     // Empty containers produce no shell and no gap.
@@ -587,67 +600,32 @@ export class PreviewService {
     }
   }
 
-  // ── Mechanics sections builder ────────────────────────
+  // ── Mechanics sections builder (Container/Row model) ──
 
   /**
-   * Builds all mechanics sections HTML for the card.
-   * Returns the inner HTML for .mech-sections and whether any content exists.
+   * Builds all mechanics sections HTML for the card using the
+   * Container/Row domain model.
    *
-   * Dynamic container rendering (VISUAL.md §6.0):
-   * - Containers render only when they contain at least one row
-   * - Heights are content-driven (no fixed pixel values)
-   * - Empty containers produce no shell and no gap
+   * Converts card editor fields to Container[] via cardToContainers(),
+   * then renders each container as a section with its rows.
+   *
+   * Also appends flavour text as a non-container section.
    */
   private buildMechSections(card: AnyCard): { sectionsHtml: string; hasContent: boolean } {
     const sections: string[] = [];
+    const containers = cardToContainers(card);
 
-    // ── 1) Passive / Permanent effects ──────────────────
-    // Render only when at least one row exists; hide entirely when empty (no shell, no gap)
-    const passives = this.getPassiveEffects(card);
-    if (passives.length > 0) {
-      const rowsHtml = passives.map(p =>
-        `<div class="effect-row"><span class="effect-text">${this.renderEffectText(p.text)}</span></div>`
-      ).join('');
+    for (const container of containers) {
+      const containerClass = this.getContainerCssClass(container.type);
+      const rowsHtml = container.rows.map(row => this.renderRow(row, container.type)).join('');
       sections.push(
-        `<div class="sec sec-passive">` +
-        `<div class="effect-label">Permanent</div>${rowsHtml}</div>`
+        `<div class="sec ${containerClass}">` +
+        `<div class="effect-label">${this.escapeHtml(container.label || container.type)}</div>` +
+        `${rowsHtml}</div>`
       );
     }
 
-    // ── 2) Entry triggers (on-reveal, on-enter) ─────────
-    const entryTriggers = this.getEntryTriggers(card);
-    if (entryTriggers.length > 0) {
-      const rowsHtml = entryTriggers.map(t => this.renderTriggerRow(t)).join('');
-      sections.push(
-        `<div class="sec sec-trigger">` +
-        `<div class="effect-label">Entry</div>${rowsHtml}</div>`
-      );
-    }
-
-    // ── 3) Actions ──────────────────────────────────────
-    const actions = this.getActions(card);
-    if (actions.length > 0) {
-      const rowsHtml = actions.map(a => {
-        const rows = this.renderActionRows(a);
-        return rows.html;
-      }).join('');
-      sections.push(
-        `<div class="sec sec-actions">` +
-        `<div class="effect-label">Action</div>${rowsHtml}</div>`
-      );
-    }
-
-    // ── 4) Exit triggers (on-leave, on-complete) ────────
-    const exitTriggers = this.getExitTriggers(card);
-    if (exitTriggers.length > 0) {
-      const rowsHtml = exitTriggers.map(t => this.renderTriggerRow(t)).join('');
-      sections.push(
-        `<div class="sec sec-leave">` +
-        `<div class="effect-label">Exit</div>${rowsHtml}</div>`
-      );
-    }
-
-    // ── 5) Flavour text (flavour-text-v01-c accepted) ───
+    // Flavour text (flavour-text-v01-c accepted) — rendered outside the container model
     if (card.flavourText && card.flavourText.trim()) {
       sections.push(
         `<div class="sec sec-flavour">` +
@@ -658,143 +636,88 @@ export class PreviewService {
     return { sectionsHtml: sections.join(''), hasContent: sections.length > 0 };
   }
 
-  // ── Data extraction helpers (type-aware) ──────────────
+  /**
+   * Maps ContainerType to the CSS class for the container section.
+   */
+  private getContainerCssClass(type: string): string {
+    switch (type) {
+      case 'permanent': return 'sec-passive';
+      case 'entry': return 'sec-trigger';
+      case 'action': return 'sec-actions';
+      case 'exit': return 'sec-leave';
+      default: return 'sec-passive';
+    }
+  }
 
-  /** Get passive/permanent effects from a card. */
-  private getPassiveEffects(card: AnyCard): PassiveEffect[] {
-    switch (card.type) {
-      case 'persona':
-        return (card as PersonaCard).passiveEffects || [];
-      case 'item':
-        return (card as ItemCard).passiveEffects || [];
-      case 'character': {
-        // Ally mode passives if in ally mode
-        const ch = card as CharacterCard;
-        return ch.allyMode?.passiveEffects || [];
+  /**
+   * Render a single Row as HTML.
+   *
+   * The rendering depends on whether the row has a symbol and/or effect:
+   * - No symbol, has effect: passive effect row (text only)
+   * - Has trigger symbol: trigger icon + effect text
+   * - Has activation symbol: activation marker icon + effect text
+   * - Has symbol, no effect: symbol-only row (e.g. flow-marker placeholder)
+   */
+  private renderRow(row: Row, containerType: string): string {
+    const symbolHtml = this.getRowSymbolHtml(row);
+    const textHtml = row.effect?.text
+      ? this.renderEffectText(row.effect.text)
+      : (row.symbol ? '' : `<span style="opacity:0.4">Effect</span>`);
+
+    // Passive row (no symbol) — just text
+    if (!row.symbol) {
+      return `<div class="effect-row"><span class="effect-text">${textHtml}</span></div>`;
+    }
+
+    // Symbol-only row (e.g. flow-marker with no effect)
+    if (!row.effect) {
+      return `<div class="effect-row"><span class="effect-icon">${symbolHtml}</span>` +
+        `<span class="effect-text" style="opacity:0.3">&#8942;</span></div>`;
+    }
+
+    // Symbol + effect row
+    return `<div class="effect-row">` +
+      `<span class="effect-icon">${symbolHtml}</span>` +
+      `<span class="effect-text">${textHtml}</span></div>`;
+  }
+
+  /**
+   * Get the SVG HTML for a row's symbol.
+   * Dispatches to trigger or activation symbol rendering based on the symbol value.
+   */
+  private getRowSymbolHtml(row: Row): string {
+    if (!row.symbol) return '';
+
+    // Check if it's a trigger symbol
+    const triggerSvgId = TRIGGER_SYMBOL_MAP[row.symbol];
+    if (triggerSvgId) {
+      return `<svg width="18" height="18"><use href="#${triggerSvgId}"/></svg>`;
+    }
+
+    // It's an activation symbol
+    const activationInfo = ACTIVATION_SYMBOL_MAP[row.symbol as ActivationSymbol];
+    if (activationInfo) {
+      // Use-marker with count > 1: render multiple markers
+      if (row.symbol === 'use-marker' && row.useMarkerCount && row.useMarkerCount > 1) {
+        const markers: string[] = [];
+        for (let i = 0; i < row.useMarkerCount; i++) {
+          markers.push(
+            `<svg width="16" height="16" viewBox="${activationInfo.viewBox}" ` +
+            `preserveAspectRatio="xMidYMid meet"><use href="#${activationInfo.svgId}"/></svg>`
+          );
+        }
+        return markers.join('');
       }
-      default:
-        return [];
+
+      return `<svg width="20" height="20" viewBox="${activationInfo.viewBox}" ` +
+        `preserveAspectRatio="xMidYMid meet"><use href="#${activationInfo.svgId}"/></svg>`;
     }
-  }
 
-  /** Entry trigger type IDs (rendered in the Entry section). */
-  private static readonly ENTRY_TRIGGER_TYPES: Set<string> = new Set([
-    'on-reveal', 'on-enter',
-  ]);
-
-  /** Exit trigger type IDs (rendered in the Exit section). */
-  private static readonly EXIT_TRIGGER_TYPES: Set<string> = new Set([
-    'on-leave', 'character-phase', 'on-complete', 'on-flow-marker',
-  ]);
-
-  /** Get entry triggers (on-reveal, on-enter) from a card's triggers array. */
-  private getEntryTriggers(card: AnyCard): Trigger[] {
-    const allTriggers = this.getCardTriggers(card);
-    return allTriggers.filter(t => PreviewService.ENTRY_TRIGGER_TYPES.has(t.type));
-  }
-
-  /** Get exit triggers (on-leave, character-phase, on-complete, on-flow-marker) from a card's triggers array. */
-  private getExitTriggers(card: AnyCard): Trigger[] {
-    const allTriggers = this.getCardTriggers(card);
-    return allTriggers.filter(t => PreviewService.EXIT_TRIGGER_TYPES.has(t.type));
-  }
-
-  /** Extract all triggers from a card regardless of card type. */
-  private getCardTriggers(card: AnyCard): Trigger[] {
-    switch (card.type) {
-      case 'location':
-        return (card as LocationCard).triggers ?? [];
-      case 'character':
-        return (card as CharacterCard).triggers ?? [];
-      case 'event':
-        return (card as EventCard).triggers ?? [];
-      default:
-        return [];
-    }
-  }
-
-  /** Get actions array from a card (most types have actions). */
-  private getActions(card: AnyCard): Action[] {
-    switch (card.type) {
-      case 'persona':
-        return (card as PersonaCard).actions || [];
-      case 'location':
-        return (card as LocationCard).actions || [];
-      case 'character':
-        return (card as CharacterCard).actions || [];
-      case 'item':
-        return (card as ItemCard).actions || [];
-      default:
-        return [];
-    }
+    // Fallback
+    return `<svg width="20" height="20" viewBox="0 0 24 24"><use href="#track-fallback"/></svg>`;
   }
 
   // ── Rendering helpers ─────────────────────────────────
-
-  /** Render a trigger row: trigger icon + effect text. */
-  private renderTriggerRow(trigger: Trigger): string {
-    const symbolHtml = this.getTriggerSymbolHtml(trigger.type, 18);
-    const label = TRIGGER_LABELS[trigger.type] || trigger.type;
-    const text = trigger.effect?.text
-      ? this.renderEffectText(trigger.effect.text)
-      : `<span style="opacity:0.4">${label}</span>`;
-    return `<div class="effect-row">` +
-      `<span class="effect-icon">${symbolHtml}</span>` +
-      `<span class="effect-text">${text}</span></div>`;
-  }
-
-  /**
-   * Render action effect rows for a single action.
-   * Returns the HTML and the number of rows generated.
-   */
-  private renderActionRows(action: Action): { html: string; count: number } {
-    const markerHtml = this.getActivationMarkerForTrack(action.trackType);
-    const effects = action.effects || [];
-    if (effects.length === 0) {
-      // Show the action label placeholder even with no effects
-      const label = action.label
-        ? this.escapeHtml(action.label)
-        : `<span style="opacity:0.4">Action</span>`;
-      return {
-        html: `<div class="effect-row">` +
-          `<span class="effect-icon">${markerHtml}</span>` +
-          `<span class="effect-text">${label}</span></div>`,
-        count: 1,
-      };
-    }
-
-    const rows = effects.map((eff, i) => {
-      const icon = i === 0 ? `<span class="effect-icon">${markerHtml}</span>` : `<span class="effect-icon" style="width:20px"></span>`;
-      const text = eff.text
-        ? this.renderEffectText(eff.text)
-        : `<span style="opacity:0.4">Effect</span>`;
-      return `<div class="effect-row">${icon}<span class="effect-text">${text}</span></div>`;
-    });
-
-    return { html: rows.join(''), count: effects.length };
-  }
-
-  /**
-   * Get a compact activation marker SVG for the action section's lead icon.
-   * Uses a small 20x20 rendering for inline use.
-   */
-  private getActivationMarkerForTrack(trackType: string): string {
-    switch (trackType) {
-      case 'basic':
-        return `<svg width="20" height="20" viewBox="0 0 52 80" preserveAspectRatio="xMidYMid meet"><use href="#track-basic-a"/></svg>`;
-      case 'multi-turn':
-        return `<svg width="20" height="20" viewBox="0 0 52 52" preserveAspectRatio="xMidYMid meet"><use href="#track-multiturn-v02a"/></svg>`;
-      case 'multi-use':
-        return `<svg width="20" height="20" viewBox="0 0 40 40" preserveAspectRatio="xMidYMid meet"><use href="#track-multiuse-a-slot"/></svg>`;
-      case 'use':
-        return `<svg width="20" height="20" viewBox="0 0 52 52" preserveAspectRatio="xMidYMid meet"><use href="#track-use-a-marker"/></svg>`;
-      case 'and':
-      case 'or':
-        return `<svg width="20" height="20" viewBox="0 0 24 24"><use href="#track-fallback"/></svg>`;
-      default:
-        return `<svg width="20" height="20" viewBox="0 0 24 24"><use href="#track-fallback"/></svg>`;
-    }
-  }
 
   /** Render effect text: escapes HTML then applies inline icon syntax. */
   private renderEffectText(text: string): string {

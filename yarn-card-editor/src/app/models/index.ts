@@ -2,6 +2,7 @@
 export * from './card-types';
 export * from './effect.model';
 export * from './container.model';
+export * from './container-utils';
 export * from './card-base.model';
 export * from './card-set.model';
 export * from './persona-card.model';

@@ -1,6 +1,6 @@
 # Yarn — Session Resume Context
 
-_Updated: 2026-06-06T12:13:19Z_
+_Updated: 2026-06-07T00:23:26Z_
 
 ---
 
@@ -15,15 +15,15 @@ Card types: **Location, Character, Item, Event, Quest, Persona, Script**
 ## Current stream status
 
 ### Card Design
-**Status:** Active — trigger-symbols-v05-a created (partial)
-**Completed this run:** trigger-symbols-v05-a/b/c all created (a: maximum reduction, b: moderate simplification, c: richer silhouettes; 5 triggers at 29px)
-**Next:** Update CHANGES.md for v05; awaiting user acceptance
+**Status:** Active — trigger-symbols-v05-a/b/c verified spec-compliant; CHANGES.md entry confirmed
+**Completed this run:** Verified all 3 trigger-symbols-v05 variants (5 triggers, 29px, two-tone, max 2 shape elements per icon)
+**Next:** Awaiting user acceptance of trigger-symbols-v05; once accepted, effects-v04 design track unblocks
 **Awaiting acceptance:** activation-track-basic-v02, activation-track-multiturn-v03, activation-track-multiuse-v02, activation-track-use-v02, trigger-symbols-v05
 
 ### App Design
-**Status:** Active — Task 18 Part A started
-**Completed this run:** Container/Row domain model types created (container.model.ts); review gallery regenerated (94 variants mirrored); card models not yet refactored to use Container[]
-**Next:** Complete Task 18 — refactor card type models, update PreviewService, update Forms, rebuild
+**Status:** Active — Task 18 Parts A+B complete, Part C pending
+**Completed this run:** container-utils.ts created (triggerToRow, actionToRows, passiveToRow, cardToContainers); PreviewService refactored to Container/Row model; review gallery fixed (all v05 + multiuse-v02 options shown); app rebuilt
+**Next:** Task 18 Part C — update ActionsEditorComponent + TriggersEditorComponent to edit Row[] within groupings; multi-turn/use-track sub-forms; wire to live preview
 **Backlog:** Task 19 (autosave), Task 21 (grouped card list), Task 22 (gray out undesigned fields), Task 20 (export/import JSON)
 
 ---
