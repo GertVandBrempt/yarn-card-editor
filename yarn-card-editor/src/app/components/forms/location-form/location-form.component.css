@@ -1,1 +1,19 @@
 /* Form styles shared via card-form class — see card-form.component.css */
+
+.connections-header {
+  margin-bottom: 0.5rem;
+}
+
+.section-label {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #374151;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.connection-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.5rem;
+}

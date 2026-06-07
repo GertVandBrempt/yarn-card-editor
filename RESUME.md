@@ -1,6 +1,6 @@
 # Yarn — Session Resume Context
 
-_Updated: 2026-06-07T12:24:53Z_
+_Updated: 2026-06-07T18:11:39Z_
 
 ---
 
@@ -21,9 +21,9 @@ Card types: **Location, Character, Item, Event, Quest, Persona, Script**
 **Awaiting acceptance:** activation-track-basic-v02, activation-track-multiturn-v03, activation-track-multiuse-v02, activation-track-use-v02, trigger-symbols-v05
 
 ### App Design
-**Status:** Active — Task 19 verified, Task 21 complete
-**Completed this run:** Task 19 verified already implemented (type selection, read-only type, immediate save, autosave with 500ms debounce); Task 21 — card list grouped by type with counts, colour coding, and collapsible groups
-**Next:** Task 22 — Gray out undesigned feature fields consistently (living task)
+**Status:** Active — Task 22 in progress
+**Completed this run:** Task 22 partial — `.feature-undesigned` CSS class created; Location connections and Persona life point slots grayed out with "Not yet designed" badges
+**Next:** Task 22 continued — apply undesigned treatment to remaining form types (Character health/life points); rebuild and redeploy
 **Backlog:** Task 20 (export/import JSON)
 
 ---

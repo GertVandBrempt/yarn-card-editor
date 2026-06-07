@@ -27,6 +27,30 @@
     <app-image-upload [imageUrl]="local.imageUrl" (imageUrlChange)="onImageChange($event)" />
   </div>
 
+  <div class="form-section feature-undesigned">
+    <div class="connections-header">
+      <span class="section-label">Connections <span class="undesigned-badge" title="Visual design not yet finalised">Not yet designed</span></span>
+    </div>
+    <div class="connection-grid">
+      <div class="form-group">
+        <label>North</label>
+        <select disabled><option>None</option></select>
+      </div>
+      <div class="form-group">
+        <label>East</label>
+        <select disabled><option>None</option></select>
+      </div>
+      <div class="form-group">
+        <label>South</label>
+        <select disabled><option>None</option></select>
+      </div>
+      <div class="form-group">
+        <label>West</label>
+        <select disabled><option>None</option></select>
+      </div>
+    </div>
+  </div>
+
   <div class="form-section">
     <app-triggers-editor
       [triggers]="triggers"

@@ -56,3 +56,53 @@
   height: 100%;
   overflow-y: auto;
 }
+
+/* ── Undesigned feature fields ──────────────────────
+   Applied to .form-group or .form-section elements
+   for fields whose visual design is not yet finalised.
+   When a feature is accepted in VISUAL.md, remove
+   this class to enable the field — no other change needed.
+──────────────────────────────────────────────────── */
+
+:host ::ng-deep .feature-undesigned {
+  position: relative;
+  opacity: 0.45;
+  pointer-events: none;
+  user-select: none;
+}
+
+:host ::ng-deep .feature-undesigned label,
+:host ::ng-deep .feature-undesigned .section-label {
+  color: #9ca3af;
+}
+
+:host ::ng-deep .feature-undesigned input,
+:host ::ng-deep .feature-undesigned textarea,
+:host ::ng-deep .feature-undesigned select {
+  background: #f3f4f6;
+  border-color: #e5e7eb;
+  color: #9ca3af;
+  cursor: not-allowed;
+}
+
+:host ::ng-deep .feature-undesigned .undesigned-badge {
+  display: inline-block;
+  font-size: 0.68rem;
+  font-weight: 600;
+  color: #9ca3af;
+  background: #f3f4f6;
+  border: 1px solid #e5e7eb;
+  border-radius: 4px;
+  padding: 0.1rem 0.4rem;
+  margin-left: 0.4rem;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  vertical-align: middle;
+  pointer-events: auto;
+  cursor: help;
+}
+
+/* Ensure the badge is visible even though the parent is dimmed */
+:host ::ng-deep .feature-undesigned .undesigned-badge {
+  opacity: 1;
+}

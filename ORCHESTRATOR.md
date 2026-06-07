@@ -19,7 +19,7 @@ This file is read and written by scheduled agents. Do not edit manually during a
 ```
 blocked_for_weekly_review: false
 weekly_review_due: 2026-05-30T08:00:00Z
-last_orchestrator_run: 2026-06-07T12:24:53Z
+last_orchestrator_run: 2026-06-07T18:11:39Z
 last_status_notification: 2026-05-31T12:00:00Z
 ```
 
@@ -113,14 +113,14 @@ Streams are **independent** — a blocked stream does not pause other streams.
 **Hold:** effects-v04 — create only after trigger symbols + activation tracks both accepted
 
 - **Blocked on**: trigger-symbols-v05 acceptance (CHANGES.md entry verified present; activation tracks complete — only trigger symbols remain before effects-v04)
-- **Last notified**: 2026-06-07T12:24:53Z
+- **Last notified**: 2026-06-07T18:11:39Z
 
 ---
 
 ### App Design
 - **Mode**: autonomous
 - **Source**: APP.md
-- **Status**: active — Task 19 verified already implemented; Task 21 complete (2026-06-07T12:24:53Z): card list grouped by type with counts, colour coding, and collapsible groups; app rebuilt
+- **Status**: active — Task 22 in progress (2026-06-07T18:11:39Z): feature-undesigned CSS class added; Location connections and Persona life point slots grayed out; remaining form types pending
 
 #### Known issues (all resolved 2026-05-28)
 1. ~~**Site not on GitHub Pages**~~ — ✅ deploy.yml deleted (redundant); orchestrator owns build+deploy cycle
@@ -155,7 +155,7 @@ Streams are **independent** — a blocked stream does not pause other streams.
 
 ~~**Task 17 — Fix trigger limit bug: only one trigger can be added per card**~~ — ✅ Complete (2026-06-06T00:10:28Z): root cause was form components decomposing triggers array into non-existent named fields (onReveal, onEnter, etc.) then overwriting on change detection; PreviewService had same issue; CardService factory missing triggers array for character type. Fixed in 6 files: LocationFormComponent, CharacterFormComponent, EventFormComponent, QuestFormComponent, CardService, PreviewService
 
-**Task 18 — Introduce Row/Container domain model and fix activation track rendering**
+~~**Task 18 — Introduce Row/Container domain model and fix activation track rendering**~~ — ✅ Complete (2026-06-07T06:13:58Z): Parts A+B (container-utils.ts, PreviewService refactor) and Part C (Forms — cooldown slot sub-form, use-track improvements) all done; app rebuilt
 
 This is a domain model refactor. Read it fully before touching any code.
 
@@ -291,7 +291,7 @@ After Card Design propagates accepted baselines → re-sync updated baseline HTM
   - Review gallery: `docs/review/` ✅ (migrated 2026-05-28T00:17:35Z)
   - `.nojekyll`: `docs/.nojekyll` ✅ (created 2026-05-28T00:17:35Z)
 - **Blocked on**: —
-- **Last notified**: 2026-06-07T12:24:53Z
+- **Last notified**: 2026-06-07T18:11:39Z
 
 > ⚠️ **Path note (2026-06-05, permanent):** `src/app/` at repo root is the default Angular scaffold — ignore it. All App Design work uses `yarn-card-editor/src/app/`. Agents that check `src/app/` and report missing source are looking in the wrong place.
 
@@ -500,6 +500,8 @@ _(none)_
 | 2026-06-07T06:13:58Z | Orchestrator | C: App Design | Task 18 Part C complete — ActionsEditorComponent updated with cooldown slot sub-form (CooldownSlot interface, FlowMarker/CooldownTrigger toggle per slot, inline effect editor for triggers); use-track sub-form improved (marker count hint); all live-preview-wired; app rebuilt; Task 19 next |
 | 2026-06-07T12:24:53Z | Orchestrator | B: Card Design | Blocked — trigger-symbols-v05-a/b/c awaiting user acceptance; all other tasks complete or on hold; effects-v04 blocked on trigger symbols acceptance |
 | 2026-06-07T12:24:53Z | Orchestrator | C: App Design | Task 19 verified already implemented (type selection, read-only type, immediate save, autosave); Task 21 complete — card list grouped by type with TYPE_ORDER, TYPE_COLORS, collapsible groups, per-type colour coding; review gallery synced (97 variants); app rebuilt |
+| 2026-06-07T18:11:39Z | Orchestrator | B: Card Design | Blocked — trigger-symbols-v05-a/b/c awaiting user acceptance; all other tasks complete or on hold; effects-v04 blocked on trigger symbols acceptance |
+| 2026-06-07T18:11:39Z | Orchestrator | C: App Design | Task 22 started — feature-undesigned CSS class added to card-form.component.css; Location connections (N/E/S/W grid) and Persona life point slots grayed out with "Not yet designed" badges; remaining form fields and rebuild pending |
 
 ---
 
