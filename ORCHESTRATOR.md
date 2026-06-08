@@ -19,7 +19,7 @@ This file is read and written by scheduled agents. Do not edit manually during a
 ```
 blocked_for_weekly_review: false
 weekly_review_due: 2026-05-30T08:00:00Z
-last_orchestrator_run: 2026-06-07T18:11:39Z
+last_orchestrator_run: 2026-06-08T00:15:00Z
 last_status_notification: 2026-05-31T12:00:00Z
 ```
 
@@ -113,14 +113,14 @@ Streams are **independent** — a blocked stream does not pause other streams.
 **Hold:** effects-v04 — create only after trigger symbols + activation tracks both accepted
 
 - **Blocked on**: trigger-symbols-v05 acceptance (CHANGES.md entry verified present; activation tracks complete — only trigger symbols remain before effects-v04)
-- **Last notified**: 2026-06-07T18:11:39Z
+- **Last notified**: 2026-06-08T00:15:00Z
 
 ---
 
 ### App Design
 - **Mode**: autonomous
 - **Source**: APP.md
-- **Status**: active — Task 22 verified already implemented; Task 20 complete (2026-06-07T18:11:39Z): Export/Import JSON with ImportExportService, sidebar buttons, set selector import, validation, error display; app rebuilt
+- **Status**: active — Task 22 (living task) re-verified (2026-06-08T00:15:00Z); no newly accepted features to enable; review gallery synced; app rebuilt
 
 #### Known issues (all resolved 2026-05-28)
 1. ~~**Site not on GitHub Pages**~~ — ✅ deploy.yml deleted (redundant); orchestrator owns build+deploy cycle
@@ -293,7 +293,7 @@ After Card Design propagates accepted baselines → re-sync updated baseline HTM
   - Review gallery: `docs/review/` ✅ (migrated 2026-05-28T00:17:35Z)
   - `.nojekyll`: `docs/.nojekyll` ✅ (created 2026-05-28T00:17:35Z)
 - **Blocked on**: —
-- **Last notified**: 2026-06-07T18:11:39Z
+- **Last notified**: 2026-06-08T00:15:00Z
 
 > ⚠️ **Path note (2026-06-05, permanent):** `src/app/` at repo root is the default Angular scaffold — ignore it. All App Design work uses `yarn-card-editor/src/app/`. Agents that check `src/app/` and report missing source are looking in the wrong place.
 
@@ -505,6 +505,8 @@ _(none)_
 | 2026-06-07T18:11:39Z | Orchestrator | B: Card Design | Blocked — trigger-symbols-v05-a/b/c awaiting user acceptance; all other tasks complete or on hold; effects-v04 blocked on trigger symbols acceptance |
 | 2026-06-07T18:11:39Z | Orchestrator | C: App Design | Task 22 verified already implemented; Task 20 complete — ImportExportService created (export/import/validate/download); Export+Import buttons in sidebar and set selector; CardSetExport format with forward-compatible validation; error banners; gallery synced (93 variants); app rebuilt |
 | 2026-06-07T18:11:39Z | Orchestrator | Review: App Design | ACCEPT — build zero errors; output flat at docs/editor/index.html; live view pipeline confirmed (signal chain form→card→preview→iframe); no runtime hazards; gallery correct (97 variants, ../design/variants/ paths); .nojekyll present |
+| 2026-06-08T00:15:00Z | Orchestrator | B: Card Design | Blocked — trigger-symbols-v05-a/b/c awaiting user acceptance; all other tasks complete or on hold; effects-v04 blocked on trigger symbols acceptance |
+| 2026-06-08T00:15:00Z | Orchestrator | C: App Design | Task 22 (living task) re-verified — feature-undesigned treatment confirmed on Location connections and Persona Life Point Slots; no newly accepted features to enable; review gallery synced and timestamp updated; app rebuilt |
 
 ---
 
