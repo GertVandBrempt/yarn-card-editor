@@ -19,7 +19,7 @@ This file is read and written by scheduled agents. Do not edit manually during a
 ```
 blocked_for_weekly_review: false
 weekly_review_due: 2026-05-30T08:00:00Z
-last_orchestrator_run: 2026-06-08T18:10:41Z
+last_orchestrator_run: 2026-06-09T00:16:03Z
 last_status_notification: 2026-05-31T12:00:00Z
 ```
 
@@ -113,14 +113,14 @@ Streams are **independent** — a blocked stream does not pause other streams.
 **Hold:** effects-v04 — create only after trigger symbols + activation tracks both accepted
 
 - **Blocked on**: trigger-symbols-v05 acceptance (activation tracks complete — only trigger symbols remain before effects-v04)
-- **Last notified**: 2026-06-08T18:10:41Z
+- **Last notified**: 2026-06-09T00:16:03Z
 
 ---
 
 ### App Design
 - **Mode**: autonomous
 - **Source**: APP.md
-- **Status**: active — Task 22 (living task) re-verified (2026-06-08T18:10:41Z); no newly accepted features to enable; review gallery cleaned (superseded icon entries removed); build current
+- **Status**: active — Task 22 (living task) re-verified (2026-06-09T00:16:03Z); no newly accepted features to enable; review gallery current; variant files in sync (93); build current
 
 #### Known issues (all resolved 2026-05-28)
 1. ~~**Site not on GitHub Pages**~~ — ✅ deploy.yml deleted (redundant); orchestrator owns build+deploy cycle
@@ -293,7 +293,7 @@ After Card Design propagates accepted baselines → re-sync updated baseline HTM
   - Review gallery: `docs/review/` ✅ (migrated 2026-05-28T00:17:35Z)
   - `.nojekyll`: `docs/.nojekyll` ✅ (created 2026-05-28T00:17:35Z)
 - **Blocked on**: —
-- **Last notified**: 2026-06-08T18:10:41Z
+- **Last notified**: 2026-06-09T00:16:03Z
 
 > ⚠️ **Path note (2026-06-05, permanent):** `src/app/` at repo root is the default Angular scaffold — ignore it. All App Design work uses `yarn-card-editor/src/app/`. Agents that check `src/app/` and report missing source are looking in the wrong place.
 
@@ -513,6 +513,8 @@ _(none)_
 | 2026-06-08T12:14:14Z | Orchestrator | C: App Design | Task 22 (living task) re-verified — no newly accepted features to enable; review gallery synced (97 variants); build current |
 | 2026-06-08T18:10:41Z | Orchestrator | B: Card Design | Blocked — trigger-symbols-v05-a/b/c awaiting user acceptance; effects-v04 on hold |
 | 2026-06-08T18:10:41Z | Orchestrator | C: App Design | Gallery maintenance — cleaned up superseded icon entries (combat icons v01-v03, action icons v01-v02 removed from Under Review); timestamp updated; variant mirroring verified in sync; Task 22 re-verified |
+| 2026-06-09T00:16:03Z | Orchestrator | B: Card Design | Blocked — trigger-symbols-v05-a/b/c awaiting user acceptance; effects-v04 on hold |
+| 2026-06-09T00:16:03Z | Orchestrator | C: App Design | Task 22 (living task) re-verified — no newly accepted features to enable; review gallery current; variant files in sync (93); build current |
 
 ---
 

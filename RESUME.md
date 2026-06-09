@@ -1,6 +1,6 @@
 # Yarn — Session Resume Context
 
-_Updated: 2026-06-08T18:10:41Z_
+_Updated: 2026-06-09T00:16:03Z_
 
 ---
 
@@ -22,7 +22,7 @@ Card types: **Location, Character, Item, Event, Quest, Persona, Script**
 
 ### App Design
 **Status:** Active — all queued tasks complete; Task 22 (living task) re-verified
-**Completed this run:** Gallery maintenance — cleaned up superseded icon entries from Under Review section; variant mirroring verified in sync; Task 22 re-verified with no newly accepted features to enable
+**Completed this run:** Maintenance only — Task 22 re-verified (feature-undesigned treatment confirmed on Location connections + Persona life point slots); review gallery current; variant files in sync (93)
 **Next:** Task 22 is a living task — revisited when Card Design accepts new visual features
 **Backlog:** None — all queued tasks complete
 
