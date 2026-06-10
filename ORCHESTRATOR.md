@@ -19,7 +19,7 @@ This file is read and written by scheduled agents. Do not edit manually during a
 ```
 blocked_for_weekly_review: false
 weekly_review_due: 2026-05-30T08:00:00Z
-last_orchestrator_run: 2026-06-10T12:10:15Z
+last_orchestrator_run: 2026-06-10T18:08:16Z
 last_status_notification: 2026-05-31T12:00:00Z
 ```
 
@@ -32,7 +32,7 @@ Streams are **independent** — a blocked stream does not pause other streams.
 ### Card Design
 - **Mode**: autonomous
 - **Source**: design/VISUAL.md, design/card-index.md
-- **Status**: blocked — trigger-symbols-v05-a/b/c awaiting user acceptance; all other tasks complete or on hold; effects-v04 on hold (2026-06-10T12:10:15Z)
+- **Status**: blocked — trigger-symbols-v05-a/b/c awaiting user acceptance; all other tasks complete or on hold; effects-v04 on hold (2026-06-10T18:08:16Z)
 
 #### Accepted design elements (2026-05-28)
 - ✅ **effects-container-v04** — gradient-fade section borders (opacity 0.7), 0.15 translucent fill; see VISUAL.md §6
@@ -113,14 +113,14 @@ Streams are **independent** — a blocked stream does not pause other streams.
 **Hold:** effects-v04 — create only after trigger symbols + activation tracks both accepted
 
 - **Blocked on**: trigger-symbols-v05 acceptance (activation tracks complete — only trigger symbols remain before effects-v04)
-- **Last notified**: 2026-06-10T12:10:15Z
+- **Last notified**: 2026-06-10T18:08:16Z
 
 ---
 
 ### App Design
 - **Mode**: autonomous
 - **Source**: APP.md
-- **Status**: active — Task 22 (living task) re-verified (2026-06-10T12:10:15Z); no newly accepted features to enable; review gallery current; variant files in sync (97); build current
+- **Status**: active — Task 22 (living task) re-verified (2026-06-10T18:08:16Z); no newly accepted features to enable; review gallery current; variant files in sync (97); build current
 
 #### Known issues (all resolved 2026-05-28)
 1. ~~**Site not on GitHub Pages**~~ — ✅ deploy.yml deleted (redundant); orchestrator owns build+deploy cycle
@@ -293,7 +293,7 @@ After Card Design propagates accepted baselines → re-sync updated baseline HTM
   - Review gallery: `docs/review/` ✅ (migrated 2026-05-28T00:17:35Z)
   - `.nojekyll`: `docs/.nojekyll` ✅ (created 2026-05-28T00:17:35Z)
 - **Blocked on**: —
-- **Last notified**: 2026-06-10T12:10:15Z
+- **Last notified**: 2026-06-10T18:08:16Z
 
 > ⚠️ **Path note (2026-06-05, permanent):** `src/app/` at repo root is the default Angular scaffold — ignore it. All App Design work uses `yarn-card-editor/src/app/`. Agents that check `src/app/` and report missing source are looking in the wrong place.
 
@@ -523,6 +523,8 @@ _(none)_
 | 2026-06-10T06:09:11Z | Orchestrator | C: App Design | Task 22 (living task) re-verified — no newly accepted features to enable; review gallery timestamp updated; variant files in sync (97); build current |
 | 2026-06-10T12:10:15Z | Orchestrator | B: Card Design | Blocked — trigger-symbols-v05-a/b/c awaiting user acceptance; effects-v04 on hold |
 | 2026-06-10T12:10:15Z | Orchestrator | C: App Design | Task 22 (living task) re-verified — no newly accepted features to enable; review gallery current; variant files in sync (97); build current |
+| 2026-06-10T18:08:16Z | Orchestrator | B: Card Design | Blocked — trigger-symbols-v05-a/b/c awaiting user acceptance; effects-v04 on hold |
+| 2026-06-10T18:08:16Z | Orchestrator | C: App Design | Task 22 (living task) re-verified — no newly accepted features to enable; review gallery current; variant files in sync (97); app rebuilt |
 
 ---
 
