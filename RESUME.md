@@ -1,6 +1,6 @@
 # Yarn — Session Resume Context
 
-_Updated: 2026-06-09T06:13:51Z_
+_Updated: 2026-06-10T00:19:50Z_
 
 ---
 
@@ -17,12 +17,12 @@ Card types: **Location, Character, Item, Event, Quest, Persona, Script**
 ### Card Design
 **Status:** Blocked — trigger-symbols-v05-a/b/c awaiting user acceptance
 **Completed this run:** No work — blocked on user acceptance
-**Next:** Awaiting user acceptance of trigger-symbols-v05; once accepted, effects-v04 design track unblocks
+**Next:** effects-v04 (unblocked once trigger-symbols-v05 accepted)
 **Awaiting acceptance:** trigger-symbols-v05 (only remaining blocker before effects-v04)
 
 ### App Design
 **Status:** Active — all queued tasks complete; Task 22 (living task) re-verified
-**Completed this run:** Maintenance only — Task 22 re-verified (feature-undesigned treatment confirmed on Location connections + Persona life point slots); review gallery current; variant files in sync (97)
+**Completed this run:** Maintenance only — Task 22 re-verified; no newly accepted features to enable; review gallery current; variant files in sync (97)
 **Next:** Task 22 is a living task — revisited when Card Design accepts new visual features
 **Backlog:** None — all queued tasks complete
 
