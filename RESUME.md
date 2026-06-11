@@ -1,6 +1,6 @@
 # Yarn — Session Resume Context
 
-_Updated: 2026-06-11T06:09:13Z_
+_Updated: 2026-06-11T12:20:12Z_
 
 ---
 
@@ -22,7 +22,7 @@ Card types: **Location, Character, Item, Event, Quest, Persona, Script**
 
 ### App Design
 **Status:** Active — all queued tasks complete; Task 22 (living task) re-verified
-**Completed this run:** Maintenance only — Task 22 re-verified; review gallery timestamp updated; variant files in sync (97); build current
+**Completed this run:** Routine maintenance — stale build rebuilt (91 source files newer than output); variant sync verified (97 files); review gallery timestamp updated; Task 22 re-verified
 **Next:** Task 22 is a living task — revisited when Card Design accepts new visual features
 **Backlog:** None — all queued tasks complete
 
