@@ -17,7 +17,7 @@ This file is read and written by scheduled agents. Do not edit manually during a
 ## System Control
 
 ```
-last_orchestrator_run: 2026-06-12T06:10:06Z
+last_orchestrator_run: 2026-06-12T20:37:17Z
 last_status_notification: 2026-05-31T12:00:00Z
 ```
 
@@ -30,7 +30,7 @@ Streams are **independent** — a blocked stream does not pause other streams.
 ### Card Design
 - **Mode**: autonomous
 - **Source**: design/VISUAL.md, design/card-index.md
-- **Status**: blocked — (1) trigger-symbols-v06-a/b/c not yet created; (2) activation track variants basic-v02/multiturn-v03/multiuse-v02/use-v02 used wrong/redrawn symbols and wrong multi-use layout — all 4 need redesign (Task 6); effects-v04 on hold
+- **Status**: active — Task 6 complete (2026-06-12T20:37:17Z): all 4 primitive activation tracks redesigned with verbatim accepted symbols; trigger-symbols-v06 and rolled-effects-v01 next; effects-v04 on hold
 
 #### Accepted design elements (2026-05-28)
 - ✅ **effects-container-v04** — gradient-fade section borders (opacity 0.7), 0.15 translucent fill; see VISUAL.md §6
@@ -54,9 +54,7 @@ Streams are **independent** — a blocked stream does not pause other streams.
 
 ~~**Task 3 — Activation track rework (unblocked 2026-06-05)**~~ — ⚠️ INCORRECT (2026-06-06T00:10:28Z, corrected 2026-06-12): variants created but agents redrew marker symbols instead of copying accepted SVG defs from reference files; multi-use layout wrong (multiple rows instead of single row with horizontal markers + arrows); all 4 track types need redesign — see Task 6
 
-**Task 6 — Redesign all 4 primitive activation tracks using accepted symbols (2026-06-12)**
-
-Create new variants: `activation-track-basic-v03-a/b/c`, `activation-track-multiturn-v04-a/b/c`, `activation-track-multiuse-v03-a/b/c`, `activation-track-use-v03-a/b/c`. Supersede all v02/v03 variants on the review page.
+~~**Task 6 — Redesign all 4 primitive activation tracks using accepted symbols (2026-06-12)**~~ — ✅ Complete (2026-06-12T20:37:17Z): basic-v03-a/b/c, multiturn-v04-a/b/c, multiuse-v03-a/b/c, use-v03-a/b/c created (12 files); all use verbatim accepted SVG symbol defs; v02/v03 predecessors marked superseded in CHANGES.md
 
 **Symbol fidelity — strictly enforced:** read each reference file; copy the relevant `<symbol>` def block verbatim into the variant; do NOT redraw any marker.
 - Activation marker `<symbol>` → from `design/variants/activation-track-basic-v01-b.html`
@@ -92,17 +90,17 @@ Create new variants: `activation-track-basic-v03-a/b/c`, `activation-track-multi
 **Track 1 — Activation Tracks** *(3 options each)*
 1. ~~**activation-track-basic-v01-a/b/c**~~ — ✅ Complete (2026-05-25T12:04:48Z) — marker shape accepted from v01-b
 2. ~~**activation-track-basic-v02-a/b/c**~~ — ❌ Superseded (2026-06-12) — wrong/redrawn marker symbols; see v03
-3. **activation-track-basic-v03-a/b/c** — Redesign using verbatim accepted symbol from `activation-track-basic-v01-b.html`; vary spacing/density across a/b/c; single activation marker → effect
+3. ~~**activation-track-basic-v03-a/b/c**~~ — ✅ Created (2026-06-12T20:37:17Z) — verbatim accepted symbols; awaiting acceptance
 4. ~~**activation-track-multiturn-v01-a/b/c**~~ — ❌ Needs revision (return arrow must be removed; trigger marker shape corrected — see v03)
 5. ~~**activation-track-multiturn-v02-a/b/c**~~ — ❌ Superseded (2026-06-12) — wrong/redrawn marker symbols; see v04
 6. ~~**activation-track-multiturn-v03-a/b/c**~~ — ❌ Superseded (2026-06-12) — wrong/redrawn marker symbols; see v04
-7. **activation-track-multiturn-v04-a/b/c** — Redesign: copy activation marker from `activation-track-basic-v01-b.html`, flow marker from `activation-track-multiturn-v02-a.html`, cooldown trigger marker from `cooldown-trigger-marker-v02-b.html`; multiple rows, one marker per row; row 1 = activation marker + effect; row 2+ = flow marker (no effect) or cooldown trigger + effect; small downward arrow between each adjacent row shows token flow; no return arrow; vary slot count and cooldown trigger presence across a/b/c
+7. ~~**activation-track-multiturn-v04-a/b/c**~~ — ✅ Created (2026-06-12T20:37:17Z) — verbatim accepted symbols; multiple rows with downward arrows; awaiting acceptance
 8. ~~**activation-track-multiuse-v01-a/b/c**~~ — ✅ Complete (2026-05-25T18:10:29Z)
 9. ~~**activation-track-multiuse-v02-a/b/c**~~ — ❌ Superseded (2026-06-12) — multi-row layout (wrong) + wrong symbols; see v03
-10. **activation-track-multiuse-v03-a/b/c** — Redesign: copy activation marker from `activation-track-basic-v01-b.html`; single effect row; N activation markers side-by-side with **no arrows between them**; format: `[marker][marker]…[marker] → effect text`; vary N (2, 3, 4) across a/b/c
+10. ~~**activation-track-multiuse-v03-a/b/c**~~ — ✅ Created (2026-06-12T20:37:17Z) — verbatim accepted symbols; single-row horizontal layout; awaiting acceptance
 11. ~~**activation-track-use-v01-a/b/c**~~ — ✅ Complete (2026-05-26T00:05:22Z) — use marker shape accepted from v01-a
 12. ~~**activation-track-use-v02-a/b/c**~~ — ❌ Superseded (2026-06-12) — wrong/redrawn marker symbols; see v03
-13. **activation-track-use-v03-a/b/c** — Redesign: copy use marker from `activation-track-use-v01-a.html`; N use markers horizontal with arrows between them, followed by effect text; one row; vary N (1, 2, 3) across a/b/c
+13. ~~**activation-track-use-v03-a/b/c**~~ — ✅ Created (2026-06-12T20:37:17Z) — verbatim accepted use marker; single row; awaiting acceptance
 14. **Hold:** AND/OR compound tracks — only after all 4 primitives accepted (v03/v04 above)
 
 **Track 2 — Die Symbols** *(3 options for the full set of 3 die icons)*
@@ -149,15 +147,15 @@ Create new variants: `activation-track-basic-v03-a/b/c`, `activation-track-multi
 
 **Hold:** effects-v04 — create only after trigger symbols + activation tracks both accepted
 
-- **Blocked on**: (1) trigger-symbols-v06 creation and acceptance; (2) activation track redesign Task 6 (basic-v03, multiturn-v04, multiuse-v03, use-v03) — both must be created and accepted before effects-v04 can proceed; rolled-effects-v01 is **independent** and can proceed immediately
-- **Last notified**: 2026-06-12T06:10:06Z
+- **Blocked on**: (1) trigger-symbols-v06 creation and acceptance; (2) activation track v03/v04 acceptance — both must be accepted before effects-v04 can proceed; rolled-effects-v01 is **independent** and can proceed immediately
+- **Last notified**: 2026-06-12T20:37:17Z
 
 ---
 
 ### App Design
 - **Mode**: autonomous
 - **Source**: APP.md
-- **Status**: active — Task 22 (living task) re-verified (2026-06-12T06:10:06Z); no newly accepted features to enable; review gallery current; variant files in sync (97); app rebuilt
+- **Status**: active — Task 24 complete (2026-06-12T20:37:17Z): cooldown-trigger-marker-v02-b moved to Accepted, superseded activation tracks removed from Under Review, new v03/v04 variants added; Task 22 (living task) re-verified; variant files in sync; app rebuilt
 
 #### Known issues (all resolved 2026-05-28)
 1. ~~**Site not on GitHub Pages**~~ — ✅ deploy.yml deleted (redundant); orchestrator owns build+deploy cycle
@@ -245,11 +243,7 @@ Rebuild and redeploy after all three parts are complete.
 
 ~~**Task 21 — Card list grouped by type, with counts, colour coding, and collapsible groups**~~ — ✅ Complete (2026-06-07T12:24:53Z): CardListComponent refactored with TYPE_ORDER, TYPE_COLORS, CardGroup interface; groupedCards computed signal groups by type, hides empty groups; totalCount header; collapsible groups with chevron toggle (session-only state); per-type colour on group headers + card left borders + type badges; mobile responsive
 
-**Task 24 — Fix review gallery for accepted items and superseded activation tracks (2026-06-12)**
-
-Two corrections to `docs/review/index.html`:
-1. **Cooldown trigger marker** — `cooldown-trigger-marker-v02-b` was accepted 2026-06-05 but remains in the Under Review section; move it (the b option only) to the Accepted section; remove a/c options from Under Review
-2. **Superseded activation tracks** — all of the following are superseded and must be removed from Under Review: `activation-track-basic-v02-*`, `activation-track-multiturn-v02-*`, `activation-track-multiturn-v03-*`, `activation-track-multiuse-v02-*`, `activation-track-use-v02-*`; their replacement variants (v03/v04) will be added once Card Design creates them
+~~**Task 24 — Fix review gallery for accepted items and superseded activation tracks (2026-06-12)**~~ — ✅ Complete (2026-06-12T20:37:17Z): cooldown-trigger-marker-v02-b moved to Accepted section; superseded activation tracks (basic-v02, multiturn-v02/v03, multiuse-v02, use-v02) removed from Under Review; new basic-v03 trio added to Under Review; app rebuilt
 
 **Task 22 — Gray out undesigned feature fields consistently (living task)**
 
@@ -336,7 +330,7 @@ After Card Design propagates accepted baselines → re-sync updated baseline HTM
   - Review gallery: `docs/review/` ✅ (migrated 2026-05-28T00:17:35Z)
   - `.nojekyll`: `docs/.nojekyll` ✅ (created 2026-05-28T00:17:35Z)
 - **Blocked on**: —
-- **Last notified**: 2026-06-12T06:10:06Z
+- **Last notified**: 2026-06-12T20:37:17Z
 
 > ⚠️ **Path note (2026-06-05, permanent):** `src/app/` at repo root is the default Angular scaffold — ignore it. All App Design work uses `yarn-card-editor/src/app/`. Agents that check `src/app/` and report missing source are looking in the wrong place.
 
@@ -580,5 +574,7 @@ _(none)_
 | 2026-06-12T00:09:34Z | Orchestrator | C: App Design | Task 22 (living task) re-verified — no newly accepted features to enable; review gallery timestamp updated; variant files in sync (97); app rebuilt |
 | 2026-06-12T06:10:06Z | Orchestrator | B: Card Design | Blocked — trigger-symbols-v05-a/b/c awaiting user acceptance; effects-v04 on hold |
 | 2026-06-12T06:10:06Z | Orchestrator | C: App Design | Task 22 (living task) re-verified — no newly accepted features to enable; review gallery current; variant files in sync (97); build current |
+| 2026-06-12T20:37:17Z | Orchestrator | B: Card Design | Task 6 complete — all 4 primitive activation tracks redesigned (basic-v03, multiturn-v04, multiuse-v03, use-v03; 12 files) with verbatim accepted SVG symbols; CHANGES.md updated; v02/v03 predecessors marked superseded |
+| 2026-06-12T20:37:17Z | Orchestrator | C: App Design | Task 24 complete — review gallery fixed: cooldown-trigger-marker-v02-b moved to Accepted; superseded activation tracks removed from Under Review; new basic-v03 added to Under Review; variant files synced; app rebuilt |
 
 ---

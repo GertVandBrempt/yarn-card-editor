@@ -726,3 +726,49 @@ All three options:
 - Card mockup: Persona card "The Wanderer" with 4 containers (permanent blue, entry yellow with 3 trigger rows, action red with activation marker, exit yellow with 2 trigger rows)
 - Content-driven container heights per VISUAL.md §6; no min-height; no fixed mech-frame height
 - a/b/c vary the degree of simplification and silhouette weight — not the trigger concepts, palette, or layout
+
+---
+
+## activation-track-basic-v02 — SUPERSEDED by v03 (2026-06-12)
+Reason: v02 variants used redrawn/incorrect marker symbols instead of verbatim accepted SVG defs from reference files
+
+## activation-track-multiturn-v03 — SUPERSEDED by v04 (2026-06-12)
+Reason: v03 variants used redrawn/incorrect marker symbols instead of verbatim accepted SVG defs from reference files
+
+## activation-track-multiuse-v02 — SUPERSEDED by v03 (2026-06-12)
+Reason: v02 variants used multi-row layout (incorrect per §8 — multi-use must be single row) and redrawn symbols
+
+## activation-track-use-v02 — SUPERSEDED by v03 (2026-06-12)
+Reason: v02 variants used redrawn/incorrect marker symbols instead of verbatim accepted SVG defs from reference files
+
+## activation-track-basic-v03 — Redesigned Basic track using verbatim accepted activation marker (2026-06-12)
+Base: cooldown-trigger-marker-v02-b.html (marker-activation symbol copied verbatim)
+Supersedes: activation-track-basic-v02-a/b/c
+- activation-track-basic-v03-a.html — Option A: COMPACT — single activation marker (29×29 rendered); compact layout (4px padding, 6px gap, 36px lead); Persona card "The Wayfarer" with passive (shield) + action section; single Basic track row
+- activation-track-basic-v03-b.html — Option B: BALANCED — single activation marker (29×29); balanced layout (6px padding, 8px gap, 40px lead); 4 containers: passive (shield), entry (On Reveal → draw), action (damage), exit (On Leave → discard); Persona card "The Chronicler"
+- activation-track-basic-v03-c.html — Option C: GENEROUS — single activation marker (29×29); generous spacing (8px padding, 10px gap, 44px lead); TWO independent Basic track rows in action container with gradient divider; damage + heal effects; Persona card "The Vanguard"
+All three: marker-activation symbol verbatim from cooldown-trigger-marker-v02-b.html (viewBox 0 0 52 52); rendered at 29×29; no min-height; content-driven container heights; height: auto mech-frame
+
+## activation-track-multiturn-v04 — Redesigned Multi-turn track using verbatim accepted symbols (2026-06-12)
+Base: cooldown-trigger-marker-v02-b.html (all three marker symbols + connector-down copied verbatim)
+Supersedes: activation-track-multiturn-v03-a/b/c
+- activation-track-multiturn-v04-a.html — Option A: 2 ROWS, NO COOLDOWN TRIGGER — Row 1: activation marker + effect (damage 3); connector arrow; Row 2: flow marker (no effect); Persona card "The Wayfarer" with passive section; shortest multi-turn variant
+- activation-track-multiturn-v04-b.html — Option B: 3 ROWS WITH COOLDOWN TRIGGER — Row 1: activation marker + effect (damage 3); connector; Row 2: flow marker (no effect); connector; Row 3: cooldown trigger marker + "On Flow Marker → gain shield 1"; Persona card "The Wayfarer"; action-only layout showing full track with trigger
+- activation-track-multiturn-v04-c.html — Option C: 4 ROWS, 2 FLOW + COOLDOWN TRIGGER — Row 1: activation + effect (damage 4); connector; Row 2: flow (no effect); connector; Row 3: flow (no effect); connector; Row 4: cooldown trigger + "On Flow Marker → gain shield 2 + draw 1"; Persona card "The Chronicler"; longest cooldown chain
+All three: marker-activation, marker-flow, marker-cooldown-trigger-b, connector-down symbols verbatim from cooldown-trigger-marker-v02-b.html; rendered at 29×29; downward arrows between rows; no return arrow; content-driven heights; a/b/c vary slot count and cooldown trigger presence
+
+## activation-track-multiuse-v03 — Redesigned Multi-use track: single-row horizontal layout with verbatim activation markers (2026-06-12)
+Base: cooldown-trigger-marker-v02-b.html (marker-activation symbol copied verbatim)
+Supersedes: activation-track-multiuse-v02-a/b/c
+- activation-track-multiuse-v03-a.html — Option A: 2 MARKERS — 2 activation markers side-by-side (no arrows between), single row; format: [marker][marker] → effect; Persona card "The Arbiter" with passive + action; damage 3 effect
+- activation-track-multiuse-v03-b.html — Option B: 3 MARKERS — 3 activation markers side-by-side, single row; format: [marker][marker][marker] → effect; Persona card "The Templar" with On Enter trigger + action; damage 2 effect
+- activation-track-multiuse-v03-c.html — Option C: 4 MARKERS — 4 activation markers side-by-side, single row; format: [marker][marker][marker][marker] → effect; Persona card "The Vigil" with passive + action + On Leave trigger; damage 1 effect
+All three: marker-activation symbol verbatim; rendered at 29×29; markers placed inline via flex with gap:2px; no arrows between markers; single → before effect text; content-driven heights; a/b/c vary N (2, 3, 4)
+
+## activation-track-use-v03 — Redesigned Use track using verbatim accepted use marker (2026-06-12)
+Base: activation-track-use-v01-a.html (track-use-a-marker symbol copied verbatim as marker-use)
+Supersedes: activation-track-use-v02-a/b/c
+- activation-track-use-v03-a.html — Option A: 1 USE MARKER — single square-with-inner-square marker (29×29), single row; permanently consumed; Persona card "The Last Stand" with passive + action; damage 5 effect
+- activation-track-use-v03-b.html — Option B: 2 USE MARKERS — 2 markers side-by-side (no arrows), single row; Persona card "The Oath" with On Reveal trigger + action; heal 4 effect
+- activation-track-use-v03-c.html — Option C: 3 USE MARKERS — 3 markers side-by-side, single row; Persona card "The Warden's Vow" with passive + action + On Leave trigger; damage 3 + exhaust effect
+All three: marker-use symbol verbatim from activation-track-use-v01-a.html (outer 36×36 dark rect, inner 18×18 amber, center pip 6×6); rendered at 29×29; markers inline with gap:2px; no arrows between; permanently consumed; content-driven heights; a/b/c vary N (1, 2, 3)
