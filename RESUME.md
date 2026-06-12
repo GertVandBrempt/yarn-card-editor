@@ -1,6 +1,6 @@
 # Yarn — Session Resume Context
 
-_Updated: 2026-05-24T08:30:38Z_
+_Updated: 2026-06-12T00:09:34Z_
 
 ---
 
@@ -14,21 +14,17 @@ Card types: **Location, Character, Item, Event, Quest, Persona, Script**
 
 ## Current stream status
 
-### 🎮 Stream A — Game Design
-**Status:** Waiting for content  
-**Situation:** DESIGN.md does not exist yet. Once the user creates it, the orchestrator will scan it for open questions and surface them in interactive sessions.  
-**To start a game design session:** open Claude Code and say "game design".
+### Card Design
+**Status:** Blocked — trigger-symbols-v05-a/b/c awaiting user acceptance
+**Completed this run:** No work — blocked on user acceptance
+**Next:** effects-v04 (unblocked once trigger-symbols-v05 accepted)
+**Awaiting acceptance:** trigger-symbols-v05 (only remaining blocker before effects-v04)
 
-### 🎨 Stream B — Card Design
-**Status:** Blocked  
-**Blocked on:** `design/VISUAL.md` and `design/card-index.md` do not exist.  
-These must be created before card variants can be built. They define the visual language and per-type card HTML baselines.  
-**To unblock:** create VISUAL.md and card-index.md with initial visual decisions, then tell the orchestrator.
-
-### 🖥️ Stream C — App Design
-**Status:** Blocked — awaiting user review  
-**Situation:** Initial `app.md` was drafted on first run. It covers: Core Loop, Card Data Model (with TBDs pending DESIGN.md), Card Set Management, Import/Export, Visual Editor, Open Questions.  
-**To unblock:** read `app.md` and reply "app looks good" or give feedback.
+### App Design
+**Status:** Active — all queued tasks complete; Task 22 (living task) re-verified
+**Completed this run:** Routine maintenance — Task 22 re-verified; variant files in sync (97); review gallery timestamp updated; app rebuilt
+**Next:** Task 22 is a living task — revisited when Card Design accepts new visual features
+**Backlog:** None — all queued tasks complete
 
 ---
 
@@ -36,27 +32,29 @@ These must be created before card variants can be built. They define the visual 
 
 | File | Purpose | Who edits |
 |---|---|---|
-| DESIGN.md | Game design document | User only |
+| DESIGN.md | Game design document | User only (interactive sessions) |
 | design/VISUAL.md | Locked visual decisions | User + orchestrator reads |
 | design/card-index.md | Per-type card HTML baselines | User + orchestrator reads |
 | design/variants/*.html | Card variant files | Orchestrator (autonomous) |
-| app.md | App design decisions | Orchestrator (with user feedback) |
-| review/index.html | Mobile card review gallery | Orchestrator (regenerated) |
+| APP.md | App design decisions | Orchestrator (with user feedback) |
+| docs/review/index.html | Card review gallery | Orchestrator (regenerated) |
+| docs/editor/ | Angular app build output | Orchestrator (rebuilt) |
 | ORCHESTRATOR.md | System state / stream tracking | Orchestrator |
-| RESUME.md | This file — session context | Orchestrator |
+| RESUME.md | This file — session context | Orchestrator + user |
+| .claude/agents/*.md | Sub-agent definitions | User (interactive sessions) |
 
 ---
 
 ## How to continue work
 
-- **Interactive session:** open Claude Code, say what you want to work on. Say "game design" to discuss DESIGN.md, "card design" to review variants, "app design" to discuss app.md.
-- **Accept app.md draft:** say "app looks good" (or give specific feedback).
-- **Unblock card design:** share your VISUAL.md and card-index.md, or ask the orchestrator to draft them from DESIGN.md once that exists.
-- **Weekly review:** the orchestrator will pause and notify you when a review gate is reached.
+- **Review card variants:** visit https://gertvandbrempt.github.io/yarn-card-editor/review/ — activation track v02/v03 variants and trigger-symbols-v05 are under review
+- **Accept variants:** say "accept activation-track-basic-v02-a" (or b/c) to advance track design
+- **Game design:** handled in interactive sessions only — no orchestrator stream
+- **Weekly review:** the orchestrator will pause and notify you when a review gate is reached
 
 ---
 
 ## Gallery
 
-Card review gallery (GitHub Pages): https://gertvandtbrempt.github.io/yarn-card-editor/review/  
-_(Currently empty — no card variants have been created yet.)_
+Card review gallery (GitHub Pages): https://gertvandbrempt.github.io/yarn-card-editor/review/
+Editor app: https://gertvandbrempt.github.io/yarn-card-editor/editor/
