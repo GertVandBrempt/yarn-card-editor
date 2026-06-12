@@ -17,8 +17,6 @@ This file is read and written by scheduled agents. Do not edit manually during a
 ## System Control
 
 ```
-blocked_for_weekly_review: false
-weekly_review_due: 2026-05-30T08:00:00Z
 last_orchestrator_run: 2026-06-12T06:10:06Z
 last_status_notification: 2026-05-31T12:00:00Z
 ```
@@ -32,7 +30,7 @@ Streams are **independent** — a blocked stream does not pause other streams.
 ### Card Design
 - **Mode**: autonomous
 - **Source**: design/VISUAL.md, design/card-index.md
-- **Status**: blocked — trigger-symbols-v05-a/b/c awaiting user acceptance; all other tasks complete or on hold; effects-v04 on hold (2026-06-12T06:10:06Z)
+- **Status**: blocked — (1) trigger-symbols-v06-a/b/c not yet created; (2) activation track variants basic-v02/multiturn-v03/multiuse-v02/use-v02 used wrong/redrawn symbols and wrong multi-use layout — all 4 need redesign (Task 6); effects-v04 on hold
 
 #### Accepted design elements (2026-05-28)
 - ✅ **effects-container-v04** — gradient-fade section borders (opacity 0.7), 0.15 translucent fill; see VISUAL.md §6
@@ -54,12 +52,33 @@ Streams are **independent** — a blocked stream does not pause other streams.
 
 ~~**Task 5 — Baseline propagation cleanup (review findings 2026-06-05T18:10:50Z)**~~ — ✅ Complete (2026-06-06T00:10:28Z): BASELINE.html reverted; min-height removed from basic-v02-a/b/c and multiturn-v03-a/b/c
 
-~~**Task 3 — Activation track rework (unblocked 2026-06-05)**~~ — ✅ Complete (2026-06-06T00:10:28Z): all 4 track types created with accepted markers at ~29px — basic-v02-a/b/c (existing, cleaned), multiturn-v03-a/b/c (existing, cleaned), multiuse-v02-a/b/c (new), use-v02-a/b/c (new); 4-container layout, content-driven heights, spacing/density variations across a/b/c
+~~**Task 3 — Activation track rework (unblocked 2026-06-05)**~~ — ⚠️ INCORRECT (2026-06-06T00:10:28Z, corrected 2026-06-12): variants created but agents redrew marker symbols instead of copying accepted SVG defs from reference files; multi-use layout wrong (multiple rows instead of single row with horizontal markers + arrows); all 4 track types need redesign — see Task 6
+
+**Task 6 — Redesign all 4 primitive activation tracks using accepted symbols (2026-06-12)**
+
+Create new variants: `activation-track-basic-v03-a/b/c`, `activation-track-multiturn-v04-a/b/c`, `activation-track-multiuse-v03-a/b/c`, `activation-track-use-v03-a/b/c`. Supersede all v02/v03 variants on the review page.
+
+**Symbol fidelity — strictly enforced:** read each reference file; copy the relevant `<symbol>` def block verbatim into the variant; do NOT redraw any marker.
+- Activation marker `<symbol>` → from `design/variants/activation-track-basic-v01-b.html`
+- Flow marker `<symbol>` → from `design/variants/activation-track-multiturn-v02-a.html`
+- Cooldown trigger marker `<symbol>` → from `design/variants/cooldown-trigger-marker-v02-b.html`
+- Use marker `<symbol>` → from `design/variants/activation-track-use-v01-a.html`
+
+**Per-track layout rules (VISUAL.md §8):**
+- **Basic** — one row: one activation marker, followed by effect text; token removed on use
+- **Multi-turn** — multiple rows, one marker per row: row 1 = activation marker + effect; row 2+ = flow marker (no effect) or cooldown trigger marker + effect; a small downward arrow between adjacent rows shows token flow direction; no return arrow; vary slot count and cooldown trigger presence across a/b/c; show at least one cooldown trigger in one option
+- **Multi-use** — one row: N activation markers placed side-by-side with **no arrows between them**, followed by the effect text; format: `[marker][marker]…[marker] → effect`; vary N (2, 3, 4) across a/b/c
+- **Use** — one row: N use markers (squares) placed side-by-side with no arrows between them, followed by effect text; permanently consumed; vary N across a/b/c
 
 ~~**Task 4 — Fix trigger-symbols-v04 container placement and heights (review findings)**~~ — ✅ Fixed (2026-06-01T12:18:47Z): Character Phase moved to Entry, On Flow Marker moved to Action, all fixed heights removed — content-driven sizing applied
 
 #### Still awaiting acceptance
-- trigger-symbols-v05 (a/b/c) — v04-a direction kept, icons to be simplified and scaled to ~29px; v04 superseded
+- trigger-symbols-v06 (a/b/c) — v05 superseded; new direction: single dark color + negative space, roughly square format, less chunky
+- activation-track-basic-v03 (a/b/c) — v02 superseded; must use exact accepted SVG symbols
+- activation-track-multiturn-v04 (a/b/c) — v03 superseded; must use exact accepted SVG symbols
+- activation-track-multiuse-v03 (a/b/c) — v02 superseded; must use exact symbols + single-row horizontal layout
+- activation-track-use-v03 (a/b/c) — v02 superseded; must use exact accepted SVG symbols
+- rolled-effects-v01 (a/b/c) — new track; first design pass for rolled effect tier rows
 
 #### Global rules (apply to all Card Design work)
 
@@ -71,18 +90,20 @@ Streams are **independent** — a blocked stream does not pause other streams.
 #### Independent design tracks (each runs independently)
 
 **Track 1 — Activation Tracks** *(3 options each)*
-1. ~~**activation-track-basic-v01-a/b/c**~~ — ✅ Complete (2026-05-25T12:04:48Z)
-2. ~~**activation-track-multiturn-v01-a/b/c**~~ — ❌ Needs revision (return arrow must be removed; trigger marker shape corrected — see v02 below)
-3. **activation-track-multiturn-v02-a/b/c** — Corrected multi-turn track per VISUAL.md §8 locked shapes:
-   - **Activation marker**: diamond with inner diamond — player places token here
-   - **Cooldown slots**: hollow/empty diamond — passive wait; connected to previous marker by a small directional arrow
-   - **Cooldown trigger** (optional — show in at least one option): diamond with inner **right-pointing arrow (→)** — same outer diamond silhouette as other markers; inner arrow points RIGHT toward the effect it triggers, not down; sits in any cooldown position; fires its own effect row; connected by directional arrow from previous marker like any other slot
-   - **No return arrow** — do not draw an arrow looping back from the last slot to the activation marker; that is the only arrow that must be omitted
-   - All other sequential connecting arrows between markers are present and correct
-   - Vary: presence/absence of cooldown trigger, slot count, and spacing across a/b/c
-4. ~~**activation-track-multiuse-v01-a/b/c**~~ — ✅ Complete (2026-05-25T18:10:29Z)
-5. ~~**activation-track-use-v01-a/b/c**~~ — ✅ Complete (2026-05-26T00:05:22Z) — outer square with inner square; options vary in size (36/44/32px outer), inner scale (50%/70%/62%), pip treatment, and corner-bracket accents
-6. **Hold:** AND/OR compound tracks — only after all 4 primitives accepted
+1. ~~**activation-track-basic-v01-a/b/c**~~ — ✅ Complete (2026-05-25T12:04:48Z) — marker shape accepted from v01-b
+2. ~~**activation-track-basic-v02-a/b/c**~~ — ❌ Superseded (2026-06-12) — wrong/redrawn marker symbols; see v03
+3. **activation-track-basic-v03-a/b/c** — Redesign using verbatim accepted symbol from `activation-track-basic-v01-b.html`; vary spacing/density across a/b/c; single activation marker → effect
+4. ~~**activation-track-multiturn-v01-a/b/c**~~ — ❌ Needs revision (return arrow must be removed; trigger marker shape corrected — see v03)
+5. ~~**activation-track-multiturn-v02-a/b/c**~~ — ❌ Superseded (2026-06-12) — wrong/redrawn marker symbols; see v04
+6. ~~**activation-track-multiturn-v03-a/b/c**~~ — ❌ Superseded (2026-06-12) — wrong/redrawn marker symbols; see v04
+7. **activation-track-multiturn-v04-a/b/c** — Redesign: copy activation marker from `activation-track-basic-v01-b.html`, flow marker from `activation-track-multiturn-v02-a.html`, cooldown trigger marker from `cooldown-trigger-marker-v02-b.html`; multiple rows, one marker per row; row 1 = activation marker + effect; row 2+ = flow marker (no effect) or cooldown trigger + effect; small downward arrow between each adjacent row shows token flow; no return arrow; vary slot count and cooldown trigger presence across a/b/c
+8. ~~**activation-track-multiuse-v01-a/b/c**~~ — ✅ Complete (2026-05-25T18:10:29Z)
+9. ~~**activation-track-multiuse-v02-a/b/c**~~ — ❌ Superseded (2026-06-12) — multi-row layout (wrong) + wrong symbols; see v03
+10. **activation-track-multiuse-v03-a/b/c** — Redesign: copy activation marker from `activation-track-basic-v01-b.html`; single effect row; N activation markers side-by-side with **no arrows between them**; format: `[marker][marker]…[marker] → effect text`; vary N (2, 3, 4) across a/b/c
+11. ~~**activation-track-use-v01-a/b/c**~~ — ✅ Complete (2026-05-26T00:05:22Z) — use marker shape accepted from v01-a
+12. ~~**activation-track-use-v02-a/b/c**~~ — ❌ Superseded (2026-06-12) — wrong/redrawn marker symbols; see v03
+13. **activation-track-use-v03-a/b/c** — Redesign: copy use marker from `activation-track-use-v01-a.html`; N use markers horizontal with arrows between them, followed by effect text; one row; vary N (1, 2, 3) across a/b/c
+14. **Hold:** AND/OR compound tracks — only after all 4 primitives accepted (v03/v04 above)
 
 **Track 2 — Die Symbols** *(3 options for the full set of 3 die icons)*
 - ~~**die-symbols-v01-a/b/c**~~ — ❌ Rejected (2026-05-31) — v01-a closest; pips replaced with single star; per-type color coding required; see v02
@@ -101,18 +122,34 @@ Streams are **independent** — a blocked stream does not pause other streams.
 - ~~**trigger-symbols-v03-a/b/c**~~ — ❌ Rejected (2026-05-31) — colouring approach kept; symbols too abstract, not intuitively linked to trigger concepts; size too small (20px); see v04
 - ~~**trigger-symbols-v04-a**~~ — closest direction (2026-06-05); icons too fat/overdesigned — simplify and scale down; see v05
 - ~~**trigger-symbols-v04-b/c**~~ — not the chosen direction; disregard
-- **trigger-symbols-v05-a/b/c** — Iterate from v04-a per updated spec in VISUAL.md §7:
-  - **Scope: 5 triggers only** — On Reveal, On Enter, Character Phase, On Leave, On Complete; **do NOT include On Flow Marker** — that is represented by the accepted cooldown trigger marker shape (v02-b) in the Action container and requires no separate trigger symbol
-  - **Starting point:** v04-a iconographic direction — keep the same conceptual shapes per trigger; strip away all decoration and internal detail
-  - **Shape rule:** basic silhouettes only — max two distinct shape elements per icon; no internal lines, no layering, no decorative fills; if you can remove an element and still read the icon, remove it
-  - **Color:** exactly two tones — dark body + one lighter tone (off-white or amber); no additional colors or gradients
-  - **Size:** render at ~29px (scaled down ~2/5ths from v04); viewbox 0 0 48 48 (design at full res); confirm legibility at 29px render size before finalising
+- ~~**trigger-symbols-v05-a/b/c**~~ — ❌ Superseded (2026-06-12) — icons too chunky, tall-format shapes, two-tone palette; see v06
+- **trigger-symbols-v06-a/b/c** — Iterate from v05-a iconographic direction with updated spec in VISUAL.md §7:
+  - **Scope: 5 triggers only** — On Reveal, On Enter, Character Phase, On Leave, On Complete; do NOT include On Flow Marker
+  - **Starting point:** v05-a iconographic concepts — keep the same trigger metaphors (eye, door/arrow, hourglass/figure, door/arrow reversed, seal/check); do not change what each icon represents
+  - **Color rule:** single dark tone `#1a0e04` ONLY — no amber, no second fill; use SVG `fill-rule="evenodd"` compound paths so interior cutouts reveal the card background as negative space; this is the primary change from v05
+  - **Format rule:** each icon's visible shape must be roughly square — approximately equal width and height within the 48×48 viewBox; v05-a's door icons were too tall; shrink vertical extent or redesign to a more compact square form
+  - **Weight rule:** noticeably lighter visual mass than v05-a — reduce fill area; thinner outlines or smaller shapes; the icons should feel crisp and light, not heavy
+  - **Shape rule:** basic silhouettes only — max two compound shapes per icon; no internal lines; no layering; evenodd cutout IS allowed as the single method of interior detail
+  - **Size:** render at ~29px; viewBox 0 0 48 48; confirm legibility at 29px render size
   - **Row format:** show each symbol in context with the trigger name label on a real card mockup
-  - a/b/c vary the degree of simplification and exact silhouette treatment — not the trigger concepts or palette
+  - a/b/c vary the silhouette treatment and degree of compactness — not the trigger concepts or color rule
+
+**Track 7 — Rolled Effect Rows** *(3 options)*
+- **rolled-effects-v01-a/b/c** — First design pass per VISUAL.md §6.2:
+  - **What to show:** a card (use Persona or Character type) whose Entry or Action container contains a trigger or activation row followed by 2–3 rolled effect tier rows; also show at least one Permanent row for contrast
+  - **Row format:** `[die icon] [threshold]: [effect description]` — die icon is 20×20 px inline SVG (use accepted `icon-die-*` symbols), threshold is a number or `>N`/`<N`, then colon, then effect text
+  - **No leading symbol:** tier rows have no 29 px leading symbol; they are left-aligned with the effect text of permanent rows, not the symbol column
+  - **First tier inline:** the highest tier appears on the same row as the leading symbol — `[trigger symbol] label → [die icon] [threshold]: effect`; do NOT put the first tier on a separate row
+  - **Continuation tiers:** rows 2, 3, … have no leading symbol; left-aligned with the effect text of the row above; each row is `[die icon] [threshold]: effect`
+  - **Ordering: high to low** — highest threshold (best outcome) first, lowest threshold (fallback) last
+  - **Multi-tier example** (required in at least one option): show 3 tiers, e.g. `>3: full effect`, `2: partial effect`, `<2: minimal effect`
+  - **Threshold styling:** the threshold value (number + optional operator) must be visually distinct from the effect description — match the weight/style of existing sym-mod modifiers; the die icon sits immediately before the threshold with normal icon spacing
+  - **Die variety:** use at least two different die types across the three options (constitution, zeal, path)
+  - a/b/c vary: threshold styling treatment, continuation-tier indentation/alignment, and spacing density
 
 **Hold:** effects-v04 — create only after trigger symbols + activation tracks both accepted
 
-- **Blocked on**: trigger-symbols-v05 acceptance (activation tracks complete — only trigger symbols remain before effects-v04)
+- **Blocked on**: (1) trigger-symbols-v06 creation and acceptance; (2) activation track redesign Task 6 (basic-v03, multiturn-v04, multiuse-v03, use-v03) — both must be created and accepted before effects-v04 can proceed; rolled-effects-v01 is **independent** and can proceed immediately
 - **Last notified**: 2026-06-12T06:10:06Z
 
 ---
@@ -207,6 +244,12 @@ Rebuild and redeploy after all three parts are complete.
 ~~**Task 19 — Card type locked at creation; immediate save; autosave on every edit**~~ — ✅ Verified already implemented (2026-06-07T12:24:53Z): type selection up-front via per-type sidebar buttons; type read-only after creation; immediate save on creation; autosave with 500ms debounce; no manual Save button
 
 ~~**Task 21 — Card list grouped by type, with counts, colour coding, and collapsible groups**~~ — ✅ Complete (2026-06-07T12:24:53Z): CardListComponent refactored with TYPE_ORDER, TYPE_COLORS, CardGroup interface; groupedCards computed signal groups by type, hides empty groups; totalCount header; collapsible groups with chevron toggle (session-only state); per-type colour on group headers + card left borders + type badges; mobile responsive
+
+**Task 24 — Fix review gallery for accepted items and superseded activation tracks (2026-06-12)**
+
+Two corrections to `docs/review/index.html`:
+1. **Cooldown trigger marker** — `cooldown-trigger-marker-v02-b` was accepted 2026-06-05 but remains in the Under Review section; move it (the b option only) to the Accepted section; remove a/c options from Under Review
+2. **Superseded activation tracks** — all of the following are superseded and must be removed from Under Review: `activation-track-basic-v02-*`, `activation-track-multiturn-v02-*`, `activation-track-multiturn-v03-*`, `activation-track-multiuse-v02-*`, `activation-track-use-v02-*`; their replacement variants (v03/v04) will be added once Card Design creates them
 
 **Task 22 — Gray out undesigned feature fields consistently (living task)**
 
@@ -539,9 +582,3 @@ _(none)_
 | 2026-06-12T06:10:06Z | Orchestrator | C: App Design | Task 22 (living task) re-verified — no newly accepted features to enable; review gallery current; variant files in sync (97); build current |
 
 ---
-
-## Weekly Review History
-
-| Date | Summary sent | User accepted | New goals set |
-|---|---|---|---|
-| — | — | — | — |

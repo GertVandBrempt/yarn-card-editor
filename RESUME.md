@@ -15,10 +15,10 @@ Card types: **Location, Character, Item, Event, Quest, Persona, Script**
 ## Current stream status
 
 ### Card Design
-**Status:** Blocked — trigger-symbols-v05-a/b/c awaiting user acceptance
-**Completed this run:** No work — blocked on user acceptance
-**Next:** effects-v04 (unblocked once trigger-symbols-v05 accepted)
-**Awaiting acceptance:** trigger-symbols-v05 (only remaining blocker before effects-v04)
+**Status:** Blocked — (1) trigger-symbols-v06 not yet created; (2) all 4 activation track types need redesign (wrong symbols + wrong multi-use layout)
+**Completed this run:** v05 superseded; v06 spec written; activation track issues identified (Task 6 queued); VISUAL.md §6.1/§6.2/§8 updated; rolled effects spec added (Track 7, independent — can start immediately)
+**Next:** Orchestrator creates trigger-symbols-v06 + 4 activation track redesigns + rolled-effects-v01 in parallel
+**Awaiting creation:** trigger-symbols-v06, activation-track-basic-v03/multiturn-v04/multiuse-v03/use-v03, rolled-effects-v01
 
 ### App Design
 **Status:** Active — all queued tasks complete; Task 22 (living task) re-verified
@@ -47,8 +47,8 @@ Card types: **Location, Character, Item, Event, Quest, Persona, Script**
 
 ## How to continue work
 
-- **Review card variants:** visit https://gertvandbrempt.github.io/yarn-card-editor/review/ — activation track v02/v03 variants and trigger-symbols-v05 are under review
-- **Accept variants:** say "accept activation-track-basic-v02-a" (or b/c) to advance track design
+- **Review card variants:** visit https://gertvandbrempt.github.io/yarn-card-editor/review/ — trigger-symbols-v06 will appear once the orchestrator runs
+- **Accept variants:** say "accept trigger-symbols-v06-a" (or b/c) to unblock effects-v04
 - **Game design:** handled in interactive sessions only — no orchestrator stream
 - **Weekly review:** the orchestrator will pause and notify you when a review gate is reached
 

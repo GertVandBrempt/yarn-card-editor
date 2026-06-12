@@ -102,13 +102,44 @@ The mechanics frame (bottom panel) is divided into up to four containers, displa
 | **Permanent** | `<effect>` — no leading symbol; any condition on the effect is inline text |
 | **Entry** | `<trigger symbol> → <effect>` |
 | **Exit** | `<trigger symbol> → <effect>` |
-| **Action** | `<activation marker> → <effect>` |
-| | `<flow marker>` — token slot only, no effect text |
-| | `<cooldown trigger marker> → <effect>` — fires on On Flow Marker |
-| | `<N use markers> → <effect>` — N physical token slots leading to one effect |
-
+| **Action** | `<activation marker> → <effect>` — Basic track: one marker, one use per row |
+| | `<marker1><marker2>…<markerN> → <effect>` — Multi-use track: N activation markers in a **single row**, no arrows between markers, followed by the effect text; all markers sit inline before the effect |
+| | `<flow marker>` — Multi-turn cooldown slot: token-slot-only row, no effect text; connected to the row above by a small downward arrow |
+| | `<cooldown trigger marker> → <effect>` — Multi-turn cooldown trigger row; connected to the row above by a small downward arrow |
+| | `<N use markers> → <effect>` — Use track: N permanently-consumed token slots in one row leading to one effect |
+| **Entry / Exit / Action** | `<trigger or activation symbol> … → <die icon> <threshold>: <effect>` — First (highest) rolled tier is inline on the initiating row |
+| | `<die icon> <threshold>: <effect>` — Continuation tier rows (see §6.2); no leading symbol; left-aligned with effect text above; ordered high to low |
 
 **Sym+modifier group** — `[icon][modifier]` is an atomic inline unit within effect text; a modifier is either a number (amount) or a short label (set-aside card name).
+
+### 6.2 Rolled Effect Rows
+
+A rolled effect is initiated by a trigger or activation marker. The **first (highest) tier** appears inline on the same row as the leading symbol. **Continuation tiers** appear on subsequent rows below, with no leading symbol, aligned with the effect text column.
+
+**Tier anatomy:** `[die icon] [threshold]: [effect description]`
+
+| Part | Detail |
+|---|---|
+| **Die icon** | 20×20 px inline SVG — one of `icon-die-constitution`, `icon-die-zeal`, `icon-die-path`; indicates which die type must be rolled |
+| **Threshold** | Integer N, or `>N` / `<N` with comparison operator; styled like a sym-mod modifier — same weight and size as inline icon modifiers |
+| **Colon** | Literal `:` — separates threshold from effect description |
+| **Effect description** | Crimson Text effect text — can include sym+modifier groups inline |
+
+**Layout — first tier inline:**
+```
+[trigger symbol]  [trigger label]  →  [die icon] [threshold]: [effect]
+                                      [die icon] [threshold]: [effect]
+                                      [die icon] [threshold]: [effect]
+```
+- The trigger/activation row's `→` is followed directly by the first tier's die icon + threshold + description
+- Continuation tier rows have no leading symbol; they are left-aligned with the effect text of the row above
+
+**Tier ordering** — high to low: the highest threshold (best outcome) is first; the lowest threshold (worst / fallback outcome) is last.
+
+**Operator variants:**
+- `N` — exactly N successes
+- `>N` — more than N successes
+- `<N` — fewer than N successes
 
 ---
 
@@ -129,8 +160,9 @@ Trigger symbols lead trigger rows on the card. They are compact, clean, and inst
 
 - **Size:** ~29 px rendered at card scale (reduced from initial 48 px spec — scaled down by approximately 2/5ths); row height is driven by this size
 - **ViewBox:** `0 0 48 48` internal canvas — design at full resolution, render small; do not compromise detail for size
-- **Color:** exactly two tones — dark body (`#1a0e04` or close variant) and one lighter tone (warm off-white or light amber) for interior details; no per-trigger color variation; shape alone distinguishes trigger type
-- **Shape principle:** trim, reduced forms — basic silhouettes only; no internal line detail, no decorative layering, no more than two distinct shape elements per icon; overdesigned or "fat" icons are rejected
+- **Color:** single dark tone only — `#1a0e04`; no second color, no amber; interior highlighting is achieved exclusively via negative space — transparent cutouts using SVG `fill-rule="evenodd"` compound paths so the card background shows through; no stroke-based detail colors
+- **Format:** each icon must be roughly square — the visible shape's bounding box should be approximately equal in width and height; tall narrow or wide squat silhouettes are rejected; icons should feel centered and balanced within the 48×48 viewBox
+- **Shape principle:** lean, reduced forms — basic silhouettes only; no internal line detail, no decorative layering, no more than two distinct shape elements per icon; shapes must be noticeably lighter in visual mass than v05-a (v05-a was too chunky — reduce fill area); overdesigned or "fat" icons are rejected
 - **Clarity requirement:** each symbol must be intuitively legible at a glance at ~29 px — test legibility at render size, not at design size
 - **Display context:** always shown as the leading symbol of a trigger row on a card, followed by the trigger name label (see §6.1); variant files must show them in use inside the trigger sections of a real card mockup
 
@@ -224,6 +256,7 @@ AND and OR are **compound containers** — each holds two or more sub-tracks. Ea
 - **AND/OR:** hold — design only after all four primitive track types are accepted
 - **Display context:** shown in use on a card — leading marker in an action row; include whatever containers are useful for the reference mockup
 - **Container scaling — no overflow:** the action row container must grow to fit all markers at their target size; markers are never scaled down to fit a fixed container and never allowed to overflow or clip; if a track has many markers (e.g. multi-use with 4+ slots), the container height increases to accommodate them at full size
+- **Symbol fidelity — strictly enforced:** activation track variant files must copy the accepted SVG `<symbol>` definitions verbatim from their reference files; do NOT redraw, simplify, or modify any accepted marker shape; read the reference file, extract the `<symbol>` block exactly, and paste it into the variant; the four reference files are: `activation-track-basic-v01-b.html` (activation marker), `activation-track-multiturn-v02-a.html` (flow marker), `cooldown-trigger-marker-v02-b.html` (cooldown trigger marker), `activation-track-use-v01-a.html` (use marker)
 
 ### Marker shape vocabulary *(shapes locked; visual reference files accepted 2026-05-28)*
 
@@ -264,7 +297,8 @@ Each marker that fires an effect corresponds to exactly one effect row in the ca
 
 - **Basic** — one activation marker; token removed on use; one effect row
 - **Multi-turn** — one activation marker → one or more cooldown slots (hollow diamonds) connected by arrows; optionally one or more cooldown triggers (diamond with inner arrow) at any cooldown position, each with its own effect row; no return arrow at the end
-- **Multi-use** — multiple activation markers in a row, each connected by flow indicators; each marker = one effect row
+- **Multi-turn** — multiple rows in the action container, one row per marker; row 1: activation marker → effect; row 2+: flow marker (no effect) or cooldown trigger marker → effect; a small downward arrow between each adjacent row shows token flow direction; no return arrow
+- **Multi-use** — **single row**, N activation markers placed side-by-side with no arrows between them, followed by the effect text; format: `[marker][marker]…[marker] → effect`; each marker is one independent activation slot per round; the row width grows to fit N markers
 - **Use** — one consumed marker (square with inner square — activation marker rotated 45°); permanently consumed; one effect row
 
 ---
